@@ -2,8 +2,8 @@
 
 ; this file contains all the pre-defined colors
 
-; background colors
-; (var background {})
+; background and foreground colors
+; these are predefined, they don't need to be generated numerically
 (if (= (. vim.g.kat_nvim_settings :style) :dark)
   (def background
     {1 "#121c2d"
@@ -41,3 +41,13 @@
      6 "#78adff"
      })
   )
+
+; define colors
+(def normalColors
+  {:red :#eb4949
+   :green :#9dffd2
+   :orange :#f2b15c
+   :pink :#f29cb1
+   :purple :#7a53a8
+   :blue :#8af9ff
+   })
