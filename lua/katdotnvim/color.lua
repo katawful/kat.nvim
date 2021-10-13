@@ -24,3 +24,5 @@ else
   local foreground = {"#121c2d", "#1c2e4a", "#2c466e", "#46689c", "#6690d0", "#78adff"}
   _2amodule_2a["foreground"] = foreground
 end
+local normalColors = {red = "#eb4949", green = "#9dffd2", orange = "#f2b15c", pink = "#f29cb1", purple = "#7a53a8", blue = "#8af9ff"}
+_2amodule_2a["normalColors"] = normalColors

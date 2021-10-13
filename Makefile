@@ -7,7 +7,7 @@ deps:
 	scripts/dep.sh Olical aniseed origin/master
 
 compile:
-	rm -rf lua
+	rm -rf lua/katdotnvim
 	deps/aniseed/scripts/compile.sh
 
 	# compile fennel directly with fennel compiler

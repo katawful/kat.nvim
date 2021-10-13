@@ -1,5 +1,7 @@
 (module katdotnvim.main
-        {autoload {colors katdotnvim.color}
+        {autoload {colors katdotnvim.color
+                   ucolors katdotnvim.utils.color
+                   }
          ; require-macros [katdotnvim.utils.macros]
          })
 
@@ -13,4 +15,5 @@
 (defn init []
   (vim.cmd "highlight clear")
   (if (= (vim.fn.exists :syntax_on) true)
-    (vim.cmd "syntax reset")))
+    (vim.cmd "syntax reset"))
+  (ucolors.blendColors (. colors.normalColors :red) (. colors.background 1) 0.5))
