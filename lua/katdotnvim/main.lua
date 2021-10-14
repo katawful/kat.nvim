@@ -25,6 +25,15 @@ local function init()
     vim.cmd("syntax reset")
   else
   end
+  vim.api.nvim_set_option("termguicolors", true)
+  do end (vim.g)["colors_name"] = "katdotnvim"
+  if (vim.g.kat_nvim_settings.style == "dark") then
+    vim.api.nvim_set_option("background", "dark")
+  elseif (vim.g.kat_nvim_settings.style == "light") then
+    vim.api.nvim_set_option("background", "light")
+  else
+    vim.api.nvim_err_writeln("E1 kat.nvim: not a valid style")
+  end
   return (require("katdotnvim.highlights.main")).init()
 end
 _2amodule_2a["init"] = init

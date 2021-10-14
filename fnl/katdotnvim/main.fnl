@@ -16,4 +16,13 @@
   (vim.cmd "highlight clear")
   (if (= (vim.fn.exists :syntax_on) true)
     (vim.cmd "syntax reset"))
+
+  (set- termguicolors true)
+  (let- :g colors_name :katdotnvim)
+  (if (= (. vim.g.kat_nvim_settings :style) :dark)
+    (set- background :dark)
+    (= (. vim.g.kat_nvim_settings :style) :light)
+    (set- background :light)
+    (vim.api.nvim_err_writeln "E1 kat.nvim: not a valid style"))
+
   ((. (require :katdotnvim.highlights.main) :init)))

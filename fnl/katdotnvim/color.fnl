@@ -4,7 +4,7 @@
 
 ; background and foreground colors
 ; these are predefined, they don't need to be generated numerically
-(if (= (. vim.g.kat_nvim_settings :style) :dark)
+(when (= (. vim.g.kat_nvim_settings :style) :dark)
   (def background
     {1 "#121c2d"
      2 "#1c2e4a"
@@ -23,7 +23,7 @@
      })
   )
 ; else if color is light
-(if (= (. vim.g.kat_nvim_settings :style) :light)
+(when (= (. vim.g.kat_nvim_settings :style) :light)
   (def background
     {1 "#daf6ff"
      2 "#b5d5df"
@@ -45,9 +45,9 @@
 ; define colors
 (def normalColors
   {:red :#eb4949
-   :green :#9dffd2
+   :green :#3ceb9b
    :orange :#f2b15c
    :pink :#f29cb1
    :purple :#7a53a8
-   :blue :#8af9ff
+   :blue :#2dacd2
    })
