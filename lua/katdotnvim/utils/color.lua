@@ -32,10 +32,16 @@ _2amodule_2a["blendColors"] = blendColors
 local function highlight(gr, fg, bg, ...)
   local group = tostring(gr)
   do end (_2amodule_2a)["group"] = group
-  local fore = (" guifg=" .. fg)
-  do end (_2amodule_2a)["fore"] = fore
-  local back = (" guibg=" .. bg)
-  do end (_2amodule_2a)["back"] = back
+  local fore = " "
+  local back = " "
+  if (fg ~= "SKIP") then
+    fore = (" guifg=" .. fg)
+  else
+  end
+  if (bg ~= "SKIP") then
+    back = (" guibg=" .. bg)
+  else
+  end
   local extra = ""
   local args = {...}
   _2amodule_2a["args"] = args
@@ -43,7 +49,7 @@ local function highlight(gr, fg, bg, ...)
     for k, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
         extra = (extra .. " guisp=" .. v)
-      elseif (a["string?"](v) == false) then
+      elseif (a["string?"](v) == true) then
         extra = (extra .. " gui=" .. tostring(v))
       else
         extra = (extra .. " blend" .. v)

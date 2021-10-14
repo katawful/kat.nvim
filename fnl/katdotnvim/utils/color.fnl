@@ -31,8 +31,12 @@
 ; fairly self explanatory, variarg is for GUI and GUISP stuff
 (defn highlight [gr fg bg ...]
   (def group (tostring gr))
-  (def fore (.. " guifg=" fg))
-  (def back (.. " guibg=" bg))
+  (var fore " ")
+  (var back " ")
+  (if (not= fg :SKIP)
+    (set fore (.. " guifg=" fg)))
+  (if (not= bg :SKIP)
+    (set back (.. " guibg=" bg)))
   (var extra "")
   (def args [...])
   (if (> (length args) 0)
@@ -42,7 +46,7 @@
         (do
           (set extra (.. extra " guisp=" v)))
         ; if a string, e.g. italics
-        (= (a.string? v) false)
+        (= (a.string? v) true)
         (do
           (set extra (.. extra " gui=" (tostring v))))
         ; else means blend
