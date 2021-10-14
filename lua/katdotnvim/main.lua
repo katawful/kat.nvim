@@ -11,9 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local colors, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.utils.color")
-do end (_2amodule_locals_2a)["colors"] = colors
+local colors, ucolors, _ = autoload("katdotnvim.color"), autoload("katdotnvim.utils.color"), nil
+_2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["ucolors"] = ucolors
+_2amodule_locals_2a["_"] = _
 if (vim.fn.exists("g:kat_nvim_settings") ~= 1) then
   vim.g.kat_nvim_settings = {style = "dark"}
 else
@@ -24,6 +25,6 @@ local function init()
     vim.cmd("syntax reset")
   else
   end
-  return ucolors.blendColors(colors.normalColors.red, colors.background[1], 0.5)
+  return (require("katdotnvim.highlights.main")).init()
 end
 _2amodule_2a["init"] = init
