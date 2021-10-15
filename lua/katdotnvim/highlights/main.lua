@@ -26,6 +26,10 @@ local shadowFG = colors.foreground[3]
 _2amodule_2a["shadowFG"] = shadowFG
 local shadowBG = colors.background[3]
 _2amodule_2a["shadowBG"] = shadowBG
+local meldFG = colors.foreground[4]
+_2amodule_2a["meldFG"] = meldFG
+local meldBG = colors.background[4]
+_2amodule_2a["meldBG"] = meldBG
 local selectionFG = mainFG
 _2amodule_2a["selectionFG"] = selectionFG
 local selectionBG = colors.normalColors.blue
@@ -55,8 +59,8 @@ _2amodule_2a["auxFG"] = auxFG
 local auxBG = colors.normalColors.green
 _2amodule_2a["auxBG"] = auxBG
 local function init()
-  ucolors.highlight("Normal", mainFG, "SKIP")
-  ucolors.highlight("NormalNC", mainFG, "SKIP")
+  ucolors.highlight("Normal", mainFG, mainBG)
+  ucolors.highlight("NormalNC", mainFG, mainBG)
   ucolors.highlight("NormalFloat", mainFG, shadowBG)
   ucolors.highlight("NonText", shadowFG, mainBG)
   ucolors.highlight("MatchParen", "SKIP", shadowBG, "bold")

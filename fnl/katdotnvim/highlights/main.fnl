@@ -13,6 +13,9 @@
 (def shadowFG (. colors.foreground 3))
 (def shadowBG (. colors.background 3))
 
+(def meldFG (. colors.foreground 4))
+(def meldBG (. colors.background 4))
+
 ; pink/purple/blue are structural
 (def selectionFG mainFG)
 (def selectionBG (. colors.normalColors :blue))
@@ -37,8 +40,8 @@
 ; this covers the main highlight groups
 
 (defn init []
-  (ucolors.highlight :Normal mainFG :SKIP)
-  (ucolors.highlight :NormalNC mainFG :SKIP)
+  (ucolors.highlight :Normal mainFG mainBG)
+  (ucolors.highlight :NormalNC mainFG mainBG)
   (ucolors.highlight :NormalFloat mainFG shadowBG)
   (ucolors.highlight :NonText shadowFG mainBG)
   ; TODO set match paren to TS rainbow?

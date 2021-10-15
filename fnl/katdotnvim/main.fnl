@@ -10,6 +10,7 @@
   (do
     (set vim.g.kat_nvim_settings
       {:style :dark
+       :commentStyle :italic
        })))
 
 (defn init []
@@ -25,4 +26,6 @@
     (set- background :light)
     (vim.api.nvim_err_writeln "E1 kat.nvim: not a valid style"))
 
-  ((. (require :katdotnvim.highlights.main) :init)))
+  ((. (require :katdotnvim.highlights.main) :init))
+  ((. (require :katdotnvim.highlights.syntax) :init))
+  )
