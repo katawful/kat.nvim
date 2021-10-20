@@ -40,6 +40,7 @@
   (ucolors.highlight :TSConstMacro (ucolors.blendColors syntax.preproc (. groups.meldBG) 0.2) :SKIP)
 
   (ucolors.highlight :TSKeywordFunction (ucolors.brighten (ucolors.blendColors syntax.statement (. colors.normalColors :green) 0.2) 0.1) :SKIP "bold,italic")
+  (ucolors.highlight :TSKeywordReturn (ucolors.brighten (ucolors.blendColors syntax.statement (. colors.normalColors :blue) 0.1) 0.2) :SKIP "bold,italic")
 
   (ucolors.highlight :TSPunctDelimiter (ucolors.blendColors syntax.preproc (. colors.normalColors :purple) 0.2) :SKIP "bold")
   (ucolors.highlight :TSPunctBracket (ucolors.blendColors syntax.preproc (. colors.background 6) 0.2) :SKIP "bold")
