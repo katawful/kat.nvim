@@ -16,7 +16,7 @@ _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
 if (vim.fn.exists("g:kat_nvim_settings") ~= 1) then
-  vim.g.kat_nvim_settings = {style = "dark", commentStyle = "italic"}
+  vim.g.kat_nvim_settings = {style = "dark", commentStyle = "italic", stupidFeatures = false}
 else
 end
 local function init()
@@ -36,6 +36,11 @@ local function init()
   end
   do end (require("katdotnvim.highlights.main")).init()
   do end (require("katdotnvim.highlights.syntax")).init()
-  return (require("katdotnvim.highlights.treesitter")).init()
+  do end (require("katdotnvim.highlights.treesitter")).init()
+  if (vim.g.kat_nvim_settings.stupidFeatures == true) then
+    return (require("katdotnvim.stupid")).stupidFunction()
+  else
+    return nil
+  end
 end
 _2amodule_2a["init"] = init

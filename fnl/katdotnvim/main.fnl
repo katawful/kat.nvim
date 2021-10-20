@@ -11,6 +11,7 @@
     (set vim.g.kat_nvim_settings
       {:style :dark
        :commentStyle :italic
+       :stupidFeatures false
        })))
 
 (defn init []
@@ -29,4 +30,6 @@
   ((. (require :katdotnvim.highlights.main) :init))
   ((. (require :katdotnvim.highlights.syntax) :init))
   ((. (require :katdotnvim.highlights.treesitter) :init))
+  (if (= vim.g.kat_nvim_settings.stupidFeatures true)
+    ((. (require :katdotnvim.stupid) :stupidFunction)))
   )
