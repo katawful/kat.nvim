@@ -10,6 +10,9 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
+local autoload = (require("katdotnvim.aniseed.autoload")).autoload
+local ucolors = autoload("katdotnvim.utils.color")
+do end (_2amodule_locals_2a)["ucolors"] = ucolors
 if (vim.g.kat_nvim_settings.style == "dark") then
   local background = {"#121c2d", "#1c2e4a", "#2c466e", "#46689c", "#6690d0", "#78adff"}
   _2amodule_2a["background"] = background
