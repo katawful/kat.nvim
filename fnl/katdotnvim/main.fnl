@@ -28,4 +28,5 @@
 
   ((. (require :katdotnvim.highlights.main) :init))
   ((. (require :katdotnvim.highlights.syntax) :init))
+  ((. (require :katdotnvim.highlights.treesitter) :init))
   )

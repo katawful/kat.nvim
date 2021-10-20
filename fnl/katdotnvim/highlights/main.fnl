@@ -34,7 +34,15 @@
 
 ; green and others are auxiliary
 (def auxFG mainFG)
-(def auxBG (. colors.normalColors :green))
+(defn groupFunction []
+  (var output "")
+  (if (= vim.g.kat_nvim_settings.style :light)
+    (do
+      (set output (ucolors.saturation (ucolors.darken (. colors.normalColors :green) 0.5) 0.4)))
+    (do
+      (set output (ucolors.saturation (ucolors.brighten (. colors.normalColors :green) 0.5) -0.2))))
+  output)
+(def auxBG (groupFunction))
 
 
 ; this covers the main highlight groups
@@ -71,7 +79,7 @@
 
   (ucolors.highlight :Title (. colors.normalColors :green) :NONE :bold)
 
-  (ucolors.highlight :Visual :SKIP (. colors.normalColors :red))
+  (ucolors.highlight :Visual :SKIP (ucolors.darken (. colors.normalColors :red) 0.2))
   (ucolors.highlight :VisualNOS :SKIP (ucolors.blendColors (. colors.normalColors :red) (. colors.foreground 1) 0.5))
 
   ; Pmenu

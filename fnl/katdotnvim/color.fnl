@@ -45,7 +45,7 @@
 ; define colors
 (def normalColors
   {:red :#eb4949
-   :green :#3ceb9b
+   :green :#2ce0aa
    :orange :#f2b15c
    :pink :#f29cb1
    :purple :#7a53a8

@@ -56,8 +56,18 @@ local infoBG = colors.normalColors.orange
 _2amodule_2a["infoBG"] = infoBG
 local auxFG = mainFG
 _2amodule_2a["auxFG"] = auxFG
-local auxBG = colors.normalColors.green
-_2amodule_2a["auxBG"] = auxBG
+local function groupFunction()
+  local output = ""
+  if (vim.g.kat_nvim_settings.style == "light") then
+    output = ucolors.saturation(ucolors.darken(colors.normalColors.green, 0.5), 0.4)
+  else
+    output = ucolors.saturation(ucolors.brighten(colors.normalColors.green, 0.5), -0.2)
+  end
+  return output
+end
+_2amodule_2a["groupFunction"] = groupFunction
+local auxBG = groupFunction()
+do end (_2amodule_2a)["auxBG"] = auxBG
 local function init()
   ucolors.highlight("Normal", mainFG, mainBG)
   ucolors.highlight("NormalNC", mainFG, mainBG)
@@ -78,7 +88,7 @@ local function init()
   ucolors.highlight("TabLineFill", fillBG, fillBG)
   ucolors.highlight("TabLineSel", selectionFG, selectionBG, "bold")
   ucolors.highlight("Title", colors.normalColors.green, "NONE", "bold")
-  ucolors.highlight("Visual", "SKIP", colors.normalColors.red)
+  ucolors.highlight("Visual", "SKIP", ucolors.darken(colors.normalColors.red, 0.2))
   ucolors.highlight("VisualNOS", "SKIP", ucolors.blendColors(colors.normalColors.red, colors.foreground[1], 0.5))
   ucolors.highlight("Pmenu", fillFG, fillBG)
   ucolors.highlight("PmenuSel", selectionFG, selectionBG)

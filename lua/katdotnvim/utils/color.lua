@@ -62,3 +62,53 @@ local function highlight(gr, fg, bg, ...)
   return vim.cmd(tostring(output))
 end
 _2amodule_2a["highlight"] = highlight
+local function brighten(color, percent)
+  local hslColor = hsl.hex_to_hsluv(color)
+  do end (_2amodule_2a)["hslColor"] = hslColor
+  local luminance = (100 - hslColor[3])
+  do end (_2amodule_2a)["luminance"] = luminance
+  local inputLuminance = (hslColor[3] + (luminance * percent))
+  if (inputLuminance >= 100) then
+    inputLuminance = 99.99
+  else
+  end
+  hslColor[3] = inputLuminance
+  local output = hsl.hsluv_to_hex(hslColor)
+  do end (_2amodule_2a)["output"] = output
+  return output
+end
+_2amodule_2a["brighten"] = brighten
+local function darken(color, percent)
+  local hslColor = hsl.hex_to_hsluv(color)
+  do end (_2amodule_2a)["hslColor"] = hslColor
+  local luminance = (100 - hslColor[3])
+  do end (_2amodule_2a)["luminance"] = luminance
+  local inputLuminance = (hslColor[3] - (luminance * percent))
+  if (inputLuminance >= 100) then
+    inputLuminance = 99.99
+  else
+  end
+  hslColor[3] = inputLuminance
+  local output = hsl.hsluv_to_hex(hslColor)
+  do end (_2amodule_2a)["output"] = output
+  return output
+end
+_2amodule_2a["darken"] = darken
+local function saturation(color, percent)
+  local hslColor = hsl.hex_to_hsluv(color)
+  do end (_2amodule_2a)["hslColor"] = hslColor
+  local sat = hslColor[2]
+  _2amodule_2a["sat"] = sat
+  local inputSaturation = (hslColor[2] + (sat * percent))
+  if (inputSaturation >= 100) then
+    inputSaturation = 99.99
+  elseif (inputSaturation <= 0) then
+    inputSaturation = 0.01
+  else
+  end
+  hslColor[2] = inputSaturation
+  local output = hsl.hsluv_to_hex(hslColor)
+  do end (_2amodule_2a)["output"] = output
+  return output
+end
+_2amodule_2a["saturation"] = saturation

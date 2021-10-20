@@ -24,5 +24,5 @@ if (vim.g.kat_nvim_settings.style == "light") then
   _2amodule_2a["foreground"] = foreground
 else
 end
-local normalColors = {red = "#eb4949", green = "#3ceb9b", orange = "#f2b15c", pink = "#f29cb1", purple = "#7a53a8", blue = "#2dacd2"}
+local normalColors = {red = "#eb4949", green = "#2ce0aa", orange = "#f2b15c", pink = "#f29cb1", purple = "#7a53a8", blue = "#2dacd2"}
 _2amodule_2a["normalColors"] = normalColors

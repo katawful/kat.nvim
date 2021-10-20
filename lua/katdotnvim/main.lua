@@ -35,6 +35,7 @@ local function init()
     vim.api.nvim_err_writeln("E1 kat.nvim: not a valid style")
   end
   do end (require("katdotnvim.highlights.main")).init()
-  return (require("katdotnvim.highlights.syntax")).init()
+  do end (require("katdotnvim.highlights.syntax")).init()
+  return (require("katdotnvim.highlights.treesitter")).init()
 end
 _2amodule_2a["init"] = init

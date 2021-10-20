@@ -54,3 +54,45 @@
           (set extra (.. extra " blend" v))))))
   (def output (.. "highlight " group fore back extra))
   (vim.cmd (tostring output)))
+
+; this function brightens a color by some percent
+(defn brighten [color percent]
+  (def hslColor (hsl.hex_to_hsluv color))
+  (def luminance (- 100 (. hslColor 3)))
+
+  (var inputLuminance (+ (. hslColor 3) (* luminance
+                                           percent)))
+  (if (>= inputLuminance 100)
+    (set inputLuminance 99.99))
+  (tset hslColor 3 inputLuminance)
+  (def output (hsl.hsluv_to_hex hslColor))
+  output)
+
+; this function darkens a color by some percent
+(defn darken [color percent]
+  (def hslColor (hsl.hex_to_hsluv color))
+  (def luminance (- 100 (. hslColor 3)))
+
+  (var inputLuminance (- (. hslColor 3) (* luminance
+                                           percent)))
+  (if (>= inputLuminance 100)
+    (set inputLuminance 99.99))
+  (tset hslColor 3 inputLuminance)
+  (def output (hsl.hsluv_to_hex hslColor))
+  output)
+
+; this function changes the saturation of a color by some percent
+(defn saturation [color percent]
+  (def hslColor (hsl.hex_to_hsluv color))
+  (def sat (. hslColor 2))
+
+  (var inputSaturation (+ (. hslColor 2) (* sat
+                                           percent)))
+
+  (if (>= inputSaturation 100)
+    (set inputSaturation 99.99)
+    (<= inputSaturation 0)
+    (set inputSaturation 0.01))
+  (tset hslColor 2 inputSaturation)
+  (def output (hsl.hsluv_to_hex hslColor))
+  output)
