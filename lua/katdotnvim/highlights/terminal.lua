@@ -28,12 +28,12 @@ local function init()
   vim.g["terminal_color_7"] = colors.foreground[1]
   vim.g["terminal_color_8"] = colors.background[2]
   if (vim.g.kat_nvim_settings.style == "light") then
-    vim.g["terminal_color_9"] = ucolors.brighten(colors.normalColors.red, 0.2)
-    do end (vim.g)["terminal_color_10"] = ucolors.brighten(colors.normalColors.green, 0.2)
-    do end (vim.g)["terminal_color_11"] = ucolors.brighten(colors.normalColors.orange, 0.2)
-    do end (vim.g)["terminal_color_12"] = ucolors.brighten(colors.normalColors.blue, 0.2)
-    do end (vim.g)["terminal_color_13"] = ucolors.brighten(colors.normalColors.pink, 0.2)
-    do end (vim.g)["terminal_color_14"] = ucolors.brighten(colors.normalColors.purple, 0.2)
+    vim.g["terminal_color_9"] = ucolors.darken(colors.normalColors.red, 0.2)
+    do end (vim.g)["terminal_color_10"] = ucolors.darken(colors.normalColors.green, 0.2)
+    do end (vim.g)["terminal_color_11"] = ucolors.darken(colors.normalColors.orange, 0.2)
+    do end (vim.g)["terminal_color_12"] = ucolors.darken(colors.normalColors.blue, 0.2)
+    do end (vim.g)["terminal_color_13"] = ucolors.darken(colors.normalColors.pink, 0.2)
+    do end (vim.g)["terminal_color_14"] = ucolors.darken(colors.normalColors.purple, 0.2)
   else
     vim.g["terminal_color_9"] = ucolors.brighten(colors.normalColors.red, 0.2)
     do end (vim.g)["terminal_color_10"] = ucolors.brighten(colors.normalColors.green, 0.2)
