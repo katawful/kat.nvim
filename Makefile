@@ -11,7 +11,7 @@ compile:
 	deps/aniseed/scripts/compile.sh
 
 	# compile fennel directly with fennel compiler
-	./fennel --compile ./colors/katdotnvim.fnl >./colors/katdotnvim.lua
+	./fennel --compile ./colors/kat.nvim.fnl >./colors/kat.nvim.lua
 
 	# Remove this if you only want Aniseed at compile time.
 	deps/aniseed/scripts/embed.sh aniseed katdotnvim
