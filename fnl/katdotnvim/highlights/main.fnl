@@ -61,6 +61,7 @@
                                   (ucolors.blendColors infoBG mainFG 0.1)
                                   selectionBG 0.2)
                      :SKIP)
+  (ucolors.highlight :Conceal shadowBG :NONE)
 
   ; Spelling
   (ucolors.highlight :SpellBad :SKIP :SKIP :undercurl (. colors.normalColors :red))
@@ -121,6 +122,9 @@
   (ucolors.highlight :MsgArea mainFG umbraBG)
   (ucolors.highlight :MsgSeparator mainFG umbraBG)
   (ucolors.highlight :MoreMsg auxBG :SKIP)
+
+  (ucolors.highlight :debugPC :SKIP (ucolors.blendColors selectionBG mainFG 0.6))
+  (ucolors.highlight :debugBreakpoint :SKIP (ucolors.blendColors errorBG mainFG 0.6))
 
   (if (= (vim.fn.has :gui) 1)
     (do
