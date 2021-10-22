@@ -1,8 +1,8 @@
-(module lsp
-        {autoload {ucolors katdotnvim.utils.colors
-                   colors katdotnvim.colors
-                   syntax katdotnvim.highlight.syntax
-                   groups katdotnvim.highlight.main
+(module katdotnvim.highlights.lsp
+        {autoload {ucolors katdotnvim.utils.color
+                   colors katdotnvim.color
+                   syntax katdotnvim.highlights.syntax
+                   groups katdotnvim.highlights.main
                    }})
 
 ; This handles the builtin LSP colors

@@ -19,7 +19,7 @@
   (let- :g :terminal_color_6 (. colors.normalColors :purple))
   (let- :g :terminal_color_7 (. colors.foreground 1))
   (let- :g :terminal_color_8 (. colors.background 2))
-  (if (= vim.g.kat_nvim_settings.style :light)
+  (if (= vim.g.kat_nvim_style :light)
     (do
       (let- :g :terminal_color_9 (ucolors.darken (. colors.normalColors :red) 0.2))
       (let- :g :terminal_color_10 (ucolors.darken (. colors.normalColors :green) 0.2))

@@ -16,10 +16,7 @@ _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["errors"] = errors
 _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
-if (vim.fn.exists("g:kat_nvim_settings") ~= 1) then
-  errors.setDefaults()
-else
-end
+errors.setDefaults(true)
 local function init()
   vim.cmd("highlight clear")
   if (vim.fn.exists("syntax_on") == true) then
@@ -28,23 +25,23 @@ local function init()
   end
   vim.api.nvim_set_option("termguicolors", true)
   do end (vim.g)["colors_name"] = "kat.nvim"
-  if (vim.g.kat_nvim_settings.style == "dark") then
+  if (vim.g.kat_nvim_style == "dark") then
     vim.api.nvim_set_option("background", "dark")
-  elseif (vim.g.kat_nvim_settings.style == "light") then
+  elseif (vim.g.kat_nvim_style == "light") then
     vim.api.nvim_set_option("background", "light")
   else
-    errors.errMessage(1, (vim.g.kat_nvim_settings.style .. " is not a valid setting, defaulting to 'dark'"))
-    errors.setDefaults()
+    errors.errMessage(1, (vim.g.kat_nvim_style .. " is not a valid setting, defaulting to 'dark'"))
+    errors.setDefaults(false)
     vim.api.nvim_set_option("background", "dark")
   end
   do end (require("katdotnvim.highlights.main")).init()
   do end (require("katdotnvim.highlights.syntax")).init()
   do end (require("katdotnvim.highlights.treesitter")).init()
   do end (require("katdotnvim.highlights.terminal")).init()
-  if (vim.g.kat_nvim_settings.stupidFeatures == true) then
-    return (require("katdotnvim.stupid")).stupidFunction()
+  if (vim.g.kat_nvim_stupidFeatures == true) then
+    do end (require("katdotnvim.stupid")).stupidFunction()
   else
-    return nil
   end
+  return (require("katdotnvim.highlights.lsp")).init()
 end
 _2amodule_2a["init"] = init

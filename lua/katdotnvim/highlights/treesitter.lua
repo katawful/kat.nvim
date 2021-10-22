@@ -26,7 +26,7 @@ local function init()
   ucolors.highlight("TSFuncMacro", ucolors.blendColors(syntax.preproc, syntax.identifier, 0.2), "SKIP", "bold,italic")
   ucolors.highlight("TSMethod", ucolors.saturation(ucolors.brighten(ucolors.blendColors(syntax.identifier, colors.normalColors.red, 0.3), 0.1), 0.1), "SKIP", "bold")
   ucolors.highlight("TSVariableBuiltin", ucolors.darken(ucolors.blendColors(syntax.identifier, colors.foreground[3], 0.8), 0.2), "SKIP")
-  if (vim.g.kat_nvim_settings.style == "light") then
+  if (vim.g.kat_nvim_style == "light") then
     ucolors.highlight("TSNamespace", ucolors.darken(ucolors.blendColors(syntax.identifier, colors.normalColors.green, 0.3), 0.4), "SKIP")
   else
     ucolors.highlight("TSNamespace", ucolors.brighten(ucolors.blendColors(syntax.identifier, colors.normalColors.green, 0.3), 0.2), "SKIP")

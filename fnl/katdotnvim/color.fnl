@@ -8,9 +8,9 @@
 ; back and foreground colors
 ; these are predefined, they don't need to be generated numerically
 ; TODO find a way to do these dynamically, i don't like hardcoding this
-(when (= (. vim.g.kat_nvim_settings :style) :dark)
+(when (= vim.g.kat_nvim_style :dark)
   (do
-    (when (= (. vim.g.kat_nvim_settings :contrast) :soft)
+    (when (= vim.g.kat_nvim_contrast :soft)
       (set back
            {1 "#1c2e4a"
             2 "#121c2d"
@@ -19,7 +19,7 @@
             5 "#6690d0"
             6 "#78adff"
             }))
-    (when (= (. vim.g.kat_nvim_settings :contrast) :hard)
+    (when (= vim.g.kat_nvim_contrast :hard)
       (set back
            {1 "#121c2d"
             2 "#1c2e4a"
@@ -36,7 +36,7 @@
              ;    5 (ucolors.brighten "#121c2d" 0.5)
              ;    6 (ucolors.brighten "#121c2d" 0.7)
              ;    })
-    (when (= (. vim.g.kat_nvim_settings :contrast) :soft)
+    (when (= vim.g.kat_nvim_contrast :soft)
       (set fore
            {1 "#b5d5df"
             2 "#daf6ff"
@@ -45,7 +45,7 @@
             5 "#4f7e8c"
             6 "#325049"
             }))
-    (when (= (. vim.g.kat_nvim_settings :contrast) :hard)
+    (when (= vim.g.kat_nvim_contrast :hard)
       (set fore
            {1 "#daf6ff"
             2 "#b5d5df"
@@ -65,9 +65,9 @@
     ))
 
   ; else if color is light
-(when (= (. vim.g.kat_nvim_settings :style) :light)
+(when (= vim.g.kat_nvim_style :light)
   (do
-    (when (= (. vim.g.kat_nvim_settings :contrast) :soft)
+    (when (= vim.g.kat_nvim_contrast :soft)
       (set back
         {1 "#b5d5df"
          2 "#daf6ff"
@@ -76,7 +76,7 @@
          5 "#4f7e8c"
          6 "#325049"
          }))
-    (when (= (. vim.g.kat_nvim_settings :contrast) :hard)
+    (when (= vim.g.kat_nvim_contrast :hard)
       (set back
         {1 "#daf6ff"
          2 "#b5d5df"
@@ -85,7 +85,7 @@
          5 "#4f7e8c"
          6 "#325049"
          }))
-    (when (= (. vim.g.kat_nvim_settings :contrast) :soft)
+    (when (= vim.g.kat_nvim_contrast :soft)
       (set fore
            {1 "#1c2e4a"
             2 "#121c2d"
@@ -94,7 +94,7 @@
             5 "#6690d0"
             6 "#78adff"
             }))
-    (when (= (. vim.g.kat_nvim_settings :contrast) :hard)
+    (when (= vim.g.kat_nvim_contrast :hard)
       (set fore
            {1 "#121c2d"
             2 "#1c2e4a"

@@ -58,7 +58,7 @@ local auxFG = mainFG
 _2amodule_2a["auxFG"] = auxFG
 local function groupFunction()
   local output = ""
-  if (vim.g.kat_nvim_settings.style == "light") then
+  if (vim.g.kat_nvim_style == "light") then
     output = ucolors.saturation(ucolors.darken(colors.normalColors.green, 0.5), 0.4)
   else
     output = ucolors.saturation(ucolors.brighten(colors.normalColors.green, 0.5), -0.2)

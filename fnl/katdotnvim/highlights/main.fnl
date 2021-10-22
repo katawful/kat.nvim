@@ -36,7 +36,7 @@
 (def auxFG mainFG)
 (defn groupFunction []
   (var output "")
-  (if (= vim.g.kat_nvim_settings.style :light)
+  (if (= vim.g.kat_nvim_style :light)
     (do
       (set output (ucolors.saturation (ucolors.darken (. colors.normalColors :green) 0.5) 0.4)))
     (do

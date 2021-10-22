@@ -1,5 +1,5 @@
 local _2afile_2a = "fnl/katdotnvim/highlights/lsp.fnl"
-local _2amodule_name_2a = "lsp"
+local _2amodule_name_2a = "katdotnvim.highlights.lsp"
 local _2amodule_2a
 do
   package.loaded[_2amodule_name_2a] = {}
@@ -11,7 +11,7 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local colors, groups, syntax, ucolors = autoload("katdotnvim.colors"), autoload("katdotnvim.highlight.main"), autoload("katdotnvim.highlight.syntax"), autoload("katdotnvim.utils.colors")
+local colors, groups, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["syntax"] = syntax

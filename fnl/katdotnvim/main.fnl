@@ -7,8 +7,7 @@
          })
 
 ; define some defaults
-(if (not= (vim.fn.exists "g:kat_nvim_settings") 1)
-  (errors.setDefaults))
+(errors.setDefaults true)
 
 (defn init []
   (vim.cmd "highlight clear")
@@ -17,19 +16,20 @@
 
   (set- termguicolors true)
   (let- :g colors_name "kat.nvim")
-  (if (= (. vim.g.kat_nvim_settings :style) :dark)
+  (if (= vim.g.kat_nvim_style :dark)
     (set- background :dark)
-    (= (. vim.g.kat_nvim_settings :style) :light)
+    (= vim.g.kat_nvim_style :light)
     (set- background :light)
     (do
-      (errors.errMessage 1 (.. (. vim.g.kat_nvim_settings :style) " is not a valid setting, defaulting to 'dark'"))
-      (errors.setDefaults)
+      (errors.errMessage 1 (.. vim.g.kat_nvim_style " is not a valid setting, defaulting to 'dark'"))
+      (errors.setDefaults false)
       (set- background :dark)))
 
   ((. (require :katdotnvim.highlights.main) :init))
   ((. (require :katdotnvim.highlights.syntax) :init))
   ((. (require :katdotnvim.highlights.treesitter) :init))
   ((. (require :katdotnvim.highlights.terminal) :init))
-  (if (= vim.g.kat_nvim_settings.stupidFeatures true)
+  (if (= vim.g.kat_nvim_stupidFeatures true)
     ((. (require :katdotnvim.stupid) :stupidFunction)))
+  ((. (require :katdotnvim.highlights.lsp) :init))
   )

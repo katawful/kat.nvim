@@ -1,4 +1,5 @@
-(module katdotnvim.utils.errors)
+(module katdotnvim.utils.errors
+        {require-macros [katdotnvim.utils.macros]})
 
 ; this module handles error messages
 
@@ -9,9 +10,20 @@
     (print "out " output)
     (vim.api.nvim_err_writeln output)))
 
-(defn setDefaults []
-  (set vim.g.kat_nvim_settings
-       {:style :dark
-        :contrast :hard
-        :commentStyle :italic
-        :stupidFeatures false}))
+(defn setDefaults [check]
+  (if (= check true)
+    (do
+      (when (= (vim.fn.exists :kat_nvim_style) 0)
+        (let- :g :kat_nvim_style :dark))
+      (when (= (vim.fn.exists :kat_nvim_contrast) 0)
+        (let- :g :kat_nvim_contrast :hard))
+      (when (= (vim.fn.exists :kat_nvim_commentStyle) 0)
+        (let- :g :kat_nvim_commentStyle :italic))
+      (when (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
+        (let- :g :kat_nvim_stupidFeatures false)))
+    (do
+        (let- :g :kat_nvim_style :dark)
+        (let- :g :kat_nvim_contrast :hard)
+        (let- :g :kat_nvim_commentStyle :italic)
+        (let- :g :kat_nvim_stupidFeatures false)))
+    )
