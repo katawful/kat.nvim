@@ -35,7 +35,11 @@ local function init()
   ucolors.highlight("Boolean", ucolors.blendColors(groups.selectionBG, groups.mainFG, 0.7), "SKIP", "bold")
   ucolors.highlight("Identifier", identifier, "SKIP")
   ucolors.highlight("Function", ucolors.saturation(ucolors.brighten(ucolors.blendColors(identifier, colors.normalColors.red, 0.3), 0.1), 0.5), "SKIP", "bold")
-  ucolors.highlight("Variable", ucolors.brighten(ucolors.blendColors(identifier, colors.foreground[3], 0.5), 0.2), "SKIP")
+  if (vim.g.kat_nvim_style == "light") then
+    ucolors.highlight("Variable", ucolors.darken(ucolors.blendColors(identifier, colors.foreground[6], 0.5), 0.4), "SKIP")
+  else
+    ucolors.highlight("Variable", ucolors.brighten(ucolors.blendColors(identifier, colors.foreground[6], 0.5), 0.4), "SKIP")
+  end
   ucolors.highlight("Statement", statement, "SKIP", "bold")
   ucolors.highlight("Conditional", ucolors.brighten(ucolors.blendColors(statement, colors.normalColors.purple, 0.2), 0.1), "SKIP")
   ucolors.highlight("Repeat", ucolors.saturation(ucolors.brighten(ucolors.blendColors(statement, colors.normalColors.orange, 0.2), 0.3), 0.8), "SKIP")

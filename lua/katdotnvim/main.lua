@@ -36,12 +36,16 @@ local function init()
   end
   do end (require("katdotnvim.highlights.main")).init()
   do end (require("katdotnvim.highlights.syntax")).init()
-  do end (require("katdotnvim.highlights.treesitter")).init()
   do end (require("katdotnvim.highlights.terminal")).init()
   if (vim.g.kat_nvim_stupidFeatures == true) then
     do end (require("katdotnvim.stupid")).stupidFunction()
   else
   end
-  return (require("katdotnvim.highlights.lsp")).init()
+  for _0, v in ipairs(vim.g.kat_nvim_integrations) do
+    local output = ("katdotnvim.highlights." .. v)
+    do end (_2amodule_2a)["output"] = output
+    require(output).init()
+  end
+  return nil
 end
 _2amodule_2a["init"] = init

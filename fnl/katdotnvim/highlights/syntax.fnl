@@ -27,7 +27,9 @@
 
   (ucolors.highlight :Identifier identifier :SKIP)
   (ucolors.highlight :Function (ucolors.saturation (ucolors.brighten (ucolors.blendColors identifier (. colors.normalColors :red) 0.3) 0.10) 0.5) :SKIP :bold)
-  (ucolors.highlight :Variable (ucolors.brighten (ucolors.blendColors identifier (. colors.foreground 3) 0.5) 0.2) :SKIP)
+  (if (= vim.g.kat_nvim_style :light)
+      (ucolors.highlight :Variable (ucolors.darken (ucolors.blendColors identifier (. colors.foreground 6) 0.5) 0.4) :SKIP)
+      (ucolors.highlight :Variable (ucolors.brighten (ucolors.blendColors identifier (. colors.foreground 6) 0.5) 0.4) :SKIP))
 
   (ucolors.highlight :Statement statement :SKIP :bold)
   (ucolors.highlight :Conditional (ucolors.brighten (ucolors.blendColors statement (. colors.normalColors :purple) 0.2) 0.1) :SKIP)
@@ -35,10 +37,10 @@
   (ucolors.highlight :Label (ucolors.saturation (ucolors.blendColors statement (. colors.normalColors :pink) 0.2) 1) :SKIP :bold)
   (ucolors.highlight :Operator (ucolors.blendColors statement groups.meldFG 0.2) :SKIP :bold)
   (if (= vim.g.kat_nvim_style :light)
-    (do
-      (ucolors.highlight :Keyword (ucolors.darken (ucolors.blendColors statement (. colors.normalColors :green) 0.2) 0.5) :SKIP :italic))
-    (do
-      (ucolors.highlight :Keyword (ucolors.brighten (ucolors.blendColors statement (. colors.normalColors :green) 0.2) 0.5) :SKIP :italic)))
+      (do
+        (ucolors.highlight :Keyword (ucolors.darken (ucolors.blendColors statement (. colors.normalColors :green) 0.2) 0.5) :SKIP :italic))
+      (do
+        (ucolors.highlight :Keyword (ucolors.brighten (ucolors.blendColors statement (. colors.normalColors :green) 0.2) 0.5) :SKIP :italic)))
   (ucolors.highlight :Exception (ucolors.brighten (ucolors.blendColors statement (. colors.normalColors :blue) 0.1) 0.2) :SKIP)
 
   (ucolors.highlight :PreProc preproc :SKIP "bold,italic")

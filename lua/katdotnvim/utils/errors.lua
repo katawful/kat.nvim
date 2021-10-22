@@ -35,6 +35,10 @@ local function setDefaults(check)
       vim.g["kat_nvim_commentStyle"] = "italic"
     else
     end
+    if (vim.fn.exists("kat_nvim_integrations") == 0) then
+      vim.g["kat_nvim_integrations"] = {}
+    else
+    end
     if (vim.fn.exists("kat_nvim_stupidFeatures") == 0) then
       vim.g["kat_nvim_stupidFeatures"] = false
       return nil
@@ -46,6 +50,7 @@ local function setDefaults(check)
     vim.g["kat_nvim_contrast"] = "hard"
     vim.g["kat_nvim_commentStyle"] = "italic"
     vim.g["kat_nvim_stupidFeatures"] = false
+    vim.g["kat_nvim_integrations"] = {}
     return nil
   end
 end
