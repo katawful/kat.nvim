@@ -22,7 +22,7 @@ local function init()
   ucolors.highlight("rainbowcol3", ucolors.blendColors(colors.normalColors.purple, groups.meldFG, 0.8), "SKIP")
   ucolors.highlight("rainbowcol4", ucolors.blendColors(colors.normalColors.blue, groups.meldFG, 0.8), "SKIP")
   ucolors.highlight("rainbowcol5", ucolors.blendColors(colors.normalColors.green, groups.meldFG, 0.8), "SKIP")
-  ucolors.highlight("rainbowcol6", ucolors.blendColors(colors.background[6], groups.meldFG, 0.8), "SKIP")
-  return ucolors.highlight("rainbowcol7", ucolors.blendColors(colors.foreground[6], groups.meldFG, 0.8), "SKIP")
+  ucolors.highlight("rainbowcol6", ucolors.blendColors(colors.normalColors.orange, groups.meldFG, 0.8), "SKIP")
+  return ucolors.highlight("rainbowcol7", ucolors.blendColors(colors.background[6], groups.meldFG, 0.8), "SKIP")
 end
 _2amodule_2a["init"] = init
