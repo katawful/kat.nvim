@@ -36,11 +36,11 @@ local function setDefaults(check)
     else
     end
     if (vim.fn.exists("kat_nvim_integrations") == 0) then
-      vim.g["kat_nvim_integrations"] = {}
+      vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify"}
     else
     end
     if (vim.fn.exists("kat_nvim_filetype") == 0) then
-      vim.g["kat_nvim_filetype"] = {}
+      vim.g["kat_nvim_filetype"] = {"vim", "vimwiki", "markdown"}
     else
     end
     if (vim.fn.exists("kat_nvim_stupidFeatures") == 0) then
@@ -54,8 +54,8 @@ local function setDefaults(check)
     vim.g["kat_nvim_contrast"] = "hard"
     vim.g["kat_nvim_commentStyle"] = "italic"
     vim.g["kat_nvim_stupidFeatures"] = false
-    vim.g["kat_nvim_integrations"] = {}
-    vim.g["kat_nvim_integrations"] = {}
+    vim.g["kat_nvim_integrations"] = {"vim", "vimwiki", "markdown"}
+    vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify"}
     return nil
   end
 end
