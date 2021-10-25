@@ -35,4 +35,7 @@
   (each [_ v (ipairs vim.g.kat_nvim_integrations)]
     (def output (.. "katdotnvim.highlights." v))
     ((. (require output) :init)))
+  (each [_ v (ipairs vim.g.kat_nvim_filetype)]
+    (def output (.. "katdotnvim.highlights.filetype." v))
+    ((. (require output) :init)))
   )

@@ -21,6 +21,8 @@
         (let- :g :kat_nvim_commentStyle :italic))
       (when (= (vim.fn.exists :kat_nvim_integrations) 0)
         (let- :g :kat_nvim_integrations {}))
+      (when (= (vim.fn.exists :kat_nvim_filetype) 0)
+        (let- :g :kat_nvim_filetype {}))
       (when (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
         (let- :g :kat_nvim_stupidFeatures false)))
     (do
@@ -28,5 +30,6 @@
         (let- :g :kat_nvim_contrast :hard)
         (let- :g :kat_nvim_commentStyle :italic)
         (let- :g :kat_nvim_stupidFeatures false)
+        (let- :g :kat_nvim_integrations {})
         (let- :g :kat_nvim_integrations {})))
     )

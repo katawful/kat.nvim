@@ -46,6 +46,11 @@ local function init()
     do end (_2amodule_2a)["output"] = output
     require(output).init()
   end
+  for _0, v in ipairs(vim.g.kat_nvim_filetype) do
+    local output = ("katdotnvim.highlights.filetype." .. v)
+    do end (_2amodule_2a)["output"] = output
+    require(output).init()
+  end
   return nil
 end
 _2amodule_2a["init"] = init
