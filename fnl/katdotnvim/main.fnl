@@ -42,7 +42,7 @@
   (if (= vim.g.kat_nvim_stupidFeatures true)
       ((. (require :katdotnvim.stupid) :stupidFunction)))
 
-  add integrations
+  ; add integrations
   (each [_ v (ipairs vim.g.kat_nvim_integrations)]
     (def output (.. "katdotnvim.highlights." v))
     ((. (require output) :init)))
