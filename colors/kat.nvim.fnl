@@ -1,4 +1,3 @@
-; This sets up colors using vim standards for easy management
+; This defines the default colorscheme, which is dark with hard contrast
 
-
-((. (require :katdotnvim.main) :init))
+((. (require :katdotnvim.main) :init) :dark :hard)

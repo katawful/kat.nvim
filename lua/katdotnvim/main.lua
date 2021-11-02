@@ -16,24 +16,38 @@ _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["errors"] = errors
 _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
-errors.setDefaults(true)
-local function init()
-  vim.cmd("highlight clear")
-  if (vim.fn.exists("syntax_on") == true) then
+local function init(style, contrast)
+  errors.setDefaults(true)
+  if vim.g.colors_name then
+    vim.cmd("highlight clear")
+  else
+  end
+  if (vim.fn.exists("syntax_on") == 1) then
     vim.cmd("syntax reset")
   else
   end
   vim.api.nvim_set_option("termguicolors", true)
-  do end (vim.g)["colors_name"] = "kat.nvim"
-  if (vim.g.kat_nvim_style == "dark") then
+  local katStyle = style
+  _2amodule_2a["katStyle"] = katStyle
+  local katContrast = contrast
+  _2amodule_2a["katContrast"] = katContrast
+  if (katStyle == "dark") then
+    if (katContrast == "hard") then
+      vim.g["colors_name"] = "kat.nvim"
+    else
+      vim.g["colors_name"] = "kat.nvim-owo"
+    end
     vim.api.nvim_set_option("background", "dark")
-  elseif (vim.g.kat_nvim_style == "light") then
+  elseif (katStyle == "light") then
+    if (katContrast == "hard") then
+      vim.g["colors_name"] = "kat.lightenvim"
+    else
+      vim.g["colors_name"] = "kat.lightenvim-owo"
+    end
     vim.api.nvim_set_option("background", "light")
   else
-    errors.errMessage(1, (vim.g.kat_nvim_style .. " is not a valid setting, defaulting to 'dark'"))
-    errors.setDefaults(false)
-    vim.api.nvim_set_option("background", "dark")
   end
+  do local _ = require("katdotnvim.color") end
   do end (require("katdotnvim.highlights.main")).init()
   do end (require("katdotnvim.highlights.syntax")).init()
   do end (require("katdotnvim.highlights.terminal")).init()

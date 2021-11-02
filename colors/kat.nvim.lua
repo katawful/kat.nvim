@@ -1,1 +1,1 @@
-return (require("katdotnvim.main")).init()
+return (require("katdotnvim.main")).init("dark", "hard")

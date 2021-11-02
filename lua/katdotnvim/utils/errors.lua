@@ -23,14 +23,6 @@ end
 _2amodule_2a["errMessage"] = errMessage
 local function setDefaults(check)
   if (check == true) then
-    if (vim.fn.exists("kat_nvim_style") == 0) then
-      vim.g["kat_nvim_style"] = "dark"
-    else
-    end
-    if (vim.fn.exists("kat_nvim_contrast") == 0) then
-      vim.g["kat_nvim_contrast"] = "hard"
-    else
-    end
     if (vim.fn.exists("kat_nvim_commentStyle") == 0) then
       vim.g["kat_nvim_commentStyle"] = "italic"
     else
@@ -50,8 +42,6 @@ local function setDefaults(check)
       return nil
     end
   else
-    vim.g["kat_nvim_style"] = "dark"
-    vim.g["kat_nvim_contrast"] = "hard"
     vim.g["kat_nvim_commentStyle"] = "italic"
     vim.g["kat_nvim_stupidFeatures"] = false
     vim.g["kat_nvim_integrations"] = {"vim", "vimwiki", "markdown"}

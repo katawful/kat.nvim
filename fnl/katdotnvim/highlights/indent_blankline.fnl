@@ -6,8 +6,8 @@
                    }})
 
 (defn init []
-  (ucolors.highlight :IndentBlanklineChar groups.shadowBG :SKIP :nocombine)
-  (ucolors.highlight :IndentBlanklineSpaceChar groups.shadowBG :SKIP :nocombine)
-  (ucolors.highlight :IndentBlanklineSpaceChar groups.shadowBG :SKIP :nocombine)
-  (ucolors.highlight :IndentBlanklineContextChar groups.selectionBG :SKIP :nocombine)
+  (ucolors.highlight :IndentBlanklineChar (groups.shadowBG) :SKIP :nocombine)
+  (ucolors.highlight :IndentBlanklineSpaceChar (groups.shadowBG) :SKIP :nocombine)
+  (ucolors.highlight :IndentBlanklineSpaceChar (groups.shadowBG) :SKIP :nocombine)
+  (ucolors.highlight :IndentBlanklineContextChar (groups.selectionBG) :SKIP :nocombine)
   )
