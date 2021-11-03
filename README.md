@@ -88,13 +88,6 @@ While most of this project is my code, some of it is copyright from others
 * `lua/externals/hsluv.lua`
 * Aniseed
 
-hsluv is provided under its own copyright, which provides free of use with any project with
-# License
-While most of this project is my code, some of it is copyright from others
-
-* `lua/externals/hsluv.lua`
-* Aniseed
-
 hsluv is provided as free to use, being able to be integrated into this project provided it's copyright statement is kept in place. For convenience it is placed below as well:
 ```
 Lua implementation of HSLuv and HPLuv color spaces
