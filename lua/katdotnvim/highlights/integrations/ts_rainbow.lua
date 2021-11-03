@@ -1,5 +1,5 @@
-local _2afile_2a = "fnl/katdotnvim/highlights/ts_rainbow.fnl"
-local _2amodule_name_2a = "katdotnvim.highlights.ts_rainbow"
+local _2afile_2a = "fnl/katdotnvim/highlights/integrations/ts_rainbow.fnl"
+local _2amodule_name_2a = "katdotnvim.highlights.integrations.ts_rainbow"
 local _2amodule_2a
 do
   package.loaded[_2amodule_name_2a] = {}

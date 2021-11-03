@@ -1,5 +1,5 @@
-local _2afile_2a = "fnl/katdotnvim/highlights/treesitter.fnl"
-local _2amodule_name_2a = "katdotnvim.highlights.treesitter"
+local _2afile_2a = "fnl/katdotnvim/highlights/integrations/treesitter.fnl"
+local _2amodule_name_2a = "katdotnvim.highlights.integrations.treesitter"
 local _2amodule_2a
 do
   package.loaded[_2amodule_name_2a] = {}

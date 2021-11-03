@@ -1,5 +1,5 @@
-local _2afile_2a = "fnl/katdotnvim/highlights/startify.fnl"
-local _2amodule_name_2a = "katdotnvim.highlights.startify"
+local _2afile_2a = "fnl/katdotnvim/highlights/integrations/startify.fnl"
+local _2amodule_name_2a = "katdotnvim.highlights.integrations.startify"
 local _2amodule_2a
 do
   package.loaded[_2amodule_name_2a] = {}

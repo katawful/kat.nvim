@@ -1,5 +1,5 @@
-local _2afile_2a = "fnl/katdotnvim/highlights/lsp.fnl"
-local _2amodule_name_2a = "katdotnvim.highlights.lsp"
+local _2afile_2a = "fnl/katdotnvim/highlights/integrations/lsp.fnl"
+local _2amodule_name_2a = "katdotnvim.highlights.integrations.lsp"
 local _2amodule_2a
 do
   package.loaded[_2amodule_name_2a] = {}
@@ -25,18 +25,18 @@ local function init()
   ucolors.highlight("DiagnosticInfo", groups.infoBG(), "SKIP")
   ucolors.highlight("DiagnosticHint", groups.auxBG(), "SKIP")
   ucolors.highlight("LspDiagnosticsDefaultError", groups.errorBG(), "SKIP")
-  ucolors.highlight("LspDiagnosticDefaultWarning", groups.warningBG(), "SKIP")
-  ucolors.highlight("LspDiagnosticDefaultInformation", groups.infoBG(), "SKIP")
-  ucolors.highlight("LspDiagnosticDefaultHint", groups.auxBG(), "SKIP")
+  ucolors.highlight("LspDiagnosticsDefaultWarning", groups.warningBG(), "SKIP")
+  ucolors.highlight("LspDiagnosticsDefaultInformation", groups.infoBG(), "SKIP")
+  ucolors.highlight("LspDiagnosticsDefaultHint", groups.auxBG(), "SKIP")
   ucolors.highlight("LspSignatureActiveParameter", groups.selectionBG(), "SKIP")
   ucolors.highlight("LspDiagnosticsError", groups.errorBG(), "SKIP")
   ucolors.highlight("LspDiagnosticsWarn", groups.warningBG(), "SKIP")
   ucolors.highlight("LspDiagnosticsInfo", groups.infoBG(), "SKIP")
   ucolors.highlight("LspDiagnosticsHint", groups.auxBG(), "SKIP")
-  ucolors.highlight("LspDiagnosticsVirtualTextError", groups.errorBG(), "SKIP")
-  ucolors.highlight("LspDiagnosticsVirtualTextWarning", groups.warningBG(), "SKIP")
-  ucolors.highlight("LspDiagnosticsVirtualTextInformation", groups.infoBG(), "SKIP")
-  ucolors.highlight("LspDiagnosticsVirtualTextHint", groups.auxBG(), "SKIP")
+  ucolors.highlight("LspDiagnosticsVirtualTextError", groups.errorBG(), groups.shadowBG())
+  ucolors.highlight("LspDiagnosticsVirtualTextWarning", groups.warningBG(), groups.shadowBG())
+  ucolors.highlight("LspDiagnosticsVirtualTextInformation", groups.infoBG(), groups.shadowBG())
+  ucolors.highlight("LspDiagnosticsVirtualTextHint", groups.auxBG(), groups.shadowBG())
   ucolors.highlight("LspDiagnosticsFloatingError", groups.errorBG(), groups.umbraBG())
   ucolors.highlight("LspDiagnosticsFloatingWarning", groups.warningBG(), groups.umbraBG())
   ucolors.highlight("LspDiagnosticsFloatingInformation", groups.infoBG(), groups.umbraBG())

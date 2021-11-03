@@ -15,4 +15,7 @@
   (ucolors.highlight :vimSetSep (groups.umbraFG) :SKIP)
   (ucolors.highlight :vimSep (groups.umbraFG) :SKIP)
   (ucolors.highlight :vimContinue (groups.umbraFG) :SKIP)
+  (vim.cmd "hi def link vimOperParen Variable")
+  (vim.cmd "hi def link vimFunction Function")
+  (vim.cmd "hi def link vimIsCommand Identifier")
   )

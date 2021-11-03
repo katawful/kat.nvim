@@ -1,4 +1,4 @@
-(module katdotnvim.highlights.startify
+(module katdotnvim.highlights.integrations.startify
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax

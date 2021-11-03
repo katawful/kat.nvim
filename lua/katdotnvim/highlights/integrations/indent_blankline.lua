@@ -1,5 +1,5 @@
-local _2afile_2a = "fnl/katdotnvim/highlights/indent_blankline.fnl"
-local _2amodule_name_2a = "katdotnvim.highlights.indent_blankline"
+local _2afile_2a = "fnl/katdotnvim/highlights/integrations/indent_blankline.fnl"
+local _2amodule_name_2a = "katdotnvim.highlights.integrations.indent_blankline"
 local _2amodule_2a
 do
   package.loaded[_2amodule_name_2a] = {}

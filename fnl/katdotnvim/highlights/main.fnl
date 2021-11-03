@@ -129,7 +129,7 @@
   (ucolors.highlight :VertSplit (shadowBG) (shadowFG))
   (ucolors.highlight :Folded (selectionFG) (shadowBG) :bold)
   (ucolors.highlight :FoldColumn (selectionBG) :NONE :bold)
-  (ucolors.highlight :SignColumn :SKIP :SKIP :bold)
+  (ucolors.highlight :SignColumn :NONE :NONE :bold)
 
   (ucolors.highlight :IncSearch (mainFG) (infoBG) :NONE)
   (ucolors.highlight :Substitute (infoFG) (ucolors.blendColors (infoBG) (mainFG) 0.7))

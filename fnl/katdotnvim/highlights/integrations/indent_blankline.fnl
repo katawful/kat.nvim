@@ -1,4 +1,4 @@
-(module katdotnvim.highlights.indent_blankline
+(module katdotnvim.highlights.integrations.indent_blankline
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax

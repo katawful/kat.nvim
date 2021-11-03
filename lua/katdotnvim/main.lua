@@ -56,7 +56,7 @@ local function init(style, contrast)
   else
   end
   for _0, v in ipairs(vim.g.kat_nvim_integrations) do
-    local output = ("katdotnvim.highlights." .. v)
+    local output = ("katdotnvim.highlights.integrations." .. v)
     do end (_2amodule_2a)["output"] = output
     require(output).init()
   end

@@ -1,4 +1,4 @@
-(module katdotnvim.highlights.ts_rainbow
+(module katdotnvim.highlights.integrations.ts_rainbow
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
