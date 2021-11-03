@@ -47,7 +47,6 @@
   (def output (mainBG))
   output)
 (defn infoBG [] (. (colors.init :normalColors) :orange))
-
 ; green and others are auxiliary
 (defn auxFG []
   (def output (mainFG))
@@ -94,9 +93,20 @@
   (ucolors.highlight :StatusLineNC (ucolors.blendColors (. (colors.init :normalColors) :purple) (. (colors.init :background) 1) 0.7) (. (colors.init :background) 5) :bold)
 
   ; Tabline
-  (ucolors.highlight :TabLine (highlightFG) (highlightBG) :NONE)
-  (ucolors.highlight :TabLineFill (fillBG) (fillBG))
-  (ucolors.highlight :TabLineSel (selectionFG) (selectionBG) :bold)
+  ; we need to make the dark soft font brighter to match dark hard tabline
+  ; looks bad otherwise imo
+  (if (and (= main.katStyle :dark)
+           (= main.katContrast :soft))
+    (do
+      (var color (ucolors.brighten (highlightBG) 0.8))
+      (ucolors.highlight :TabLine color (highlightBG) :NONE)
+      (ucolors.highlight :TabLineFill (fillBG) (fillBG))
+      (ucolors.highlight :TabLineSel color (selectionBG) :bold)
+      )
+    (do
+      (ucolors.highlight :TabLine (highlightFG) (highlightBG) :NONE)
+      (ucolors.highlight :TabLineFill (fillBG) (fillBG))
+      (ucolors.highlight :TabLineSel (selectionFG) (selectionBG) :bold)))
 
   (ucolors.highlight :Title (. (colors.init :normalColors) :green) :NONE :bold)
 

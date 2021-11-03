@@ -21,7 +21,7 @@ _2amodule_locals_2a["_"] = _
 local kat = {}
 local mainFG = groups.mainFG()
 if ((main.katStyle == "dark") and (main.katContrast == "soft")) then
-  mainFG = ucolors.brighten(groups.mainFG, 0.8)
+  mainFG = ucolors.brighten(groups.mainFG(), 0.8)
 else
 end
 kat.normal = {a = {bg = groups.highlightBG(), fg = mainFG, gui = "bold"}, b = {bg = ucolors.blendColors(groups.selectionBG(), groups.shadowBG(), 0.4), fg = mainFG}, c = {bg = groups.fillBG(), fg = mainFG}}

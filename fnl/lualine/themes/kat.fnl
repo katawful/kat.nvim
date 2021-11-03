@@ -14,7 +14,7 @@
 (if (and (= main.katStyle :dark)
          (= main.katContrast :soft))
   (do
-    (set mainFG (ucolors.brighten groups.mainFG 0.8))))
+    (set mainFG (ucolors.brighten (groups.mainFG) 0.8))))
 
 (set kat.normal {:a {:bg (groups.highlightBG)
                      :fg mainFG
