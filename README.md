@@ -81,3 +81,38 @@ For colors that use one of the `katdotnvim.utils.color` functions, you must defi
   (def output (katdotnvim.utils.color.function ...))
 	output)
 ```
+
+# License
+While most of this project is my code, some of it is copyright from others
+
+* `lua/externals/hsluv.lua`
+* Aniseed
+
+hsluv is provided under its own copyright, which provides free of use with any project with
+# License
+While most of this project is my code, some of it is copyright from others
+
+* `lua/externals/hsluv.lua`
+* Aniseed
+
+hsluv is provided as free to use, being able to be integrated into this project provided it's copyright statement is kept in place. For convenience it is placed below as well:
+```
+Lua implementation of HSLuv and HPLuv color spaces
+Homepage: http://www.hsluv.org/
+Copyright (C) 2019 Alexei Boronine
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the
+following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+Aniseed is provided into the public domain, and free to use for integration under the [unlicense](https://unlicense.org/) license. [See](https://github.com/Olical/aniseed) the full project for full licensing details.
+
+The rest of the code is published under the GPL v3 license, see LICENSE.txt for details
