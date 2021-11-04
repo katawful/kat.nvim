@@ -149,7 +149,7 @@ local function init()
   ucolors.highlight("StatusLine", (colors.init("background"))[5], ucolors.blendColors((colors.init("normalColors")).purple, (colors.init("background"))[1], 0.7), "bold")
   ucolors.highlight("StatusLineNC", ucolors.blendColors((colors.init("normalColors")).purple, (colors.init("background"))[1], 0.7), (colors.init("background"))[5], "bold")
   if ((main.katStyle == "dark") and (main.katContrast == "soft")) then
-    local color = ucolors.brighten(highlightBG(), 0.8)
+    local color = ucolors.brighten(highlightFG(), 0.8)
     ucolors.highlight("TabLine", color, highlightBG(), "NONE")
     ucolors.highlight("TabLineFill", fillBG(), fillBG())
     ucolors.highlight("TabLineSel", color, selectionBG(), "bold")

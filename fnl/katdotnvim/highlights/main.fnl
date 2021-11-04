@@ -98,7 +98,7 @@
   (if (and (= main.katStyle :dark)
            (= main.katContrast :soft))
     (do
-      (var color (ucolors.brighten (highlightBG) 0.8))
+      (var color (ucolors.brighten (highlightFG) 0.8))
       (ucolors.highlight :TabLine color (highlightBG) :NONE)
       (ucolors.highlight :TabLineFill (fillBG) (fillBG))
       (ucolors.highlight :TabLineSel color (selectionBG) :bold)
