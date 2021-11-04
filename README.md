@@ -40,6 +40,7 @@ The following is a table explaining how these variables work, and what values th
 | [TS Rainbow](https://github.com/p00f/nvim-ts-rainbow) | 'ts_rainbow' |
 | [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim) | 'indent_blankline' |
 | [coc.nvim](https://github.com/neoclide/coc.nvim) | 'coc' |
+| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | 'cmp' |
 
 # Filetypes
 |Filetypes| Option Name |

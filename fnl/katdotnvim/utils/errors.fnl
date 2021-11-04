@@ -26,6 +26,7 @@
                                          4 :indent_blankline
                                          5 :startify
                                          6 :coc
+                                         7 :cmp
                                          }))
       (when (= (vim.fn.exists :kat_nvim_filetype) 0)
         (let- :g :kat_nvim_filetype {1 :vim
@@ -45,5 +46,8 @@
                                          2 :lsp
                                          3 :ts_rainbow
                                          4 :indent_blankline
-                                         5 :startify})))
+                                         5 :startify
+                                         6 :coc
+                                         7 :cmp
+                                         })))
   )
