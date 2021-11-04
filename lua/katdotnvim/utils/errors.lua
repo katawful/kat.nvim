@@ -28,7 +28,7 @@ local function setDefaults(check)
     else
     end
     if (vim.fn.exists("kat_nvim_integrations") == 0) then
-      vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify"}
+      vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc"}
     else
     end
     if (vim.fn.exists("kat_nvim_filetype") == 0) then

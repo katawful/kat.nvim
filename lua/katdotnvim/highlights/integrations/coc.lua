@@ -1,5 +1,5 @@
 local _2afile_2a = "fnl/katdotnvim/highlights/integrations/coc.fnl"
-local _2amodule_name_2a = "katdotnvim.highlights.integrations.lsp"
+local _2amodule_name_2a = "katdotnvim.highlights.integrations.coc"
 local _2amodule_2a
 do
   package.loaded[_2amodule_name_2a] = {}

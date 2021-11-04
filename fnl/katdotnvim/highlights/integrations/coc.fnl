@@ -1,4 +1,4 @@
-(module katdotnvim.highlights.integrations.lsp
+(module katdotnvim.highlights.integrations.coc
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax

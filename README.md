@@ -39,6 +39,7 @@ The following is a table explaining how these variables work, and what values th
 | [Startify](https://github.com/mhinz/vim-startify) | 'startify' |
 | [TS Rainbow](https://github.com/p00f/nvim-ts-rainbow) | 'ts_rainbow' |
 | [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim) | 'indent_blankline' |
+| [coc.nvim](https://github.com/neoclide/coc.nvim) | 'coc' |
 
 # Filetypes
 |Filetypes| Option Name |
