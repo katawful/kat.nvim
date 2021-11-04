@@ -41,6 +41,7 @@ The following is a table explaining how these variables work, and what values th
 | [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim) | 'indent_blankline' |
 | [coc.nvim](https://github.com/neoclide/coc.nvim) | 'coc' |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | 'cmp' |
+| [bufferline](https://github.com/akinsho/bufferline.nvim) | 'bufferline' |
 
 # Filetypes
 |Filetypes| Option Name |
