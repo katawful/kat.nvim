@@ -110,8 +110,8 @@
 
   (ucolors.highlight :Title (. (colors.init :normalColors) :green) :NONE :bold)
 
-  (ucolors.highlight :Visual :SKIP (ucolors.darken (groups.selectionBG) 0.2))
-  (ucolors.highlight :VisualNOS :SKIP (ucolors.blendColors (groups.selectionBG) (. (colors.init :foreground) 1) 0.5))
+  (ucolors.highlight :Visual :SKIP (ucolors.darken (selectionBG) 0.2))
+  (ucolors.highlight :VisualNOS :SKIP (ucolors.blendColors (selectionBG) (. (colors.init :foreground) 1) 0.5))
 
   ; Pmenu
   (ucolors.highlight :Pmenu (fillFG) (fillBG))
