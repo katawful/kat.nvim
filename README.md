@@ -17,19 +17,8 @@ Example for vim-plug:
 Plug 'katawful/kat.nvim'
 ```
 
-# Examples
-
-kat.nvim   
-![fennel dark hard](https://raw.githubusercontent.com/katawful/RandomAssets/main/fennel-dark-hard.png)
-
-kat.nvim-owo   
-![fennel dark soft](https://raw.githubusercontent.com/katawful/RandomAssets/main/fennel-dark-soft.png)
-
-kat.lightenvim   
-![fennel light hard](https://raw.githubusercontent.com/katawful/RandomAssets/main/fennel-light-hard.png)
-
-kat.lightenvim-owo   
-![fennel light soft](https://raw.githubusercontent.com/katawful/RandomAssets/main/fennel-light-soft.png)
+# Example:
+![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/example.png)
 
 # Options
 There are currently 4 options: `g:kat_nvim_commentStyle`, `g:kat_nvim_integrations`, `g:kat_nvim_filetype`, and `g:kat_nvim_stupidFeatures`.
@@ -43,20 +32,20 @@ The following is a table explaining how these variables work, and what values th
 | `g:kat_nvim_stupidFeatures` | features that work but probably shouldn't be used | boolean | `v:false` |
 
 # Integrations
-| Plugin |
-| --- |
-| [Native LSP](https://github.com/neovim/nvim-lspconfig) |
-| [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter) |
-| [Startify](https://github.com/mhinz/vim-startify) |
-| [TS Rainbow](https://github.com/p00f/nvim-ts-rainbow) |
-| [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim) |
+| Plugin | Option Name |
+| --- | --- |
+| [Native LSP](https://github.com/neovim/nvim-lspconfig) | 'lsp' |
+| [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter) | 'treesitter' |
+| [Startify](https://github.com/mhinz/vim-startify) | 'startify' |
+| [TS Rainbow](https://github.com/p00f/nvim-ts-rainbow) | 'ts_rainbow' |
+| [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim) | 'indent_blankline' |
 
 # Filetypes
-|Filetypes|
-|---|
-|Vimscript|
-|Markdown|
-|Vimwiki|
+|Filetypes| Option Name |
+|---| --- |
+|Vimscript| 'vim' |
+|Markdown| 'markdown' |
+|Vimwiki| 'vimwiki' |
 
 # Contributing
 I am always open to expanding this colorscheme.
@@ -81,6 +70,18 @@ For colors that use one of the `katdotnvim.utils.color` functions, you must defi
   (def output (katdotnvim.utils.color.function ...))
 	output)
 ```
+
+## Compiling
+You need a local build of [fennel](https://github.com/bakpakin/Fennel/blob/main/setup.md#downloading-fennel) in the root directory of this repo.
+This is to compile the fennel files in `colors/`.
+These files are what Vim will use to let us change the colorscheme between it's various types.
+Thus running make will fail if you try to compile this repo without the local fennel script.
+
+## File Structure
+Pretty self explanatory, plugin integrations go in `katdotnvim/highlights/integrations`, filetype additions in the other folder.
+
+## Adding Options
+Make sure you add the necessary option to the default function in `katdotnvim/utils/error.fnl`.
 
 # License
 While most of this project is my code, some of it is copyright from others

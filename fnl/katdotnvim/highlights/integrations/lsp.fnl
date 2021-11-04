@@ -38,10 +38,10 @@
   (ucolors.highlight :LspDiagnosticsFloatingInformation (groups.infoBG) (groups.umbraBG))
   (ucolors.highlight :LspDiagnosticsFloatingHint (groups.auxBG) (groups.umbraBG))
 
-  (ucolors.highlight :LspDiagnosticsSignError (groups.errorBG) :SKIP)
-  (ucolors.highlight :LspDiagnosticsSignWarning (groups.warningBG) :SKIP)
-  (ucolors.highlight :LspDiagnosticsSignInformation (groups.infoBG) :SKIP)
-  (ucolors.highlight :LspDiagnosticsSignHint (groups.auxBG) :SKIP)
+  (ucolors.highlight :LspDiagnosticsSignError (groups.errorBG) :SKIP :bold)
+  (ucolors.highlight :LspDiagnosticsSignWarning (groups.warningBG) :SKIP :bold)
+  (ucolors.highlight :LspDiagnosticsSignInformation (groups.infoBG) :SKIP :bold)
+  (ucolors.highlight :LspDiagnosticsSignHint (groups.auxBG) :SKIP :bold)
 
   (ucolors.highlight :LspDiagnosticsUnderlineError (groups.errorBG) :SKIP :underline (groups.errorBG))
   (ucolors.highlight :LspDiagnosticsUnderlineWarning (groups.warningBG) :SKIP :underline (groups.warningBG))
