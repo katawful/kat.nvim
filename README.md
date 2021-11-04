@@ -13,7 +13,7 @@ Syntax is built off of groups, all statements inherent the colors of its parent 
 Install with your plugin manager of choice.
 Example for vim-plug:
 ```vim
-" kat.vim
+" kat.nvim
 Plug 'katawful/kat.nvim'
 ```
 
@@ -64,13 +64,15 @@ If you are adding a new color variable for a module, first check `katdotnvim.col
 Additionally, in order to keep runtime functionality of `:colorscheme`, you cannot use `def` to define color variables. You must use `defn` to define a function that returns a string. For color variables that just need get the value from another color function, you don't need to define a variable at all:
 ```clojure
 (defn newColorVariable [] (. (colorFunctionWithLookup) :lookup))
-(defn newColorVariable [] (plainColorFunction))
 ```
 
 For colors that use one of the `katdotnvim.utils.color` functions, you must define a variable to return. Otherwise the function will be passed to internal functions, breaking the colorscheme:
 ```clojure
 (defn newColorVariable []
   (def output (katdotnvim.utils.color.function ...))
+	output)
+(defn newColorVariable []
+  (def output (plainColorFunction))
 	output)
 ```
 
