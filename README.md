@@ -21,6 +21,10 @@ Plug 'katawful/kat.nvim'
 ![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/example.png)
 
 # Options
+There are 4 colorschemes to choose from, using the `:colorscheme` system:   
+kat.nvim, kat.nvim-owo, kat.lightenvim, and kat.lightenvim-owo.   
+See the examples below for the differences.
+
 There are currently 4 options: `g:kat_nvim_commentStyle`, `g:kat_nvim_integrations`, `g:kat_nvim_filetype`, and `g:kat_nvim_stupidFeatures`.
 The following is a table explaining how these variables work, and what values they can take.
 
