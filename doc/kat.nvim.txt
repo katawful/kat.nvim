@@ -1,0 +1,159 @@
+*kat.nvim.txt*                     Functionality for the kat.nvim colorscheme
+
+
+		 `    __         __               _`
+		 `   / /______ _/ /_  ____ _   __(_)___ ___`
+		 `  / //_/ __  / __/ / __ \ | / / / __  __ \`
+		 ` / ,< / /_/ / /__ / / / / |/ / / / / / / /`
+		 `/_/|_|\__,_/\__(_)_/ /_/|___/_/_/ /_/ /_/`
+
+This is a warm blue theme with 4 variations. It is written in Fennel with
+Aniseed, and is generated dynamically. This help file goes over the main
+functionalities of this colorscheme
+
+==============================================================================
+CONTENTS                                                  *kat.nvim-contents*
+
+1. Options.....|kat.nvim-options|
+2. Supported Plugins.....|kat.nvim-plugins|
+3. Supported Filetypes....|kat.nvim-filetypes|
+4. Contributing....|kat.nvim-contributing|
+
+==============================================================================
+Section 1: Options *kat.nvim-options*
+
+These are all the various options that the user can interact with.
+
+------------------------------------------------------------------------------
+Section 1a: Colorschemes *kat.nvim-options.colorschemes*
+Colorschemes are controlled by NeoVim's internal colorscheme management. There
+are 4 color styles to choose from:
+
+		  `kat.nvim`    -   dark theme with hard contrast
+		`kat.nvim-owo`  -   dark theme with soft contrast
+	      `kat.lightenvim`   -  light theme with hard contrast
+	     `kat.lightenvim-owo` - light theme with soft contrast
+
+------------------------------------------------------------------------------
+Section 1b: Vim global variables *kat.nvim-options.variables*
+
+These `g` variables control internal colorscheme options.
+
+*g:kat_nvim_commentStyle*
+Controls comment style. Takes any valid |gui| string. Defaults to `'italic'`.
+
+*g:kat_nvim_integrations*
+An unordered list of strings that determines what plugins support is loaded.
+Default:
+   `let g:kat_nvim_integrations = {"lsp",`
+                                  `"treesitter",`
+				  `"startify",`
+				  `"ts_rainbow",`
+				  `"indent_blankline",`
+				  `"coc",`
+				  `"cmp",`
+				  `"bufferline"}`
+See |kat.nvim-plugins| for what these correspond to.
+
+*g:kat_nvim_filetype*
+An unordered list of strings that determines what filetype support is loaded.
+Default:
+   `let g:kat_nvim_filetype = {"vim",`
+                              `"markdown",`
+			      `"vimwiki"}`
+Note that these use the |filetype| name.
+
+*g:kat_nvim_stupidFeatures*
+A boolean that enables the pointless features I have added to this plugin.
+Currently it only supports fading |hl-Function| highlight group. It works
+fairly well, but I cannot guarantee its use nor performance.
+
+==============================================================================
+Section 2: Supported Plugins *kat.nvim-plugins*
+This is the list of plugins that match this colorscheme.
+
+		      `Plugin : Setting`
+	          Native LSP : 'lsp'
+		 tree-sitter : 'treesitter'
+		    Startify : 'startify'
+		  TS Rainbow : 'ts_rainbow'
+	    indent-blankline : 'indent_blankline'
+	            coc.nvim : 'coc'
+	            nvim-cmp : 'cmp'
+		  bufferline : 'bufferline'
+		   lightline : Use plugin settings: 'kat'
+		     Airline : Use plugin settings: 'kat'
+		     Lualine : Use plugin settings: 'kat'
+
+==============================================================================
+Section 3: Supported Filetypes *kat.nvim-filetypes*
+This is the list of filetypes that match this colorscheme.
+
+		    `Filetype : Setting`
+		   Vimscript : 'vim'
+		    Markdown : 'markdown'
+		     Vimwiki : 'vimwiki'
+
+============================================================================
+Section 4: Contributing *kat.nvim-contributing*
+I am open to expanding this colorscheme, but do this using Fennel with
+Aniseed, there are some peculiarities with how it needs to be developed. The
+most obvious example is that it must be developed entirely in Fennel with
+Aniseed. I won't accept Lua code or Aniseed-less Fennel code. Fennel isn't
+that hard to learn, and you can mostly just copy an equivalent file.
+
+------------------------------------------------------------------------------
+Section 4a: Internal Variables *kat.nvim-contributing.internal*
+Internal variables are whatever variables that should not be exposed to the
+end user. If you need to expose a variable to the end user, use a
+|global-variable| through the |vim.g| namespace. Internal variables should
+keep camelCase, not snake_case, and must be defined through `def` for easy
+module exporting.
+
+If you are adding a color variable, first check if there's an equivalent color
+variable already made. Color variables meant for the structure of NeoVim (such
+as |hl-PMenu| will be found in `katdotnvim.highlights.main`. For syntax
+variables they are found in `katdotnvim.highlights.syntax`. You are fine
+defining them locally within your addition if they're only meant to be there.
+
+------------------------------------------------------------------------------
+Section 4b: Color Functions *kat.nvim-contributing.color*
+Color variables are not actually variables, they are functions that return a
+hex color string. This is to allow easy access to them without polluting
+global namespaces, while also allowing colorschemes to be changed during
+runtime. For this reason, you must define new color variables as functions
+using `defn`. You also can't use `def` for top level variables, you must use
+`var` instead. The following is an example of how these should be made:
+
+`(defn newColor [] (. (color.init :normalColors) :red))`
+   - A lookup returns a string
+
+`(defn newColor []`
+  `(def output (katdotnvim.utils.color.function ...))`
+  `output)`
+   - A util color function must be passed to a variable
+
+`(defn newColor []`
+  `(def output (plainColorFunction))`
+  `output)`
+   - A plain color function must be passed to a variable
+
+------------------------------------------------------------------------------
+Section 4c: Compiling *kat.nvim-contributing.compiling*
+In order to compile this with make, you must have a local build of fennel in
+the root directory of this repository. It is not provided. It is currently
+used to build the files in `/colors`.
+
+------------------------------------------------------------------------------
+Section 4d: Structure *kat.nvim-contributing.structure*
+Put the files in the right spot, filetypes go in
+`katdotnvim.highlights.filetype`. Plugins go in
+`katdotnvim.highlights.integrations`.
+
+------------------------------------------------------------------------------
+Section 4e: Adding Options *kat.nvim-contributing.options*
+If you add a filetype or plugin integration, or add a new global variable,
+make sure to add the defaults into the set defaults function in
+`katdotnvim.utils.error`.
+
+vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:

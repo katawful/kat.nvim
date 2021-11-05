@@ -44,6 +44,7 @@ The following is a table explaining how these variables work, and what values th
 | [bufferline](https://github.com/akinsho/bufferline.nvim) | 'bufferline' |
 | [lightline](https://github.com/itchyny/lightline.vim) | Use plugin settings: 'kat' |
 | [Airline](https://github.com/vim-airline/vim-airline) | Use plugin settings: 'kat' |
+| [Lualine](https://github.com/nvim-lualine/lualine.nvim) | Use plugin settings: 'kat' |
 
 # Filetypes
 |Filetypes| Option Name |
@@ -51,6 +52,10 @@ The following is a table explaining how these variables work, and what values th
 |Vimscript| 'vim' |
 |Markdown| 'markdown' |
 |Vimwiki| 'vimwiki' |
+
+# Stupid Features
+Due to the magic speed of Lua, in addition to the wonderful NeoVim API, I was given the ability to add in features unheard of for VimL based colorschemes.
+Currently the only feature is color fading for the `Function` highlight group. See the following image for an example. More features will be added in the future as I think of them.
 
 # Contributing
 I am always open to expanding this colorscheme.
