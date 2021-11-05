@@ -51,8 +51,7 @@ Default:
 				  `"ts_rainbow",`
 				  `"indent_blankline",`
 				  `"coc",`
-				  `"cmp",`
-				  `"bufferline"}`
+				  `"cmp"}`
 See |kat.nvim-plugins| for what these correspond to.
 
 *g:kat_nvim_filetype*

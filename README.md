@@ -45,7 +45,7 @@ The following is a table explaining how these variables work, and what values th
 | [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim) | 'indent_blankline' |
 | [coc.nvim](https://github.com/neoclide/coc.nvim) | 'coc' |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | 'cmp' |
-| [bufferline](https://github.com/akinsho/bufferline.nvim) | 'bufferline' |
+| [bufferline](https://github.com/akinsho/bufferline.nvim) | Note: not enabled by default 'bufferline' |
 | [lightline](https://github.com/itchyny/lightline.vim) | Use plugin settings: 'kat' |
 | [Airline](https://github.com/vim-airline/vim-airline) | Use plugin settings: 'kat' |
 | [Lualine](https://github.com/nvim-lualine/lualine.nvim) | Use plugin settings: 'kat' |
