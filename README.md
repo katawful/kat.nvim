@@ -42,6 +42,8 @@ The following is a table explaining how these variables work, and what values th
 | [coc.nvim](https://github.com/neoclide/coc.nvim) | 'coc' |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | 'cmp' |
 | [bufferline](https://github.com/akinsho/bufferline.nvim) | 'bufferline' |
+| [lightline](https://github.com/itchyny/lightline.vim) | Use plugin settings: 'kat' |
+| [Airline](https://github.com/vim-airline/vim-airline) | Use plugin settings: 'kat' |
 
 # Filetypes
 |Filetypes| Option Name |
