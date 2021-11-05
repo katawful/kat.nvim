@@ -39,7 +39,7 @@ local function normalMode_b()
 end
 _2amodule_2a["normalMode_b"] = normalMode_b
 local function normalMode_a()
-  local output = {mainFG(), groups.highlightBG(), "NONE", "NONE", ""}
+  local output = {mainFG(), groups.highlightBG(), "NONE", "NONE", "bold"}
   _2amodule_2a["output"] = output
   return output
 end

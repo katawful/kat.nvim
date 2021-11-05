@@ -15,7 +15,7 @@
   (timer:start 1 75 
                (vim.schedule_wrap
                  (fn []
-                   (ucolors.highlight :Function (ucolors.saturation (ucolors.brighten (ucolors.blendColors syntax.identifier (. colors.normalColors :red) (* i 0.1)) 0.1) 0.5) :SKIP :bold)
+                   (ucolors.highlight :Function (ucolors.saturation (ucolors.brighten (ucolors.blendColors (syntax.identifier) (. (colors.init :normalColors) :red) (* i 0.1)) 0.1) 0.5) :SKIP :bold)
                    (if (= increase true)
                      (set i (+ i 1))
                      (set i (- i 1)))
