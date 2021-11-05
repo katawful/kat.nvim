@@ -61,6 +61,8 @@ The following is a table explaining how these variables work, and what values th
 Due to the magic speed of Lua, in addition to the wonderful NeoVim API, I was given the ability to add in features unheard of for VimL based colorschemes.
 Currently the only feature is color fading for the `Function` highlight group. See the following image for an example. More features will be added in the future as I think of them.
 
+![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/flashy.GIF)
+
 # Contributing
 I am always open to expanding this colorscheme.
 This plugin was written in Fennel with Aniseed.
