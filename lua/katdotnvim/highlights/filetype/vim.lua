@@ -26,6 +26,7 @@ local function init()
   ucolors.highlight("vimContinue", groups.umbraFG(), "SKIP")
   vim.cmd("hi def link vimOperParen Variable")
   vim.cmd("hi def link vimFunction Function")
-  return vim.cmd("hi def link vimIsCommand Identifier")
+  vim.cmd("hi def link vimIsCommand Identifier")
+  return vim.cmd("hi def link vimUserFunc Function")
 end
 _2amodule_2a["init"] = init

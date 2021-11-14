@@ -18,4 +18,5 @@
   (vim.cmd "hi def link vimOperParen Variable")
   (vim.cmd "hi def link vimFunction Function")
   (vim.cmd "hi def link vimIsCommand Identifier")
+  (vim.cmd "hi def link vimUserFunc Function")
   )
