@@ -3,6 +3,7 @@
                    ucolors katdotnvim.utils.color
                    syntax katdotnvim.highlights.syntax
                    groups katdotnvim.highlights.main
+                   main katdotnvim.main
                    }
          require-macros [katdotnvim.utils.macros]
          })
@@ -19,7 +20,7 @@
   (let- :g :terminal_color_6 (. (colors.init :normalColors) :purple))
   (let- :g :terminal_color_7 (. (colors.init :foreground) 1))
   (let- :g :terminal_color_8 (. (colors.init :background) 2))
-  (if (= vim.g.kat_nvim_style :light)
+  (if (= main.katStyle :light)
     (do
       (let- :g :terminal_color_9 (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
       (let- :g :terminal_color_10 (ucolors.darken (. (colors.init :normalColors) :green) 0.2))

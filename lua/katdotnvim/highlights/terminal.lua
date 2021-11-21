@@ -11,9 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local colors, groups, syntax, ucolors, _ = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color"), nil
+local colors, groups, main, syntax, ucolors, _ = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.main"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color"), nil
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["groups"] = groups
+_2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
@@ -27,7 +28,7 @@ local function init()
   vim.g["terminal_color_6"] = (colors.init("normalColors")).purple
   vim.g["terminal_color_7"] = (colors.init("foreground"))[1]
   vim.g["terminal_color_8"] = (colors.init("background"))[2]
-  if (vim.g.kat_nvim_style == "light") then
+  if (main.katStyle == "light") then
     vim.g["terminal_color_9"] = ucolors.darken((colors.init("normalColors")).red, 0.2)
     do end (vim.g)["terminal_color_10"] = ucolors.darken((colors.init("normalColors")).green, 0.2)
     do end (vim.g)["terminal_color_11"] = ucolors.darken((colors.init("normalColors")).orange, 0.2)
