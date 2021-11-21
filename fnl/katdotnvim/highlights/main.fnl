@@ -6,7 +6,15 @@
 
 
 ; define variables to use for generic uses
-(defn mainFG [] (. (colors.init :foreground) 1))
+(defn mainFG [] 
+  (var output "")
+  (if (and (= main.katStyle :dark)
+             (= main.katContrast :soft))
+    (do
+      (set output (ucolors.brighten (. (colors.init :foreground) 1) 0.8)))
+    (do
+      (set output (. (colors.init :foreground) 1))))
+  output)
 (defn mainBG [] (. (colors.init :background) 1))
 
 (defn umbraFG [] (. (colors.init :foreground) 2))

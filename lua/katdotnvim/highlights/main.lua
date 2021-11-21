@@ -16,7 +16,13 @@ do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local function mainFG()
-  return (colors.init("foreground"))[1]
+  local output = ""
+  if ((main.katStyle == "dark") and (main.katContrast == "soft")) then
+    output = ucolors.brighten((colors.init("foreground"))[1], 0.8)
+  else
+    output = (colors.init("foreground"))[1]
+  end
+  return output
 end
 _2amodule_2a["mainFG"] = mainFG
 local function mainBG()

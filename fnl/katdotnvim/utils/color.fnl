@@ -68,13 +68,23 @@
   (def output (hsl.hsluv_to_hex hslColor))
   output)
 
+(defn hsluvBrighten [tuple percent]
+  (var hslColor tuple)
+  (local luminance (- 100 (. hslColor 3)))
+
+  (var inputLuminance (* (. hslColor 3) (+ 1 percent)))
+  (when (>= inputLuminance 100)
+    (set inputLuminance 99.99))
+  (tset hslColor 3 inputLuminance)
+  (local output (hsl.hsluv_to_hex hslColor))
+  output)
+
 ; this function darkens a color by some percent
 (defn darken [color percent]
   (def hslColor (hsl.hex_to_hsluv color))
   (def luminance (- 100 (. hslColor 3)))
 
-  (var inputLuminance (- (. hslColor 3) (* luminance
-                                           percent)))
+  (var inputLuminance (* (. hslColor 3) (- 1 percent)))
   (if (>= inputLuminance 100)
     (set inputLuminance 99.99))
   (tset hslColor 3 inputLuminance)

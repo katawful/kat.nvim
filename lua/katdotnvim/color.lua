@@ -24,22 +24,22 @@ local function defineBack()
   local back = {}
   if (main.katStyle == "dark") then
     if (main.katContrast == "soft") then
-      back = {"#1c2e4a", "#121c2d", "#2c466e", "#46689c", "#6690d0", "#78adff"}
+      back = {ucolors.brighten("#121c2d", 0.1), "#121c2d", ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
     else
     end
     if (main.katContrast == "hard") then
-      back = {"#121c2d", "#1c2e4a", "#2c466e", "#46689c", "#6690d0", "#78adff"}
+      back = {"#121c2d", ucolors.brighten("#121c2d", 0.1), ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
     else
     end
   else
   end
   if (main.katStyle == "light") then
     if (main.katContrast == "soft") then
-      back = {"#b5d5df", "#daf6ff", "#8dbcca", "#699faf", "#4f7e8c", "#325049"}
+      back = {ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), "#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
     else
     end
     if (main.katContrast == "hard") then
-      back = {"#daf6ff", "#b5d5df", "#8dbcca", "#699faf", "#4f7e8c", "#325049"}
+      back = {"#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
     else
     end
   else
@@ -51,22 +51,22 @@ local function defineFore()
   local fore = {}
   if (main.katStyle == "dark") then
     if (main.katContrast == "soft") then
-      fore = {"#b5d5df", "#daf6ff", "#8dbcca", "#699faf", "#4f7e8c", "#325049"}
+      fore = {ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), "#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
     else
     end
     if (main.katContrast == "hard") then
-      fore = {"#daf6ff", "#b5d5df", "#8dbcca", "#699faf", "#4f7e8c", "#325049"}
+      fore = {"#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
     else
     end
   else
   end
   if (main.katStyle == "light") then
     if (main.katContrast == "soft") then
-      fore = {"#1c2e4a", "#121c2d", "#2c466e", "#46689c", "#6690d0", "#78adff"}
+      fore = {ucolors.brighten("#121c2d", 0.1), "#121c2d", ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
     else
     end
     if (main.katContrast == "hard") then
-      fore = {"#121c2d", "#1c2e4a", "#2c466e", "#46689c", "#6690d0", "#78adff"}
+      fore = {"#121c2d", ucolors.brighten("#121c2d", 0.1), ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
     else
     end
   else

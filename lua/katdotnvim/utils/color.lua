@@ -78,12 +78,25 @@ local function brighten(color, percent)
   return output
 end
 _2amodule_2a["brighten"] = brighten
+local function hsluvBrighten(tuple, percent)
+  local hslColor = tuple
+  local luminance = (100 - hslColor[3])
+  local inputLuminance = (hslColor[3] * (1 + percent))
+  if (inputLuminance >= 100) then
+    inputLuminance = 99.99
+  else
+  end
+  hslColor[3] = inputLuminance
+  local output = hsl.hsluv_to_hex(hslColor)
+  return output
+end
+_2amodule_2a["hsluvBrighten"] = hsluvBrighten
 local function darken(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
   do end (_2amodule_2a)["hslColor"] = hslColor
   local luminance = (100 - hslColor[3])
   do end (_2amodule_2a)["luminance"] = luminance
-  local inputLuminance = (hslColor[3] - (luminance * percent))
+  local inputLuminance = (hslColor[3] * (1 - percent))
   if (inputLuminance >= 100) then
     inputLuminance = 99.99
   else
