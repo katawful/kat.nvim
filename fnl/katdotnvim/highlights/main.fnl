@@ -81,7 +81,7 @@
   ; TODO set match paren to TS rainbow?
   (ucolors.highlight :MatchParen :SKIP (shadowBG) :bold)
   (ucolors.highlight :SpecialKey (ucolors.blendColors (. (colors.init :normalColors) :red) (. (colors.init :background) 1) 0.6) :NONE :italic)
-  (ucolors.highlight :Whitespace (. (colors.init :foreground) 6) :SKIP)
+  (ucolors.highlight :Whitespace (. (colors.init :foreground) 5) :SKIP)
   (ucolors.highlight :EndOfBuffer (umbraFG) :SKIP :bold)
   (ucolors.highlight :Directory (ucolors.blendColors
                                   (ucolors.blendColors (infoBG) (mainFG) 0.1)
