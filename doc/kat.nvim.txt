@@ -14,10 +14,10 @@ functionalities of this colorscheme
 ==============================================================================
 CONTENTS                                                  *kat.nvim-contents*
 
-1. Options.....|kat.nvim-options|
-2. Supported Plugins.....|kat.nvim-plugins|
-3. Supported Filetypes....|kat.nvim-filetypes|
-4. Contributing....|kat.nvim-contributing|
+1. Options...............................|kat.nvim-options|
+2. Supported Plugins.....................|kat.nvim-plugins|
+3. Supported Filetypes...................|kat.nvim-filetypes|
+4. Contributing..........................|kat.nvim-contributing|
 
 ==============================================================================
 Section 1: Options *kat.nvim-options*
@@ -29,10 +29,10 @@ Section 1a: Colorschemes *kat.nvim-options.colorschemes*
 Colorschemes are controlled by NeoVim's internal colorscheme management. There
 are 4 color styles to choose from:
 
-		  `kat.nvim`    -   dark theme with hard contrast
-		`kat.nvim-owo`  -   dark theme with soft contrast
-	      `kat.lightenvim`   -  light theme with hard contrast
-	     `kat.lightenvim-owo` - light theme with soft contrast
+	        `kat.nvim`    -   dark theme with hard contrast
+		`kat.nwim`    -   dark theme with soft contrast
+	     `kat.lightenvim`   -  light theme with hard contrast
+	     `kat.lightenwim`   -  light theme with soft contrast
 
 ------------------------------------------------------------------------------
 Section 1b: Vim global variables *kat.nvim-options.variables*
