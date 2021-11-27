@@ -35,19 +35,18 @@ local function init(style, contrast)
     if (katContrast == "hard") then
       vim.g["colors_name"] = "kat.nvim"
     else
-      vim.g["colors_name"] = "kat.nvim-owo"
+      vim.g["colors_name"] = "kat.nwim"
     end
     vim.api.nvim_set_option("background", "dark")
   elseif (katStyle == "light") then
     if (katContrast == "hard") then
       vim.g["colors_name"] = "kat.lightenvim"
     else
-      vim.g["colors_name"] = "kat.lightenvim-owo"
+      vim.g["colors_name"] = "kat.lightenwim"
     end
     vim.api.nvim_set_option("background", "light")
   else
   end
-  do local _ = require("katdotnvim.color") end
   do end (require("katdotnvim.highlights.main")).init()
   do end (require("katdotnvim.highlights.syntax")).init()
   do end (require("katdotnvim.highlights.terminal")).init()

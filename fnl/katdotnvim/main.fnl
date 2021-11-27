@@ -26,16 +26,16 @@
       (do
         (if (= katContrast :hard)
             (let- :g :colors_name "kat.nvim")
-            (let- :g :colors_name "kat.nvim-owo"))
+            (let- :g :colors_name "kat.nwim"))
         (set- background :dark))
       (= katStyle :light)
       (do
         (if (= katContrast :hard)
             (let- :g :colors_name "kat.lightenvim")
-            (let- :g :colors_name "kat.lightenvim-owo"))
+            (let- :g :colors_name "kat.lightenwim"))
         (set- background :light)))
 
-  (. (require :katdotnvim.color))
+  ; (. (require :katdotnvim.color))
   ((. (require :katdotnvim.highlights.main) :init))
   ((. (require :katdotnvim.highlights.syntax) :init))
   ((. (require :katdotnvim.highlights.terminal) :init))
