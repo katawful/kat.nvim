@@ -1,4 +1,4 @@
-![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/neovim-colors.png)
+![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/colors-new.png)
 
 # kat.nvim
 A NeoVim theme with warm blue tones.
@@ -18,11 +18,12 @@ Plug 'katawful/kat.nvim'
 ```
 
 # Example:
-![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/example.png)
+![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/fennel-example-new.png)
 
 # Options
 There are 4 colorschemes to choose from, using the `:colorscheme` system:   
 > `kat.nvim`, `kat.nwim`, `kat.lightenvim`, and `kat.lightenwim`.   
+
 See the examples above for the differences.
 
 There are currently 4 options: `g:kat_nvim_commentStyle`, `g:kat_nvim_integrations`, `g:kat_nvim_filetype`, and `g:kat_nvim_stupidFeatures`.
