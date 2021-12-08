@@ -64,10 +64,10 @@ local function init()
     ucolors.highlight("DiagnosticSignWarn", groups.warningBG(), "SKIP", "bold")
     ucolors.highlight("DiagnosticSignInfo", groups.infoBG(), "SKIP", "bold")
     ucolors.highlight("DiagnosticSignHint", groups.auxBG(), "SKIP", "bold")
-    ucolors.highlight("DiagnosticUnderlineError", groups.errorBG(), "SKIP", "underline", groups.errorBG())
-    ucolors.highlight("DiagnosticUnderlineWarn", groups.warningBG(), "SKIP", "underline", groups.warningBG())
-    ucolors.highlight("DiagnosticUnderlineInfo", groups.infoBG(), "SKIP", "underline", groups.infoBG())
-    return ucolors.highlight("DiagnosticUnderlineHint", groups.auxBG(), "SKIP", "underline", groups.auxBG())
+    ucolors.highlight("DiagnosticUnderlineError", "SKIP", "SKIP", "underline", groups.errorBG())
+    ucolors.highlight("DiagnosticUnderlineWarn", "SKIP", "SKIP", "underline", groups.warningBG())
+    ucolors.highlight("DiagnosticUnderlineInfo", "SKIP", "SKIP", "underline", groups.infoBG())
+    return ucolors.highlight("DiagnosticUnderlineHint", "SKIP", "SKIP", "underline", groups.auxBG())
   end
 end
 _2amodule_2a["init"] = init
