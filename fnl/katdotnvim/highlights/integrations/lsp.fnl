@@ -52,15 +52,15 @@
       (ucolors.highlight :DiagnosticInfo (groups.infoBG) :SKIP)
       (ucolors.highlight :DiagnosticHint (groups.auxBG) :SKIP)
 
-      (ucolors.highlight :DiagnosticVirtualTextError (groups.errorBG) (groups.shadowBG))
-      (ucolors.highlight :DiagnosticVirtualTextWarn (groups.warningBG) (groups.shadowBG))
-      (ucolors.highlight :DiagnosticVirtualTextInfo (groups.infoBG) (groups.shadowBG))
-      (ucolors.highlight :DiagnosticVirtualTextHint (groups.auxBG) (groups.shadowBG))
+      (ucolors.highlight :DiagnosticVirtualTextError (groups.errorBG) (groups.umbraBG))
+      (ucolors.highlight :DiagnosticVirtualTextWarn (groups.warningBG) (groups.umbraBG))
+      (ucolors.highlight :DiagnosticVirtualTextInfo (groups.infoBG) (groups.umbraBG))
+      (ucolors.highlight :DiagnosticVirtualTextHint (groups.auxBG) (groups.umbraBG))
 
-      (ucolors.highlight :DiagnosticFloatingError (groups.errorBG) (groups.umbraBG))
-      (ucolors.highlight :DiagnosticFloatingWarn (groups.warningBG) (groups.umbraBG))
-      (ucolors.highlight :DiagnosticFloatingInfo (groups.infoBG) (groups.umbraBG))
-      (ucolors.highlight :DiagnosticFloatingHint (groups.auxBG) (groups.umbraBG))
+      (ucolors.highlight :DiagnosticFloatingError (groups.errorBG) (groups.shadowBG))
+      (ucolors.highlight :DiagnosticFloatingWarn (groups.warningBG) (groups.shadowBG))
+      (ucolors.highlight :DiagnosticFloatingInfo (groups.infoBG) (groups.shadowBG))
+      (ucolors.highlight :DiagnosticFloatingHint (groups.auxBG) (groups.shadowBG))
 
       (ucolors.highlight :DiagnosticSignError (groups.errorBG) :SKIP :bold)
       (ucolors.highlight :DiagnosticSignWarn (groups.warningBG) :SKIP :bold)
