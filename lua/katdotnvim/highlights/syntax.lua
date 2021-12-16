@@ -86,6 +86,9 @@ local function init()
   ucolors.highlight("DiffDelete", groups.mainFG(), ucolors.darken((colors.init("normalColors")).red, 0.2), "bold")
   ucolors.highlight("DiffAdd", "SKIP", (colors.init("normalColors")).green, "bold")
   ucolors.highlight("DiffChange", "SKIP", (colors.init("normalColors")).purple, "bold")
-  return ucolors.highlight("DiffText", "SKIP", (colors.init("normalColors")).blue, "bold")
+  ucolors.highlight("DiffText", "SKIP", (colors.init("normalColors")).blue, "bold")
+  ucolors.highlight("diffAdded", ucolors.blendColors((colors.init("normalColors")).green, groups.mainFG(), 0.4), ucolors.blendColors((colors.init("normalColors")).green, groups.mainBG(), 0.6), "bold")
+  ucolors.highlight("diffChanged", ucolors.blendColors((colors.init("normalColors")).blue, groups.mainFG(), 0.4), ucolors.blendColors((colors.init("normalColors")).blue, groups.mainBG(), 0.6), "bold")
+  return ucolors.highlight("diffRemoved", ucolors.blendColors((colors.init("normalColors")).red, groups.mainFG(), 0.4), ucolors.blendColors((colors.init("normalColors")).red, groups.mainBG(), 0.6), "bold")
 end
 _2amodule_2a["init"] = init
