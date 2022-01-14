@@ -17,7 +17,8 @@ _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local function identifier()
-  return (colors.init("background"))[6]
+  local output = ucolors.blendColors((colors.init("normalColors")).blue, (colors.init("background"))[6], 0.65)
+  return output
 end
 _2amodule_2a["identifier"] = identifier
 local function statement()

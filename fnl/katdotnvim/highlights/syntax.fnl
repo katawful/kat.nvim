@@ -6,7 +6,11 @@
                    }})
 
 ; this function handles NeoVim syntax
-(defn identifier [] (. (colors.init :background) 6))
+(defn identifier []
+  (local output (ucolors.blendColors (. (colors.init :normalColors) :blue) 
+                                     (. (colors.init :background) 6)
+                                     0.65))
+  output)
 (defn statement [] (. (colors.init :normalColors) :red))
 (defn preproc [] (. (colors.init :normalColors) :pink))
 (defn typeDef [] (. (colors.init :normalColors) :orange))
