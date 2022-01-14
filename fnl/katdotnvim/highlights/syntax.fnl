@@ -73,9 +73,6 @@
   (ucolors.highlight :DiffChange :SKIP (. (colors.init :normalColors) :purple) :bold)
   (ucolors.highlight :DiffText :SKIP (. (colors.init :normalColors) :blue) :bold)
 
-; diffOldFile 	diffNewFile 	diffIndexLine 	diffFile 	diffOnly 	diffIdentical
-; diffDiffer 	diffBDiffer 	diffIsA diffNoEOL 	diffCommon 	diffRemoved
-; diffChanged 	diffAdded 	diffLine 	diffSubname 	diffComment 
   (ucolors.highlight :diffAdded (ucolors.blendColors (. (colors.init :normalColors) :green) (groups.mainFG) 0.4)
                                 (ucolors.blendColors (. (colors.init :normalColors) :green) (groups.mainBG) 0.6) :bold)
   (ucolors.highlight :diffChanged (ucolors.blendColors (. (colors.init :normalColors) :blue) (groups.mainFG) 0.4)
