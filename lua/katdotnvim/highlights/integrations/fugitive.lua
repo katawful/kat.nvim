@@ -17,6 +17,7 @@ _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function init()
-  return ucolors.highlight("fugitiveHunk", "SKIP", groups.shadowBG(), "nocombine")
+  ucolors.highlight("fugitiveHunk", "SKIP", groups.shadowBG(), "nocombine")
+  return ucolors.highlight("gitDiff", "SKIP", groups.shadowBG(), "nocombine")
 end
 _2amodule_2a["init"] = init
