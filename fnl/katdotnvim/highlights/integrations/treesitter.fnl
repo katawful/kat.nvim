@@ -2,8 +2,7 @@
         {autoload {colors katdotnvim.color
                    ucolors katdotnvim.utils.color
                    groups katdotnvim.highlights.main
-                   syntax katdotnvim.highlights.syntax
-                   }})
+                   syntax katdotnvim.highlights.syntax}})
 
 ; this handles all tree-sitter highlight groups
 
@@ -18,10 +17,8 @@
   (ucolors.highlight :TSMethod (ucolors.saturation (ucolors.brighten (ucolors.blendColors (syntax.identifier) (. (colors.init :normalColors) :red) 0.3) 0.10) 0.1) :SKIP :bold)
   (ucolors.highlight :TSVariableBuiltin (ucolors.darken (ucolors.blendColors (syntax.identifier) (. (colors.init :foreground) 3) 0.8) 0.2) :SKIP)
   (if (= vim.g.kat_nvim_style :light)
-    (do
-      (ucolors.highlight :TSNamespace (ucolors.darken (ucolors.blendColors (syntax.identifier) (. (colors.init :normalColors) :green) 0.3) 0.4) :SKIP))
-    (do
-      (ucolors.highlight :TSNamespace (ucolors.brighten (ucolors.blendColors (syntax.identifier) (. (colors.init :normalColors) :green) 0.3) 0.2) :SKIP)))
+      (do (ucolors.highlight :TSNamespace (ucolors.darken (ucolors.blendColors (syntax.identifier) (. (colors.init :normalColors) :green) 0.3) 0.4) :SKIP))
+      (do (ucolors.highlight :TSNamespace (ucolors.brighten (ucolors.blendColors (syntax.identifier) (. (colors.init :normalColors) :green) 0.3) 0.2) :SKIP)))
 
   (vim.cmd "hi def link TSParameter Variable")
   (ucolors.highlight :TSParameterReference (ucolors.brighten (ucolors.blendColors (syntax.identifier) (. (colors.init :foreground) 3) 0.8) 0.2) :SKIP :bold)
@@ -53,21 +50,4 @@
   (ucolors.highlight :TSSymbol (ucolors.saturation (ucolors.blendColors stringColor (. (colors.init :normalColors) :purple) 0.3) 0.8) :SKIP)
   (ucolors.highlight :TSTextReference (groups.umbraFG) :SKIP :italic)
 
-  (ucolors.highlight :TSURI (groups.infoBG) :SKIP :underline)
-;     -- TSSymbol            = { };    -- For identifiers referring to symbols or atoms.
-;     -- TSType              = { };    -- For types.
-;     -- TSTypeBuiltin       = { };    -- For builtin types.
-;     TSVariable = { style = config.variableStyle }, -- Any variable name that does not have another highlight.
-;     TSVariableBuiltin = { fg = c.red }, -- Variable names that are defined by the languages, like `this` or `self`.
-
-;     -- TSTag               = { };    -- Tags like html tag names.
-;     -- TSTagDelimiter      = { };    -- Tag delimiter like `<` `>` `/`
-;     -- TSText              = { };    -- For strings considered text in a markup language.
-;     TSTextReference = { fg = c.teal },
-;     -- TSEmphasis          = { };    -- For text to be represented with emphasis.
-;     -- TSUnderline         = { };    -- For text to be represented with an underline.
-;     -- TSStrike            = { };    -- For strikethrough text.
-;     -- TSTitle             = { };    -- Text that is part of a title.
-;     -- TSLiteral           = { };    -- Literal text.
-;     -- TSURI               = { };    -- Any URI like a link or email.
-  )
+  (ucolors.highlight :TSURI (groups.infoBG) :SKIP :underline))

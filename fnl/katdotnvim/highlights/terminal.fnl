@@ -3,10 +3,8 @@
                    ucolors katdotnvim.utils.color
                    syntax katdotnvim.highlights.syntax
                    groups katdotnvim.highlights.main
-                   main katdotnvim.main
-                   }
-         require-macros [katdotnvim.utils.macros]
-         })
+                   main katdotnvim.main}
+         require-macros [katdotnvim.utils.macros]})
 
 ; this affects the terminal
 
@@ -21,19 +19,18 @@
   (let- :g :terminal_color_7 (. (colors.init :foreground) 1))
   (let- :g :terminal_color_8 (. (colors.init :background) 2))
   (if (= main.katStyle :light)
-    (do
-      (let- :g :terminal_color_9 (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
-      (let- :g :terminal_color_10 (ucolors.darken (. (colors.init :normalColors) :green) 0.2))
-      (let- :g :terminal_color_11 (ucolors.darken (. (colors.init :normalColors) :orange) 0.2))
-      (let- :g :terminal_color_12 (ucolors.darken (. (colors.init :normalColors) :blue) 0.2))
-      (let- :g :terminal_color_13 (ucolors.darken (. (colors.init :normalColors) :pink) 0.2))
-      (let- :g :terminal_color_14 (ucolors.darken (. (colors.init :normalColors) :purple) 0.2)))
-    (do
-      (let- :g :terminal_color_9 (ucolors.brighten (. (colors.init :normalColors) :red) 0.2))
-      (let- :g :terminal_color_10 (ucolors.brighten (. (colors.init :normalColors) :green) 0.2))
-      (let- :g :terminal_color_11 (ucolors.brighten (. (colors.init :normalColors) :orange) 0.2))
-      (let- :g :terminal_color_12 (ucolors.brighten (. (colors.init :normalColors) :blue) 0.2))
-      (let- :g :terminal_color_13 (ucolors.brighten (. (colors.init :normalColors) :pink) 0.2))
-      (let- :g :terminal_color_14 (ucolors.brighten (. (colors.init :normalColors) :purple) 0.2))))
-  (let- :g :terminal_color_15 (. (colors.init :foreground) 2))
-  )
+      (do
+        (let- :g :terminal_color_9 (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
+        (let- :g :terminal_color_10 (ucolors.darken (. (colors.init :normalColors) :green) 0.2))
+        (let- :g :terminal_color_11 (ucolors.darken (. (colors.init :normalColors) :orange) 0.2))
+        (let- :g :terminal_color_12 (ucolors.darken (. (colors.init :normalColors) :blue) 0.2))
+        (let- :g :terminal_color_13 (ucolors.darken (. (colors.init :normalColors) :pink) 0.2))
+        (let- :g :terminal_color_14 (ucolors.darken (. (colors.init :normalColors) :purple) 0.2)))
+      (do
+        (let- :g :terminal_color_9 (ucolors.brighten (. (colors.init :normalColors) :red) 0.2))
+        (let- :g :terminal_color_10 (ucolors.brighten (. (colors.init :normalColors) :green) 0.2))
+        (let- :g :terminal_color_11 (ucolors.brighten (. (colors.init :normalColors) :orange) 0.2))
+        (let- :g :terminal_color_12 (ucolors.brighten (. (colors.init :normalColors) :blue) 0.2))
+        (let- :g :terminal_color_13 (ucolors.brighten (. (colors.init :normalColors) :pink) 0.2))
+        (let- :g :terminal_color_14 (ucolors.brighten (. (colors.init :normalColors) :purple) 0.2))))
+  (let- :g :terminal_color_15 (. (colors.init :foreground) 2)))

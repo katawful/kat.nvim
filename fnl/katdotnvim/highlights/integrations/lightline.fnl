@@ -3,18 +3,15 @@
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
                    groups katdotnvim.highlights.main
-                   main katdotnvim.main
-                   }})
+                   main katdotnvim.main}})
 
 (defn mainFG []
   (var output (groups.mainFG))
 
   (if (and (= main.katStyle :dark)
            (= main.katContrast :soft))
-    (do
-      (set output (ucolors.brighten (groups.mainFG) 0.8))))
-  output
-  )
+      (do (set output (ucolors.brighten (groups.mainFG) 0.8))))
+  output)
 
 (defn normalMode_c []
   (def output
@@ -23,8 +20,7 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn normalMode_b []
   (def output
@@ -33,11 +29,10 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn normalMode_a []
-  (def output 
+  (def output
     {1 (mainFG)
      2 (groups.highlightBG)
      3 :NONE
@@ -52,8 +47,7 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn replaceMode_b []
   (def output
@@ -62,11 +56,10 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn replaceMode_a []
-  (def output 
+  (def output
     {1 (mainFG)
      2 (groups.infoBG)
      3 :NONE
@@ -81,8 +74,7 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn visualMode_b []
   (def output
@@ -91,11 +83,10 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn visualMode_a []
-  (def output 
+  (def output
     {1 (mainFG)
      2 (groups.errorBG)
      3 :NONE
@@ -110,8 +101,7 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn insertMode_b []
   (def output
@@ -120,11 +110,10 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn insertMode_a []
-  (def output 
+  (def output
     {1 (mainFG)
      2 (groups.selectionBG)
      3 :NONE
@@ -139,8 +128,7 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn terminalMode_b []
   (def output
@@ -149,11 +137,10 @@
      3 :NONE
      4 :NONE
      5 ""})
-  output
-  )
+  output)
 
 (defn terminalMode_a []
-  (def output 
+  (def output
     {1 (mainFG)
      2 (ucolors.blendColors (groups.fillBG) (groups.mainBG) 0.8)
      3 :NONE
@@ -162,68 +149,58 @@
   output)
 
 (defn inactiveGroup []
-  (def output {1 (groups.mainBG)
-               2 (. (colors.init :foreground) 3)
-               3 ""
-               4 ""
-               5 ""
-               })
+  (def output
+    {1 (groups.mainBG)
+     2 (. (colors.init :foreground) 3)
+     3 ""
+     4 ""
+     5 ""})
   output)
 
 (defn warningGroup []
-  (def output {1 (mainFG)
-               2 (groups.warningBG)
-               3 ""
-               4 ""
-               5 ""
-               })
+  (def output
+    {1 (mainFG)
+     2 (groups.warningBG)
+     3 ""
+     4 ""
+     5 ""})
   output)
 
 (defn errorGroup []
-  (def output {1 (mainFG)
-               2 (groups.errorBG)
-               3 ""
-               4 ""
-               5 ""
-               })
+  (def output
+    {1 (mainFG)
+     2 (groups.errorBG)
+     3 ""
+     4 ""
+     5 ""})
   output)
 
 (defn modifiedC [mode]
   (var output {})
   (match mode
-    :normal (do
-              (set output {1 (mainFG)
+    :normal (do (set output {1 (mainFG)
                2 ""
                3 ""
                4 ""
-               5 ""
-               }))
-    :insert (do
-              (set output {1 (mainFG)
+               5 ""}))
+    :insert (do (set output {1 (mainFG)
                2 ""
                3 ""
                4 ""
-               5 ""
-               }))
-    :replace (do
-              (set output {1 (mainFG)
+               5 ""}))
+    :replace (do (set output {1 (mainFG)
                2 ""
                3 ""
                4 ""
-               5 ""
-               }))
-    :visual (do
-              (set output {1 (mainFG)
+               5 ""}))
+    :visual (do (set output {1 (mainFG)
                2 ""
                3 ""
                4 ""
-               5 ""
-               }))
-    :inactive (do
-              (set output {1 (groups.mainBG)
+               5 ""}))
+    :inactive (do (set output {1 (groups.mainBG)
                2 ""
                3 ""
                4 ""
-               5 ""
-               })))
+               5 ""})))
     output)

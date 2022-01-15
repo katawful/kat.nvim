@@ -2,8 +2,7 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
-                   groups katdotnvim.highlights.main
-                   }})
+                   groups katdotnvim.highlights.main}})
 
 ; this handles vimwiki
 
@@ -20,5 +19,4 @@
   (ucolors.highlight :VimwikiHeader3 (ucolors.darken (. (colors.init :normalColors) :orange) 0.0) :SKIP :bold)
   (ucolors.highlight :VimwikiHeader4 (ucolors.darken (. (colors.init :normalColors) :orange) 0.3) :SKIP :bold)
   (ucolors.highlight :VimwikiHeader5 (ucolors.darken (. (colors.init :normalColors) :pink) 0.0) :SKIP :bold)
-  (ucolors.highlight :VimwikiHeader6 (ucolors.darken (. (colors.init :normalColors) :pink) 0.3) :SKIP :bold)
-  )
+  (ucolors.highlight :VimwikiHeader6 (ucolors.darken (. (colors.init :normalColors) :pink) 0.3) :SKIP :bold))

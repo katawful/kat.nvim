@@ -2,8 +2,7 @@
         {autoload {colors katdotnvim.color
                    ucolors katdotnvim.utils.color
                    groups katdotnvim.highlights.main
-                   main katdotnvim.main
-                   }})
+                   main katdotnvim.main}})
 
 ; this function handles NeoVim syntax
 (defn identifier []
@@ -15,7 +14,7 @@
 (defn preproc [] (. (colors.init :normalColors) :pink))
 (defn typeDef [] (. (colors.init :normalColors) :orange))
 (defn special []
-  (def output (ucolors.blendColors (. (colors.init :normalColors) :pink) (. (colors.init :normalColors) :purple) 0.65))
+  (local output (ucolors.blendColors (. (colors.init :normalColors) :pink) (. (colors.init :normalColors) :purple) 0.65))
   output)
 
 (defn init []
@@ -43,10 +42,8 @@
   (ucolors.highlight :Label (ucolors.saturation (ucolors.blendColors (statement) (. (colors.init :normalColors) :pink) 0.2) 1) :SKIP :bold)
   (ucolors.highlight :Operator (ucolors.blendColors (statement) (groups.meldFG) 0.2) :SKIP :bold)
   (if (= main.katStyle :light)
-      (do
-        (ucolors.highlight :Keyword (ucolors.darken (ucolors.blendColors (statement) (. (colors.init :normalColors) :green) 0.2) 0.5) :SKIP :italic))
-      (do
-        (ucolors.highlight :Keyword (ucolors.brighten (ucolors.blendColors (statement) (. (colors.init :normalColors) :green) 0.2) 0.5) :SKIP :italic)))
+      (do (ucolors.highlight :Keyword (ucolors.darken (ucolors.blendColors (statement) (. (colors.init :normalColors) :green) 0.2) 0.5) :SKIP :italic))
+      (do (ucolors.highlight :Keyword (ucolors.brighten (ucolors.blendColors (statement) (. (colors.init :normalColors) :green) 0.2) 0.5) :SKIP :italic)))
   (ucolors.highlight :Exception (ucolors.brighten (ucolors.blendColors (statement) (. (colors.init :normalColors) :blue) 0.1) 0.2) :SKIP)
 
   (ucolors.highlight :PreProc (preproc) :SKIP "bold,italic")
@@ -82,5 +79,4 @@
   (ucolors.highlight :diffChanged (ucolors.blendColors (. (colors.init :normalColors) :blue) (groups.mainFG) 0.4)
                                   (ucolors.blendColors (. (colors.init :normalColors) :blue) (groups.mainBG) 0.6) :bold)
   (ucolors.highlight :diffRemoved (ucolors.blendColors (. (colors.init :normalColors) :red) (groups.mainFG) 0.4)
-                                  (ucolors.blendColors (. (colors.init :normalColors) :red) (groups.mainBG) 0.6) :bold)
-  )
+                                  (ucolors.blendColors (. (colors.init :normalColors) :red) (groups.mainBG) 0.6) :bold))

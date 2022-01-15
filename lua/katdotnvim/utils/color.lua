@@ -25,13 +25,11 @@ local function blendColors(sourceColor, mixColor, alpha)
     do end (returnColor)[i] = currentColor
   end
   local output = tostring(hsl.rgb_to_hex(returnColor))
-  do end (_2amodule_2a)["output"] = output
   return output
 end
 _2amodule_2a["blendColors"] = blendColors
 local function highlight(gr, fg, bg, ...)
   local group = tostring(gr)
-  do end (_2amodule_2a)["group"] = group
   local fore = " "
   local back = " "
   if (fg ~= "SKIP") then
@@ -44,7 +42,6 @@ local function highlight(gr, fg, bg, ...)
   end
   local extra = ""
   local args = {...}
-  _2amodule_2a["args"] = args
   if (#args > 0) then
     for k, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
@@ -58,15 +55,12 @@ local function highlight(gr, fg, bg, ...)
   else
   end
   local output = ("highlight " .. group .. fore .. back .. extra)
-  do end (_2amodule_2a)["output"] = output
   return vim.cmd(tostring(output))
 end
 _2amodule_2a["highlight"] = highlight
 local function brighten(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
-  do end (_2amodule_2a)["hslColor"] = hslColor
   local luminance = (100 - hslColor[3])
-  do end (_2amodule_2a)["luminance"] = luminance
   local inputLuminance = (hslColor[3] + (luminance * percent))
   if (inputLuminance >= 100) then
     inputLuminance = 99.99
@@ -74,7 +68,6 @@ local function brighten(color, percent)
   end
   hslColor[3] = inputLuminance
   local output = hsl.hsluv_to_hex(hslColor)
-  do end (_2amodule_2a)["output"] = output
   return output
 end
 _2amodule_2a["brighten"] = brighten
@@ -93,9 +86,7 @@ end
 _2amodule_2a["hsluvBrighten"] = hsluvBrighten
 local function darken(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
-  do end (_2amodule_2a)["hslColor"] = hslColor
   local luminance = (100 - hslColor[3])
-  do end (_2amodule_2a)["luminance"] = luminance
   local inputLuminance = (hslColor[3] * (1 - percent))
   if (inputLuminance >= 100) then
     inputLuminance = 99.99
@@ -103,15 +94,12 @@ local function darken(color, percent)
   end
   hslColor[3] = inputLuminance
   local output = hsl.hsluv_to_hex(hslColor)
-  do end (_2amodule_2a)["output"] = output
   return output
 end
 _2amodule_2a["darken"] = darken
 local function saturation(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
-  do end (_2amodule_2a)["hslColor"] = hslColor
   local sat = hslColor[2]
-  _2amodule_2a["sat"] = sat
   local inputSaturation = (hslColor[2] + (sat * percent))
   if (inputSaturation >= 100) then
     inputSaturation = 99.99
@@ -121,7 +109,6 @@ local function saturation(color, percent)
   end
   hslColor[2] = inputSaturation
   local output = hsl.hsluv_to_hex(hslColor)
-  do end (_2amodule_2a)["output"] = output
   return output
 end
 _2amodule_2a["saturation"] = saturation

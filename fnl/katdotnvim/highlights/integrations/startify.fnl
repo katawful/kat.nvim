@@ -2,8 +2,7 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
-                   groups katdotnvim.highlights.main
-                   }})
+                   groups katdotnvim.highlights.main}})
 
 ; This handles Startify
 
@@ -16,5 +15,4 @@
   (ucolors.highlight :StartifySection (ucolors.blendColors (. (colors.init :normalColors) :red) (groups.mainFG) 0.8) :SKIP :bold)
   (ucolors.highlight :StartifySpecial (. (colors.init :background) 6) :SKIP)
   (ucolors.highlight :StartifyHeader (groups.fillBG) :SKIP)
-  (ucolors.highlight :StartifyFooter (. (colors.init :background) 4) :SKIP)
-  )
+  (ucolors.highlight :StartifyFooter (. (colors.init :background) 4) :SKIP))

@@ -2,8 +2,7 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
-                   a aniseed.core
-                   }})
+                   a aniseed.core}})
 
 ; this handles stupid features
 

@@ -2,8 +2,7 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
-                   groups katdotnvim.highlights.main
-                   }})
+                   groups katdotnvim.highlights.main}})
 
 ; this handles the vim filetype
 
@@ -18,5 +17,4 @@
   (vim.cmd "hi def link vimOperParen Variable")
   (vim.cmd "hi def link vimFunction Function")
   (vim.cmd "hi def link vimIsCommand Identifier")
-  (vim.cmd "hi def link vimUserFunc Function")
-  )
+  (vim.cmd "hi def link vimUserFunc Function"))

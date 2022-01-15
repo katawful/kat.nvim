@@ -2,8 +2,7 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
-                   groups katdotnvim.highlights.main
-                   }})
+                   groups katdotnvim.highlights.main}})
 
 ; This handles coc.nvim colors
 
@@ -29,5 +28,4 @@
   (ucolors.highlight :CocHintHighlight :SKIP :SKIP :undercurl (groups.auxBG))
 
   (ucolors.highlight :CocSelectedText :SKIP (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
-  (ucolors.highlight :CocCodeLens (groups.meldBG) :SKIP)
-  )
+  (ucolors.highlight :CocCodeLens (groups.meldBG) :SKIP))

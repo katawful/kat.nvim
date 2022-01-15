@@ -2,8 +2,7 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
-                   groups katdotnvim.highlights.main
-                   }})
+                   groups katdotnvim.highlights.main}})
 
 (defn init []
   (ucolors.highlight :markdownItalic :SKIP :SKIP :italic)
@@ -26,7 +25,7 @@
   (ucolors.highlight :markdownOrderedListMarker (groups.fillBG) :SKIP :bold)
   (ucolors.highlight :markdownRule (. (colors.init :normalColors) :red) :SKIP)
   (ucolors.highlight :markdownHeadingRule (. (colors.init :normalColors) :red) :SKIP)
-  
+
   (ucolors.highlight :markdownUrlDelimiter (groups.meldBG) :SKIP :bold)
   (ucolors.highlight :markdownLinkDelimiter (groups.meldBG) :SKIP :bold)
   (ucolors.highlight :markdownLinkTextDelimiter (groups.meldBG) :SKIP :bold)
@@ -36,5 +35,4 @@
   (ucolors.highlight :markdownUrlTitleDelimiter (groups.auxBG) :SKIP :bold)
 
   (ucolors.highlight :markdownLinkText (. (colors.init :foreground) 3) :SKIP :underline (. (colors.init :foreground) 3))
-  (ucolors.highlight :markdownIdDeclaration (. (colors.init :foreground) 3) :SKIP :underline (. (colors.init :foreground) 3))
-  )
+  (ucolors.highlight :markdownIdDeclaration (. (colors.init :foreground) 3) :SKIP :underline (. (colors.init :foreground) 3)))

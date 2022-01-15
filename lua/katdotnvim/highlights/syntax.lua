@@ -35,7 +35,6 @@ end
 _2amodule_2a["typeDef"] = typeDef
 local function special()
   local output = ucolors.blendColors((colors.init("normalColors")).pink, (colors.init("normalColors")).purple, 0.65)
-  do end (_2amodule_2a)["output"] = output
   return output
 end
 _2amodule_2a["special"] = special

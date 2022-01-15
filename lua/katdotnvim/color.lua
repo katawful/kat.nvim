@@ -14,9 +14,24 @@ local autoload = (require("katdotnvim.aniseed.autoload")).autoload
 local main, ucolors = autoload("katdotnvim.main"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
+local lightForeBack = "#121c2d"
+_2amodule_locals_2a["lightForeBack"] = lightForeBack
+local darkForeBack = "#daf6ff"
+_2amodule_locals_2a["darkForeBack"] = darkForeBack
+local redPrimary = "#eb4949"
+_2amodule_locals_2a["redPrimary"] = redPrimary
+local greenPrimary = "#2ce0aa"
+_2amodule_locals_2a["greenPrimary"] = greenPrimary
+local orangePrimary = "#f2b15c"
+_2amodule_locals_2a["orangePrimary"] = orangePrimary
+local pinkPrimary = "#f29cb1"
+_2amodule_locals_2a["pinkPrimary"] = pinkPrimary
+local purplePrimary = "#7a53a8"
+_2amodule_locals_2a["purplePrimary"] = purplePrimary
+local bluePrimary = "#2dacd2"
+_2amodule_locals_2a["bluePrimary"] = bluePrimary
 local function defineNormalColors()
-  local output = {red = "#eb4949", green = "#2ce0aa", orange = "#f2b15c", pink = "#f29cb1", purple = "#7a53a8", blue = "#2dacd2"}
-  _2amodule_2a["output"] = output
+  local output = {red = redPrimary, green = greenPrimary, orange = orangePrimary, pink = pinkPrimary, purple = purplePrimary, blue = bluePrimary}
   return output
 end
 _2amodule_2a["defineNormalColors"] = defineNormalColors
@@ -24,22 +39,22 @@ local function defineBack()
   local back = {}
   if (main.katStyle == "dark") then
     if (main.katContrast == "soft") then
-      back = {ucolors.brighten("#121c2d", 0.1), "#121c2d", ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
+      back = {ucolors.brighten(lightForeBack, 0.1), lightForeBack, ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
     else
     end
     if (main.katContrast == "hard") then
-      back = {"#121c2d", ucolors.brighten("#121c2d", 0.1), ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
+      back = {lightForeBack, ucolors.brighten(lightForeBack, 0.1), ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
     else
     end
   else
   end
   if (main.katStyle == "light") then
     if (main.katContrast == "soft") then
-      back = {ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), "#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
+      back = {ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
     if (main.katContrast == "hard") then
-      back = {"#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
+      back = {darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
   else
@@ -51,22 +66,22 @@ local function defineFore()
   local fore = {}
   if (main.katStyle == "dark") then
     if (main.katContrast == "soft") then
-      fore = {ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), "#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
+      fore = {ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
     if (main.katContrast == "hard") then
-      fore = {"#daf6ff", ucolors.saturation(ucolors.darken("#daf6ff", 0.1), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.3), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.5), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.7), -0.5), ucolors.saturation(ucolors.darken("#daf6ff", 0.9), -0.5)}
+      fore = {darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
   else
   end
   if (main.katStyle == "light") then
     if (main.katContrast == "soft") then
-      fore = {ucolors.brighten("#121c2d", 0.1), "#121c2d", ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
+      fore = {ucolors.brighten(lightForeBack, 0.1), lightForeBack, ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
     else
     end
     if (main.katContrast == "hard") then
-      fore = {"#121c2d", ucolors.brighten("#121c2d", 0.1), ucolors.brighten("#121c2d", 0.3), ucolors.brighten("#121c2d", 0.5), ucolors.brighten("#121c2d", 0.7), ucolors.brighten("#121c2d", 0.9)}
+      fore = {lightForeBack, ucolors.brighten(lightForeBack, 0.1), ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
     else
     end
   else
@@ -87,9 +102,3 @@ local function init(table)
   end
 end
 _2amodule_2a["init"] = init
-local normalColors = defineNormalColors()
-do end (_2amodule_2a)["normalColors"] = normalColors
-local background = defineBack()
-do end (_2amodule_2a)["background"] = background
-local foreground = defineFore()
-do end (_2amodule_2a)["foreground"] = foreground
