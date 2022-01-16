@@ -50,6 +50,7 @@ The following is a table explaining how these variables work, and what values th
 | [lightline](https://github.com/itchyny/lightline.vim) | Use plugin settings: 'kat' |
 | [Airline](https://github.com/vim-airline/vim-airline) | Use plugin settings: 'kat' |
 | [Lualine](https://github.com/nvim-lualine/lualine.nvim) | Use plugin settings: 'kat' |
+| [Fugitive](https://github.com/tpope/vim-fugitive) | 'fugitive' |
 
 # Filetypes
 |Filetypes| Option Name |

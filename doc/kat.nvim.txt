@@ -51,7 +51,8 @@ Default:
 				  `"ts_rainbow",`
 				  `"indent_blankline",`
 				  `"coc",`
-				  `"cmp"}`
+				  `"cmp",`
+				`  "fugitive"}`
 See |kat.nvim-plugins| for what these correspond to.
 
 *g:kat_nvim_filetype*
@@ -83,6 +84,7 @@ This is the list of plugins that match this colorscheme.
 		   lightline : Use plugin settings: 'kat'
 		     Airline : Use plugin settings: 'kat'
 		     Lualine : Use plugin settings: 'kat'
+		     Fugitive: 'fugitive'
 
 ==============================================================================
 Section 3: Supported Filetypes *kat.nvim-filetypes*
