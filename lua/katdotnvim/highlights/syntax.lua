@@ -48,7 +48,7 @@ local function init()
   ucolors.highlight("Boolean", ucolors.blendColors(groups.selectionBG(), groups.mainFG(), 0.7), "SKIP", "bold")
   ucolors.highlight("Identifier", identifier(), "SKIP")
   ucolors.highlight("Function", ucolors.saturation(ucolors.brighten(ucolors.blendColors(identifier(), (colors.init("normalColors")).red, 0.3), 0.1), 0.5), "SKIP", "bold")
-  if (main.katStyle == "light") then
+  if (vim.o.background == "light") then
     ucolors.highlight("Variable", ucolors.darken(ucolors.blendColors(identifier(), (colors.init("foreground"))[6], 0.5), 0.4), "SKIP")
   else
     ucolors.highlight("Variable", ucolors.brighten(ucolors.blendColors(identifier(), (colors.init("foreground"))[6], 0.5), 0.4), "SKIP")
@@ -58,7 +58,7 @@ local function init()
   ucolors.highlight("Repeat", ucolors.saturation(ucolors.brighten(ucolors.blendColors(statement(), (colors.init("normalColors")).orange, 0.2), 0.3), 0.8), "SKIP")
   ucolors.highlight("Label", ucolors.saturation(ucolors.blendColors(statement(), (colors.init("normalColors")).pink, 0.2), 1), "SKIP", "bold")
   ucolors.highlight("Operator", ucolors.blendColors(statement(), groups.meldFG(), 0.2), "SKIP", "bold")
-  if (main.katStyle == "light") then
+  if (vim.o.background == "light") then
     ucolors.highlight("Keyword", ucolors.darken(ucolors.blendColors(statement(), (colors.init("normalColors")).green, 0.2), 0.5), "SKIP", "italic")
   else
     ucolors.highlight("Keyword", ucolors.brighten(ucolors.blendColors(statement(), (colors.init("normalColors")).green, 0.2), 0.5), "SKIP", "italic")

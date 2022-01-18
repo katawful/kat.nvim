@@ -32,7 +32,7 @@
 
   (ucolors.highlight :Identifier (identifier) :SKIP)
   (ucolors.highlight :Function (ucolors.saturation (ucolors.brighten (ucolors.blendColors (identifier) (. (colors.init :normalColors) :red) 0.3) 0.10) 0.5) :SKIP :bold)
-  (if (= main.katStyle :light)
+  (if (= vim.o.background :light)
       (ucolors.highlight :Variable (ucolors.darken (ucolors.blendColors (identifier) (. (colors.init :foreground) 6) 0.5) 0.4) :SKIP)
       (ucolors.highlight :Variable (ucolors.brighten (ucolors.blendColors (identifier) (. (colors.init :foreground) 6) 0.5) 0.4) :SKIP))
 
@@ -41,7 +41,7 @@
   (ucolors.highlight :Repeat (ucolors.saturation (ucolors.brighten (ucolors.blendColors (statement) (. (colors.init :normalColors) :orange) 0.2) 0.3) 0.8) :SKIP)
   (ucolors.highlight :Label (ucolors.saturation (ucolors.blendColors (statement) (. (colors.init :normalColors) :pink) 0.2) 1) :SKIP :bold)
   (ucolors.highlight :Operator (ucolors.blendColors (statement) (groups.meldFG) 0.2) :SKIP :bold)
-  (if (= main.katStyle :light)
+  (if (= vim.o.background :light)
       (do (ucolors.highlight :Keyword (ucolors.darken (ucolors.blendColors (statement) (. (colors.init :normalColors) :green) 0.2) 0.5) :SKIP :italic))
       (do (ucolors.highlight :Keyword (ucolors.brighten (ucolors.blendColors (statement) (. (colors.init :normalColors) :green) 0.2) 0.5) :SKIP :italic)))
   (ucolors.highlight :Exception (ucolors.brighten (ucolors.blendColors (statement) (. (colors.init :normalColors) :blue) 0.1) 0.2) :SKIP)

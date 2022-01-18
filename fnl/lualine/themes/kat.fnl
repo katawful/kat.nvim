@@ -11,7 +11,7 @@
 (var kat {})
 (var mainFG (groups.mainFG))
 
-(if (and (= main.katStyle :dark)
+(if (and (= vim.o.background :dark)
          (= main.katContrast :soft))
   (do
     (set mainFG (ucolors.brighten (groups.mainFG) 0.8))))

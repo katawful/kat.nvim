@@ -8,7 +8,7 @@
 ; define variables to use for generic uses
 (defn mainFG [] 
   (var output "")
-  (if (and (= main.katStyle :dark)
+  (if (and (= vim.o.background :dark)
            (= main.katContrast :soft))
       (do (set output (ucolors.brighten (. (colors.init :foreground) 1) 0.8)))
       (do (set output (. (colors.init :foreground) 1))))
@@ -59,7 +59,7 @@
   output)
 (defn groupFunction []
   (var output "")
-  (if (= main.katStyle :light)
+  (if (= vim.o.background :light)
       (do (set output (ucolors.saturation (ucolors.darken (. (colors.init :normalColors) :green) 0.5) 0.4)))
       (do (set output (ucolors.saturation (ucolors.brighten (. (colors.init :normalColors) :green) 0.5) -0.2))))
   output)
@@ -99,7 +99,7 @@
   ; Tabline
   ; we need to make the dark soft font brighter to match dark hard tabline
   ; looks bad otherwise imo
-  (if (and (= main.katStyle :dark)
+  (if (and (= vim.o.background :dark)
            (= main.katContrast :soft))
       (do
         (var color (ucolors.brighten (highlightFG) 0.8))

@@ -8,7 +8,7 @@
 (defn mainFG []
   (var output (groups.mainFG))
 
-  (if (and (= main.katStyle :dark)
+  (if (and (= vim.o.background :dark)
            (= main.katContrast :soft))
       (do (set output (ucolors.brighten (groups.mainFG) 0.8))))
   output)

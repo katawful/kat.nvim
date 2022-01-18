@@ -33,7 +33,7 @@
 (defn defineBack []
   (var back {})
   ; back and foreground colors
-  (when (= main.katStyle :dark)
+  (when (= vim.o.background :dark)
     (do (when (= main.katContrast :soft)
           (set back {1 (ucolors.brighten lightForeBack 0.1)
                      2 lightForeBack
@@ -50,7 +50,7 @@
                    6 (ucolors.brighten lightForeBack 0.9)}))))
 
   ; else if color is light
-  (when (= main.katStyle :light)
+  (when (= vim.o.background :light)
     (do (when (= main.katContrast :soft)
           (set back {1 (ucolors.saturation (ucolors.darken darkForeBack 0.1) -0.5)
                      2 darkForeBack
@@ -70,7 +70,7 @@
 ; This defines and outputs a table of foreground colors dependent upon the current theme
 (defn defineFore []
   (var fore {})
-  (when (= main.katStyle :dark)
+  (when (= vim.o.background :dark)
     (do (when (= main.katContrast :soft)
           (set fore {1 (ucolors.saturation (ucolors.darken darkForeBack 0.1) -0.5)
                      2 darkForeBack
@@ -86,7 +86,7 @@
                    5 (ucolors.saturation (ucolors.darken darkForeBack 0.7) -0.5)
                    6 (ucolors.saturation (ucolors.darken darkForeBack 0.9) -0.5)}))))
 
-  (when (= main.katStyle :light)
+  (when (= vim.o.background :light)
     (do (when (= main.katContrast :soft)
           (set fore {1 (ucolors.brighten lightForeBack 0.1)
                      2 lightForeBack

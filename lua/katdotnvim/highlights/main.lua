@@ -17,7 +17,7 @@ _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local function mainFG()
   local output = ""
-  if ((main.katStyle == "dark") and (main.katContrast == "soft")) then
+  if ((vim.o.background == "dark") and (main.katContrast == "soft")) then
     output = ucolors.brighten((colors.init("foreground"))[1], 0.8)
   else
     output = (colors.init("foreground"))[1]
@@ -123,7 +123,7 @@ end
 _2amodule_2a["auxFG"] = auxFG
 local function groupFunction()
   local output = ""
-  if (main.katStyle == "light") then
+  if (vim.o.background == "light") then
     output = ucolors.saturation(ucolors.darken((colors.init("normalColors")).green, 0.5), 0.4)
   else
     output = ucolors.saturation(ucolors.brighten((colors.init("normalColors")).green, 0.5), -0.2)
@@ -154,7 +154,7 @@ local function init()
   ucolors.highlight("SpellRare", "SKIP", "SKIP", "undercurl", (colors.init("normalColors")).pink)
   ucolors.highlight("StatusLine", (colors.init("background"))[5], ucolors.blendColors((colors.init("normalColors")).purple, (colors.init("background"))[1], 0.7), "bold")
   ucolors.highlight("StatusLineNC", ucolors.blendColors((colors.init("normalColors")).purple, (colors.init("background"))[1], 0.7), (colors.init("background"))[5], "bold")
-  if ((main.katStyle == "dark") and (main.katContrast == "soft")) then
+  if ((vim.o.background == "dark") and (main.katContrast == "soft")) then
     local color = ucolors.brighten(highlightFG(), 0.8)
     ucolors.highlight("TabLine", color, highlightBG(), "NONE")
     ucolors.highlight("TabLineFill", fillBG(), fillBG())

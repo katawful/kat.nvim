@@ -20,7 +20,7 @@ _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
 local kat = {}
 local mainFG = groups.mainFG()
-if ((main.katStyle == "dark") and (main.katContrast == "soft")) then
+if ((vim.o.background == "dark") and (main.katContrast == "soft")) then
   mainFG = ucolors.brighten(groups.mainFG(), 0.8)
 else
 end

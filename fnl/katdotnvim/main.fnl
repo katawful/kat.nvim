@@ -5,7 +5,7 @@
          require-macros [katdotnvim.utils.macros]})
 
 
-(defn init [style contrast]
+(defn init [contrast]
   ; define some defaults
   (errors.setDefaults true)
 
@@ -16,20 +16,12 @@
 
   (set- termguicolors true)
 
-  (def katStyle style)
   (def katContrast contrast)
 
-  ; set background and g:colors_name
-  (if (= katStyle :dark)
-      (do (if (= katContrast :hard)
-              (let- :g :colors_name "kat.nvim")
-              (let- :g :colors_name "kat.nwim"))
-          (set- background :dark))
-      (= katStyle :light)
-      (do (if (= katContrast :hard)
-              (let- :g :colors_name "kat.lightenvim")
-              (let- :g :colors_name "kat.lightenwim"))
-          (set- background :light)))
+  ; set g:colors_name for hard and soft themes
+  (if (= katContrast :hard)
+    (let- :g :colors_name "kat.nvim")
+    (let- :g :colors_name "kat.nwim"))
 
   ((. (require :katdotnvim.highlights.main) :init))
   ((. (require :katdotnvim.highlights.syntax) :init))

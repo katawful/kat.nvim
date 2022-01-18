@@ -28,7 +28,7 @@ local function init()
   vim.g["terminal_color_6"] = (colors.init("normalColors")).purple
   vim.g["terminal_color_7"] = (colors.init("foreground"))[1]
   vim.g["terminal_color_8"] = (colors.init("background"))[2]
-  if (main.katStyle == "light") then
+  if (vim.o.background == "light") then
     vim.g["terminal_color_9"] = ucolors.darken((colors.init("normalColors")).red, 0.2)
     do end (vim.g)["terminal_color_10"] = ucolors.darken((colors.init("normalColors")).green, 0.2)
     do end (vim.g)["terminal_color_11"] = ucolors.darken((colors.init("normalColors")).orange, 0.2)

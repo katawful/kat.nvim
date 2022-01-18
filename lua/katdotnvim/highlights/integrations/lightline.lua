@@ -19,7 +19,7 @@ _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function mainFG()
   local output = groups.mainFG()
-  if ((main.katStyle == "dark") and (main.katContrast == "soft")) then
+  if ((vim.o.background == "dark") and (main.katContrast == "soft")) then
     output = ucolors.brighten(groups.mainFG(), 0.8)
   else
   end
