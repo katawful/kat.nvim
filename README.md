@@ -1,4 +1,4 @@
-![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/colors-new.png)
+![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/colors-new-2022.png)
 
 # kat.nvim
 A NeoVim theme with warm blue tones.
@@ -18,11 +18,13 @@ Plug 'katawful/kat.nvim'
 ```
 
 # Example:
-![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/fennel-example-new.png)
+![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/example-2022.png)
 
 # Options
-There are 4 colorschemes to choose from, using the `:colorscheme` system:   
-> `kat.nvim`, `kat.nwim`, `kat.lightenvim`, and `kat.lightenwim`.   
+There are only 2 colorscheme files provided: `kat.nvim` and `kat.nwim`.
+The former is a harder contrast, the latter is a softer contrast (the name being shortened from kat.nvim-owo).
+To set between dark and light schemes, the `:set background` method is used.
+Simply set the contrast to whichever you prefer, and set your background in your NeoVim configs.
 
 See the examples above for the differences.
 
