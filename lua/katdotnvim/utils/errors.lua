@@ -16,8 +16,7 @@ local function errMessage(errType, message)
   local errType0 = tostring(errType)
   local message0 = tostring(message)
   local output = ("kat.nvim E" .. errType0 .. ": " .. message0)
-  print("out ", output)
-  return vim.api.nvim_err_writeln(output)
+  return vim.notify(output, vim.log.levels.ERROR)
 end
 _2amodule_2a["errMessage"] = errMessage
 local function setDefaults(check)
