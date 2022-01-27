@@ -20,13 +20,19 @@ Plug 'katawful/kat.nvim'
 # Example:
 ![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/example-2022.png)
 
-# Options
+# Usage
 There are only 2 colorscheme files provided: `kat.nvim` and `kat.nwim`.
 The former is a harder contrast, the latter is a softer contrast (the name being shortened from kat.nvim-owo).
 To set between dark and light schemes, the `:set background` method is used.
 Simply set the contrast to whichever you prefer, and set your background in your NeoVim configs.
 
 See the examples above for the differences.
+
+# Terminal Colors Support
+The current colorscheme can be exported for kitty.
+Simply run `KatGenTermTheme "kitty"`, and the kitty config file will be generated in the current working directory based on the current in use settings/colorscheme.
+
+# Options
 
 There are currently 4 options: `g:kat_nvim_commentStyle`, `g:kat_nvim_integrations`, `g:kat_nvim_filetype`, and `g:kat_nvim_stupidFeatures`.
 The following is a table explaining how these variables work, and what values they can take.
