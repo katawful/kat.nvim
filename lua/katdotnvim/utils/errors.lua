@@ -15,7 +15,7 @@ _2amodule_locals_2a["_"] = _
 local function errMessage(errType, message)
   local errType0 = tostring(errType)
   local message0 = tostring(message)
-  local output = ("kat.nvim E" .. errType0 .. ": " .. message0)
+  local output = string.format("kat.nvim E%s: %s", errType0, message0)
   return vim.notify(output, vim.log.levels.ERROR)
 end
 _2amodule_2a["errMessage"] = errMessage

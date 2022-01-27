@@ -6,7 +6,7 @@
 (defn errMessage [errType message]
   (let [errType (tostring errType)
         message (tostring message)]
-    (local output (.. "kat.nvim E" errType ": " message))
+    (local output (string.format "kat.nvim E%s: %s" errType message))
     (vim.notify output vim.log.levels.ERROR)))
 
 (defn setDefaults [check]
