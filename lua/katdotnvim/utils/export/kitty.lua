@@ -11,9 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, colors, exports, groups, hsl, main, ucolors, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.export.init"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.color"), nil
+local a, colors, errors, exports, groups, hsl, main, ucolors, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.errors"), autoload("katdotnvim.utils.export.init"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.color"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["colors"] = colors
+_2amodule_locals_2a["errors"] = errors
 _2amodule_locals_2a["exports"] = exports
 _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["hsl"] = hsl
@@ -23,23 +24,27 @@ _2amodule_locals_2a["_"] = _
 local loop = vim.loop
 _2amodule_locals_2a["loop"] = loop
 local function kittyColors()
-  local output = {foreground = groups.mainFG(), background = groups.mainBG(), selection_foreground = groups.selectionFG(), selection_background = groups.selectionBG(), contrast = main.katContrast, shade = vim.o.background, cursor = groups.mainFG(), cursor_text_color = "background", color0 = groups.mainBG(), color1 = (colors.init("normalColors")).red, color2 = (colors.init("normalColors")).green, color3 = (colors.init("normalColors")).orange, color4 = (colors.init("normalColors")).blue, color5 = (colors.init("normalColors")).pink, color6 = (colors.init("normalColors")).purple, color7 = groups.mainFG(), color8 = groups.umbraBG(), color15 = groups.umbraFG()}
-  if (vim.o.background == "light") then
-    output["color9"] = ucolors.darken((colors.init("normalColors")).red, 0.2)
-    do end (output)["color10"] = ucolors.darken((colors.init("normalColors")).green, 0.2)
-    do end (output)["color11"] = ucolors.darken((colors.init("normalColors")).orange, 0.2)
-    do end (output)["color12"] = ucolors.darken((colors.init("normalColors")).blue, 0.2)
-    do end (output)["color13"] = ucolors.darken((colors.init("normalColors")).pink, 0.2)
-    do end (output)["color14"] = ucolors.darken((colors.init("normalColors")).purple, 0.2)
+  if ((vim.g.colors_name ~= "kat.nvim") and (vim.g.colors_name ~= "kat.nwim")) then
+    return errors.errMessage(1, "Not a kat.nvim colorscheme, theme won't compile")
   else
-    output["color9"] = ucolors.brighten((colors.init("normalColors")).red, 0.2)
-    do end (output)["color10"] = ucolors.brighten((colors.init("normalColors")).green, 0.2)
-    do end (output)["color11"] = ucolors.brighten((colors.init("normalColors")).orange, 0.2)
-    do end (output)["color12"] = ucolors.brighten((colors.init("normalColors")).blue, 0.2)
-    do end (output)["color13"] = ucolors.brighten((colors.init("normalColors")).pink, 0.2)
-    do end (output)["color14"] = ucolors.brighten((colors.init("normalColors")).purple, 0.2)
+    local output = {foreground = groups.mainFG(), background = groups.mainBG(), selection_foreground = groups.selectionFG(), selection_background = groups.selectionBG(), contrast = main.katContrast, shade = vim.o.background, cursor = groups.mainFG(), cursor_text_color = "background", color0 = groups.mainBG(), color1 = (colors.init("normalColors")).red, color2 = (colors.init("normalColors")).green, color3 = (colors.init("normalColors")).orange, color4 = (colors.init("normalColors")).blue, color5 = (colors.init("normalColors")).pink, color6 = (colors.init("normalColors")).purple, color7 = groups.mainFG(), color8 = groups.umbraBG(), color15 = groups.umbraFG()}
+    if (vim.o.background == "light") then
+      output["color9"] = ucolors.darken((colors.init("normalColors")).red, 0.2)
+      do end (output)["color10"] = ucolors.darken((colors.init("normalColors")).green, 0.2)
+      do end (output)["color11"] = ucolors.darken((colors.init("normalColors")).orange, 0.2)
+      do end (output)["color12"] = ucolors.darken((colors.init("normalColors")).blue, 0.2)
+      do end (output)["color13"] = ucolors.darken((colors.init("normalColors")).pink, 0.2)
+      do end (output)["color14"] = ucolors.darken((colors.init("normalColors")).purple, 0.2)
+    else
+      output["color9"] = ucolors.brighten((colors.init("normalColors")).red, 0.2)
+      do end (output)["color10"] = ucolors.brighten((colors.init("normalColors")).green, 0.2)
+      do end (output)["color11"] = ucolors.brighten((colors.init("normalColors")).orange, 0.2)
+      do end (output)["color12"] = ucolors.brighten((colors.init("normalColors")).blue, 0.2)
+      do end (output)["color13"] = ucolors.brighten((colors.init("normalColors")).pink, 0.2)
+      do end (output)["color14"] = ucolors.brighten((colors.init("normalColors")).purple, 0.2)
+    end
+    return output
   end
-  return output
 end
 _2amodule_2a["kittyColors"] = kittyColors
 local function generateKittyTheme()

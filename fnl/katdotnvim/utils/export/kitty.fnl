@@ -5,6 +5,7 @@
              groups katdotnvim.highlights.main
              main katdotnvim.main
              exports katdotnvim.utils.export.init
+             errors katdotnvim.utils.errors
              a aniseed.core}
    require-macros [katdotnvim.utils.macros]})
 
@@ -16,42 +17,45 @@
 ; FN -- generates a table of colors for kitty colors
 ; $output -- a table of colors where the key is the string for kitty group
 (defn kittyColors []
-  (let [output
-    {:foreground (groups.mainFG)
-     :background (groups.mainBG)
-     :selection_foreground (groups.selectionFG)
-     :selection_background (groups.selectionBG)
-     :contrast main.katContrast
-     :shade vim.o.background
-     :cursor (groups.mainFG)
-     :cursor_text_color :background
-     :color0 (groups.mainBG)
-     :color1 (. (colors.init :normalColors) :red)
-     :color2 (. (colors.init :normalColors) :green)
-     :color3 (. (colors.init :normalColors) :orange)
-     :color4 (. (colors.init :normalColors) :blue)
-     :color5 (. (colors.init :normalColors) :pink)
-     :color6 (. (colors.init :normalColors) :purple)
-     :color7 (groups.mainFG)
-     :color8 (groups.umbraBG)
-     :color15 (groups.umbraFG)
-     }]
-  (if (= vim.o.background :light)
-    (do
-      (tset output :color9 (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
-      (tset output :color10 (ucolors.darken (. (colors.init :normalColors) :green) 0.2))
-      (tset output :color11 (ucolors.darken (. (colors.init :normalColors) :orange) 0.2))
-      (tset output :color12 (ucolors.darken (. (colors.init :normalColors) :blue) 0.2))
-      (tset output :color13 (ucolors.darken (. (colors.init :normalColors) :pink) 0.2))
-      (tset output :color14 (ucolors.darken (. (colors.init :normalColors) :purple) 0.2)))
-    (do
-      (tset output :color9  (ucolors.brighten (. (colors.init :normalColors) :red) 0.2))
-      (tset output :color10 (ucolors.brighten (. (colors.init :normalColors) :green) 0.2))
-      (tset output :color11 (ucolors.brighten (. (colors.init :normalColors) :orange) 0.2))
-      (tset output :color12 (ucolors.brighten (. (colors.init :normalColors) :blue) 0.2))
-      (tset output :color13 (ucolors.brighten (. (colors.init :normalColors) :pink) 0.2))
-      (tset output :color14 (ucolors.brighten (. (colors.init :normalColors) :purple) 0.2))))
-  output))
+  ; check if kat.nvim/kat.nwim is used
+  (if (and (not= vim.g.colors_name :kat.nvim)
+           (not= vim.g.colors_name :kat.nwim))
+      (do (errors.errMessage 1 "Not a kat.nvim colorscheme, theme won't compile"))
+
+      (do (let [output {:foreground (groups.mainFG)
+                        :background (groups.mainBG)
+                        :selection_foreground (groups.selectionFG)
+                        :selection_background (groups.selectionBG)
+                        :contrast main.katContrast
+                        :shade vim.o.background
+                        :cursor (groups.mainFG)
+                        :cursor_text_color :background
+                        :color0 (groups.mainBG)
+                        :color1 (. (colors.init :normalColors) :red)
+                        :color2 (. (colors.init :normalColors) :green)
+                        :color3 (. (colors.init :normalColors) :orange)
+                        :color4 (. (colors.init :normalColors) :blue)
+                        :color5 (. (colors.init :normalColors) :pink)
+                        :color6 (. (colors.init :normalColors) :purple)
+                        :color7 (groups.mainFG)
+                        :color8 (groups.umbraBG)
+                        :color15 (groups.umbraFG)}]
+            (if (= vim.o.background :light)
+              (do
+                (tset output :color9 (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
+                (tset output :color10 (ucolors.darken (. (colors.init :normalColors) :green) 0.2))
+                (tset output :color11 (ucolors.darken (. (colors.init :normalColors) :orange) 0.2))
+                (tset output :color12 (ucolors.darken (. (colors.init :normalColors) :blue) 0.2))
+                (tset output :color13 (ucolors.darken (. (colors.init :normalColors) :pink) 0.2))
+                (tset output :color14 (ucolors.darken (. (colors.init :normalColors) :purple) 0.2)))
+              (do
+                (tset output :color9  (ucolors.brighten (. (colors.init :normalColors) :red) 0.2))
+                (tset output :color10 (ucolors.brighten (. (colors.init :normalColors) :green) 0.2))
+                (tset output :color11 (ucolors.brighten (. (colors.init :normalColors) :orange) 0.2))
+                (tset output :color12 (ucolors.brighten (. (colors.init :normalColors) :blue) 0.2))
+                (tset output :color13 (ucolors.brighten (. (colors.init :normalColors) :pink) 0.2))
+                (tset output :color14 (ucolors.brighten (. (colors.init :normalColors) :purple) 0.2))))
+            output))))
 
 ; FN -- output kitty string to a file at the current working directory
 (defn generateKittyTheme []
