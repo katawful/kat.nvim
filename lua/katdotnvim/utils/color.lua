@@ -28,16 +28,26 @@ local function blendColors(sourceColor, mixColor, alpha)
   return output
 end
 _2amodule_2a["blendColors"] = blendColors
-local function highlight(gr, fg, bg, ...)
+local function highlight(gr, guifg, guibg, cfg, cbg, ...)
   local group = tostring(gr)
-  local fore = " "
-  local back = " "
-  if (fg ~= "SKIP") then
-    fore = (" guifg=" .. fg)
+  local guiFore = " "
+  local guiBack = " "
+  local cFore = " "
+  local cBack = " "
+  if (guifg ~= "SKIP") then
+    guiFore = string.format(" guifg=%s", guifg)
   else
   end
-  if (bg ~= "SKIP") then
-    back = (" guibg=" .. bg)
+  if (guibg ~= "SKIP") then
+    guiBack = string.format(" guibg=%s", guibg)
+  else
+  end
+  if (cfg ~= "SKIP") then
+    cFore = string.format(" ctermfg=%s", cfg)
+  else
+  end
+  if (cbg ~= "SKIP") then
+    cBack = string.format(" ctermbg=%s", cbg)
   else
   end
   local extra = ""
@@ -45,19 +55,49 @@ local function highlight(gr, fg, bg, ...)
   if (#args > 0) then
     for k, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
-        extra = (extra .. " guisp=" .. v)
+        extra = string.format("%s guisp=%s", extra, v)
       elseif (a["string?"](v) == true) then
-        extra = (extra .. " gui=" .. tostring(v))
+        extra = string.format("%s gui=%s cterm=%s", extra, tostring(v), tostring(v))
       else
-        extra = (extra .. " blend" .. v)
+        extra = string.format("%s blend=%s", extra, v)
       end
     end
   else
   end
-  local output = ("highlight " .. group .. fore .. back .. extra)
+  local output = ("highlight " .. group .. guiFore .. guiBack .. cFore .. cBack .. extra)
   return vim.cmd(tostring(output))
 end
 _2amodule_2a["highlight"] = highlight
+local function highlightGUI(gr, guifg, guibg, ...)
+  local group = tostring(gr)
+  local guiFore = " "
+  local guiBack = " "
+  if (guifg ~= "SKIP") then
+    guiFore = string.format(" guifg=%s", guifg)
+  else
+  end
+  if (guibg ~= "SKIP") then
+    guiBack = string.format(" guibg=%s", guibg)
+  else
+  end
+  local extra = ""
+  local args = {...}
+  if (#args > 0) then
+    for k, v in pairs(args) do
+      if (string.sub(v, 1, 1) == "#") then
+        extra = string.format("%s guisp=%s", extra, v)
+      elseif (a["string?"](v) == true) then
+        extra = string.format("%s gui=%s", extra, tostring(v))
+      else
+        extra = string.format("%s blend=%s", extra, v)
+      end
+    end
+  else
+  end
+  local output = ("highlight " .. group .. guiFore .. guiBack .. extra)
+  return vim.cmd(tostring(output))
+end
+_2amodule_2a["highlightGUI"] = highlightGUI
 local function brighten(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
   local luminance = (100 - hslColor[3])
