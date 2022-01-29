@@ -22,24 +22,24 @@
            (not= vim.g.colors_name :kat.nwim))
       (do (errors.errMessage 1 "Not a kat.nvim colorscheme, theme won't compile"))
 
-      (do (let [output {:foreground (groups.mainFG)
-                        :background (groups.mainBG)
-                        :selection_foreground (groups.selectionFG)
-                        :selection_background (groups.selectionBG)
+      (do (let [output {:foreground (. (. (groups.mainFG) 1) 1)
+                        :background (. (groups.mainBG) 1)
+                        :selection_foreground (. (groups.selectionFG) 1)
+                        :selection_background (. (groups.selectionBG) 1)
                         :contrast main.katContrast
                         :shade vim.o.background
-                        :cursor (groups.mainFG)
+                        :cursor (. (. (groups.mainFG) 1) 1)
                         :cursor_text_color :background
-                        :color0 (groups.mainBG)
+                        :color0 (. (groups.mainBG) 1)
                         :color1 (. (colors.init :normalColors) :red)
                         :color2 (. (colors.init :normalColors) :green)
                         :color3 (. (colors.init :normalColors) :orange)
                         :color4 (. (colors.init :normalColors) :blue)
                         :color5 (. (colors.init :normalColors) :pink)
                         :color6 (. (colors.init :normalColors) :purple)
-                        :color7 (groups.mainFG)
-                        :color8 (groups.umbraBG)
-                        :color15 (groups.umbraFG)}]
+                        :color7 (. (groups.mainFG) 1)
+                        :color8 (. (groups.umbraBG) 1)
+                        :color15 (. (groups.umbraFG) 1)}]
             (if (= vim.o.background :light)
               (do
                 (tset output :color9 (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
@@ -69,5 +69,5 @@
   (local fd (assert (loop.fs_open fileName :w 0)))
   ; make file generally accessible
   (assert (loop.fs_chmod fileName 420))
-  (assert (loop.fs_write fd (exports.generateString (kittyColors) :kitty)))
+  (assert (loop.fs_write fd (exports.generateString (kittyColors) :kitty) 0))
   (exports.userExportNotify :kitty))
