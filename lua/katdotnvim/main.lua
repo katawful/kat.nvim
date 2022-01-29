@@ -26,13 +26,12 @@ local function init(contrast)
     vim.cmd("syntax reset")
   else
   end
-  vim.api.nvim_set_option("termguicolors", true)
   local katContrast = contrast
   _2amodule_2a["katContrast"] = katContrast
   if (katContrast == "hard") then
     vim.g["colors_name"] = "kat.nvim"
-  else
     vim.g["colors_name"] = "kat.nwim"
+  else
   end
   do end (require("katdotnvim.highlights.main")).init()
   do end (require("katdotnvim.highlights.syntax")).init()
@@ -41,11 +40,12 @@ local function init(contrast)
     do end (require("katdotnvim.stupid")).stupidFunction()
   else
   end
+  require("katdotnvim.utils.export.init")
   for _0, v in ipairs(vim.g.kat_nvim_integrations) do
     local output = ("katdotnvim.highlights.integrations." .. v)
     require(output).init()
   end
-  for _0, v in ipairs(vim.g.kat_nvim_filetype) do
+  for _0, v in pairs(vim.g.kat_nvim_filetype) do
     local output = ("katdotnvim.highlights.filetype." .. v)
     require(output).init()
   end
