@@ -5,7 +5,27 @@
                    groups katdotnvim.highlights.main}})
 
 (defn init []
-  (ucolors.highlight :IndentBlanklineChar (groups.shadowBG) :SKIP :nocombine)
-  (ucolors.highlight :IndentBlanklineSpaceChar (groups.shadowBG) :SKIP :nocombine)
-  (ucolors.highlight :IndentBlanklineSpaceChar (groups.shadowBG) :SKIP :nocombine)
-  (ucolors.highlight :IndentBlanklineContextChar (groups.selectionBG) :SKIP :nocombine))
+  (ucolors.highlight :IndentBlanklineChar
+                     (. (groups.shadowBG) 1)
+                     :SKIP
+                     (. (groups.umbraBG) 2)
+                     :SKIP
+                     :nocombine)
+  (ucolors.highlight :IndentBlanklineSpaceChar
+                     (. (groups.shadowBG) 1)
+                     :SKIP
+                     (. (groups.umbraBG) 2)
+                     :SKIP
+                     :nocombine)
+  (ucolors.highlight :IndentBlanklineSpaceChar
+                     (. (groups.shadowBG) 1)
+                     :SKIP
+                     (. (groups.umbraBG) 2)
+                     :SKIP
+                     :nocombine)
+  (ucolors.highlight :IndentBlanklineContextChar
+                     (. (groups.selectionBG) 1)
+                     :SKIP
+                     (. (groups.selectionBG) 2)
+                     :SKIP
+                     :nocombine))

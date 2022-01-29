@@ -17,9 +17,9 @@ _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function init()
-  ucolors.highlight("IndentBlanklineChar", groups.shadowBG(), "SKIP", "nocombine")
-  ucolors.highlight("IndentBlanklineSpaceChar", groups.shadowBG(), "SKIP", "nocombine")
-  ucolors.highlight("IndentBlanklineSpaceChar", groups.shadowBG(), "SKIP", "nocombine")
-  return ucolors.highlight("IndentBlanklineContextChar", groups.selectionBG(), "SKIP", "nocombine")
+  ucolors.highlight("IndentBlanklineChar", groups.shadowBG()[1], "SKIP", groups.umbraBG()[2], "SKIP", "nocombine")
+  ucolors.highlight("IndentBlanklineSpaceChar", groups.shadowBG()[1], "SKIP", groups.umbraBG()[2], "SKIP", "nocombine")
+  ucolors.highlight("IndentBlanklineSpaceChar", groups.shadowBG()[1], "SKIP", groups.umbraBG()[2], "SKIP", "nocombine")
+  return ucolors.highlight("IndentBlanklineContextChar", groups.selectionBG()[1], "SKIP", groups.selectionBG()[2], "SKIP", "nocombine")
 end
 _2amodule_2a["init"] = init

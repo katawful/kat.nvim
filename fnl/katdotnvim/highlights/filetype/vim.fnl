@@ -7,13 +7,48 @@
 ; this handles the vim filetype
 
 (defn init []
-  (ucolors.highlight :vimCommentTitle (groups.shadowBG) (groups.shadowFG) "bold,italic")
-  (ucolors.highlight :vimBracket (ucolors.blendColors (. (colors.init :normalColors) :pink) (groups.mainFG) 0.7) :SKIP)
-  (ucolors.highlight :vimMapModKey (ucolors.blendColors (. (colors.init :normalColors) :pink) (groups.mainFG) 0.8) :SKIP)
-  (ucolors.highlight :vimFuncSID (groups.umbraFG) :SKIP)
-  (ucolors.highlight :vimSetSep (groups.umbraFG) :SKIP)
-  (ucolors.highlight :vimSep (groups.umbraFG) :SKIP)
-  (ucolors.highlight :vimContinue (groups.umbraFG) :SKIP)
+  (ucolors.highlight :vimCommentTitle
+                     (. (groups.shadowBG) 1)
+                     (. (groups.shadowFG) 1)
+                     (. (groups.umbraBG) 2)
+                     (. (groups.umbraFG) 2)
+                     "bold,italic")
+  (ucolors.highlight :vimBracket
+                     (ucolors.blendColors (. (colors.init :normalColors) :pink) (. (groups.mainFG) 1) 0.7)
+                     :SKIP
+                     (. (groups.fillBG) 2)
+                     :SKIP
+                     )
+  (ucolors.highlight :vimMapModKey
+                     (ucolors.blendColors (. (colors.init :normalColors) :pink) (. (groups.mainFG) 1) 0.8)
+                     :SKIP
+                     (. (groups.fillBG) 2)
+                     :SKIP
+                     )
+  (ucolors.highlight :vimFuncSID
+                     (. (groups.umbraFG) 1)
+                     :SKIP
+                     (. (groups.umbraFG) 2)
+                     :SKIP
+                     )
+  (ucolors.highlight :vimSetSep
+                     (. (groups.umbraFG) 1)
+                     :SKIP
+                     (. (groups.umbraFG) 2)
+                     :SKIP
+                     )
+  (ucolors.highlight :vimSep
+                     (. (groups.umbraFG) 1)
+                     :SKIP
+                     (. (groups.umbraFG) 2)
+                     :SKIP
+                     )
+  (ucolors.highlight :vimContinue
+                     (. (groups.umbraFG) 1)
+                     :SKIP
+                     (. (groups.umbraFG) 2)
+                     :SKIP
+                     )
   (vim.cmd "hi def link vimOperParen Variable")
   (vim.cmd "hi def link vimFunction Function")
   (vim.cmd "hi def link vimIsCommand Identifier")

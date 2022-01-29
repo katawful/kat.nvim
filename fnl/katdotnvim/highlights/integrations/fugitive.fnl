@@ -6,5 +6,15 @@
                    }})
 
 (defn init []
-  (ucolors.highlight :fugitiveHunk :SKIP (groups.shadowBG) :nocombine)
-  (ucolors.highlight :gitDiff :SKIP (groups.shadowBG) :nocombine))
+  (ucolors.highlight :fugitiveHunk
+                     :SKIP
+                     (. (groups.shadowBG) 1)
+                     :SKIP
+                     (. (groups.umbraBG) 2)
+                     :nocombine)
+  (ucolors.highlight :gitDiff
+                     :SKIP
+                     (. (groups.shadowBG) 1)
+                     :SKIP
+                     (. (groups.umbraBG) 2)
+                     :nocombine))

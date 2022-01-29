@@ -17,6 +17,6 @@ _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function init()
-  return ucolors.highlight("CmpItemKind", groups.selectionBG(), ucolors.brighten(groups.fillBG(), 0.1))
+  return ucolors.highlight("CmpItemKind", groups.selectionBG()[1], ucolors.brighten(groups.fillBG()[1], 0.1), groups.selectionBG()[2], groups.fillBG()[2])
 end
 _2amodule_2a["init"] = init
