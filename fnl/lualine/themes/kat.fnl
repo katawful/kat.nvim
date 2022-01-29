@@ -9,59 +9,60 @@
          })
 
 (var kat {})
-(var mainFG (groups.mainFG))
+(var mainFG {1 (. (groups.mainFG) 1)
+             2 15})
 
 (if (and (= vim.o.background :dark)
          (= main.katContrast :soft))
   (do
-    (set mainFG (ucolors.brighten (groups.mainFG) 0.8))))
+    (tset mainFG 1 (ucolors.brighten (. (groups.mainFG) 1) 0.8))))
 
-(set kat.normal {:a {:bg (groups.highlightBG)
+(set kat.normal {:a {:bg (. (groups.highlightBG) 1)
                      :fg mainFG
                      :gui :bold}
-                 :b {:bg (ucolors.blendColors (groups.selectionBG) (groups.shadowBG) 0.4)
+                 :b {:bg (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
                      :fg mainFG}
-                 :c {:bg (groups.fillBG)
+                 :c {:bg (. (groups.fillBG) 1)
                      :fg mainFG}})
 
-(set kat.insert {:a {:bg (groups.selectionBG)
+(set kat.insert {:a {:bg (. (groups.selectionBG) 1)
                      :fg mainFG
                      :gui :bold}
-                 :b {:bg (ucolors.blendColors (groups.selectionBG) (groups.shadowBG) 0.4)
+                 :b {:bg (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
                      :fg mainFG}
-                 :c {:bg (ucolors.brighten (groups.selectionBG) 0.2)
+                 :c {:bg (ucolors.brighten (. (groups.selectionBG) 1) 0.2)
                      :fg mainFG}})
 
-(set kat.visual {:a {:bg (groups.errorBG)
+(set kat.visual {:a {:bg (. (groups.errorBG) 1)
                      :fg mainFG
                      :gui :bold}
-                 :b {:bg (ucolors.blendColors (groups.selectionBG) (groups.shadowBG) 0.4)
+                 :b {:bg (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
                      :fg mainFG}
-                 :c {:bg (groups.highlightBG)
+                 :c {:bg (. (groups.highlightBG) 1)
                      :fg mainFG}})
 
-(set kat.replace {:a {:bg (groups.infoBG)
+(set kat.replace {:a {:bg (. (groups.infoBG) 1)
                       :fg mainFG
                       :gui :bold}
-                  :b {:bg (ucolors.blendColors (groups.selectionBG) (groups.shadowBG) 0.4)
+                  :b {:bg (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
                       :fg mainFG}
-                  :c {:bg (ucolors.brighten (groups.selectionBG) 0.2)
+                  :c {:bg (ucolors.brighten (. (groups.selectionBG) 1) 0.2)
                       :fg mainFG}})
 
-(set kat.command {:a {:bg (ucolors.blendColors (. (colors.init :normalColors) :green) (groups.mainBG) 0.5)
+(set kat.command {:a {:bg (ucolors.blendColors (. (colors.init :normalColors) :green) (. (groups.mainBG) 1) 0.5)
                       :fg mainFG
                       :gui :bold}
-                  :b {:bg (ucolors.blendColors (groups.selectionBG) (groups.shadowBG) 0.4)
+                  :b {:bg (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
                       :fg mainFG}
-                  :c {:bg (ucolors.blendColors (. (colors.init :normalColors) :green) (groups.mainBG) 0.7)
+                  :c {:bg (ucolors.blendColors (. (colors.init :normalColors) :green) (. (groups.mainBG) 1) 0.7)
                       :fg mainFG}})
 
-(set kat.terminal {:a {:bg (ucolors.blendColors (groups.fillBG) (groups.mainBG) 0.8)
+(set kat.terminal {:a {:bg (ucolors.blendColors (. (groups.fillBG) 1) (. (groups.mainBG) 1) 0.8)
                        :fg mainFG
                        :gui :bold}
-                   :b {:bg (ucolors.blendColors (groups.selectionBG) (groups.shadowBG) 0.4)
+                   :b {:bg (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
                        :fg mainFG}
-                   :c {:bg (ucolors.blendColors (groups.errorBG) (groups.mainBG) 0.8)
+                   :c {:bg (ucolors.blendColors (. (groups.errorBG) 1) (. (groups.mainBG) 1) 0.8)
                        :fg mainFG}})
 
 (set kat.inactive {:a {:bg (. (colors.init :foreground) 6)
