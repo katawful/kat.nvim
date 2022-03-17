@@ -26,3 +26,4 @@ local function init()
   return ucolors.highlight("rainbowcol7", ucolors.blendColors((colors.init("background"))[6], groups.meldFG()[1], 0.8), "SKIP", 7, "SKIP")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

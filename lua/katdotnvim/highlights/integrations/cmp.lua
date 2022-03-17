@@ -20,3 +20,4 @@ local function init()
   return ucolors.highlight("CmpItemKind", groups.selectionBG()[1], ucolors.brighten(groups.fillBG()[1], 0.1), groups.selectionBG()[2], groups.fillBG()[2])
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

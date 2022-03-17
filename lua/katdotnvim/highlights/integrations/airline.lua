@@ -154,3 +154,4 @@ local function modifiedC(mode)
   return output
 end
 _2amodule_2a["modifiedC"] = modifiedC
+return _2amodule_2a

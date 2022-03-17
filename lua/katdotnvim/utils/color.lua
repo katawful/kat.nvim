@@ -152,3 +152,4 @@ local function saturation(color, percent)
   return output
 end
 _2amodule_2a["saturation"] = saturation
+return _2amodule_2a

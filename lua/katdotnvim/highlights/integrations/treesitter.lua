@@ -55,3 +55,4 @@ local function init()
   return ucolors.highlight("TSURI", groups.infoBG()[1], "SKIP", groups.infoBG()[2], "SKIP", "underline")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

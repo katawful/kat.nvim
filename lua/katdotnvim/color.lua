@@ -102,3 +102,4 @@ local function init(table)
   end
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

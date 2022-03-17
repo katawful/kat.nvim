@@ -43,3 +43,4 @@ local function init()
   return ucolors.highlight("markdownIdDeclaration", groups.shadowFG()[1], "SKIP", groups.umbraFG()[2], "SKIP", "underline", (colors.init("foreground"))[3])
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

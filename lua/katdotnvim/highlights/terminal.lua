@@ -47,3 +47,4 @@ local function init()
   return nil
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

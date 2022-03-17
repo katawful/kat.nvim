@@ -28,3 +28,4 @@ local function init()
   return ucolors.highlight("StartifyFooter", (colors.init("background"))[4], "SKIP", groups.selectionBG()[2], "SKIP")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

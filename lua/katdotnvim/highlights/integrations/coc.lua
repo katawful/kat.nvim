@@ -37,3 +37,4 @@ local function init()
   return ucolors.highlight("CocCodeLens", groups.meldBG()[1], "SKIP", groups.umbraFG()[2], "SKIP")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

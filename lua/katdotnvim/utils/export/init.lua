@@ -41,4 +41,7 @@ local function generateTerminalColors(terminal)
   end
 end
 _2amodule_2a["generateTerminalColors"] = generateTerminalColors
-return vim.api.nvim_command("command! -nargs=1 KatGenTermTheme lua require('katdotnvim.utils.export.init').generateTerminalColors(<args>)")
+do
+  vim.api.nvim_command("command! -nargs=1 KatGenTermTheme lua require('katdotnvim.utils.export.init').generateTerminalColors(<args>)")
+end
+return _2amodule_2a

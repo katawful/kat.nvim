@@ -92,3 +92,4 @@ local function init()
   return ucolors.highlight("diffRemoved", ucolors.blendColors(groups.errorBG()[1], groups.mainFG()[1], 0.4), ucolors.blendColors(groups.errorBG()[1], groups.mainBG()[1], 0.6), groups.mainFG()[2], groups.warningBG()[2], "bold")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

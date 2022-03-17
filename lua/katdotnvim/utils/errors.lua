@@ -48,3 +48,4 @@ local function setDefaults(check)
   end
 end
 _2amodule_2a["setDefaults"] = setDefaults
+return _2amodule_2a

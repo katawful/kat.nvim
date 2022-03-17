@@ -32,3 +32,4 @@ local function init()
   return ucolors.highlight("VimwikiHeader6", ucolors.darken((colors.init("normalColors")).pink, 0.3), "SKIP", 13, "SKIP", "bold")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

@@ -56,3 +56,4 @@ local function generateKittyTheme()
   return exports.userExportNotify("kitty")
 end
 _2amodule_2a["generateKittyTheme"] = generateKittyTheme
+return _2amodule_2a

@@ -21,3 +21,4 @@ local function init()
   return ucolors.highlight("gitDiff", "SKIP", groups.shadowBG()[1], "SKIP", groups.umbraBG()[2], "nocombine")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

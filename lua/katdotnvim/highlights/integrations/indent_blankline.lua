@@ -23,3 +23,4 @@ local function init()
   return ucolors.highlight("IndentBlanklineContextChar", groups.selectionBG()[1], "SKIP", groups.selectionBG()[2], "SKIP", "nocombine")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a

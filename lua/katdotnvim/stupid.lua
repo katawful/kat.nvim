@@ -42,3 +42,4 @@ local function stupidFunction()
   return timer:start(1, 75, vim.schedule_wrap(_1_))
 end
 _2amodule_2a["stupidFunction"] = stupidFunction
+return _2amodule_2a

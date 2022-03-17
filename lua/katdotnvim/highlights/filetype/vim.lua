@@ -30,3 +30,4 @@ local function init()
   return vim.cmd("hi def link vimUserFunc Function")
 end
 _2amodule_2a["init"] = init
+return _2amodule_2a
