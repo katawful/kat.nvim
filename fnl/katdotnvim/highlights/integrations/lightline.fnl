@@ -156,7 +156,7 @@
 (fn inactiveGroup []
   (local output
     {1 (. (groups.mainBG) 1)
-     2 (. (colors.init :foreground) 3)
+     2 (. (colors.foreground) 3)
      3 (. (groups.mainBG) 2)
      4 (. (groups.umbraFG) 2)
      5 ""})
