@@ -19,18 +19,18 @@
 (def- bluePrimary :#2dacd2)
 
 ; This defines and outputs a table of primary colors
-(defn defineNormalColors []
+(defn- defineNormalColors []
   (local output {:red redPrimary
-               :green greenPrimary
-               :orange orangePrimary
-               :pink pinkPrimary
-               :purple purplePrimary
-               :blue bluePrimary})
+                 :green greenPrimary
+                 :orange orangePrimary
+                 :pink pinkPrimary
+                 :purple purplePrimary
+                 :blue bluePrimary})
   output)
 
 
 ; This defines and outputs a table of background colors dependent upon the current theme
-(defn defineBack []
+(defn- defineBack []
   (var back {})
   ; back and foreground colors
   (when (= vim.o.background :dark)
@@ -68,7 +68,7 @@
   back)
 
 ; This defines and outputs a table of foreground colors dependent upon the current theme
-(defn defineFore []
+(defn- defineFore []
   (var fore {})
   (when (= vim.o.background :dark)
     (do (when (= main.katContrast :soft)
@@ -108,3 +108,12 @@
     :normalColors (do (defineNormalColors))
     :background (do (defineBack))
     :foreground (do (defineFore))))
+
+(defn normal-colors []
+  (defineNormalColors))
+
+(defn background []
+  (defineBack))
+
+(defn foreground []
+  (defineFore))

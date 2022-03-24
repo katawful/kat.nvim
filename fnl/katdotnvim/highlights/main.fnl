@@ -1,8 +1,7 @@
 (module katdotnvim.highlights.main
-        {autoload {colors katdotnvim.color
-                   ucolors katdotnvim.utils.color
-                   main katdotnvim.main
-                   }})
+  {autoload {colors katdotnvim.color
+             ucolors katdotnvim.utils.color
+             main katdotnvim.main}})
 
 
 ; define variables to use for generic uses
@@ -11,46 +10,50 @@
   (var output {})
   (if (and (= vim.o.background :dark)
            (= main.katContrast :soft))
-      (do (tset output 1 (ucolors.brighten (. (colors.init :foreground) 1) 0.8))
-          (tset output 2 7))
-      (do (tset output 1 (. (colors.init :foreground) 1))
-          (tset output 2 7)))
+    (do (tset output 1 (ucolors.brighten (. (colors.foreground) 1) 0.8))
+      (tset output 2 7))
+    (do (tset output 1 (. (colors.foreground) 1))
+      (tset output 2 7)))
   output)
-(defn mainBG [] [(. (colors.init :background) 1)
+(defn mainBG [] [(. (colors.background) 1)
                  0])
 
-(defn umbraFG [] [(. (colors.init :foreground) 2)
+(defn umbraFG [] [(. (colors.foreground) 2)
                   15])
-(defn umbraBG [] [(. (colors.init :background) 2)
+(defn umbraBG [] [(. (colors.background) 2)
                   8])
 
-(defn shadowFG [] [(. (colors.init :foreground) 3)])
-(defn shadowBG [] [(. (colors.init :background) 3)])
+(defn shadowFG [] [(. (colors.foreground) 3)
+                   16])
+(defn shadowBG [] [(. (colors.background) 3)
+                   16])
 
-(defn meldFG [] [(. (colors.init :foreground) 4)])
-(defn meldBG [] [(. (colors.init :background) 4)])
+(defn meldFG [] [(. (colors.foreground) 4)
+                 16])
+(defn meldBG [] [(. (colors.background) 4)
+                 16])
 
 ; pink/purple/blue are structural
 (defn selectionFG []
   (local output [(. (mainFG) 1)
                  7])
   output)
-(defn selectionBG [] [(. (colors.init :normalColors) :blue)
+(defn selectionBG [] [(. (colors.normal-colors) :blue)
                       4
                       12])
 (defn fillFG []
   (local output [(. (mainFG) 1)
                  7])
   output)
-(defn fillBG [] [(. (colors.init :normalColors) :pink)
+(defn fillBG [] [(. (colors.normal-colors) :pink)
                  5
-                 13
-                 ])
+                 13])
+
 (defn highlightFG []
   (local output [(. (mainFG) 1)
                  7])
   output)
-(defn highlightBG [] [(. (colors.init :normalColors) :purple)
+(defn highlightBG [] [(. (colors.normal-colors) :purple)
                       6
                       14])
 
@@ -59,7 +62,7 @@
   (local output [(. (mainFG) 1)
                  7])
   output)
-(defn errorBG [] [(. (colors.init :normalColors) :red)
+(defn errorBG [] [(. (colors.normal-colors) :red)
                   1])
 (defn warningFG []
   (local output [(. (mainFG) 1)
@@ -67,7 +70,7 @@
   output)
 
 (defn warningBG []
-  (local output [(ucolors.blendColors (. (colors.init :normalColors) :red) (. (mainBG) 1) 0.7)
+  (local output [(ucolors.blendColors (. (colors.normal-colors) :red) (. (mainBG) 1) 0.7)
                  9])
   output)
 
@@ -75,7 +78,7 @@
   (local output [(. (mainBG) 1)
                  0])
   output)
-(defn infoBG [] [(. (colors.init :normalColors) :orange)
+(defn infoBG [] [(. (colors.normal-colors) :orange)
                  3
                  11])
 ; green and others are auxiliary
@@ -85,8 +88,8 @@
 (defn groupFunction []
   (var output "")
   (if (= vim.o.background :light)
-      (do (set output (ucolors.saturation (ucolors.darken (. (colors.init :normalColors) :green) 0.5) 0.4)))
-      (do (set output (ucolors.saturation (ucolors.brighten (. (colors.init :normalColors) :green) 0.5) -0.2))))
+    (do (set output (ucolors.saturation (ucolors.darken (. (colors.normal-colors) :green) 0.5) 0.4)))
+    (do (set output (ucolors.saturation (ucolors.brighten (. (colors.normal-colors) :green) 0.5) -0.2))))
   output)
 (defn auxBG []
   (local output [(groupFunction)
@@ -133,7 +136,7 @@
                      :NONE
                      :italic)
   (ucolors.highlight :Whitespace
-                     (. (colors.init :foreground) 5)
+                     (. (colors.foreground) 5)
                      :SKIP
                      (. (umbraFG) 2)
                      :SKIP)
@@ -190,7 +193,7 @@
 
   ; Statusline
   (ucolors.highlight :StatusLine
-                     (. (colors.init :background) 5)
+                     (. (colors.background) 5)
                      (ucolors.blendColors (. (highlightBG) 1)
                                           (. (mainBG) 1)
                                           0.7)
@@ -199,13 +202,13 @@
                      :bold)
 
   (ucolors.highlight :StatusLineNC
-                     (ucolors.blendColors (. (highlightBG) 1)
-                                          (. (mainBG) 1)
-                                          0.7)
-                     (. (colors.init :background) 5)
-                     (. (umbraBG) 2)
-                     (. (highlightBG) 3)
-                     :bold)
+                   (ucolors.blendColors (. (highlightBG) 1)
+                                        (. (mainBG) 1)
+                                        0.7)
+                   (. (colors.background) 5)
+                   (. (umbraBG) 2)
+                   (. (highlightBG) 3)
+                   :bold)
 
   ; Tabline
   ; we need to make the dark soft font brighter to match dark hard tabline
@@ -213,7 +216,7 @@
   (if (and (= vim.o.background :dark)
            (= main.katContrast :soft))
       (do
-        (var color (ucolors.brighten (. (highlightFG) 1) 0.8))
+        (var color (ucolors.brighten (. (highlightFG) 1) 0))
         (ucolors.highlight :TabLine
                            color
                            (. (highlightBG) 1)
@@ -466,19 +469,19 @@
                      (. (warningBG) 2))
 
   (if (= (vim.fn.has :gui) 1)
-      (do
-        (ucolors.highlight :Menu
-                           (. (mainFG) 1)
-                           (. (mainBG) 1)
-                           (. (mainFG) 2)
-                           (. (mainBG) 2))
-        (ucolors.highlight :Tooltip
-                           (. (fillFG) 1)
-                           (. (fillBG) 1)
-                           (. (fillFG) 2)
-                           (. (fillBG) 2))
-        (ucolors.highlight :Scrollbar
-                           (. (highlightFG) 1)
-                           (. (highlightBG) 1)
-                           (. (highlightFG) 2)
-                           (. (highlightBG) 2)))))
+    (do
+      (ucolors.highlight :Menu
+                         (. (mainFG) 1)
+                         (. (mainBG) 1)
+                         (. (mainFG) 2)
+                         (. (mainBG) 2))
+      (ucolors.highlight :Tooltip
+                         (. (fillFG) 1)
+                         (. (fillBG) 1)
+                         (. (fillFG) 2)
+                         (. (fillBG) 2))
+      (ucolors.highlight :Scrollbar
+                         (. (highlightFG) 1)
+                         (. (highlightBG) 1)
+                         (. (highlightFG) 2)
+                         (. (highlightBG) 2)))))

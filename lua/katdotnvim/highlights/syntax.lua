@@ -17,24 +17,24 @@ _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local function identifier()
-  local output = {ucolors.blendColors((colors.init("normalColors")).blue, (colors.init("background"))[6], 0.65), 12}
+  local output = {ucolors.blendColors((colors["normal-colors"]()).blue, colors.background()[6], 0.65), 12}
   return output
 end
 _2amodule_2a["identifier"] = identifier
 local function statement()
-  return {(colors.init("normalColors")).red, 1}
+  return {(colors["normal-colors"]()).red, 1}
 end
 _2amodule_2a["statement"] = statement
 local function preproc()
-  return {(colors.init("normalColors")).pink, 5}
+  return {(colors["normal-colors"]()).pink, 5}
 end
 _2amodule_2a["preproc"] = preproc
 local function typeDef()
-  return {(colors.init("normalColors")).orange, 3}
+  return {(colors["normal-colors"]()).orange, 3}
 end
 _2amodule_2a["typeDef"] = typeDef
 local function special()
-  local output = {ucolors.blendColors((colors.init("normalColors")).pink, (colors.init("normalColors")).purple, 0.65), 13}
+  local output = {ucolors.blendColors((colors["normal-colors"]()).pink, (colors["normal-colors"]()).purple, 0.65), 13}
   return output
 end
 _2amodule_2a["special"] = special
@@ -49,9 +49,9 @@ local function init()
   ucolors.highlight("Identifier", identifier()[1], "SKIP", identifier()[2], "SKIP")
   ucolors.highlight("Function", ucolors.saturation(ucolors.brighten(ucolors.blendColors(identifier()[1], groups.errorBG()[1], 0.3), 0.1), 0.5), "SKIP", groups.warningBG()[2], "SKIP", "bold")
   if (vim.o.background == "light") then
-    ucolors.highlight("Variable", ucolors.darken(ucolors.blendColors(identifier()[1], (colors.init("foreground"))[6], 0.5), 0.4), "SKIP", groups.selectionBG()[2], "SKIP")
+    ucolors.highlight("Variable", ucolors.darken(ucolors.blendColors(identifier()[1], colors.foreground()[6], 0.5), 0.4), "SKIP", groups.selectionBG()[2], "SKIP")
   else
-    ucolors.highlight("Variable", ucolors.brighten(ucolors.blendColors(identifier()[1], (colors.init("foreground"))[6], 0.5), 0.4), "SKIP", groups.selectionBG()[2], "SKIP")
+    ucolors.highlight("Variable", ucolors.brighten(ucolors.blendColors(identifier()[1], colors.foreground()[6], 0.5), 0.4), "SKIP", groups.selectionBG()[2], "SKIP")
   end
   ucolors.highlight("Statement", statement()[1], "SKIP", statement()[2], "SKIP", "bold")
   ucolors.highlight("Conditional", ucolors.brighten(ucolors.blendColors(statement()[1], groups.highlightBG()[1], 0.2), 0.1), "SKIP", groups.highlightBG()[2], "SKIP")
@@ -72,14 +72,14 @@ local function init()
   ucolors.highlight("Type", typeDef()[1], "SKIP", typeDef()[2], "SKIP", "bold")
   ucolors.highlight("StorageClass", ucolors.blendColors(typeDef()[1], groups.auxBG()[1], 0.2), "SKIP", typeDef()[2], "SKIP", "bold")
   ucolors.highlight("Structure", ucolors.blendColors(typeDef()[1], groups.selectionBG()[1], 0.2), "SKIP", typeDef()[2], "SKIP", "bold")
-  ucolors.highlight("Typedef", ucolors.saturation(ucolors.blendColors(typeDef()[1], (colors.init("background"))[6], 0.2), 1), "SKIP", typeDef()[2], "SKIP", "bold")
+  ucolors.highlight("Typedef", ucolors.saturation(ucolors.blendColors(typeDef()[1], colors.background()[6], 0.2), 1), "SKIP", typeDef()[2], "SKIP", "bold")
   ucolors.highlight("Special", special()[1], "SKIP", special()[2], "SKIP")
   ucolors.highlight("SpecialChar", ucolors.blendColors(special()[1], groups.mainFG()[1], 0.8), "SKIP", special()[2], "SKIP", "bold")
   ucolors.highlight("Tag", ucolors.blendColors(special()[1], groups.errorBG()[1], 0.2), "SKIP", special()[2], "SKIP", "bold")
-  ucolors.highlight("Delimiter", ucolors.blendColors(special()[1], ucolors.blendColors((colors.init("background"))[6], groups.mainFG()[1], 0.8), 0.2), "SKIP", special()[2], "SKIP", "bold")
+  ucolors.highlight("Delimiter", ucolors.blendColors(special()[1], ucolors.blendColors(colors.background()[6], groups.mainFG()[1], 0.8), 0.2), "SKIP", special()[2], "SKIP", "bold")
   ucolors.highlight("SpecialComment", ucolors.blendColors(special()[1], groups.meldBG()[1], 0.2), "SKIP", special()[2], "SKIP", vim.g.kat_nvim_commentStyle)
   ucolors.highlight("Debug", ucolors.blendColors(special()[1], groups.auxBG()[1], 0.2), "SKIP", special()[2], "SKIP", "bold")
-  ucolors.highlight("Underlined", (colors.init("background"))[6], "SKIP", groups.umbraFG()[2], "SKIP", "underline", (colors.init("background"))[6])
+  ucolors.highlight("Underlined", colors.background()[6], "SKIP", groups.umbraFG()[2], "SKIP", "underline", colors.background()[6])
   ucolors.highlight("Error", groups.errorFG()[1], groups.errorBG()[1], groups.errorFG()[2], groups.errorBG()[2], "bold")
   ucolors.highlight("Todo", groups.infoFG()[1], ucolors.blendColors(groups.infoBG()[1], groups.mainFG()[1], 0.9), groups.infoFG()[2], groups.infoBG()[2])
   ucolors.highlight("Ignore", groups.meldFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")

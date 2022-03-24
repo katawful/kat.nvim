@@ -6,21 +6,21 @@
 
 ; this function handles NeoVim syntax
 (defn identifier []
-  (local output [(ucolors.blendColors (. (colors.init :normalColors) :blue)
-                                        (. (colors.init :background) 6)
-                                        0.65)
+  (local output [(ucolors.blendColors (. (colors.normal-colors) :blue)
+                                      (. (colors.background) 6)
+                                      0.65)
                  12])
   output)
-(defn statement [] [(. (colors.init :normalColors) :red)
-                     1])
-(defn preproc [] [(. (colors.init :normalColors) :pink)
-                   5])
-(defn typeDef [] [(. (colors.init :normalColors) :orange)
+(defn statement [] [(. (colors.normal-colors) :red)
+                    1])
+(defn preproc [] [(. (colors.normal-colors) :pink)
+                  5])
+(defn typeDef [] [(. (colors.normal-colors) :orange)
                   3])
 (defn special []
-  (local output [(ucolors.blendColors (. (colors.init :normalColors) :pink)
-                                        (. (colors.init :normalColors) :purple)
-                                        0.65)
+  (local output [(ucolors.blendColors (. (colors.normal-colors) :pink)
+                                      (. (colors.normal-colors) :purple)
+                                      0.65)
                  13])
   output)
 
@@ -91,7 +91,7 @@
   (if (= vim.o.background :light)
       (ucolors.highlight :Variable
                          (ucolors.darken (ucolors.blendColors (. (identifier) 1)
-                                                              (. (colors.init :foreground) 6)
+                                                              (. (colors.foreground) 6)
                                                               0.5)
                                          0.4)
                          :SKIP
@@ -100,7 +100,7 @@
 
       (ucolors.highlight :Variable
                          (ucolors.brighten (ucolors.blendColors (. (identifier) 1)
-                                                                (. (colors.init :foreground) 6)
+                                                                (. (colors.foreground) 6)
                                                                 0.5)
                                            0.4)
                          :SKIP
@@ -250,7 +250,7 @@
                      :bold)
   (ucolors.highlight :Typedef
                      (ucolors.saturation (ucolors.blendColors (. (typeDef) 1)
-                                                              (. (colors.init :background) 6)
+                                                              (. (colors.background) 6)
                                                               0.2)
                                          1)
                      :SKIP
@@ -284,7 +284,7 @@
 
   (ucolors.highlight :Delimiter
                      (ucolors.blendColors (. (special) 1)
-                                          (ucolors.blendColors (. (colors.init :background) 6)
+                                          (ucolors.blendColors (. (colors.background) 6)
                                                                (. (groups.mainFG) 1)
                                                                0.8)
                                           0.2)
@@ -311,12 +311,12 @@
                      :bold)
 
   (ucolors.highlight :Underlined
-                     (. (colors.init :background) 6)
+                     (. (colors.background) 6)
                      :SKIP
                      (. (groups.umbraFG) 2)
                      :SKIP
                      :underline
-                     (. (colors.init :background) 6))
+                     (. (colors.background) 6))
 
   (ucolors.highlight :Error
                      (. (groups.errorFG) 1)

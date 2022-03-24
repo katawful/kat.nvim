@@ -34,7 +34,7 @@ local function defineNormalColors()
   local output = {red = redPrimary, green = greenPrimary, orange = orangePrimary, pink = pinkPrimary, purple = purplePrimary, blue = bluePrimary}
   return output
 end
-_2amodule_2a["defineNormalColors"] = defineNormalColors
+_2amodule_locals_2a["defineNormalColors"] = defineNormalColors
 local function defineBack()
   local back = {}
   if (vim.o.background == "dark") then
@@ -61,7 +61,7 @@ local function defineBack()
   end
   return back
 end
-_2amodule_2a["defineBack"] = defineBack
+_2amodule_locals_2a["defineBack"] = defineBack
 local function defineFore()
   local fore = {}
   if (vim.o.background == "dark") then
@@ -88,7 +88,7 @@ local function defineFore()
   end
   return fore
 end
-_2amodule_2a["defineFore"] = defineFore
+_2amodule_locals_2a["defineFore"] = defineFore
 local function init(table)
   local _13_ = table
   if (_13_ == "normalColors") then
@@ -102,4 +102,16 @@ local function init(table)
   end
 end
 _2amodule_2a["init"] = init
+local function normal_colors()
+  return defineNormalColors()
+end
+_2amodule_2a["normal-colors"] = normal_colors
+local function background()
+  return defineBack()
+end
+_2amodule_2a["background"] = background
+local function foreground()
+  return defineFore()
+end
+_2amodule_2a["foreground"] = foreground
 return _2amodule_2a
