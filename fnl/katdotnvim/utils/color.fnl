@@ -1,8 +1,8 @@
 (module katdotnvim.utils.color
-        {autoload {hsl externals.hsluv
-                   colors katdotnvim.color
-                   a aniseed.core}
-         require-macros [katdotnvim.utils.macros]})
+  {autoload {hsl externals.hsluv
+             colors katdotnvim.color
+             a aniseed.core}
+   require-macros [katdotnvim.utils.macros]})
 
 ; this function handles color manipulation
 
@@ -34,32 +34,32 @@
   (var cFore " ")
   (var cBack " ")
   (when (not= guifg :SKIP)
-        (set guiFore (string.format " guifg=%s" guifg)))
+    (set guiFore (string.format " guifg=%s" guifg)))
   (when (not= guibg :SKIP)
-        (set guiBack (string.format " guibg=%s" guibg)))
+    (set guiBack (string.format " guibg=%s" guibg)))
   (when (not= cfg :SKIP)
-        (set cFore (string.format " ctermfg=%s" cfg)))
+    (set cFore (string.format " ctermfg=%s" cfg)))
   (when (not= cbg :SKIP)
-        (set cBack (string.format " ctermbg=%s" cbg)))
+    (set cBack (string.format " ctermbg=%s" cbg)))
   (var extra "")
   (local args [...])
   (if (> (length args) 0)
-      (each [k v (pairs args)]
-        (if (= (string.sub v 1 1) :#)
-            ; match color means guisp
-            (do (set extra (string.format "%s guisp=%s" 
-                                          extra
-                                          v)))
-            ; if a string, e.g. italics
-            (= (a.string? v) true)
-            (do (set extra (string.format "%s gui=%s cterm=%s"
-                                          extra
-                                          (tostring v)
-                                          (tostring v))))
-            ; else means blend
-            (do (set extra (string.format "%s blend=%s" 
-                                          extra
-                                          v))))))
+    (each [k v (pairs args)]
+      (if (= (string.sub v 1 1) :#)
+      ; match color means guisp
+        (do (set extra (string.format "%s guisp=%s" 
+                                  extra
+                                  v)))
+          ; if a string, e.g. italics
+        (= (a.string? v) true)
+        (do (set extra (string.format "%s gui=%s cterm=%s"
+                                      extra
+                                      (tostring v)
+                                      (tostring v))))
+          ; else means blend
+        (do (set extra (string.format "%s blend=%s" 
+                                      extra
+                                      v))))))
   (local output (.. "highlight " group guiFore guiBack cFore cBack extra))
   (vim.cmd (tostring output)))
 
@@ -69,27 +69,27 @@
   (var guiFore " ")
   (var guiBack " ")
   (when (not= guifg :SKIP)
-        (set guiFore (string.format " guifg=%s" guifg)))
+    (set guiFore (string.format " guifg=%s" guifg)))
   (when (not= guibg :SKIP)
-        (set guiBack (string.format " guibg=%s" guibg)))
+    (set guiBack (string.format " guibg=%s" guibg)))
   (var extra "")
   (local args [...])
   (if (> (length args) 0)
-      (each [k v (pairs args)]
-        (if (= (string.sub v 1 1) :#)
-            ; match color means guisp
-            (do (set extra (string.format "%s guisp=%s" 
-                                          extra
-                                          v)))
-            ; if a string, e.g. italics
-            (= (a.string? v) true)
-            (do (set extra (string.format "%s gui=%s"
-                                          extra
-                                          (tostring v))))
-            ; else means blend
-            (do (set extra (string.format "%s blend=%s" 
-                                          extra
-                                          v))))))
+    (each [k v (pairs args)]
+      (if (= (string.sub v 1 1) :#)
+      ; match color means guisp
+        (do (set extra (string.format "%s guisp=%s" 
+                                  extra
+                                  v)))
+          ; if a string, e.g. italics
+        (= (a.string? v) true)
+        (do (set extra (string.format "%s gui=%s"
+                                      extra
+                                      (tostring v))))
+          ; else means blend
+        (do (set extra (string.format "%s blend=%s" 
+                                      extra
+                                      v))))))
   (local output (.. "highlight " group guiFore guiBack extra))
   (vim.cmd (tostring output)))
 
@@ -101,7 +101,7 @@
   (var inputLuminance (+ (. hslColor 3)
                          (* luminance percent)))
   (when (>= inputLuminance 100)
-        (set inputLuminance 99.99))
+    (set inputLuminance 99.99))
   (tset hslColor 3 inputLuminance)
   (local output (hsl.hsluv_to_hex hslColor))
   output)
@@ -113,7 +113,7 @@
   (var inputLuminance (* (. hslColor 3)
                          (+ 1 percent)))
   (when (>= inputLuminance 100)
-        (set inputLuminance 99.99))
+    (set inputLuminance 99.99))
   (tset hslColor 3 inputLuminance)
   (local output (hsl.hsluv_to_hex hslColor))
   output)
@@ -126,7 +126,7 @@
   (var inputLuminance (* (. hslColor 3)
                          (- 1 percent)))
   (when (>= inputLuminance 100)
-        (set inputLuminance 99.99))
+    (set inputLuminance 99.99))
   (tset hslColor 3 inputLuminance)
   (local output (hsl.hsluv_to_hex hslColor))
   output)
@@ -139,9 +139,9 @@
   (var inputSaturation (+ (. hslColor 2)
                           (* sat percent)))
   (if (>= inputSaturation 100)
-      (set inputSaturation 99.99)
-      (<= inputSaturation 0)
-      (set inputSaturation 0.01))
+    (set inputSaturation 99.99)
+    (<= inputSaturation 0)
+    (set inputSaturation 0.01))
   (tset hslColor 2 inputSaturation)
   (local output (hsl.hsluv_to_hex hslColor))
   output)

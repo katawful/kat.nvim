@@ -1,8 +1,8 @@
 (module katdotnvim.main
-        {autoload {colors katdotnvim.color
-                   ucolors katdotnvim.utils.color
-                   errors katdotnvim.utils.errors}
-         require-macros [katdotnvim.utils.macros]})
+  {autoload {colors katdotnvim.color
+             ucolors katdotnvim.utils.color
+             errors katdotnvim.utils.errors}
+   require-macros [katdotnvim.utils.macros]})
 
 
 (defn init [contrast]
@@ -12,7 +12,7 @@
   (when vim.g.colors_name
     (vim.cmd "highlight clear"))
   (when (= (vim.fn.exists :syntax_on) 1)
-      (vim.cmd "syntax reset"))
+    (vim.cmd "syntax reset"))
 
   ; (set- termguicolors true)
 
@@ -20,14 +20,14 @@
 
   ; set g:colors_name for hard and soft themes
   (when (= katContrast :hard)
-        (let- :g :colors_name "kat.nvim")
-        (let- :g :colors_name "kat.nwim"))
+    (let- :g :colors_name "kat.nvim")
+    (let- :g :colors_name "kat.nwim"))
 
   ((. (require :katdotnvim.highlights.main) :init))
   ((. (require :katdotnvim.highlights.syntax) :init))
   ((. (require :katdotnvim.highlights.terminal) :init))
   (when (= vim.g.kat_nvim_stupidFeatures true)
-        ((. (require :katdotnvim.stupid) :stupidFunction)))
+    ((. (require :katdotnvim.stupid) :stupidFunction)))
   (require :katdotnvim.utils.export.init)
 
   ; add integrations
