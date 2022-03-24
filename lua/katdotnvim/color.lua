@@ -53,7 +53,7 @@ local function defineBack()
       back = {ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
-    if (main.katContrast == "hard") then
+    if ((main.katContrast == "hard") or (main.katContrast == nil)) then
       back = {darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
@@ -69,7 +69,7 @@ local function defineFore()
       fore = {ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
-    if (main.katContrast == "hard") then
+    if ((main.katContrast == "hard") or (main.katContrast == nil)) then
       fore = {darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
     else
     end
@@ -80,7 +80,7 @@ local function defineFore()
       fore = {ucolors.brighten(lightForeBack, 0.1), lightForeBack, ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
     else
     end
-    if (main.katContrast == "hard") then
+    if ((main.katContrast == "hard") or (main.katContrast == nil)) then
       fore = {lightForeBack, ucolors.brighten(lightForeBack, 0.1), ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
     else
     end
