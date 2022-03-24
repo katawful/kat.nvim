@@ -28,7 +28,6 @@
                  :blue bluePrimary})
   output)
 
-
 ; This defines and outputs a table of background colors dependent upon the current theme
 (defn- defineBack []
   (var back {})
@@ -41,7 +40,8 @@
                      4 (ucolors.brighten lightForeBack 0.5)
                      5 (ucolors.brighten lightForeBack 0.7)
                      6 (ucolors.brighten lightForeBack 0.9)}))
-      (when (= main.katContrast :hard)
+      (when (or (= main.katContrast :hard)
+                (= main.katContrast nil))
         (set back {1 lightForeBack
                    2 (ucolors.brighten lightForeBack 0.1)
                    3 (ucolors.brighten lightForeBack 0.3)
