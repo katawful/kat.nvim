@@ -3,12 +3,12 @@
 (local syntax (require :katdotnvim.highlights.syntax))
 (local groups (require :katdotnvim.highlights.main))
 (local main (require :katdotnvim.main))
-(local mainFG (. (groups.mainFG) 1))
+(var mainFG (. (groups.mainFG) 1))
 
 (if (and (= vim.o.background :dark)
          (= main.katContrast :soft))
   (do
-    (tset mainFG 1 (ucolors.brighten (. (groups.mainFG) 1) 0.8))))
+    (set mainFG (ucolors.brighten (. (groups.mainFG) 1) 0.8))))
 
 (local kat {})
 
