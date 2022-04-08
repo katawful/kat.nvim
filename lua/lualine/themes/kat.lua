@@ -6,7 +6,7 @@ local groups = require("katdotnvim.highlights.main")
 local main = require("katdotnvim.main")
 local mainFG = groups.mainFG()[1]
 if ((vim.o.background == "dark") and (main.katContrast == "soft")) then
-  mainFG[1] = ucolors.brighten(groups.mainFG()[1], 0.8)
+  mainFG = ucolors.brighten(groups.mainFG()[1], 0.8)
 else
 end
 local kat = {}

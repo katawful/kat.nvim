@@ -23,25 +23,27 @@ _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
 local loop = vim.loop
 _2amodule_locals_2a["loop"] = loop
+local comment_type = "#"
+_2amodule_2a["comment-type"] = comment_type
 local function kittyColors()
   if ((vim.g.colors_name ~= "kat.nvim") and (vim.g.colors_name ~= "kat.nwim")) then
     return errors.errMessage(1, "Not a kat.nvim colorscheme, theme won't compile")
   else
-    local output = {foreground = (groups.mainFG()[1])[1], background = groups.mainBG()[1], selection_foreground = groups.selectionFG()[1], selection_background = groups.selectionBG()[1], contrast = main.katContrast, shade = vim.o.background, cursor = (groups.mainFG()[1])[1], cursor_text_color = "background", color0 = groups.mainBG()[1], color1 = (colors.init("normalColors")).red, color2 = (colors.init("normalColors")).green, color3 = (colors.init("normalColors")).orange, color4 = (colors.init("normalColors")).blue, color5 = (colors.init("normalColors")).pink, color6 = (colors.init("normalColors")).purple, color7 = groups.mainFG()[1], color8 = groups.umbraBG()[1], color15 = groups.umbraFG()[1]}
+    local output = {foreground = groups.mainFG()[1], background = groups.mainBG()[1], selection_foreground = groups.selectionFG()[1], selection_background = groups.selectionBG()[1], contrast = main.katContrast, shade = vim.o.background, cursor = (groups.mainFG()[1])[1], cursor_text_color = "background", color0 = groups.mainBG()[1], color1 = (colors["normal-colors"]()).red, color2 = (colors["normal-colors"]()).green, color3 = (colors["normal-colors"]()).orange, color4 = (colors["normal-colors"]()).blue, color5 = (colors["normal-colors"]()).pink, color6 = (colors["normal-colors"]()).purple, color7 = groups.mainFG()[1], color8 = groups.umbraBG()[1], color15 = groups.umbraFG()[1]}
     if (vim.o.background == "light") then
-      output["color9"] = ucolors.darken((colors.init("normalColors")).red, 0.2)
-      do end (output)["color10"] = ucolors.darken((colors.init("normalColors")).green, 0.2)
-      do end (output)["color11"] = ucolors.darken((colors.init("normalColors")).orange, 0.2)
-      do end (output)["color12"] = ucolors.darken((colors.init("normalColors")).blue, 0.2)
-      do end (output)["color13"] = ucolors.darken((colors.init("normalColors")).pink, 0.2)
-      do end (output)["color14"] = ucolors.darken((colors.init("normalColors")).purple, 0.2)
+      output["color9"] = ucolors.darken((colors["normal-colors"]()).red, 0.2)
+      do end (output)["color10"] = ucolors.darken((colors["normal-colors"]()).green, 0.2)
+      do end (output)["color11"] = ucolors.darken((colors["normal-colors"]()).orange, 0.2)
+      do end (output)["color12"] = ucolors.darken((colors["normal-colors"]()).blue, 0.2)
+      do end (output)["color13"] = ucolors.darken((colors["normal-colors"]()).pink, 0.2)
+      do end (output)["color14"] = ucolors.darken((colors["normal-colors"]()).purple, 0.2)
     else
-      output["color9"] = ucolors.brighten((colors.init("normalColors")).red, 0.2)
-      do end (output)["color10"] = ucolors.brighten((colors.init("normalColors")).green, 0.2)
-      do end (output)["color11"] = ucolors.brighten((colors.init("normalColors")).orange, 0.2)
-      do end (output)["color12"] = ucolors.brighten((colors.init("normalColors")).blue, 0.2)
-      do end (output)["color13"] = ucolors.brighten((colors.init("normalColors")).pink, 0.2)
-      do end (output)["color14"] = ucolors.brighten((colors.init("normalColors")).purple, 0.2)
+      output["color9"] = ucolors.brighten((colors["normal-colors"]()).red, 0.2)
+      do end (output)["color10"] = ucolors.brighten((colors["normal-colors"]()).green, 0.2)
+      do end (output)["color11"] = ucolors.brighten((colors["normal-colors"]()).orange, 0.2)
+      do end (output)["color12"] = ucolors.brighten((colors["normal-colors"]()).blue, 0.2)
+      do end (output)["color13"] = ucolors.brighten((colors["normal-colors"]()).pink, 0.2)
+      do end (output)["color14"] = ucolors.brighten((colors["normal-colors"]()).purple, 0.2)
     end
     return output
   end
@@ -53,7 +55,8 @@ local function generateKittyTheme()
   local fd = assert(loop.fs_open(fileName, "w", 0))
   assert(loop.fs_chmod(fileName, 420))
   assert(loop.fs_write(fd, exports.generateString(kittyColors(), "kitty"), 0))
-  return exports.userExportNotify("kitty")
+  exports.userExportNotify("kitty")
+  return assert(loop.fs_close(fd))
 end
 _2amodule_2a["generateKittyTheme"] = generateKittyTheme
 return _2amodule_2a

@@ -19,7 +19,7 @@
   (def katContrast contrast)
 
   ; set g:colors_name for hard and soft themes
-  (when (= katContrast :hard)
+  (if (= katContrast :hard)
     (let- :g :colors_name "kat.nvim")
     (let- :g :colors_name "kat.nwim"))
 
