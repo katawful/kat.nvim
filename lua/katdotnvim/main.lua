@@ -30,8 +30,8 @@ local function init(contrast)
   _2amodule_2a["katContrast"] = katContrast
   if (katContrast == "hard") then
     vim.g["colors_name"] = "kat.nvim"
-  else
     vim.g["colors_name"] = "kat.nwim"
+  else
   end
   do end (require("katdotnvim.highlights.main")).init()
   do end (require("katdotnvim.highlights.syntax")).init()
