@@ -29,8 +29,19 @@ Simply set the contrast to whichever you prefer, and set your background in your
 See the examples above for the differences.
 
 # Terminal Colors Support
-The current colorscheme can be exported for kitty.
-Simply run `KatGenTermTheme "kitty"`, and the kitty config file will be generated in the current working directory based on the current in use settings/colorscheme.
+The following terminals can have a 16 color config file generated based on the current in use kat.nvim theme:
+
+| Terminal | Setting |
+|---|---|
+| kitty | "kitty" |
+| alacritty | "alacritty" |
+| URxvt | "rxvt-unicode", "urxvt" |
+
+Generate the color file like so:
+``` vim
+:KatGenTermTheme "kitty"
+```
+This will generate "kitty-kat.nvim-dark.conf" at the current working directory when kat.nvim with a dark background is used.
 
 # Options
 

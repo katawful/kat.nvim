@@ -12,31 +12,31 @@ Aniseed, and is generated dynamically. This help file goes over the main
 functionalities of this colorscheme
 
 ==============================================================================
-CONTENTS                                                  *kat.nvim-contents*
+CONTENTS                                                     *kat.nvim-contents*
 
-1. Options...............................|kat.nvim-options|
-2. Terminal Support .....................|kat.nvim-terminal|
-3. Supported Plugins.....................|kat.nvim-plugins|
-4. Supported Filetypes...................|kat.nvim-filetypes|
-5. Contributing..........................|kat.nvim-contributing|
+1. Options............................................|kat.nvim-options|
+2. Terminal Support ..................................|kat.nvim-terminal|
+3. Supported Plugins..................................|kat.nvim-plugins|
+4. Supported Filetypes................................|kat.nvim-filetypes|
+5. Contributing.......................................|kat.nvim-contributing|
 
 ==============================================================================
-Section 1: Options *kat.nvim-options*
+Section 1: Options                                            *kat.nvim-options*
 
 These are all the various options that the user can interact with.
 
 ------------------------------------------------------------------------------
-Section 1a: Colorschemes *kat.nvim-options.colorschemes*
+Section 1a: Colorschemes                         *kat.nvim-options.colorschemes*
 Colorschemes are controlled by NeoVim's internal colorscheme management as
 well as the 'background' global option:
 
-	        `kat.nvim`    -   hard contrast
-		`kat.nwim`    -   soft contrast
+			`kat.nvim`    -   hard contrast
+			`kat.nwim`    -   soft contrast
 
 Set your desired background with the 'background' option.
 
 ------------------------------------------------------------------------------
-Section 1b: Vim global variables *kat.nvim-options.variables*
+Section 1b: Vim global variables                    *kat.nvim-options.variables*
 
 These `g` variables control internal colorscheme options.
 
@@ -46,22 +46,22 @@ Controls comment style. Takes any valid |gui| string. Defaults to `'italic'`.
 *g:kat_nvim_integrations*
 An unordered list of strings that determines what plugins support is loaded.
 Default:
-   `let g:kat_nvim_integrations = {"lsp",`
-                                  `"treesitter",`
-				  `"startify",`
-				  `"ts_rainbow",`
-				  `"indent_blankline",`
-				  `"coc",`
-				  `"cmp",`
-				`  "fugitive"}`
+	   `let g:kat_nvim_integrations = {"lsp",`
+					  `"treesitter",`
+					  `"startify",`
+					  `"ts_rainbow",`
+					  `"indent_blankline",`
+					  `"coc",`
+					  `"cmp",`
+					`  "fugitive"}`
 See |kat.nvim-plugins| for what these correspond to.
 
 *g:kat_nvim_filetype*
 An unordered list of strings that determines what filetype support is loaded.
 Default:
-   `let g:kat_nvim_filetype = {"vim",`
-                              `"markdown",`
-			      `"vimwiki"}`
+	   `let g:kat_nvim_filetype = {"vim",`
+				      `"markdown",`
+				      `"vimwiki"}`
 Note that these use the |filetype| name.
 
 *g:kat_nvim_stupidFeatures*
@@ -70,40 +70,52 @@ Currently it only supports fading |hl-Function| highlight group. It works
 fairly well, but I cannot guarantee its use nor performance.
 
 ==============================================================================
-Section 2: Terminal Support
-Terminal colors can be generated for the kitty terminal. To do so, run:
-    `KatGenTermTheme "kitty"`
-The config file will be created in the current working directory.
+Section 2: Terminal Support                 *kat.nvim-terminal* *:KatGenTermTheme*
+Terminal colors can be generated for the following GUI aware terminals with
+the command `:KatGenTermTheme "terminal"`, which generates an appropriate
+config file for the desired terminal:
+
+		       `Terminal : Setting`
+        		  kitty : 'kitty'
+		      alacritty : 'alacritty'
+		   rxvt-unicode : 'rxvt-unicode', 'urxvt'
+
+Example for the kitty terminal:
+			`KatGenTermTheme "kitty"`
+Generates:
+			`kitty-kat.nvim-dark.conf`
+when generating with kat.nvim with a dark background. These files can be used
+for importing in supported terminal configs.
 
 ==============================================================================
-Section 3: Supported Plugins *kat.nvim-plugins*
+Section 3: Supported Plugins                                  *kat.nvim-plugins*
 This is the list of plugins that match this colorscheme.
 
-		      `Plugin : Setting`
-	          Native LSP : 'lsp'
-		 tree-sitter : 'treesitter'
-		    Startify : 'startify'
-		  TS Rainbow : 'ts_rainbow'
-	    indent-blankline : 'indent_blankline'
-	            coc.nvim : 'coc'
-	            nvim-cmp : 'cmp'
-		  bufferline : 'bufferline'
-		   lightline : Use plugin settings: 'kat'
-		     Airline : Use plugin settings: 'kat'
-		     Lualine : Use plugin settings: 'kat'
-		     Fugitive: 'fugitive'
+			      `Plugin : Setting`
+			  Native LSP : 'lsp'
+			 tree-sitter : 'treesitter'
+			    Startify : 'startify'
+			  TS Rainbow : 'ts_rainbow'
+		    indent-blankline : 'indent_blankline'
+			    coc.nvim : 'coc'
+			    nvim-cmp : 'cmp'
+			  bufferline : 'bufferline'
+			   lightline : Use plugin settings: 'kat'
+			     Airline : Use plugin settings: 'kat'
+			     Lualine : Use plugin settings: 'kat'
+			     Fugitive: 'fugitive'
 
 ==============================================================================
-Section 4: Supported Filetypes *kat.nvim-filetypes*
+Section 4: Supported Filetypes                              *kat.nvim-filetypes*
 This is the list of filetypes that match this colorscheme.
 
-		    `Filetype : Setting`
-		   Vimscript : 'vim'
-		    Markdown : 'markdown'
-		     Vimwiki : 'vimwiki'
+			    `Filetype : Setting`
+			   Vimscript : 'vim'
+			    Markdown : 'markdown'
+			     Vimwiki : 'vimwiki'
 
-============================================================================
-Section 5: Contributing *kat.nvim-contributing*
+==============================================================================
+Section 5: Contributing                                  *kat.nvim-contributing*
 I am open to expanding this colorscheme, but do this using Fennel with
 Aniseed, there are some peculiarities with how it needs to be developed. The
 most obvious example is that it must be developed entirely in Fennel with
@@ -111,7 +123,7 @@ Aniseed. I won't accept Lua code or Aniseed-less Fennel code. Fennel isn't
 that hard to learn, and you can mostly just copy an equivalent file.
 
 ------------------------------------------------------------------------------
-Section 5a: Internal Variables *kat.nvim-contributing.internal*
+Section 5a: Internal Variables                  *kat.nvim-contributing.internal*
 Internal variables are whatever variables that should not be exposed to the
 end user. If you need to expose a variable to the end user, use a
 |global-variable| through the |vim.g| namespace. Internal variables should
@@ -125,7 +137,7 @@ variables they are found in `katdotnvim.highlights.syntax`. You are fine
 defining them locally within your addition if they're only meant to be there.
 
 ------------------------------------------------------------------------------
-Section 5b: Color Functions *kat.nvim-contributing.color*
+Section 5b: Color Functions                        *kat.nvim-contributing.color*
 Color variables are not actually variables, they are functions that return a
 hex color string. This is to allow easy access to them without polluting
 global namespaces, while also allowing colorschemes to be changed during
@@ -147,19 +159,19 @@ using `defn`. You also can't use `def` for top level variables, you must use
    - A plain color function must be passed to a variable
 
 ------------------------------------------------------------------------------
-Section 5c: Compiling *kat.nvim-contributing.compiling*
+Section 5c: Compiling                          *kat.nvim-contributing.compiling*
 In order to compile this with make, you must have a local build of fennel in
 the root directory of this repository. It is not provided. It is currently
 used to build the files in `/colors`.
 
 ------------------------------------------------------------------------------
-Section 5d: Structure *kat.nvim-contributing.structure*
+Section 5d: Structure                          *kat.nvim-contributing.structure*
 Put the files in the right spot, filetypes go in
 `katdotnvim.highlights.filetype`. Plugins go in
 `katdotnvim.highlights.integrations`.
 
 ------------------------------------------------------------------------------
-Section 5e: Adding Options *kat.nvim-contributing.options*
+Section 5e: Adding Options                       *kat.nvim-contributing.options*
 If you add a filetype or plugin integration, or add a new global variable,
 make sure to add the defaults into the set defaults function in
 `katdotnvim.utils.error`.
