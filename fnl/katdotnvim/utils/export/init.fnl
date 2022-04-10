@@ -27,19 +27,14 @@
   (var color-string input-color)
   (match (type value)
     :table (do (each [sub-key sub-val (pairs value)]
-                 ; (print color-string)
-                 ; (print "*****" sub-key)
                  (match (type sub-val)
                    :table (do
-                            ; (print :table)
                             (set color-string (string.format "%s%s\n"
                                                              color-string
                                                              sub-key))
                             (set color-string
                                  (color-nest->one-line-color% sub-key sub-val color-string)))
                    :string (do
-                             ; (print :string)
-                            ; (print :***NEST)
                             (set color-string (string.format "%s%s %s\n"
                                                              color-string
                                                              sub-key
@@ -49,6 +44,7 @@
 ;; FN -- takes a nested table of colors and converts it to a nest aware one line string of colors
 ;; @colors -- the input color table
 ;; @terminal -- the terminal used
+;; $color-string -- string to be put into a file
 (defn table->one-line-color [colors terminal]
   "Converts nested table of colors to a one-line color config string"
   (var color-string (string.format
@@ -70,6 +66,7 @@
 ;;  one line contains the key and value
 ;; @colors -- the input color table
 ;; @terminal -- the terminal used
+;; $color-string -- string to be put into a file
 (defn string->one-line-color [colors terminal]
   "Converts a table of strings to a one-line color config string"
   (var color-string (string.format
