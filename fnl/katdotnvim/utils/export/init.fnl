@@ -8,6 +8,7 @@
              kitty katdotnvim.utils.export.kitty
              alacritty katdotnvim.utils.export.alacritty
              rxvt katdotnvim.utils.export.rxvt
+             konsole katdotnvim.utils.export.konsole
              a aniseed.core}
    require-macros [katdotnvim.utils.macros]})
 
@@ -15,6 +16,25 @@
 
 ;; Top level values
 (def- comment-type {})
+
+;; FN converts an RGB table to a comma delimited string
+;; @rgb -- input rgb
+;; $string -- output string
+(defn rgb->string [rgb]
+  (var string "")
+  (set string (string.format
+                "%s,%s,%s"
+                (* (. rgb 1) 255)
+                (* (. rgb 2) 255)
+                (* (. rgb 3) 255)))
+  string)
+
+;; FN converts a hex color string to a RGB color string
+;; @hex -- input hex
+;; $string -- output string
+(defn hex->rgb-string [hex]
+  (local string (rgb->string (hsl.hex_to_rgb hex)))
+  string)
 
 ;; FN -- iterate over a table of colors and mutate a needed string
 ;; -- This handles nested color tables for one line color strings
@@ -60,6 +80,22 @@
                                      color-string
                                      key))
     (set color-string (color-nest->one-line-color% key value color-string)))
+  color-string)
+
+;; FN -- takes an unnested table of strings and converts to a string
+;; ----- with two lines, the first being the key and the second being the value
+;; -- Note: this is a variant, no comment headline is created
+;; @color -- input color table
+;; @terminal -- terminal used
+;; $color-string -- string to be put into a file
+(defn string->two-line-color* [colors terminal]
+  "Converts a table of strings to a two-line color config string, with no comments"
+  (var color-string "")
+  (each [key val (pairs colors)]
+    (set color-string (string.format "%s%s\n%s\n"
+                                     color-string
+                                     key
+                                     val)))
   color-string)
 
 ;; FN -- takes an unnested table of strings and converts it to a string with
@@ -114,7 +150,8 @@
      :rxvt-unicode (do (tset comment-type 1 rxvt.comment-type)
                      (rxvt.output!))
      :urxvt (do (tset comment-type 1 rxvt.comment-type)
-             (rxvt.output!)))))
+             (rxvt.output!))
+     :konsole (do (konsole.output!)))))
 
 ;; create user command for terminal color generation
 (command- KatGenTermTheme {:nargs 1}

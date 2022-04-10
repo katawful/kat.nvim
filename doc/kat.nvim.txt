@@ -79,6 +79,7 @@ config file for the desired terminal:
         		  kitty : 'kitty'
 		      alacritty : 'alacritty'
 		   rxvt-unicode : 'rxvt-unicode', 'urxvt'
+		   	konsole : 'konsole'
 
 Example for the kitty terminal:
 			`KatGenTermTheme "kitty"`

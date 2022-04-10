@@ -36,6 +36,7 @@ The following terminals can have a 16 color config file generated based on the c
 | kitty | "kitty" |
 | alacritty | "alacritty" |
 | URxvt | "rxvt-unicode", "urxvt" |
+| konsole | "konsole" |
 
 Generate the color file like so:
 ``` vim
