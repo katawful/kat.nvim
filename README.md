@@ -18,7 +18,8 @@ Plug 'katawful/kat.nvim'
 ```
 
 # Example:
-![example](https://raw.githubusercontent.com/katawful/RandomAssets/main/example-2022.png)
+![gui-color](https://raw.githubusercontent.com/katawful/RandomAssets/main/gui-2022-example.png)
+![16-color](https://raw.githubusercontent.com/katawful/RandomAssets/main/16-color-preview.png)
 
 # Usage
 There are only 2 colorscheme files provided: `kat.nvim` and `kat.nwim`.
