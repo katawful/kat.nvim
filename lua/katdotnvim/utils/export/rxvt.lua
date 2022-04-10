@@ -26,37 +26,33 @@ _2amodule_locals_2a["loop"] = loop
 local comment_type = "!"
 _2amodule_2a["comment-type"] = comment_type
 local function gen_colors()
-  if ((vim.g.colors_name ~= "kat.nvim") and (vim.g.colors_name ~= "kat.nwim")) then
-    return errors.errMessage(1, "Not a kat.nvim colorscheme, theme won't compile")
+  local output = {["URxvt*foreground:"] = groups.mainFG()[1], ["URxvt*background:"] = groups.mainBG()[1], ["URxvt*color0:"] = groups.mainBG()[1], ["URxvt*color1:"] = (colors["normal-colors"]()).red, ["URxvt*color2:"] = (colors["normal-colors"]()).green, ["URxvt*color3:"] = (colors["normal-colors"]()).orange, ["URxvt*color4:"] = (colors["normal-colors"]()).blue, ["URxvt*color5:"] = (colors["normal-colors"]()).pink, ["URxvt*color6:"] = (colors["normal-colors"]()).purple, ["URxvt*color7:"] = groups.mainFG()[1], ["URxvt*color8:"] = groups.umbraBG()[1], ["URxvt*color15:"] = groups.umbraFG()[1]}
+  if (vim.o.background == "light") then
+    output["URxvt*color9:"] = ucolors.darken((colors["normal-colors"]()).red, 0.2)
+    do end (output)["URxvt*color10:"] = ucolors.darken((colors["normal-colors"]()).green, 0.2)
+    do end (output)["URxvt*color11:"] = ucolors.darken((colors["normal-colors"]()).orange, 0.2)
+    do end (output)["URxvt*color12:"] = ucolors.darken((colors["normal-colors"]()).blue, 0.2)
+    do end (output)["URxvt*color13:"] = ucolors.darken((colors["normal-colors"]()).pink, 0.2)
+    do end (output)["URxvt*color14:"] = ucolors.darken((colors["normal-colors"]()).purple, 0.2)
   else
-    local output = {["URxvt*foreground:"] = groups.mainFG()[1], ["URxvt*background:"] = groups.mainBG()[1], ["URxvt*color0:"] = groups.mainBG()[1], ["URxvt*color1:"] = (colors["normal-colors"]()).red, ["URxvt*color2:"] = (colors["normal-colors"]()).green, ["URxvt*color3:"] = (colors["normal-colors"]()).orange, ["URxvt*color4:"] = (colors["normal-colors"]()).blue, ["URxvt*color5:"] = (colors["normal-colors"]()).pink, ["URxvt*color6:"] = (colors["normal-colors"]()).purple, ["URxvt*color7:"] = groups.mainFG()[1], ["URxvt*color8:"] = groups.umbraBG()[1], ["URxvt*color15:"] = groups.umbraFG()[1]}
-    if (vim.o.background == "light") then
-      output["URxvt*color9:"] = ucolors.darken((colors["normal-colors"]()).red, 0.2)
-      do end (output)["URxvt*color10:"] = ucolors.darken((colors["normal-colors"]()).green, 0.2)
-      do end (output)["URxvt*color11:"] = ucolors.darken((colors["normal-colors"]()).orange, 0.2)
-      do end (output)["URxvt*color12:"] = ucolors.darken((colors["normal-colors"]()).blue, 0.2)
-      do end (output)["URxvt*color13:"] = ucolors.darken((colors["normal-colors"]()).pink, 0.2)
-      do end (output)["URxvt*color14:"] = ucolors.darken((colors["normal-colors"]()).purple, 0.2)
-    else
-      output["URxvt*color9:"] = ucolors.brighten((colors["normal-colors"]()).red, 0.2)
-      do end (output)["URxvt*color10:"] = ucolors.brighten((colors["normal-colors"]()).green, 0.2)
-      do end (output)["URxvt*color11:"] = ucolors.brighten((colors["normal-colors"]()).orange, 0.2)
-      do end (output)["URxvt*color12:"] = ucolors.brighten((colors["normal-colors"]()).blue, 0.2)
-      do end (output)["URxvt*color13:"] = ucolors.brighten((colors["normal-colors"]()).pink, 0.2)
-      do end (output)["URxvt*color14:"] = ucolors.brighten((colors["normal-colors"]()).purple, 0.2)
-    end
-    return output
+    output["URxvt*color9:"] = ucolors.brighten((colors["normal-colors"]()).red, 0.2)
+    do end (output)["URxvt*color10:"] = ucolors.brighten((colors["normal-colors"]()).green, 0.2)
+    do end (output)["URxvt*color11:"] = ucolors.brighten((colors["normal-colors"]()).orange, 0.2)
+    do end (output)["URxvt*color12:"] = ucolors.brighten((colors["normal-colors"]()).blue, 0.2)
+    do end (output)["URxvt*color13:"] = ucolors.brighten((colors["normal-colors"]()).pink, 0.2)
+    do end (output)["URxvt*color14:"] = ucolors.brighten((colors["normal-colors"]()).purple, 0.2)
   end
+  return output
 end
 _2amodule_2a["gen-colors"] = gen_colors
-local function output()
+local function output_21()
   local openMode = (loop.constants.O_CREAT + loop.constants.O_WRONLY + loop.constants.O_TRUNC)
   local fileName = string.format("URxvt-%s-%s.Xresources", tostring(vim.g.colors_name), tostring(vim.o.background))
   local fd = assert(loop.fs_open(fileName, "w", 0))
   assert(loop.fs_chmod(fileName, 420))
-  assert(loop.fs_write(fd, exports.generateString(gen_colors(), "rxvt-unicode"), 0))
-  exports.userExportNotify("rxvt-unicode")
+  assert(loop.fs_write(fd, exports["string->one-line-color"](gen_colors(), "rxvt-unicode"), 0))
+  exports["notify$"]("rxvt-unicode")
   return assert(loop.fs_close(fd))
 end
-_2amodule_2a["output"] = output
+_2amodule_2a["output!"] = output_21
 return _2amodule_2a
