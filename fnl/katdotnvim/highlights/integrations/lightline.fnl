@@ -30,7 +30,7 @@
 (fn normalMode_b []
   (local output
     {1 (. (mainFG) 1)
-     2 (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
+     2 (ucolors.blend  (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
      3 (. (mainFG) 2)
      4 (. (groups.selectionBG) 3)
      5 ""})
@@ -57,7 +57,7 @@
 (fn replaceMode_b []
   (local output
     {1 (. (mainFG) 1)
-     2 (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
+     2 (ucolors.blend  (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
      3 (. (mainFG) 2)
      4 (. (groups.selectionBG) 3)
      5 ""})
@@ -84,7 +84,7 @@
 (fn visualMode_b []
   (local output
     {1 (. (mainFG) 1)
-     2 (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
+     2 (ucolors.blend  (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
      3 (. (mainFG) 2)
      4 (. (groups.selectionBG) 3)
      5 ""})
@@ -111,7 +111,7 @@
 (fn insertMode_b []
   (local output
     {1 (. (mainFG) 1)
-     2 (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
+     2 (ucolors.blend  (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
      3 (. (mainFG) 2)
      4 (. (groups.selectionBG) 3)
      5 ""})
@@ -129,7 +129,7 @@
 (fn terminalMode_c []
   (local output
     {1 (. (mainFG) 1)
-     2 (ucolors.blendColors (. (groups.errorBG) 1) (. (groups.mainBG) 1) 0.8)
+     2 (ucolors.blend  (. (groups.errorBG) 1) (. (groups.mainBG) 1) 0.8)
      3 (. (mainFG) 2)
      4 (. (groups.warningBG) 2)
      5 ""})
@@ -138,7 +138,7 @@
 (fn terminalMode_b []
   (local output
     {1 (. (mainFG) 1)
-     2 (ucolors.blendColors (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
+     2 (ucolors.blend  (. (groups.selectionBG) 1) (. (groups.shadowBG) 1) 0.4)
      3 (. (mainFG) 2)
      4 (. (groups.selectionBG) 3)
      5 ""})
@@ -147,7 +147,7 @@
 (fn terminalMode_a []
   (local output
     {1 (. (mainFG) 1)
-     2 (ucolors.blendColors (. (groups.fillBG) 1) (. (groups.mainBG) 1) 0.8)
+     2 (ucolors.blend  (. (groups.fillBG) 1) (. (groups.mainBG) 1) 0.8)
      3 (. (mainFG) 2)
      4 (. (groups.fillBG) 2)
      5 "bold"})

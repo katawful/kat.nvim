@@ -6,9 +6,9 @@
 
 ; this function handles NeoVim syntax
 (defn identifier []
-  (local output [(ucolors.blendColors (. (colors.normal-colors) :blue)
-                                      (. (colors.background) 6)
-                                      0.65)
+  (local output [(ucolors.blend  (. (colors.normal-colors) :blue)
+                                 (. (colors.background) 6)
+                                 0.65)
                  12])
   output)
 (defn statement [] [(. (colors.normal-colors) :red)
@@ -18,9 +18,9 @@
 (defn typeDef [] [(. (colors.normal-colors) :orange)
                   3])
 (defn special []
-  (local output [(ucolors.blendColors (. (colors.normal-colors) :pink)
-                                      (. (colors.normal-colors) :purple)
-                                      0.65)
+  (local output [(ucolors.blend  (. (colors.normal-colors) :pink)
+                                 (. (colors.normal-colors) :purple)
+                                 0.65)
                  13])
   output)
 
@@ -42,9 +42,9 @@
                      (. (groups.auxBG) 3)
                      :SKIP)
   (ucolors.highlight :Character
-                     (ucolors.blendColors (. (groups.auxBG) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.5)
+                     (ucolors.blend  (. (groups.auxBG) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.5)
                      :SKIP
                      (. (groups.auxBG) 3)
                      :SKIP
@@ -56,17 +56,17 @@
                      (. (groups.fillBG) 2)
                      :SKIP)
   (ucolors.highlight :Float
-                     (ucolors.blendColors (. (groups.fillBG) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.7)
+                     (ucolors.blend  (. (groups.fillBG) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.7)
                      :SKIP
                      (. (groups.fillBG) 3)
                      :SKIP)
 
   (ucolors.highlight :Boolean
-                     (ucolors.blendColors (. (groups.selectionBG) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.7)
+                     (ucolors.blend  (. (groups.selectionBG) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.7)
                      :SKIP
                      (. (groups.selectionBG) 3)
                      :SKIP
@@ -78,9 +78,9 @@
                      (. (identifier) 2)
                      :SKIP)
   (ucolors.highlight :Function
-                     (ucolors.saturation (ucolors.brighten (ucolors.blendColors (. (identifier) 1)
-                                                                                (. (groups.errorBG) 1)
-                                                                                0.3)
+                     (ucolors.saturation (ucolors.brighten (ucolors.blend (. (identifier) 1)
+                                                                          (. (groups.errorBG) 1)
+                                                                          0.3)
                                                            0.10)
                                          0.5)
                      :SKIP
@@ -90,18 +90,18 @@
 
   (if (= vim.o.background :light)
       (ucolors.highlight :Variable
-                         (ucolors.darken (ucolors.blendColors (. (identifier) 1)
-                                                              (. (colors.foreground) 6)
-                                                              0.5)
+                         (ucolors.darken (ucolors.blend  (. (identifier) 1)
+                                                         (. (colors.foreground) 6)
+                                                         0.5)
                                          0.4)
                          :SKIP
                          (. (groups.selectionBG) 2)
                          :SKIP)
 
       (ucolors.highlight :Variable
-                         (ucolors.brighten (ucolors.blendColors (. (identifier) 1)
-                                                                (. (colors.foreground) 6)
-                                                                0.5)
+                         (ucolors.brighten (ucolors.blend  (. (identifier) 1)
+                                                           (. (colors.foreground) 6)
+                                                           0.5)
                                            0.4)
                          :SKIP
                          (. (groups.selectionBG) 2)
@@ -115,18 +115,18 @@
                      :bold)
 
   (ucolors.highlight :Conditional
-                     (ucolors.brighten (ucolors.blendColors (. (statement) 1)
-                                                            (. (groups.highlightBG) 1)
-                                                            0.2)
+                     (ucolors.brighten (ucolors.blend  (. (statement) 1)
+                                                       (. (groups.highlightBG) 1)
+                                                       0.2)
                                        0.1)
                      :SKIP
                      (. (groups.highlightBG) 2)
                      :SKIP)
 
   (ucolors.highlight :Repeat
-                     (ucolors.saturation (ucolors.brighten (ucolors.blendColors (. (statement) 1)
-                                                                                (. (groups.infoBG) 1)
-                                                                                0.2)
+                     (ucolors.saturation (ucolors.brighten (ucolors.blend  (. (statement) 1)
+                                                                           (. (groups.infoBG) 1)
+                                                                           0.2)
                                                            0.3)
                                          0.8)
                      :SKIP
@@ -134,9 +134,9 @@
                      :SKIP)
 
   (ucolors.highlight :Label
-                     (ucolors.saturation (ucolors.blendColors (. (statement) 1)
-                                                              (. (groups.fillBG) 1)
-                                                              0.2)
+                     (ucolors.saturation (ucolors.blend  (. (statement) 1)
+                                                         (. (groups.fillBG) 1)
+                                                         0.2)
                                          1)
                      :SKIP
                      (. (groups.fillBG) 2)
@@ -144,9 +144,9 @@
                      :bold)
 
   (ucolors.highlight :Operator
-                     (ucolors.blendColors (. (statement) 1)
-                                          (. (groups.meldFG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (statement) 1)
+                                     (. (groups.meldFG) 1)
+                                     0.2)
                      :SKIP
                      (. (groups.mainFG) 2)
                      :SKIP
@@ -154,9 +154,9 @@
 
   (if (= vim.o.background :light)
       (do (ucolors.highlight :Keyword
-                             (ucolors.darken (ucolors.blendColors (. (statement) 1)
-                                                                  (. (groups.auxBG) 1)
-                                                                  0.2)
+                             (ucolors.darken (ucolors.blend  (. (statement) 1)
+                                                             (. (groups.auxBG) 1)
+                                                             0.2)
                                              0.5)
                              :SKIP
                              (. (groups.auxBG) 3)
@@ -164,9 +164,9 @@
                              :italic))
 
       (do (ucolors.highlight :Keyword
-                             (ucolors.brighten (ucolors.blendColors (. (statement) 1)
-                                                                    (. (groups.auxBG) 1)
-                                                                    0.2)
+                             (ucolors.brighten (ucolors.blend  (. (statement) 1)
+                                                               (. (groups.auxBG) 1)
+                                                               0.2)
                                                0.5)
                              :SKIP
                              (. (groups.auxBG) 3)
@@ -174,9 +174,9 @@
                              :italic)))
 
   (ucolors.highlight :Exception
-                     (ucolors.brighten (ucolors.blendColors (. (statement) 1)
-                                                            (. (groups.selectionBG) 1)
-                                                            0.1)
+                     (ucolors.brighten (ucolors.blend  (. (statement) 1)
+                                                       (. (groups.selectionBG) 1)
+                                                       0.1)
                                        0.2)
                      :SKIP
                      (. (groups.selectionBG) 2)
@@ -190,36 +190,36 @@
                      "bold,italic")
 
   (ucolors.highlight :Include
-                     (ucolors.blendColors (. (preproc) 1)
-                                          (. (groups.errorBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (preproc) 1)
+                                     (. (groups.errorBG) 1)
+                                     0.2)
                      :SKIP
                      (. (preproc) 2)
                      :SKIP
                      "bold,italic")
 
   (ucolors.highlight :Define
-                     (ucolors.blendColors (. (preproc) 1)
-                                          (. (groups.highlightBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (preproc) 1)
+                                     (. (groups.highlightBG) 1)
+                                     0.2)
                      :SKIP
                      (. (groups.highlightBG) 3)
                      :SKIP
                      "bold,italic")
 
   (ucolors.highlight :Macro
-                     (ucolors.blendColors (. (preproc) 1)
-                                          (. (groups.selectionBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (preproc) 1)
+                                     (. (groups.selectionBG) 1)
+                                     0.2)
                      :SKIP
                      (. (groups.selectionBG) 3)
                      :SKIP
                      "bold,italic")
 
   (ucolors.highlight :PreCondit
-                     (ucolors.blendColors (. (preproc) 1)
-                                          (. (groups.auxBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (preproc) 1)
+                                     (. (groups.auxBG) 1)
+                                     0.2)
                      :SKIP
                      (. (groups.auxBG) 3)
                      :SKIP
@@ -233,25 +233,25 @@
                      :bold)
 
   (ucolors.highlight :StorageClass
-                     (ucolors.blendColors (. (typeDef) 1)
-                                          (. (groups.auxBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (typeDef) 1)
+                                     (. (groups.auxBG) 1)
+                                     0.2)
                      :SKIP
                      (. (typeDef) 2)
                      :SKIP
                      :bold)
   (ucolors.highlight :Structure
-                     (ucolors.blendColors (. (typeDef) 1)
-                                          (. (groups.selectionBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (typeDef) 1)
+                                     (. (groups.selectionBG) 1)
+                                     0.2)
                      :SKIP
                      (. (typeDef) 2)
                      :SKIP
                      :bold)
   (ucolors.highlight :Typedef
-                     (ucolors.saturation (ucolors.blendColors (. (typeDef) 1)
-                                                              (. (colors.background) 6)
-                                                              0.2)
+                     (ucolors.saturation (ucolors.blend  (. (typeDef) 1)
+                                                         (. (colors.background) 6)
+                                                         0.2)
                                          1)
                      :SKIP
                      (. (typeDef) 2)
@@ -265,47 +265,47 @@
                      :SKIP)
 
   (ucolors.highlight :SpecialChar
-                     (ucolors.blendColors (. (special) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.8)
+                     (ucolors.blend  (. (special) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.8)
                      :SKIP
                      (. (special) 2)
                      :SKIP
                      :bold)
 
   (ucolors.highlight :Tag
-                     (ucolors.blendColors (. (special) 1)
-                                          (. (groups.errorBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (special) 1)
+                                     (. (groups.errorBG) 1)
+                                     0.2)
                      :SKIP
                      (. (special) 2)
                      :SKIP
                      :bold)
 
   (ucolors.highlight :Delimiter
-                     (ucolors.blendColors (. (special) 1)
-                                          (ucolors.blendColors (. (colors.background) 6)
-                                                               (. (groups.mainFG) 1)
-                                                               0.8)
-                                          0.2)
+                     (ucolors.blend  (. (special) 1)
+                                     (ucolors.blend  (. (colors.background) 6)
+                                                     (. (groups.mainFG) 1)
+                                                     0.8)
+                                     0.2)
                      :SKIP
                      (. (special) 2)
                      :SKIP
                      :bold)
 
   (ucolors.highlight :SpecialComment
-                     (ucolors.blendColors (. (special) 1)
-                                          (. (groups.meldBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (special) 1)
+                                     (. (groups.meldBG) 1)
+                                     0.2)
                      :SKIP
                      (. (special) 2)
                      :SKIP
                      (. vim.g.kat_nvim_commentStyle))
 
   (ucolors.highlight :Debug
-                     (ucolors.blendColors (. (special) 1)
-                                          (. (groups.auxBG) 1)
-                                          0.2)
+                     (ucolors.blend  (. (special) 1)
+                                     (. (groups.auxBG) 1)
+                                     0.2)
                      :SKIP
                      (. (special) 2) :SKIP
                      :bold)
@@ -327,9 +327,9 @@
 
   (ucolors.highlight :Todo
                      (. (groups.infoFG) 1)
-                     (ucolors.blendColors (. (groups.infoBG) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.9)
+                     (ucolors.blend  (. (groups.infoBG) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.9)
                      (. (groups.infoFG) 2)
                      (. (groups.infoBG) 2))
 
@@ -368,34 +368,34 @@
                      :bold)
 
   (ucolors.highlight :diffAdded
-                     (ucolors.blendColors (. (groups.auxBG) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.4)
-                     (ucolors.blendColors (. (groups.auxBG) 1)
-                                          (. (groups.mainBG) 1)
-                                          0.6)
+                     (ucolors.blend  (. (groups.auxBG) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.4)
+                     (ucolors.blend  (. (groups.auxBG) 1)
+                                     (. (groups.mainBG) 1)
+                                     0.6)
                      (. (groups.mainFG) 2)
                      (. (groups.auxBG) 3)
                      :bold)
 
   (ucolors.highlight :diffChanged
-                     (ucolors.blendColors (. (groups.selectionBG) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.4)
-                     (ucolors.blendColors (. (groups.selectionBG) 1)
-                                          (. (groups.mainBG) 1)
-                                          0.6)
+                     (ucolors.blend  (. (groups.selectionBG) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.4)
+                     (ucolors.blend  (. (groups.selectionBG) 1)
+                                     (. (groups.mainBG) 1)
+                                     0.6)
                      (. (groups.mainFG) 2)
                      (. (groups.selectionBG) 3)
                      :bold)
 
   (ucolors.highlight :diffRemoved
-                     (ucolors.blendColors (. (groups.errorBG) 1)
-                                          (. (groups.mainFG) 1)
-                                          0.4)
-                     (ucolors.blendColors (. (groups.errorBG) 1)
-                                          (. (groups.mainBG) 1)
-                                          0.6)
+                     (ucolors.blend  (. (groups.errorBG) 1)
+                                     (. (groups.mainFG) 1)
+                                     0.4)
+                     (ucolors.blend  (. (groups.errorBG) 1)
+                                     (. (groups.mainBG) 1)
+                                     0.6)
                      (. (groups.mainFG) 2)
                      (. (groups.warningBG) 2)
                      :bold))

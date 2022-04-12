@@ -109,7 +109,7 @@
 ; set colorscheme
 (fn col- [scheme]
   (let [scheme (.. "colorscheme " (sym-tostring scheme))]
-  (cmd scheme)))
+   (cmd scheme)))
 
 ; augroup
 (fn aug- [group ...]
@@ -136,16 +136,16 @@
 ; let
 (fn let- [scope obj ...]
   (let [scope (sym-tostring scope)
-       obj (sym-tostring obj)
-       output []
-       value []]
+        obj (sym-tostring obj)
+        output []
+        value []]
     (var output [...])
     (var value [])
     ; if number of operands is 1
     (if (= (length output) 1
-      (each [key val (pairs output)]
-        ; set the output to just the value of the operands
-        (set value  val)))
+         (each [key val (pairs output)]
+           ; set the output to just the value of the operands
+           (set value  val)))
       (> (length output) 1
          ; else set the output to the whole table
         (do (set value output))))
@@ -437,5 +437,5 @@
  :auc- auc-
  :opt- opt-
  :com- com-
- :command- command-
-}
+ :command- command-}
+

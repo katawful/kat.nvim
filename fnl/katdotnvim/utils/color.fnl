@@ -4,43 +4,50 @@
              a aniseed.core}
    require-macros [katdotnvim.utils.macros]})
 
-; this function handles color manipulation
+;;; Utilities for color management
 
-; sourceColor is the color we want to manipulate
-; mixColor is the color we want to mix with
-; alpha is a 0 - 1 decimal value that determines how much mix value is allowed
-; 1 is full sourceColor, 0 is full mixColor
-; returns a hex string
-(defn blendColors [sourceColor mixColor alpha]
+;; FN -- blend two hex colors based on some alpha value
+;; -- higher alpha means the mix-color is preferred
+;; @source-color -- the color we want to manipulate
+;; @mix-color -- the color we want to mix with
+;; @alpha -- a 0 - 1 decimal value that determines how much mix value is allowed
+;; $output -- blended hex color
+(defn blend  [source-color mix-color alpha]
   ; set each color to rgb for blending
-  (let [sourceColor (hsl.hex_to_rgb sourceColor)
-        mixColor (hsl.hex_to_rgb mixColor)]
+  (let [source-color (hsl.hex_to_rgb source-color)
+        mix-color (hsl.hex_to_rgb mix-color)]
     (var returnColor [])
     ; for each RGB value
     (for [i 1 3]
-      (var currentColor (+ (* alpha (. sourceColor i))
-                           (* (- 1 alpha) (. mixColor i))))
+      (var currentColor (+ (* alpha (. source-color i))
+                           (* (- 1 alpha) (. mix-color i))))
       ; (set currentColor (math.floor (+ (math.min (math.max 0 currentColor) 255) 0.5)))
       (tset returnColor i currentColor))
     (local output (tostring (hsl.rgb_to_hex returnColor)))
     output))
 
-; this function handles highlight manipulation
-; fairly self explanatory, variarg is for GUI and GUISP stuff
-(defn highlight [gr guifg guibg cfg cbg ...]
+;; FN -- generate a highlight with the appropriate hex color inputs and group
+;; -- Has sideffects
+;; @gr -- highlight as a string
+;; @guifg -- hex color for foreground
+;; @guibg -- hex color for background
+;; @cfg -- terminal color number for foreground
+;; @cbg -- terminal color number for background
+;; @... -- handles extra highlighting options as a string
+(defn highlight$ [gr guifg guibg cfg cbg ...]
   (local group (tostring gr))
-  (var guiFore " ")
-  (var guiBack " ")
-  (var cFore " ")
-  (var cBack " ")
+  (var gui-fore " ")
+  (var gui-back " ")
+  (var c-fore " ")
+  (var c-back " ")
   (when (not= guifg :SKIP)
-    (set guiFore (string.format " guifg=%s" guifg)))
+    (set gui-fore (string.format " guifg=%s" guifg)))
   (when (not= guibg :SKIP)
-    (set guiBack (string.format " guibg=%s" guibg)))
+    (set gui-back (string.format " guibg=%s" guibg)))
   (when (not= cfg :SKIP)
-    (set cFore (string.format " ctermfg=%s" cfg)))
+    (set c-fore (string.format " ctermfg=%s" cfg)))
   (when (not= cbg :SKIP)
-    (set cBack (string.format " ctermbg=%s" cbg)))
+    (set c-back (string.format " ctermbg=%s" cbg)))
   (var extra "")
   (local args [...])
   (if (> (length args) 0)
@@ -60,18 +67,23 @@
         (do (set extra (string.format "%s blend=%s" 
                                       extra
                                       v))))))
-  (local output (.. "highlight " group guiFore guiBack cFore cBack extra))
+  (local output (.. "highlight " group gui-fore gui-back c-fore c-back extra))
   (vim.cmd (tostring output)))
 
-; a GUI only version of the above
-(defn highlightGUI [gr guifg guibg ...]
+;; FN -- generate a highlight with the appropriate hex color inputs and group
+;; -- Has sideffects, only takes and sets GUI colors
+;; @gr -- highlight as a string
+;; @guifg -- hex color for foreground
+;; @guibg -- hex color for background
+;; @... -- handles extra highlighting options as a string
+(defn highlight-gui$ [gr guifg guibg ...]
   (local group (tostring gr))
-  (var guiFore " ")
-  (var guiBack " ")
+  (var gui-fore " ")
+  (var gui-back " ")
   (when (not= guifg :SKIP)
-    (set guiFore (string.format " guifg=%s" guifg)))
+    (set gui-fore (string.format " guifg=%s" guifg)))
   (when (not= guibg :SKIP)
-    (set guiBack (string.format " guibg=%s" guibg)))
+    (set gui-back (string.format " guibg=%s" guibg)))
   (var extra "")
   (local args [...])
   (if (> (length args) 0)
@@ -90,10 +102,13 @@
         (do (set extra (string.format "%s blend=%s" 
                                       extra
                                       v))))))
-  (local output (.. "highlight " group guiFore guiBack extra))
+  (local output (.. "highlight " group gui-fore gui-back extra))
   (vim.cmd (tostring output)))
 
-; this function brightens a color by some percent
+;; FN -- brighten a hex color
+;; @color -- input hex color
+;; @percent -- amount to adjust as a decimal percent
+;; $output -- changed hex color
 (defn brighten [color percent]
   (local hslColor (hsl.hex_to_hsluv color))
   (local luminance (- 100 (. hslColor 3)))
@@ -106,7 +121,11 @@
   (local output (hsl.hsluv_to_hex hslColor))
   output)
 
-(defn hsluvBrighten [tuple percent]
+;; FN -- brighten a hsluv color table
+;; @tuple -- input color as a 3 value sequential table
+;; @percent -- amount to adjust as a decimal percent
+;; $output -- changed hex color
+(defn hsluv-brighten [tuple percent]
   (var hslColor tuple)
   (local luminance (- 100 (. hslColor 3)))
 
@@ -118,7 +137,10 @@
   (local output (hsl.hsluv_to_hex hslColor))
   output)
 
-; this function darkens a color by some percent
+;; FN -- darken a hex color
+;; @color -- input hex color
+;; @percent -- amount to adjust as a decimal percent
+;; $output -- changed hex color
 (defn darken [color percent]
   (local hslColor (hsl.hex_to_hsluv color))
   (local luminance (- 100 (. hslColor 3)))
@@ -131,7 +153,10 @@
   (local output (hsl.hsluv_to_hex hslColor))
   output)
 
-; this function changes the saturation of a color by some percent
+;; FN -- change the saturation of a hex color
+;; @color -- input hex color
+;; @percent -- amount to adjust as a decimal percent
+;; $output -- changed hex color
 (defn saturation [color percent]
   (local hslColor (hsl.hex_to_hsluv color))
   (local sat (. hslColor 2))

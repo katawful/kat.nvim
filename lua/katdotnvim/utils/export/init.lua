@@ -89,7 +89,7 @@ end
 _2amodule_2a["notify$"] = notify_24
 local function is_colorscheme_3f()
   if ((vim.g.colors_name ~= "kat.nvim") and (vim.g.colors_name ~= "kat.nwim")) then
-    errors.errMessage(1, "Not a kat.nvim colorscheme, theme won't compile")
+    errors["message$"](1, "Not a kat.nvim colorscheme, theme won't compile")
     return false
   else
     return true

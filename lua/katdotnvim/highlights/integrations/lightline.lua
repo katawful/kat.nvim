@@ -22,7 +22,7 @@ local function normalMode_c()
   return output
 end
 local function normalMode_b()
-  local output = {(mainFG0())[1], ucolors.blendColors(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {(mainFG0())[1], ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function normalMode_a()
@@ -34,7 +34,7 @@ local function replaceMode_c()
   return output
 end
 local function replaceMode_b()
-  local output = {(mainFG0())[1], ucolors.blendColors(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {(mainFG0())[1], ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function replaceMode_a()
@@ -46,7 +46,7 @@ local function visualMode_c()
   return output
 end
 local function visualMode_b()
-  local output = {(mainFG0())[1], ucolors.blendColors(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {(mainFG0())[1], ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function visualMode_a()
@@ -58,7 +58,7 @@ local function insertMode_c()
   return output
 end
 local function insertMode_b()
-  local output = {(mainFG0())[1], ucolors.blendColors(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {(mainFG0())[1], ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function insertMode_a()
@@ -66,15 +66,15 @@ local function insertMode_a()
   return output
 end
 local function terminalMode_c()
-  local output = {(mainFG0())[1], ucolors.blendColors(groups.errorBG()[1], groups.mainBG()[1], 0.8), (mainFG0())[2], groups.warningBG()[2], ""}
+  local output = {(mainFG0())[1], ucolors.blend(groups.errorBG()[1], groups.mainBG()[1], 0.8), (mainFG0())[2], groups.warningBG()[2], ""}
   return output
 end
 local function terminalMode_b()
-  local output = {(mainFG0())[1], ucolors.blendColors(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {(mainFG0())[1], ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function terminalMode_a()
-  local output = {(mainFG0())[1], ucolors.blendColors(groups.fillBG()[1], groups.mainBG()[1], 0.8), (mainFG0())[2], groups.fillBG()[2], "bold"}
+  local output = {(mainFG0())[1], ucolors.blend(groups.fillBG()[1], groups.mainBG()[1], 0.8), (mainFG0())[2], groups.fillBG()[2], "bold"}
   return output
 end
 local function inactiveGroup()

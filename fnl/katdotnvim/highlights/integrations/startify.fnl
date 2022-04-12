@@ -8,15 +8,15 @@
 
 (defn init []
   (ucolors.highlight :StartifyBracket
-                     (ucolors.blendColors (. (groups.selectionBG) 1)
-                                          (. (groups.meldBG) 1)
-                                          0.5)
+                     (ucolors.blend  (. (groups.selectionBG) 1)
+                                     (. (groups.meldBG) 1)
+                                     0.5)
                      :SKIP
                      (. (groups.selectionBG) 2)
                      :SKIP
                      :bold)
   (ucolors.highlight :StartifyFile
-                     (ucolors.blendColors (. (groups.highlightBG) 1) (. (groups.mainFG) 1) 0.8)
+                     (ucolors.blend  (. (groups.highlightBG) 1) (. (groups.mainFG) 1) 0.8)
                      :SKIP
                      (. (groups.highlightBG) 2)
                      :SKIP
@@ -38,7 +38,7 @@
                      (. (groups.mainFG) 2)
                      :SKIP)
   (ucolors.highlight :StartifySection
-                     (ucolors.blendColors (. (colors.init :normalColors) :red) (. (groups.mainFG) 1) 0.8)
+                     (ucolors.blend  (. (colors.init :normalColors) :red) (. (groups.mainFG) 1) 0.8)
                      :SKIP
                      (. (groups.warningBG) 2)
                      :SKIP

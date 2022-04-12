@@ -16,7 +16,7 @@ _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["_"] = _
-local function blendColors(sourceColor, mixColor, alpha)
+local function blend(sourceColor, mixColor, alpha)
   local sourceColor0 = hsl.hex_to_rgb(sourceColor)
   local mixColor0 = hsl.hex_to_rgb(mixColor)
   local returnColor = {}
@@ -27,7 +27,7 @@ local function blendColors(sourceColor, mixColor, alpha)
   local output = tostring(hsl.rgb_to_hex(returnColor))
   return output
 end
-_2amodule_2a["blendColors"] = blendColors
+_2amodule_2a["blend"] = blend
 local function highlight(gr, guifg, guibg, cfg, cbg, ...)
   local group = tostring(gr)
   local guiFore = " "
@@ -68,7 +68,7 @@ local function highlight(gr, guifg, guibg, cfg, cbg, ...)
   return vim.cmd(tostring(output))
 end
 _2amodule_2a["highlight"] = highlight
-local function highlightGUI(gr, guifg, guibg, ...)
+local function highlight_gui(gr, guifg, guibg, ...)
   local group = tostring(gr)
   local guiFore = " "
   local guiBack = " "
@@ -97,7 +97,7 @@ local function highlightGUI(gr, guifg, guibg, ...)
   local output = ("highlight " .. group .. guiFore .. guiBack .. extra)
   return vim.cmd(tostring(output))
 end
-_2amodule_2a["highlightGUI"] = highlightGUI
+_2amodule_2a["highlight-gui"] = highlight_gui
 local function brighten(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
   local luminance = (100 - hslColor[3])
@@ -111,7 +111,7 @@ local function brighten(color, percent)
   return output
 end
 _2amodule_2a["brighten"] = brighten
-local function hsluvBrighten(tuple, percent)
+local function hsluv_brighten(tuple, percent)
   local hslColor = tuple
   local luminance = (100 - hslColor[3])
   local inputLuminance = (hslColor[3] * (1 + percent))
@@ -123,7 +123,7 @@ local function hsluvBrighten(tuple, percent)
   local output = hsl.hsluv_to_hex(hslColor)
   return output
 end
-_2amodule_2a["hsluvBrighten"] = hsluvBrighten
+_2amodule_2a["hsluv-brighten"] = hsluv_brighten
 local function darken(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
   local luminance = (100 - hslColor[3])

@@ -11,8 +11,8 @@
                      (. (colors.init :background) 5)
                      :SKIP
                      (. (groups.mainFG) 2)
-                     :SKIP
-                     )
+                     :SKIP)
+                     
   (ucolors.highlight :VimwikiLink
                      (. (groups.infoBG) 1)
                      :SKIP
@@ -47,8 +47,8 @@
                      (. (groups.meldFG) 1)
                      (. (groups.shadowBG) 1)
                      (. (groups.umbraFG) 2)
-                     (. (groups.umbraBG) 2)
-                     )
+                     (. (groups.umbraBG) 2))
+                     
   (ucolors.highlight :VimwikiHeader1
                      (ucolors.darken (. (colors.init :normalColors) :blue) 0.0)
                      :SKIP

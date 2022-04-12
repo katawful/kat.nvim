@@ -17,7 +17,7 @@ _2amodule_locals_2a["errors"] = errors
 _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
 local function init(contrast)
-  errors.setDefaults(true)
+  errors["options->default"](true)
   if vim.g.colors_name then
     vim.cmd("highlight clear")
   else

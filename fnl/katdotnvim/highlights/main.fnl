@@ -70,7 +70,7 @@
   output)
 
 (defn warningBG []
-  (local output [(ucolors.blendColors (. (colors.normal-colors) :red) (. (mainBG) 1) 0.7)
+  (local output [(ucolors.blend  (. (colors.normal-colors) :red) (. (mainBG) 1) 0.7)
                  9])
   output)
 
@@ -128,9 +128,9 @@
                      (. (umbraBG) 2)
                      :bold)
   (ucolors.highlight :SpecialKey
-                     (ucolors.blendColors (. (errorBG) 1)
-                                          (. (mainBG) 1)
-                                          0.6)
+                     (ucolors.blend (. (errorBG) 1)
+                                    (. (mainBG) 1)
+                                    0.6)
                      :NONE
                      (. (warningBG) 2)
                      :NONE
@@ -147,11 +147,11 @@
                      :SKIP
                      :bold)
   (ucolors.highlight :Directory
-                     (ucolors.blendColors (ucolors.blendColors (. (infoBG) 1)
-                                                               (. (mainFG) 1)
-                                                               0.1)
-                                          (. (selectionBG) 1)
-                                          0.2)
+                     (ucolors.blend  (ucolors.blend (. (infoBG) 1)
+                                                    (. (mainFG) 1)
+                                                    0.1)
+                                    (. (selectionBG) 1)
+                                    0.2)
                      :SKIP
                      (. (selectionBG) 2)
                      :SKIP)
@@ -194,17 +194,17 @@
   ; Statusline
   (ucolors.highlight :StatusLine
                      (. (colors.background) 5)
-                     (ucolors.blendColors (. (highlightBG) 1)
-                                          (. (mainBG) 1)
-                                          0.7)
+                     (ucolors.blend (. (highlightBG) 1)
+                                    (. (mainBG) 1)
+                                    0.7)
                      (. (umbraBG) 2)
                      (. (highlightBG) 3)
                      :bold)
 
   (ucolors.highlight :StatusLineNC
-                   (ucolors.blendColors (. (highlightBG) 1)
-                                        (. (mainBG) 1)
-                                        0.7)
+                   (ucolors.blend (. (highlightBG) 1)
+                                  (. (mainBG) 1)
+                                  0.7)
                    (. (colors.background) 5)
                    (. (umbraBG) 2)
                    (. (highlightBG) 3)
@@ -264,9 +264,9 @@
                      :SKIP
                      (. (warningBG) 2))
   (ucolors.highlight :VisualNOS
-                     :SKIP (ucolors.blendColors (. (selectionBG) 1)
-                                                (. (mainFG) 1)
-                                                0.5)
+                     :SKIP (ucolors.blend (. (selectionBG) 1)
+                                          (. (mainFG) 1)
+                                          0.5)
                      :SKIP
                      (. (warningBG) 2))
 
@@ -298,9 +298,9 @@
                      (. (selectionBG) 2))
 
   (ucolors.highlight :Question
-                     (ucolors.blendColors (. (auxBG) 1)
-                                          (. (mainFG) 1)
-                                          0.7)
+                     (ucolors.blend (. (auxBG) 1)
+                                    (. (mainFG) 1)
+                                    0.7)
                      :SKIP
                      (. (auxBG) 3)
                      :SKIP
@@ -342,9 +342,9 @@
                      (. (umbraBG) 2))
   (ucolors.highlight :ColorColumn
                      :NONE
-                     (ucolors.blendColors (. (selectionBG) 1)
-                                          (. (mainFG) 1)
-                                          0.8)
+                     (ucolors.blend (. (selectionBG) 1)
+                                    (. (mainFG) 1)
+                                    0.8)
                      :NONE
                      (. (selectionBG) 3)
                      :bold)
@@ -405,16 +405,16 @@
                      :NONE)
   (ucolors.highlight :Substitute
                      (. (infoFG) 1)
-                     (ucolors.blendColors (. (infoBG) 1)
-                                          (. (mainFG) 1)
-                                          0.7)
+                     (ucolors.blend (. (infoBG) 1)
+                                    (. (mainFG) 1)
+                                    0.7)
                      (. (infoFG) 2)
                      (. (infoBG) 3))
   (ucolors.highlight :Search
                      (. (infoFG) 1)
-                     (ucolors.blendColors (. (infoBG) 1)
-                                          (. (mainBG) 1)
-                                          0.7)
+                     (ucolors.blend (. (infoBG) 1)
+                                    (. (mainBG) 1)
+                                    0.7)
                      (. (infoFG) 2)
                      (. (infoBG) 2))
 
@@ -424,8 +424,9 @@
                      (. (fillBG) 2)
                      :SKIP)
   (ucolors.highlight :CursorLineNr
-                     (ucolors.blendColors (. (fillBG) 1)
-                                          (. (mainFG) 1) 0.6)
+                     (ucolors.blend (. (fillBG) 1)
+                                    (. (mainFG) 1)
+                                    0.6)
                      :SKIP
                      (. (fillBG) 3)
                      :SKIP
@@ -455,16 +456,16 @@
 
   (ucolors.highlight :debugPC
                      :SKIP
-                     (ucolors.blendColors (. (selectionBG) 1)
-                                          (. (mainFG) 1)
-                                          0.6)
+                     (ucolors.blend (. (selectionBG) 1)
+                                    (. (mainFG) 1)
+                                    0.6)
                      :SKIP
                      (. (selectionBG) 3))
   (ucolors.highlight :debugBreakpoint
                      :SKIP
-                     (ucolors.blendColors (. (errorBG) 1)
-                                          (. (mainFG) 1)
-                                          0.6)
+                     (ucolors.blend (. (errorBG) 1)
+                                    (. (mainFG) 1)
+                                    0.6)
                      :SKIP
                      (. (warningBG) 2))
 

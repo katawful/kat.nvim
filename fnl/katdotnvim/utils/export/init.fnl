@@ -134,7 +134,7 @@
   "Returns true when we are using a kat.nvim theme"
   (if (and (not= vim.g.colors_name :kat.nvim)
            (not= vim.g.colors_name :kat.nwim))
-    (do (errors.errMessage 1 "Not a kat.nvim colorscheme, theme won't compile")
+    (do (errors.message$ 1 "Not a kat.nvim colorscheme, theme won't compile")
       false)
     (do true)))
 

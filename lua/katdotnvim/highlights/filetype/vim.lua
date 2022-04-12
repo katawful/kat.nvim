@@ -18,8 +18,8 @@ _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function init()
   ucolors.highlight("vimCommentTitle", groups.shadowBG()[1], groups.shadowFG()[1], groups.umbraBG()[2], groups.umbraFG()[2], "bold,italic")
-  ucolors.highlight("vimBracket", ucolors.blendColors((colors.init("normalColors")).pink, groups.mainFG()[1], 0.7), "SKIP", groups.fillBG()[2], "SKIP")
-  ucolors.highlight("vimMapModKey", ucolors.blendColors((colors.init("normalColors")).pink, groups.mainFG()[1], 0.8), "SKIP", groups.fillBG()[2], "SKIP")
+  ucolors.highlight("vimBracket", ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.7), "SKIP", groups.fillBG()[2], "SKIP")
+  ucolors.highlight("vimMapModKey", ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.8), "SKIP", groups.fillBG()[2], "SKIP")
   ucolors.highlight("vimFuncSID", groups.umbraFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")
   ucolors.highlight("vimSetSep", groups.umbraFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")
   ucolors.highlight("vimSep", groups.umbraFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")

@@ -14,41 +14,41 @@
                      (. (groups.umbraFG) 2)
                      "bold,italic")
   (ucolors.highlight :vimBracket
-                     (ucolors.blendColors (. (colors.init :normalColors) :pink) (. (groups.mainFG) 1) 0.7)
+                     (ucolors.blend (. (colors.init :normalColors) :pink) (. (groups.mainFG) 1) 0.7)
                      :SKIP
                      (. (groups.fillBG) 2)
-                     :SKIP
-                     )
+                     :SKIP)
+                     
   (ucolors.highlight :vimMapModKey
-                     (ucolors.blendColors (. (colors.init :normalColors) :pink) (. (groups.mainFG) 1) 0.8)
+                     (ucolors.blend (. (colors.init :normalColors) :pink) (. (groups.mainFG) 1) 0.8)
                      :SKIP
                      (. (groups.fillBG) 2)
-                     :SKIP
-                     )
+                     :SKIP)
+                     
   (ucolors.highlight :vimFuncSID
                      (. (groups.umbraFG) 1)
                      :SKIP
                      (. (groups.umbraFG) 2)
-                     :SKIP
-                     )
+                     :SKIP)
+                     
   (ucolors.highlight :vimSetSep
                      (. (groups.umbraFG) 1)
                      :SKIP
                      (. (groups.umbraFG) 2)
-                     :SKIP
-                     )
+                     :SKIP)
+                     
   (ucolors.highlight :vimSep
                      (. (groups.umbraFG) 1)
                      :SKIP
                      (. (groups.umbraFG) 2)
-                     :SKIP
-                     )
+                     :SKIP)
+                     
   (ucolors.highlight :vimContinue
                      (. (groups.umbraFG) 1)
                      :SKIP
                      (. (groups.umbraFG) 2)
-                     :SKIP
-                     )
+                     :SKIP)
+                     
   (vim.cmd "hi def link vimOperParen Variable")
   (vim.cmd "hi def link vimFunction Function")
   (vim.cmd "hi def link vimIsCommand Identifier")

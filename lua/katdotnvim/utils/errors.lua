@@ -12,14 +12,14 @@ do
 end
 local _ = nil
 _2amodule_locals_2a["_"] = _
-local function errMessage(errType, message)
+local function message_24(errType, message)
   local errType0 = tostring(errType)
   local message0 = tostring(message)
   local output = string.format("kat.nvim E%s: %s", errType0, message0)
   return vim.notify(output, vim.log.levels.ERROR)
 end
-_2amodule_2a["errMessage"] = errMessage
-local function setDefaults(check)
+_2amodule_2a["message$"] = message_24
+local function options__3edefault(check)
   if (check == true) then
     if (vim.fn.exists("kat_nvim_commentStyle") == 0) then
       vim.g["kat_nvim_commentStyle"] = "italic"
@@ -47,5 +47,5 @@ local function setDefaults(check)
     return nil
   end
 end
-_2amodule_2a["setDefaults"] = setDefaults
+_2amodule_2a["options->default"] = options__3edefault
 return _2amodule_2a

@@ -3,13 +3,13 @@
 
 ; this module handles error messages
 
-(defn errMessage [errType message]
+(defn message$ [errType message]
   (let [errType (tostring errType)
         message (tostring message)]
     (local output (string.format "kat.nvim E%s: %s" errType message))
     (vim.notify output vim.log.levels.ERROR)))
 
-(defn setDefaults [check]
+(defn options->default [check]
   (if (= check true)
       (do
         (when (= (vim.fn.exists :kat_nvim_commentStyle) 0)
@@ -23,8 +23,7 @@
                  :startify
                  :coc
                  :cmp
-                 :fugitive
-                 ]))
+                 :fugitive]))
         (when (= (vim.fn.exists :kat_nvim_filetype) 0)
               (let- :g :kat_nvim_filetype [:vim
                                            :vimwiki
@@ -44,6 +43,4 @@
                                            :startify
                                            :coc
                                            :cmp
-                                           :fugitive
-                                           ])))
-    )
+                                           :fugitive]))))

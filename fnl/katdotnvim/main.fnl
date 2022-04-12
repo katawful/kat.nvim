@@ -7,7 +7,7 @@
 
 (defn init [contrast]
   ; define some defaults
-  (errors.setDefaults true)
+  (errors.options->default true)
 
   (when vim.g.colors_name
     (vim.cmd "highlight clear"))
