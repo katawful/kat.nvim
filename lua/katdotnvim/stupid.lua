@@ -22,7 +22,7 @@ local function stupidFunction()
   local i = 0
   local increase = true
   local function _1_()
-    ucolors["highlight$-gui$"]("Function", ucolors.saturation(ucolors.brighten(ucolors.blend(syntax.identifier(), (colors.init("normalColors")).red, (i * 0.1)), 0.1), 0.5), "SKIP", "bold")
+    ucolors["highlight-gui$"]("Function", ucolors.saturation(ucolors.brighten(ucolors.blend(syntax.identifier(), (colors.init("normalColors")).red, (i * 0.1)), 0.1), 0.5), "SKIP", "bold")
     if (increase == true) then
       i = (i + 1)
     else
