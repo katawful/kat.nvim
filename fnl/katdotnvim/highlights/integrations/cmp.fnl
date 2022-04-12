@@ -7,7 +7,7 @@
 ; This handles nvim-cmp
 
 (defn init []
-  (ucolors.highlight :CmpItemKind
+  (ucolors.highlight$ :CmpItemKind
                      (. (groups.selectionBG) 1)
                      (ucolors.brighten (. (groups.fillBG) 1) 0.1)
                      (. (groups.selectionBG) 2)

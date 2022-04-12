@@ -16,38 +16,38 @@ _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["_"] = _
-local function blend(sourceColor, mixColor, alpha)
-  local sourceColor0 = hsl.hex_to_rgb(sourceColor)
-  local mixColor0 = hsl.hex_to_rgb(mixColor)
+local function blend(source_color, mix_color, alpha)
+  local source_color0 = hsl.hex_to_rgb(source_color)
+  local mix_color0 = hsl.hex_to_rgb(mix_color)
   local returnColor = {}
   for i = 1, 3 do
-    local currentColor = ((alpha * (sourceColor0)[i]) + ((1 - alpha) * (mixColor0)[i]))
+    local currentColor = ((alpha * (source_color0)[i]) + ((1 - alpha) * (mix_color0)[i]))
     do end (returnColor)[i] = currentColor
   end
   local output = tostring(hsl.rgb_to_hex(returnColor))
   return output
 end
 _2amodule_2a["blend"] = blend
-local function highlight(gr, guifg, guibg, cfg, cbg, ...)
+local function highlight_24(gr, guifg, guibg, cfg, cbg, ...)
   local group = tostring(gr)
-  local guiFore = " "
-  local guiBack = " "
-  local cFore = " "
-  local cBack = " "
+  local gui_fore = " "
+  local gui_back = " "
+  local c_fore = " "
+  local c_back = " "
   if (guifg ~= "SKIP") then
-    guiFore = string.format(" guifg=%s", guifg)
+    gui_fore = string.format(" guifg=%s", guifg)
   else
   end
   if (guibg ~= "SKIP") then
-    guiBack = string.format(" guibg=%s", guibg)
+    gui_back = string.format(" guibg=%s", guibg)
   else
   end
   if (cfg ~= "SKIP") then
-    cFore = string.format(" ctermfg=%s", cfg)
+    c_fore = string.format(" ctermfg=%s", cfg)
   else
   end
   if (cbg ~= "SKIP") then
-    cBack = string.format(" ctermbg=%s", cbg)
+    c_back = string.format(" ctermbg=%s", cbg)
   else
   end
   local extra = ""
@@ -64,20 +64,20 @@ local function highlight(gr, guifg, guibg, cfg, cbg, ...)
     end
   else
   end
-  local output = ("highlight " .. group .. guiFore .. guiBack .. cFore .. cBack .. extra)
+  local output = ("highlight " .. group .. gui_fore .. gui_back .. c_fore .. c_back .. extra)
   return vim.cmd(tostring(output))
 end
-_2amodule_2a["highlight"] = highlight
-local function highlight_gui(gr, guifg, guibg, ...)
+_2amodule_2a["highlight$"] = highlight_24
+local function highlight_gui_24(gr, guifg, guibg, ...)
   local group = tostring(gr)
-  local guiFore = " "
-  local guiBack = " "
+  local gui_fore = " "
+  local gui_back = " "
   if (guifg ~= "SKIP") then
-    guiFore = string.format(" guifg=%s", guifg)
+    gui_fore = string.format(" guifg=%s", guifg)
   else
   end
   if (guibg ~= "SKIP") then
-    guiBack = string.format(" guibg=%s", guibg)
+    gui_back = string.format(" guibg=%s", guibg)
   else
   end
   local extra = ""
@@ -94,10 +94,10 @@ local function highlight_gui(gr, guifg, guibg, ...)
     end
   else
   end
-  local output = ("highlight " .. group .. guiFore .. guiBack .. extra)
+  local output = ("highlight " .. group .. gui_fore .. gui_back .. extra)
   return vim.cmd(tostring(output))
 end
-_2amodule_2a["highlight-gui"] = highlight_gui
+_2amodule_2a["highlight-gui$"] = highlight_gui_24
 local function brighten(color, percent)
   local hslColor = hsl.hex_to_hsluv(color)
   local luminance = (100 - hslColor[3])
