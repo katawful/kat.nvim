@@ -1,14 +1,19 @@
 (module katdotnvim.utils.errors
         {require-macros [katdotnvim.utils.macros.vimscript.macros]})
 
-; this module handles error messages
+;;; Module for error time management
 
-(defn message$ [errType message]
-  (let [errType (tostring errType)
+;; FN -- create an error message
+;; @error-type -- the specified error type for easier troubleshooting, a number
+;; @message -- a string message
+(defn message$ [error-type message]
+  (let [error-type (tostring error-type)
         message (tostring message)]
-    (let [output (string.format "kat.nvim E%s: %s" errType message)]
+    (let [output (string.format "kat.nvim E%s: %s" error-type message)]
       (vim.notify output vim.log.levels.ERROR))))
 
+;; FN -- set plugin to default options
+;; @check -- boolean to see if we need to test if option exists
 (defn options->default [check]
   (if (= check true)
       (do

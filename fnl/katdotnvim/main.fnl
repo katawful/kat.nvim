@@ -4,6 +4,7 @@
              errors katdotnvim.utils.errors}
    require-macros [katdotnvim.utils.macros.vimscript.macros]})
 
+;;; Main plugin interface
 
 (defn init [in-contrast]
   ; define some defaults
@@ -26,7 +27,7 @@
   ((. (require :katdotnvim.highlights.main) :init))
   ((. (require :katdotnvim.highlights.syntax) :init))
   ((. (require :katdotnvim.highlights.terminal) :init))
-  (when (= vim.g.kat_nvim_stupidFeatures true)
+  (if (= vim.g.kat_nvim_stupidFeatures true)
     ((. (require :katdotnvim.stupid) :stupidFunction)))
   (require :katdotnvim.utils.export.init)
 
