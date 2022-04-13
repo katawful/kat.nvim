@@ -17,7 +17,7 @@ _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local function mainFG()
   local output = {}
-  if ((vim.o.background == "dark") and (main.katContrast == "soft")) then
+  if ((vim.o.background == "dark") and (main.contrast == "soft")) then
     output[1] = ucolors.brighten(colors.foreground()[1], 0.8)
     do end (output)[2] = 7
   else
@@ -147,7 +147,7 @@ local function init()
   ucolors["highlight$"]("SpellRare", "SKIP", "SKIP", "SKIP", "NONE", "undercurl", fillBG()[1])
   ucolors["highlight$"]("StatusLine", colors.background()[5], ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), umbraBG()[2], highlightBG()[3], "bold")
   ucolors["highlight$"]("StatusLineNC", ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), colors.background()[5], umbraBG()[2], highlightBG()[3], "bold")
-  if ((vim.o.background == "dark") and (main.katContrast == "soft")) then
+  if ((vim.o.background == "dark") and (main.contrast == "soft")) then
     local color = ucolors.brighten(highlightFG()[1], 0)
     ucolors["highlight$"]("TabLine", color, highlightBG()[1], highlightFG()[2], highlightBG()[2])
     ucolors["highlight$"]("TabLineFill", fillBG()[1], fillBG()[1], fillBG()[2], fillBG()[2])

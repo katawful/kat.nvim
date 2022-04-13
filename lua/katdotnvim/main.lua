@@ -16,7 +16,7 @@ _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["errors"] = errors
 _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
-local function init(contrast)
+local function init(in_contrast)
   errors["options->default"](true)
   if vim.g.colors_name then
     vim.cmd("highlight clear")
@@ -26,9 +26,9 @@ local function init(contrast)
     vim.cmd("syntax reset")
   else
   end
-  local katContrast = contrast
-  _2amodule_2a["katContrast"] = katContrast
-  if (katContrast == "hard") then
+  local contrast = in_contrast
+  _2amodule_2a["contrast"] = contrast
+  if (contrast == "hard") then
     vim.g["colors_name"] = "kat.nvim"
   else
     vim.g["colors_name"] = "kat.nwim"

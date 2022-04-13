@@ -9,7 +9,7 @@
 (defn mainFG []
   (var output {})
   (if (and (= vim.o.background :dark)
-           (= main.katContrast :soft))
+           (= main.contrast :soft))
     (do (tset output 1 (ucolors.brighten (. (colors.foreground) 1) 0.8))
       (tset output 2 7))
     (do (tset output 1 (. (colors.foreground) 1))
@@ -214,7 +214,7 @@
   ; we need to make the dark soft font brighter to match dark hard tabline
   ; looks bad otherwise imo
   (if (and (= vim.o.background :dark)
-           (= main.katContrast :soft))
+           (= main.contrast :soft))
       (do
         (var color (ucolors.brighten (. (highlightFG) 1) 0))
         (ucolors.highlight$ :TabLine

@@ -7,7 +7,7 @@
 (defn tabFG []
   (var output "")
   (if (and (= vim.o.background :dark)
-           (= main.katContrast :soft))
+           (= main.contrast :soft))
       (do (set output (ucolors.brighten (. (groups.mainFG) 1) 0.8)))
       (do (set output (. (groups.mainFG) 1))))
   output)

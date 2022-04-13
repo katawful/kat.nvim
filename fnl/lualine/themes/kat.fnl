@@ -6,7 +6,7 @@
 (var mainFG (. (groups.mainFG) 1))
 
 (if (and (= vim.o.background :dark)
-         (= main.katContrast :soft))
+         (= main.contrast :soft))
   (do
     (set mainFG (ucolors.brighten (. (groups.mainFG) 1) 0.8))))
 
