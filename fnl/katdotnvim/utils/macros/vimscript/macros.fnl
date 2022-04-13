@@ -42,16 +42,6 @@
     `(do
        (vim.api.nvim_command ,output))))
 
-; require configs
-; lua options really, i find the table lookup syntax to be garbage
-(fn opt- [tableOrigin lookupValue ...]
-  (let [tableOrigin (sym-tostring tableOrigin)
-        lookupValue (sym-tostring lookupValue)
-        output [...]]
-       `(do
-          ((. (require ,tableOrigin) ,lookupValue)
-           ,...))))
-
 ; get the scope of an option (global, window, or buffer)
 (fn get-scope [opt]
   (if (pcall vim.api.nvim_get_option_info opt)
@@ -435,7 +425,6 @@
  :cmd cmd
  :aug- aug-
  :auc- auc-
- :opt- opt-
  :com- com-
  :command- command-}
 

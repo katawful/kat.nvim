@@ -2,10 +2,10 @@
   {autoload {colors katdotnvim.color
              ucolors katdotnvim.utils.color
              errors katdotnvim.utils.errors}
-   require-macros [katdotnvim.utils.macros]})
+   require-macros [katdotnvim.utils.macros.vimscript.macros]})
 
 
-(defn init [contrast]
+(defn init [in-contrast]
   ; define some defaults
   (errors.options->default true)
 
@@ -16,10 +16,10 @@
 
   ; (set- termguicolors true)
 
-  (def katContrast contrast)
+  (def contrast in-contrast)
 
   ; set g:colors_name for hard and soft themes
-  (if (= katContrast :hard)
+  (if (= contrast :hard)
     (let- :g :colors_name "kat.nvim")
     (let- :g :colors_name "kat.nwim"))
 
