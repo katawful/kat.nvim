@@ -12,11 +12,15 @@ do
 end
 local _ = nil
 _2amodule_locals_2a["_"] = _
-local function message_24(error_type, message)
+local function message_24(error_type, message, test)
   local error_type0 = tostring(error_type)
   local message0 = tostring(message)
   local output = string.format("kat.nvim E%s: %s", error_type0, message0)
-  return vim.notify(output, vim.log.levels.ERROR)
+  if (test == nil) then
+    vim.notify(output, vim.log.levels.ERROR)
+  else
+  end
+  return output
 end
 _2amodule_2a["message$"] = message_24
 local function options__3edefault(check)

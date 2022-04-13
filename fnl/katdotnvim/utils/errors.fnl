@@ -6,12 +6,14 @@
 ;; FN -- create an error message
 ;; @error-type -- the specified error type for easier troubleshooting, a number
 ;; @message -- a string message
-(defn message$ [error-type message]
+(defn message$ [error-type message test]
   "Send a Neovim error message via vim.notify"
   (let [error-type (tostring error-type)
         message (tostring message)]
     (let [output (string.format "kat.nvim E%s: %s" error-type message)]
-      (vim.notify output vim.log.levels.ERROR))))
+      (when (and (= test nil))
+       (vim.notify output vim.log.levels.ERROR))
+     output)))
 
 ;; FN -- set plugin to default options
 ;; @check -- boolean to see if we need to test if option exists

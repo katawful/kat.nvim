@@ -28,9 +28,9 @@
   "Converts decimal rgb table to a 256 color string"
   (let [string (string.format
                 "%s,%s,%s"
-                (* (. rgb 1) 255)
-                (* (. rgb 2) 255)
-                (* (. rgb 3) 255))]
+                (math.floor (* (. rgb 1) 255))
+                (math.floor (* (. rgb 2) 255))
+                (math.floor (* (. rgb 3) 255)))]
     string))
 
 ;; FN converts a hex color string to a RGB color string
@@ -47,7 +47,7 @@
 ;; @key -- key from nested table
 ;; @value -- value from nested table
 ;; $color-string mutated string of colors
-(defn- color-nest->one-line-color% [key value input-color]
+(defn color-nest->one-line-color% [key value input-color]
   "Iterates over a nested color array and returns a one-line color config string"
   (var color-string input-color)
   (match (type value)
@@ -126,13 +126,15 @@
     color-string))
 
 ;; FN -- notify the user that a terminal theme was generated for said colorscheme
-(defn notify$ [terminal]
+(defn notify$ [terminal test]
   "Notifies the user about the generated color file"
-  (vim.notify (string.format "kat.nvim: %s color file generated at cwd using %s colorscheme with %s background"
-                             terminal
-                             (tostring vim.g.colors_name)
-                             (tostring vim.o.background))
-              vim.log.levels.INFO))
+  (let [output (string.format "kat.nvim: %s color file generated at cwd using %s colorscheme with %s background"
+                              terminal
+                              (tostring vim.g.colors_name)
+                              (tostring vim.o.background))]
+    (when (= test nil)
+      (vim.notify output vim.log.levels.INFO))
+    output))
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? []
