@@ -6,7 +6,6 @@
 
 ;;; Utilities for color management
 
-; (macrodebug (value->table i 3 (let [test i] test)))
 ;; FN -- blend two hex colors based on some alpha value
 ;; -- higher alpha means the mix-color is preferred
 ;; @source-color -- the color we want to manipulate
@@ -14,6 +13,7 @@
 ;; @alpha -- a 0 - 1 decimal value that determines how much mix value is allowed
 ;; $output -- blended hex color
 (defn blend [source-color mix-color alpha]
+  "Blend two colors by some alpha"
   (let [source-color (hsl.hex_to_rgb source-color)
         mix-color (hsl.hex_to_rgb mix-color)
         return-color (value->table i 3
@@ -30,7 +30,9 @@
 ;; @cfg -- terminal color number for foreground
 ;; @cbg -- terminal color number for background
 ;; @... -- handles extra highlighting options as a string
+;; $output -- string of highlight function
 (defn highlight$ [gr guifg guibg cfg cbg ...]
+  "Generate a highlight usind term and GUI colors"
   (let [group (tostring gr)
         gui-fore (if (not= guifg :SKIP)
                    (string.format " guifg=%s" guifg)
@@ -50,7 +52,7 @@
                   (each [_ v (pairs args)]
                     ; match color means guisp
                     (if (= (string.sub v 1 1) "#")
-                      (do (set string (string.format "% s guisp=%s"
+                      (do (set string (string.format "%s guisp=%s"
                                                      string
                                                      v)))
                         ; if a string, e.g. italics
@@ -75,7 +77,9 @@
 ;; @guifg -- hex color for foreground
 ;; @guibg -- hex color for background
 ;; @... -- handles extra highlighting options as a string
+;; $output -- string of highlight function
 (defn highlight-gui$ [gr guifg guibg ...]
+  "Generate a highlight using GUI colors"
   (let [group (tostring gr)
         gui-fore (if (not= guifg :SKIP)
                    (string.format " guifg=%s" guifg)
@@ -89,14 +93,13 @@
                   (each [_ v (pairs args)]
                     ; match color means guisp
                     (if (= (string.sub v 1 1) "#")
-                      (do (set string (string.format "% s guisp=%s"
+                      (do (set string (string.format "%s guisp=%s"
                                                      string
                                                      v)))
                         ; if a string, e.g. italics
                       (= (a.string? v) true)
-                      (do (set string (string.format "%s gui=%s cterm=%s"
+                      (do (set string (string.format "%s gui=%s"
                                                      string
-                                                     (tostring v)
                                                      (tostring v))))
                       ; else means blend
                       (do (set string (string.format "%s blend=%s" 
@@ -104,7 +107,7 @@
                                                      v)))))
                   string)
                 (do ""))]
-    (let [output (.. "highlight " group gui-fore gui-back c-fore c-back extra)]
+    (let [output (.. "highlight " group gui-fore gui-back extra)]
       (vim.cmd (tostring output))
       output)))
 
@@ -113,6 +116,7 @@
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
 (defn brighten [color percent]
+  "Brighten a hex color by some percent"
   (let [hsl-color (hsl.hex_to_hsluv color)
         luminance (- 100 (. hsl-color 3))
         input-luminance (let [mid-luminance (+ (. hsl-color 3)
@@ -129,6 +133,7 @@
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
 (defn hsluv-brighten [tuple percent]
+  "Brighten a hsluv color by some percent"
   (let [hsl-color tuple
         luminance (- 100 (. hsl-color 3))
         input-luminance (let [mid-luminance (* (. hsl-color 3)
@@ -145,6 +150,7 @@
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
 (defn darken [color percent]
+  "Darken a hex color by some percent"
   (let [hsl-color (hsl.hex_to_hsluv color)
         luminance (- 100 (. hsl-color 3))
         input-luminance (let [mid-luminance (* (. hsl-color 3)
@@ -161,6 +167,7 @@
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
 (defn saturation [color percent]
+  "Change saturation of hex color by some percent"
   (let [hsl-color (hsl.hex_to_hsluv color)
         saturation (. hsl-color 2)
         input-saturation (let [mid-saturation (+ (. hsl-color 2)

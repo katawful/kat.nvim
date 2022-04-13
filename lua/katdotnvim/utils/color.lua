@@ -68,7 +68,7 @@ local function highlight_24(gr, guifg, guibg, cfg, cbg, ...)
     local string = ""
     for _0, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
-        string = string.format("% s guisp=%s", string, v)
+        string = string.format("%s guisp=%s", string, v)
       elseif (a["string?"](v) == true) then
         string = string.format("%s gui=%s cterm=%s", string, tostring(v), tostring(v))
       else
@@ -104,9 +104,9 @@ local function highlight_gui_24(gr, guifg, guibg, ...)
     local string = ""
     for _0, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
-        string = string.format("% s guisp=%s", string, v)
+        string = string.format("%s guisp=%s", string, v)
       elseif (a["string?"](v) == true) then
-        string = string.format("%s gui=%s cterm=%s", string, tostring(v), tostring(v))
+        string = string.format("%s gui=%s", string, tostring(v))
       else
         string = string.format("%s blend=%s", string, v)
       end
@@ -115,7 +115,7 @@ local function highlight_gui_24(gr, guifg, guibg, ...)
   else
     extra = ""
   end
-  local output = ("highlight " .. group .. gui_fore .. gui_back .. __fnl_global__c_2dfore .. __fnl_global__c_2dback .. extra)
+  local output = ("highlight " .. group .. gui_fore .. gui_back .. extra)
   vim.cmd(tostring(output))
   return output
 end
