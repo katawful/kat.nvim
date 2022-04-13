@@ -120,17 +120,11 @@
 
 ;; FN -- output konsole string to a file at the current working directory
 (defn output! []
-  "Outputs a file of the necessary color string"
-  (local openMode (+ loop.constants.O_CREAT
-                     loop.constants.O_WRONLY
-                     loop.constants.O_TRUNC))
-  (local fileName (string.format "konsole-%s-%s.colorscheme"
+  (let [file-name (string.format "konsole-%s-%s.colorscheme"
                                  (tostring vim.g.colors_name)
-                                 (tostring vim.o.background)))
-  ; open file object
-  (local fd (assert (loop.fs_open fileName :w 0)))
-  ; make file generally accessible
-  (assert (loop.fs_chmod fileName 420))
-  (assert (loop.fs_write fd (export.string->two-line-color* (gen-colors) :konsole) 0))
-  (export.notify$ :konsole)
-  (assert (loop.fs_close fd)))
+                                 (tostring vim.o.background))
+        fd (assert (loop.fs_open file-name :w 0))]
+    (assert (loop.fs_chmod file-name 420))
+    (assert (loop.fs_write fd (export.string->two-line-color* (gen-colors) :konsole) 0))
+    (export.notify$ :konsole)
+    (assert (loop.fs_close fd))))

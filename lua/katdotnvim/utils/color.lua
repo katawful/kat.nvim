@@ -11,12 +11,11 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, colors, hsl, _, _0 = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("externals.hsluv"), nil, nil
+local a, colors, hsl, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("externals.hsluv"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["hsl"] = hsl
-_2amodule_locals_2a["_"] = _0
-_2amodule_locals_2a["_"] = _0
+_2amodule_locals_2a["_"] = _
 local function blend(source_color, mix_color, alpha)
   local source_color0 = hsl.hex_to_rgb(source_color)
   local mix_color0 = hsl.hex_to_rgb(mix_color)
@@ -67,7 +66,7 @@ local function highlight_24(gr, guifg, guibg, cfg, cbg, ...)
   local extra
   if (#args > 0) then
     local string = ""
-    for _1, v in pairs(args) do
+    for _0, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
         string = string.format("% s guisp=%s", string, v)
       elseif (a["string?"](v) == true) then
@@ -100,18 +99,21 @@ local function highlight_gui_24(gr, guifg, guibg, ...)
     gui_back = " "
   end
   local args = {...}
-  local extra = ""
+  local extra
   if (#args > 0) then
-    for k, v in pairs(args) do
+    local string = ""
+    for _0, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
-        extra = string.format("%s guisp=%s", extra, v)
+        string = string.format("% s guisp=%s", string, v)
       elseif (a["string?"](v) == true) then
-        extra = string.format("%s gui=%s", extra, tostring(v))
+        string = string.format("%s gui=%s cterm=%s", string, tostring(v), tostring(v))
       else
-        extra = string.format("%s blend=%s", extra, v)
+        string = string.format("%s blend=%s", string, v)
       end
     end
+    extra = string
   else
+    extra = ""
   end
   local output = ("highlight " .. group .. gui_fore .. gui_back .. __fnl_global__c_2dfore .. __fnl_global__c_2dback .. extra)
   vim.cmd(tostring(output))

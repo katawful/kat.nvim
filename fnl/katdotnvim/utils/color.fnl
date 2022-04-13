@@ -2,8 +2,7 @@
   {autoload {hsl externals.hsluv
              colors katdotnvim.color
              a aniseed.core}
-   require-macros [katdotnvim.utils.macros
-                   katdotnvim.utils.macros.iterator.macros]})
+   require-macros [katdotnvim.utils.macros.iterator.macros]})
 
 ;;; Utilities for color management
 

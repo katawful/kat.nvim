@@ -107,10 +107,9 @@ local function gen_colors()
 end
 _2amodule_2a["gen-colors"] = gen_colors
 local function output_21()
-  local openMode = (loop.constants.O_CREAT + loop.constants.O_WRONLY + loop.constants.O_TRUNC)
-  local fileName = string.format("konsole-%s-%s.colorscheme", tostring(vim.g.colors_name), tostring(vim.o.background))
-  local fd = assert(loop.fs_open(fileName, "w", 0))
-  assert(loop.fs_chmod(fileName, 420))
+  local file_name = string.format("konsole-%s-%s.colorscheme", tostring(vim.g.colors_name), tostring(vim.o.background))
+  local fd = assert(loop.fs_open(file_name, "w", 0))
+  assert(loop.fs_chmod(file_name, 420))
   assert(loop.fs_write(fd, export["string->two-line-color*"](gen_colors(), "konsole"), 0))
   export["notify$"]("konsole")
   return assert(loop.fs_close(fd))
