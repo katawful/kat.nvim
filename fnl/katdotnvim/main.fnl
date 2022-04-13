@@ -7,6 +7,7 @@
 ;;; Main plugin interface
 
 (defn init [in-contrast]
+  "Main plugin interface"
   ; define some defaults
   (errors.options->default true)
 

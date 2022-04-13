@@ -25,6 +25,7 @@
 ;; @rgb -- input rgb
 ;; $string -- output string
 (defn rgb->string [rgb]
+  "Converts decimal rgb table to a 256 color string"
   (let [string (string.format
                 "%s,%s,%s"
                 (* (. rgb 1) 255)
@@ -36,6 +37,7 @@
 ;; @hex -- input hex
 ;; $string -- output string
 (defn hex->rgb-string [hex]
+  "Converts a hex color to a 256 rgb string"
   (let [string (rgb->string (hsl.hex_to_rgb hex))]
     string))
 

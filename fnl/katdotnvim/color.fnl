@@ -19,6 +19,7 @@
 
 ;; FN -- Define a table of primary colors
 (defn- def-normal-colors []
+  "A table of regular color"
   (let [output {:red red-primary
                 :green green-primary
                 :orange orange-primary
@@ -29,6 +30,7 @@
 
 ;; FN -- Define a table of background colors based on the current theme
 (defn- def-back-colors []
+  "A table of background colors"
   (let [back
         (if (= vim.o.background :dark)
           (if (= main.contrast :soft)
@@ -66,6 +68,7 @@
 
 ;; FN -- Define a table of background colors based on the current theme
 (defn- def-fore-colors []
+  "A table of foreground colors"
   (let [fore
         (if (= vim.o.background :dark)
           (if (= main.contrast :soft)

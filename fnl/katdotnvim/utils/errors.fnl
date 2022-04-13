@@ -7,6 +7,7 @@
 ;; @error-type -- the specified error type for easier troubleshooting, a number
 ;; @message -- a string message
 (defn message$ [error-type message]
+  "Send a Neovim error message via vim.notify"
   (let [error-type (tostring error-type)
         message (tostring message)]
     (let [output (string.format "kat.nvim E%s: %s" error-type message)]
@@ -15,6 +16,7 @@
 ;; FN -- set plugin to default options
 ;; @check -- boolean to see if we need to test if option exists
 (defn options->default [check]
+  "Set all plugin options to default"
   (if (= check true)
       (do
         (if (= (vim.fn.exists :kat_nvim_commentStyle) 0)
