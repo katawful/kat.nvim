@@ -4,10 +4,9 @@
              colors katdotnvim.color
              groups katdotnvim.highlights.main
              main katdotnvim.main
-             exports katdotnvim.utils.export.init
+             export katdotnvim.utils.export.init
              errors katdotnvim.utils.errors
-             a aniseed.core}
-   require-macros [katdotnvim.utils.macros]})
+             a aniseed.core}})
 
 ;;; Exports 16 colors for alacritty terminal
 
@@ -99,17 +98,11 @@
 
 ;; FN -- output alacritty string to a file at the current working directory
 (defn output! []
-  (local openMode (+ loop.constants.O_CREAT
-                     loop.constants.O_WRONLY
-                     loop.constants.O_TRUNC))
-  (local fileName (string.format "alacritty-%s-%s.yml"
+  (let [file-name (string.format "alacritty-%s-%s.yml"
                                  (tostring vim.g.colors_name)
-                                 (tostring vim.o.background)))
-  ; open file object
-  (local fd (assert (loop.fs_open fileName :w 0)))
-  ; make file generally accessible
-  (assert (loop.fs_chmod fileName 420))
-  (assert (loop.fs_write fd (exports.table->one-line-color (gen-colors) :alacritty) 0))
-  (exports.notify$ :alacritty)
-  (assert (loop.fs_close fd)))
-
+                                 (tostring vim.o.background))
+        fd (assert (loop.fs_open file-name :w 0))]
+    (assert (loop.fs_chmod file-name 420))
+    (assert (loop.fs_write fd (export.table->one-line-color (gen-colors) alacritty) 0))
+    (export.notify$ :alacritty)
+    (assert (loop.fs_close fd))))

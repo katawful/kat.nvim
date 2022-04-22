@@ -1,36 +1,44 @@
 (module katdotnvim.utils.errors
-        {require-macros [katdotnvim.utils.macros]})
+        {require-macros [katdotnvim.utils.macros.vimscript.macros]})
 
-; this module handles error messages
+;;; Module for error time management
 
-(defn errMessage [errType message]
-  (let [errType (tostring errType)
+;; FN -- create an error message
+;; @error-type -- the specified error type for easier troubleshooting, a number
+;; @message -- a string message
+(defn message$ [error-type message test]
+  "Send a Neovim error message via vim.notify"
+  (let [error-type (tostring error-type)
         message (tostring message)]
-    (local output (string.format "kat.nvim E%s: %s" errType message))
-    (vim.notify output vim.log.levels.ERROR)))
+    (let [output (string.format "kat.nvim E%s: %s" error-type message)]
+      (when (and (= test nil))
+       (vim.notify output vim.log.levels.ERROR))
+     output)))
 
-(defn setDefaults [check]
+;; FN -- set plugin to default options
+;; @check -- boolean to see if we need to test if option exists
+(defn options->default [check]
+  "Set all plugin options to default"
   (if (= check true)
       (do
-        (when (= (vim.fn.exists :kat_nvim_commentStyle) 0)
-              (let- :g :kat_nvim_commentStyle :italic))
-        (when (= (vim.fn.exists :kat_nvim_integrations) 0)
-              (let- :g :kat_nvim_integrations
-                [:treesitter
-                 :lsp
-                 :ts_rainbow
-                 :indent_blankline
-                 :startify
-                 :coc
-                 :cmp
-                 :fugitive
-                 ]))
-        (when (= (vim.fn.exists :kat_nvim_filetype) 0)
-              (let- :g :kat_nvim_filetype [:vim
-                                           :vimwiki
-                                           :markdown]))
-        (when (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
-              (let- :g :kat_nvim_stupidFeatures false)))
+        (if (= (vim.fn.exists :kat_nvim_commentStyle) 0)
+            (let- :g :kat_nvim_commentStyle :italic))
+        (if (= (vim.fn.exists :kat_nvim_integrations) 0)
+            (let- :g :kat_nvim_integrations
+              [:treesitter
+               :lsp
+               :ts_rainbow
+               :indent_blankline
+               :startify
+               :coc
+               :cmp
+               :fugitive]))
+        (if (= (vim.fn.exists :kat_nvim_filetype) 0)
+            (let- :g :kat_nvim_filetype [:vim
+                                         :vimwiki
+                                         :markdown]))
+        (if (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
+            (let- :g :kat_nvim_stupidFeatures false)))
       (do
           (let- :g :kat_nvim_commentStyle :italic)
           (let- :g :kat_nvim_stupidFeatures false)
@@ -44,6 +52,4 @@
                                            :startify
                                            :coc
                                            :cmp
-                                           :fugitive
-                                           ])))
-    )
+                                           :fugitive]))))

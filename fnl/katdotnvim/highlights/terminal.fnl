@@ -4,7 +4,7 @@
                    syntax katdotnvim.highlights.syntax
                    groups katdotnvim.highlights.main
                    main katdotnvim.main}
-         require-macros [katdotnvim.utils.macros]})
+         require-macros [katdotnvim.utils.macros.vimscript.macros]})
 
 ; this affects the terminal
 

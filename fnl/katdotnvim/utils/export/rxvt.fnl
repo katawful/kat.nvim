@@ -4,10 +4,9 @@
              colors katdotnvim.color
              groups katdotnvim.highlights.main
              main katdotnvim.main
-             exports katdotnvim.utils.export.init
+             export katdotnvim.utils.export.init
              errors katdotnvim.utils.errors
-             a aniseed.core}
-   require-macros [katdotnvim.utils.macros]})
+             a aniseed.core}})
 
 ;;; Exports 16 colors for rxvt-unicode
 
@@ -23,7 +22,7 @@
                 :URxvt*background: (. (groups.mainBG) 1)
                 ; :selection_foreground (. (groups.selectionFG) 1)
                 ; :selection_background (. (groups.selectionBG) 1)
-                ; :contrast main.katContrast
+                ; :contrast main.contrast
                 ; :shade vim.o.background
                 ; :cursor (. (. (groups.mainFG) 1) 1)
                 ; :cursor_text_color :background
@@ -56,16 +55,11 @@
  
 ;; FN -- output rxvt string to a file at the current working directory
 (defn output! []
-  (local openMode (+ loop.constants.O_CREAT
-                     loop.constants.O_WRONLY
-                     loop.constants.O_TRUNC))
-  (local fileName (string.format "URxvt-%s-%s.Xresources"
+  (let [file-name (string.format "Urxvt-%s-%s.Xresources"
                                  (tostring vim.g.colors_name)
-                                 (tostring vim.o.background)))
-  ; open file object
-  (local fd (assert (loop.fs_open fileName :w 0)))
-  ; make file generally accessible
-  (assert (loop.fs_chmod fileName 420))
-  (assert (loop.fs_write fd (exports.string->one-line-color (gen-colors) "rxvt-unicode") 0))
-  (exports.notify$ "rxvt-unicode")
-  (assert (loop.fs_close fd)))
+                                 (tostring vim.o.background))
+        fd (assert (loop.fs_open file-name :w 0))]
+    (assert (loop.fs_chmod file-name 420))
+    (assert (loop.fs_write fd (export.string->one-line-color (gen-colors) "rxvt-unicode") 0))
+    (export.notify$ "rxvt-unicode")
+    (assert (loop.fs_close fd))))

@@ -42,16 +42,6 @@
     `(do
        (vim.api.nvim_command ,output))))
 
-; require configs
-; lua options really, i find the table lookup syntax to be garbage
-(fn opt- [tableOrigin lookupValue ...]
-  (let [tableOrigin (sym-tostring tableOrigin)
-        lookupValue (sym-tostring lookupValue)
-        output [...]]
-       `(do
-          ((. (require ,tableOrigin) ,lookupValue)
-           ,...))))
-
 ; get the scope of an option (global, window, or buffer)
 (fn get-scope [opt]
   (if (pcall vim.api.nvim_get_option_info opt)
@@ -109,7 +99,7 @@
 ; set colorscheme
 (fn col- [scheme]
   (let [scheme (.. "colorscheme " (sym-tostring scheme))]
-  (cmd scheme)))
+   (cmd scheme)))
 
 ; augroup
 (fn aug- [group ...]
@@ -136,16 +126,16 @@
 ; let
 (fn let- [scope obj ...]
   (let [scope (sym-tostring scope)
-       obj (sym-tostring obj)
-       output []
-       value []]
+        obj (sym-tostring obj)
+        output []
+        value []]
     (var output [...])
     (var value [])
     ; if number of operands is 1
     (if (= (length output) 1
-      (each [key val (pairs output)]
-        ; set the output to just the value of the operands
-        (set value  val)))
+         (each [key val (pairs output)]
+           ; set the output to just the value of the operands
+           (set value  val)))
       (> (length output) 1
          ; else set the output to the whole table
         (do (set value output))))
@@ -435,7 +425,6 @@
  :cmd cmd
  :aug- aug-
  :auc- auc-
- :opt- opt-
  :com- com-
- :command- command-
-}
+ :command- command-}
+

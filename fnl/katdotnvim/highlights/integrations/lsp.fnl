@@ -7,27 +7,27 @@
 ; This handles the builtin LSP colors
 
 (defn init []
-  (ucolors.highlight :LspReferenceText
+  (ucolors.highlight$ :LspReferenceText
                      :SKIP
                      (. (groups.fillBG) 1)
                      :SKIP
                      (. (groups.fillBG) 2))
-  (ucolors.highlight :LspReferenceRead
+  (ucolors.highlight$ :LspReferenceRead
                      :SKIP
                      (. (groups.fillBG) 1)
                      :SKIP
                      (. (groups.fillBG) 2))
-  (ucolors.highlight :LspReferenceWrite
+  (ucolors.highlight$ :LspReferenceWrite
                      :SKIP
                      (. (groups.fillBG) 1)
                      :SKIP
                      (. (groups.fillBG) 2))
-  (ucolors.highlight :LspCodeLens
+  (ucolors.highlight$ :LspCodeLens
                      (. (groups.meldBG) 1)
                      :SKIP
                      (. (groups.umbraBG) 2)
                      :SKIP)
-  (ucolors.highlight :LspSignatureActiveParameter
+  (ucolors.highlight$ :LspSignatureActiveParameter
                      (. (groups.selectionBG) 1)
                      :SKIP
                      (. (groups.selectionBG) 2)
@@ -35,137 +35,137 @@
 
   (if (= (vim.fn.has :nvim-0.6.0) 0)
     (do
-      (ucolors.highlight :LspDiagnosticsDefaultError
+      (ucolors.highlight$ :LspDiagnosticsDefaultError
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP)
-      (ucolors.highlight :LspDiagnosticsDefaultWarning
+      (ucolors.highlight$ :LspDiagnosticsDefaultWarning
                          (. (groups.warningBG) 1)
                          :SKIP
                          (. (groups.warningBG) 2)
                          :SKIP)
-      (ucolors.highlight :LspDiagnosticsDefaultInformation
+      (ucolors.highlight$ :LspDiagnosticsDefaultInformation
                          (. (groups.infoBG) 1)
                          :SKIP
                          (. (groups.infoBG) 2)
                          :SKIP)
-      (ucolors.highlight :LspDiagnosticsDefaultHint
+      (ucolors.highlight$ :LspDiagnosticsDefaultHint
                          (. (groups.auxBG) 1)
                          :SKIP
                          (. (groups.auxBG) 2)
                          :SKIP)
 
-      (ucolors.highlight :LspDiagnosticsError
+      (ucolors.highlight$ :LspDiagnosticsError
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP)
-      (ucolors.highlight :LspDiagnosticsWarn
+      (ucolors.highlight$ :LspDiagnosticsWarn
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP)
-      (ucolors.highlight :LspDiagnosticsInfo
+      (ucolors.highlight$ :LspDiagnosticsInfo
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP)
-      (ucolors.highlight :LspDiagnosticsHint
+      (ucolors.highlight$ :LspDiagnosticsHint
                          (. (groups.auxBG) 1)
                          :SKIP
                          (. (groups.auxBG) 2)
                          :SKIP)
 
-      (ucolors.highlight :LspDiagnosticsVirtualTextError
+      (ucolors.highlight$ :LspDiagnosticsVirtualTextError
                          (. (groups.errorBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.errorBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :LspDiagnosticsVirtualTextWarning
+      (ucolors.highlight$ :LspDiagnosticsVirtualTextWarning
                          (. (groups.warningBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.warningBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :LspDiagnosticsVirtualTextInformation
+      (ucolors.highlight$ :LspDiagnosticsVirtualTextInformation
                          (. (groups.infoBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.infoBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :LspDiagnosticsVirtualTextHint
+      (ucolors.highlight$ :LspDiagnosticsVirtualTextHint
                          (. (groups.auxBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.auxBG) 2)
                          (. (groups.umbraBG) 2))
 
-      (ucolors.highlight :LspDiagnosticsFloatingError
+      (ucolors.highlight$ :LspDiagnosticsFloatingError
                          (. (groups.errorBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.errorBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :LspDiagnosticsFloatingWarning
+      (ucolors.highlight$ :LspDiagnosticsFloatingWarning
                          (. (groups.warningBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.warningBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :LspDiagnosticsFloatingInformation
+      (ucolors.highlight$ :LspDiagnosticsFloatingInformation
                          (. (groups.infoBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.infoBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :LspDiagnosticsFloatingHint
+      (ucolors.highlight$ :LspDiagnosticsFloatingHint
                          (. (groups.auxBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.auxBG) 2)
                          (. (groups.umbraBG) 2))
 
-      (ucolors.highlight :LspDiagnosticsSignError
+      (ucolors.highlight$ :LspDiagnosticsSignError
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP
                          :bold)
-      (ucolors.highlight :LspDiagnosticsSignWarning
+      (ucolors.highlight$ :LspDiagnosticsSignWarning
                          (. (groups.warningBG) 1)
                          :SKIP
                          (. (groups.warningBG) 2)
                          :SKIP
                          :bold)
-      (ucolors.highlight :LspDiagnosticsSignInformation
+      (ucolors.highlight$ :LspDiagnosticsSignInformation
                          (. (groups.infoBG) 1)
                          :SKIP
                          (. (groups.infoBG) 2)
                          :SKIP
                          :bold)
-      (ucolors.highlight :LspDiagnosticsSignHint
+      (ucolors.highlight$ :LspDiagnosticsSignHint
                          (. (groups.auxBG) 1)
                          :SKIP
                          (. (groups.auxBG) 2)
                          :SKIP
                          :bold)
 
-      (ucolors.highlight :LspDiagnosticsUnderlineError
+      (ucolors.highlight$ :LspDiagnosticsUnderlineError
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP
                          :underline
                          (. (groups.errorBG) 1))
-      (ucolors.highlight :LspDiagnosticsUnderlineWarning
+      (ucolors.highlight$ :LspDiagnosticsUnderlineWarning
                          (. (groups.warningBG) 1)
                          :SKIP
                          (. (groups.warningBG) 2)
                          :SKIP
                          :underline
                          (. (groups.warningBG) 1))
-      (ucolors.highlight :LspDiagnosticsUnderlineInformation
+      (ucolors.highlight$ :LspDiagnosticsUnderlineInformation
                          (. (groups.infoBG) 1)
                          :SKIP
                          (. (groups.infoBG) 2)
                          :SKIP
                          :underline
                          (. (groups.infoBG) 1))
-      (ucolors.highlight :LspDiagnosticsUnderlineHint
+      (ucolors.highlight$ :LspDiagnosticsUnderlineHint
                          (. (groups.auxBG) 1)
                          :SKIP
                          (. (groups.auxBG) 2)
@@ -173,113 +173,113 @@
                          :underline
                          (. (groups.auxBG) 1)))
     (do
-      (ucolors.highlight :DiagnosticError
+      (ucolors.highlight$ :DiagnosticError
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP)
-      (ucolors.highlight :DiagnosticWarn
+      (ucolors.highlight$ :DiagnosticWarn
                          (. (groups.warningBG) 1)
                          :SKIP
                          (. (groups.warningBG) 2)
                          :SKIP)
-      (ucolors.highlight :DiagnosticInfo
+      (ucolors.highlight$ :DiagnosticInfo
                          (. (groups.infoBG) 1)
                          :SKIP
                          (. (groups.infoBG) 2)
                          :SKIP)
-      (ucolors.highlight :DiagnosticHint
+      (ucolors.highlight$ :DiagnosticHint
                          (. (groups.infoBG) 1)
                          :SKIP
                          (. (groups.infoBG) 2)
                          :SKIP)
 
-      (ucolors.highlight :DiagnosticVirtualTextError
+      (ucolors.highlight$ :DiagnosticVirtualTextError
                          (. (groups.errorBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.errorBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :DiagnosticVirtualTextWarn
+      (ucolors.highlight$ :DiagnosticVirtualTextWarn
                          (. (groups.warningBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.warningBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :DiagnosticVirtualTextInfo
+      (ucolors.highlight$ :DiagnosticVirtualTextInfo
                          (. (groups.infoBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.infoBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :DiagnosticVirtualTextHint
+      (ucolors.highlight$ :DiagnosticVirtualTextHint
                          (. (groups.auxBG) 1)
                          (. (groups.umbraBG) 1)
                          (. (groups.auxBG) 2)
                          (. (groups.umbraBG) 2))
 
-      (ucolors.highlight :DiagnosticFloatingError
+      (ucolors.highlight$ :DiagnosticFloatingError
                          (. (groups.errorBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.errorBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :DiagnosticFloatingWarn
+      (ucolors.highlight$ :DiagnosticFloatingWarn
                          (. (groups.warningBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.warningBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :DiagnosticFloatingInfo
+      (ucolors.highlight$ :DiagnosticFloatingInfo
                          (. (groups.infoBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.infoBG) 2)
                          (. (groups.umbraBG) 2))
-      (ucolors.highlight :DiagnosticFloatingHint
+      (ucolors.highlight$ :DiagnosticFloatingHint
                          (. (groups.auxBG) 1)
                          (. (groups.shadowBG) 1)
                          (. (groups.auxBG) 2)
                          (. (groups.umbraBG) 2))
 
-      (ucolors.highlight :DiagnosticSignError
+      (ucolors.highlight$ :DiagnosticSignError
                          (. (groups.errorBG) 1)
                          :SKIP
                          (. (groups.errorBG) 2)
                          :SKIP
                          :bold)
-      (ucolors.highlight :DiagnosticSignWarn
+      (ucolors.highlight$ :DiagnosticSignWarn
                          (. (groups.warningBG) 1)
                          :SKIP
                          (. (groups.warningBG) 2)
                          :SKIP
                          :bold)
-      (ucolors.highlight :DiagnosticSignInfo
+      (ucolors.highlight$ :DiagnosticSignInfo
                          (. (groups.infoBG) 1)
                          :SKIP
                          (. (groups.infoBG) 2)
                          :SKIP
                          :bold)
-      (ucolors.highlight :DiagnosticSignHint
+      (ucolors.highlight$ :DiagnosticSignHint
                          (. (groups.auxBG) 1)
                          :SKIP
                          (. (groups.auxBG) 2)
                          :SKIP
                          :bold)
 
-      (ucolors.highlight :DiagnosticUnderlineError
+      (ucolors.highlight$ :DiagnosticUnderlineError
                          :SKIP
                          :SKIP
                          :SKIP
                          :NONE
                          :underline (. (groups.errorBG) 1))
-      (ucolors.highlight :DiagnosticUnderlineWarn
+      (ucolors.highlight$ :DiagnosticUnderlineWarn
                          :SKIP
                          :SKIP
                          :SKIP
                          :NONE
                          :underline (. (groups.warningBG) 1))
-      (ucolors.highlight :DiagnosticUnderlineInfo
+      (ucolors.highlight$ :DiagnosticUnderlineInfo
                          :SKIP
                          :SKIP
                          :SKIP
                          :NONE
                          :underline (. (groups.infoBG) 1))
-      (ucolors.highlight :DiagnosticUnderlineHint
+      (ucolors.highlight$ :DiagnosticUnderlineHint
                          :SKIP
                          :SKIP
                          :SKIP

@@ -11,16 +11,15 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, colors, errors, exports, groups, hsl, main, ucolors, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.errors"), autoload("katdotnvim.utils.export.init"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.color"), nil
-_2amodule_locals_2a["a"] = a
+local a, colors, errors, export, groups, hsl, main, ucolors = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.errors"), autoload("katdotnvim.utils.export.init"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.color")
+do end (_2amodule_locals_2a)["a"] = a
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["errors"] = errors
-_2amodule_locals_2a["exports"] = exports
+_2amodule_locals_2a["export"] = export
 _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
-_2amodule_locals_2a["_"] = _
 local loop = vim.loop
 _2amodule_locals_2a["loop"] = loop
 local comment_type = "#"
@@ -57,12 +56,11 @@ local function gen_colors()
 end
 _2amodule_2a["gen-colors"] = gen_colors
 local function output_21()
-  local openMode = (loop.constants.O_CREAT + loop.constants.O_WRONLY + loop.constants.O_TRUNC)
-  local fileName = string.format("alacritty-%s-%s.yml", tostring(vim.g.colors_name), tostring(vim.o.background))
-  local fd = assert(loop.fs_open(fileName, "w", 0))
-  assert(loop.fs_chmod(fileName, 420))
-  assert(loop.fs_write(fd, exports["table->one-line-color"](gen_colors(), "alacritty"), 0))
-  exports["notify$"]("alacritty")
+  local file_name = string.format("alacritty-%s-%s.yml", tostring(vim.g.colors_name), tostring(vim.o.background))
+  local fd = assert(loop.fs_open(file_name, "w", 0))
+  assert(loop.fs_chmod(file_name, 420))
+  assert(loop.fs_write(fd, export["table->one-line-color"](gen_colors(), alacritty), 0))
+  export["notify$"]("alacritty")
   return assert(loop.fs_close(fd))
 end
 _2amodule_2a["output!"] = output_21

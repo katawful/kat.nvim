@@ -14,104 +14,98 @@ local autoload = (require("katdotnvim.aniseed.autoload")).autoload
 local main, ucolors = autoload("katdotnvim.main"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
-local lightForeBack = "#121c2d"
-_2amodule_locals_2a["lightForeBack"] = lightForeBack
-local darkForeBack = "#daf6ff"
-_2amodule_locals_2a["darkForeBack"] = darkForeBack
-local redPrimary = "#eb4949"
-_2amodule_locals_2a["redPrimary"] = redPrimary
-local greenPrimary = "#2ce0aa"
-_2amodule_locals_2a["greenPrimary"] = greenPrimary
-local orangePrimary = "#f2b15c"
-_2amodule_locals_2a["orangePrimary"] = orangePrimary
-local pinkPrimary = "#f29cb1"
-_2amodule_locals_2a["pinkPrimary"] = pinkPrimary
-local purplePrimary = "#7a53a8"
-_2amodule_locals_2a["purplePrimary"] = purplePrimary
-local bluePrimary = "#2dacd2"
-_2amodule_locals_2a["bluePrimary"] = bluePrimary
-local function defineNormalColors()
-  local output = {red = redPrimary, green = greenPrimary, orange = orangePrimary, pink = pinkPrimary, purple = purplePrimary, blue = bluePrimary}
+local light_fore_back = "#121c2d"
+_2amodule_locals_2a["light-fore-back"] = light_fore_back
+local dark_fore_back = "#daf6ff"
+_2amodule_locals_2a["dark-fore-back"] = dark_fore_back
+local red_primary = "#eb4949"
+_2amodule_locals_2a["red-primary"] = red_primary
+local green_primary = "#2ce0aa"
+_2amodule_locals_2a["green-primary"] = green_primary
+local orange_primary = "#f2b15c"
+_2amodule_locals_2a["orange-primary"] = orange_primary
+local pink_primary = "#f29cb1"
+_2amodule_locals_2a["pink-primary"] = pink_primary
+local purple_primary = "#7a53a8"
+_2amodule_locals_2a["purple-primary"] = purple_primary
+local blue_primary = "#2dacd2"
+_2amodule_locals_2a["blue-primary"] = blue_primary
+local function def_normal_colors()
+  local output = {red = red_primary, green = green_primary, orange = orange_primary, pink = pink_primary, purple = purple_primary, blue = blue_primary}
   return output
 end
-_2amodule_locals_2a["defineNormalColors"] = defineNormalColors
-local function defineBack()
-  local back = {}
+_2amodule_locals_2a["def-normal-colors"] = def_normal_colors
+local function def_back_colors()
+  local back
   if (vim.o.background == "dark") then
-    if (main.katContrast == "soft") then
-      back = {ucolors.brighten(lightForeBack, 0.1), lightForeBack, ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
+    if (main.contrast == "soft") then
+      back = {ucolors.brighten(light_fore_back, 0.1), light_fore_back, ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
+    elseif ((main.contrast == "hard") or (main.contrast == nil)) then
+      back = {light_fore_back, ucolors.brighten(light_fore_back, 0.1), ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
     else
+      back = nil
     end
-    if ((main.katContrast == "hard") or (main.katContrast == nil)) then
-      back = {lightForeBack, ucolors.brighten(lightForeBack, 0.1), ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
+  elseif (vim.o.background == "light") then
+    if (main.contrast == "soft") then
+      back = {ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
+    elseif ((main.contrast == "hard") or (main.contrast == nil)) then
+      back = {dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
     else
-    end
-  else
-  end
-  if (vim.o.background == "light") then
-    if (main.katContrast == "soft") then
-      back = {ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
-    else
-    end
-    if ((main.katContrast == "hard") or (main.katContrast == nil)) then
-      back = {darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
-    else
+      back = nil
     end
   else
+    back = nil
   end
   return back
 end
-_2amodule_locals_2a["defineBack"] = defineBack
-local function defineFore()
-  local fore = {}
+_2amodule_locals_2a["def-back-colors"] = def_back_colors
+local function def_fore_colors()
+  local fore
   if (vim.o.background == "dark") then
-    if (main.katContrast == "soft") then
-      fore = {ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
+    if (main.contrast == "soft") then
+      fore = {ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
+    elseif ((main.contrast == "hard") or (main.contrast == nil)) then
+      fore = {dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
     else
+      fore = nil
     end
-    if ((main.katContrast == "hard") or (main.katContrast == nil)) then
-      fore = {darkForeBack, ucolors.saturation(ucolors.darken(darkForeBack, 0.1), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.3), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.5), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.7), -0.5), ucolors.saturation(ucolors.darken(darkForeBack, 0.9), -0.5)}
+  elseif (vim.o.background == "light") then
+    if (main.contrast == "soft") then
+      fore = {ucolors.brighten(light_fore_back, 0.1), light_fore_back, ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
+    elseif ((main.contrast == "hard") or (main.contrast == nil)) then
+      fore = {light_fore_back, ucolors.brighten(light_fore_back, 0.1), ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
     else
-    end
-  else
-  end
-  if (vim.o.background == "light") then
-    if (main.katContrast == "soft") then
-      fore = {ucolors.brighten(lightForeBack, 0.1), lightForeBack, ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
-    else
-    end
-    if ((main.katContrast == "hard") or (main.katContrast == nil)) then
-      fore = {lightForeBack, ucolors.brighten(lightForeBack, 0.1), ucolors.brighten(lightForeBack, 0.3), ucolors.brighten(lightForeBack, 0.5), ucolors.brighten(lightForeBack, 0.7), ucolors.brighten(lightForeBack, 0.9)}
-    else
+      fore = nil
     end
   else
+    fore = nil
   end
   return fore
 end
-_2amodule_locals_2a["defineFore"] = defineFore
+_2amodule_locals_2a["def-fore-colors"] = def_fore_colors
 local function init(table)
-  local _13_ = table
-  if (_13_ == "normalColors") then
-    return defineNormalColors()
-  elseif (_13_ == "background") then
-    return defineBack()
-  elseif (_13_ == "foreground") then
-    return defineFore()
+  local _7_ = table
+  if (_7_ == "normalColors") then
+    return def_normal_colors()
+  elseif (_7_ == "background") then
+    return def_back_colors()
+  elseif (_7_ == "foreground") then
+    return def_fore_colors()
   else
     return nil
   end
 end
 _2amodule_2a["init"] = init
 local function normal_colors()
-  return defineNormalColors()
+  return def_normal_colors()
 end
 _2amodule_2a["normal-colors"] = normal_colors
 local function background()
-  return defineBack()
+  return def_back_colors()
 end
 _2amodule_2a["background"] = background
 local function foreground()
-  return defineFore()
+  return def_fore_colors()
 end
 _2amodule_2a["foreground"] = foreground
 return _2amodule_2a

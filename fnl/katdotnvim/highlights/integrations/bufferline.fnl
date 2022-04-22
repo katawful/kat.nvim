@@ -7,7 +7,7 @@
 (defn tabFG []
   (var output "")
   (if (and (= vim.o.background :dark)
-           (= main.katContrast :soft))
+           (= main.contrast :soft))
       (do (set output (ucolors.brighten (. (groups.mainFG) 1) 0.8)))
       (do (set output (. (groups.mainFG) 1))))
   output)
@@ -26,9 +26,9 @@
                  :info {:guifg (tabFG)
                         :guibg (. (groups.selectionBG) 1)}
                  :buffer_visible {:guifg (tabFG)
-                                  :guibg (ucolors.blendColors (. (groups.selectionBG) 1)
-                                                              (. (groups.mainBG) 1)
-                                                              0.8)}
+                                  :guibg (ucolors.blend  (. (groups.selectionBG) 1)
+                                                         (. (groups.mainBG) 1)
+                                                         0.8)}
                  :buffer_selected {:guifg (tabFG)
                                    :guibg (. (groups.selectionBG) 1)
                                    :gui "bold,italic"}
@@ -36,9 +36,9 @@
                                 :guibg (. (groups.highlightBG) 1)
                                 :gui "bold"}
                  :close_button_visible {:guifg (tabFG)
-                                        :guibg (ucolors.blendColors (. (groups.selectionBG) 1)
-                                                                    (. (groups.mainBG) 1)
-                                                                    0.8)
+                                        :guibg (ucolors.blend  (. (groups.selectionBG) 1)
+                                                               (. (groups.mainBG) 1)
+                                                               0.8)
                                         :gui "bold"}
                  :close_button_selected {:guifg (tabFG)
                                          :guibg (. (groups.selectionBG) 1)
@@ -46,25 +46,25 @@
                  :modified {:guifg (. (groups.warningBG) 1)
                             :guibg (. (groups.highlightBG) 1)}
                  :modified_visible {:guifg (. (groups.warningBG) 1)
-                                    :guibg (ucolors.blendColors (. (groups.selectionBG) 1)
-                                                                (. (groups.mainBG) 1)
-                                                                0.8)}
+                                    :guibg (ucolors.blend  (. (groups.selectionBG) 1)
+                                                           (. (groups.mainBG) 1)
+                                                           0.8)}
                  :modified_selected {:guifg (. (groups.warningBG) 1)
                                      :guibg (. (groups.selectionBG) 1)}
                  :duplicate_selected {:guifg (tabFG)
                                       :guibg (. (groups.selectionBG) 1)}
                  :duplicate_visible {:guifg (tabFG)
-                                     :guibg (ucolors.blendColors (. (groups.selectionBG) 1)
-                                                                 (. (groups.mainBG) 1)
-                                                                 0.8)}
+                                     :guibg (ucolors.blend  (. (groups.selectionBG) 1)
+                                                            (. (groups.mainBG) 1)
+                                                            0.8)}
                  :duplicate {:guifg (tabFG)
                              :guibg (. (groups.highlightBG) 1)}
                  :separator_selected {:guifg (. (groups.fillBG) 1)
                                       :guibg (. (groups.selectionBG) 1)}
                  :separator_visible {:guifg (. (groups.fillBG) 1)
-                                     :guibg (ucolors.blendColors (. (groups.selectionBG) 1)
-                                                                 (. (groups.mainBG) 1)
-                                                                 0.8)}
+                                     :guibg (ucolors.blend  (. (groups.selectionBG) 1)
+                                                            (. (groups.mainBG) 1)
+                                                            0.8)}
                  :separator {:guifg (. (groups.fillBG) 1)
                              :guibg (. (groups.highlightBG) 1)}
                  :indicator_selected {:guifg (tabFG)
