@@ -24,7 +24,8 @@ color 1\nkey1 value1\n"
                                                         :kitty) "\n"))
   (table.sort expected)
   (table.sort result)
-  (t.ok? (vim.deep_equal expected result)))
+  (t.ok? (vim.deep_equal expected result)
+         "Takes a table of strings and convests to a one-line string"))
 
 (deftest table->one-line-color
   (local expected
@@ -44,7 +45,8 @@ color\nkey1 value1\nkey2\nkey3 value3\nkey4 value4\n"
                                       :alacritty) "\n"))
   (table.sort expected)
   (table.sort result)
-  (t.ok? (vim.deep_equal expected result)))
+  (t.ok? (vim.deep_equal expected result)
+         "Take a nested table of colors and return a one line string of colors"))
 
 (deftest color-nest->one-line-color%
   (local expected (s.split
