@@ -72,7 +72,7 @@ fairly well, but I cannot guarantee its use nor performance.
 ==============================================================================
 Section 2: Terminal Support                 *kat.nvim-terminal* *:KatGenTermTheme*
 Terminal colors can be generated for the following GUI aware terminals with
-the command `:KatGenTermTheme "terminal"`, which generates an appropriate
+the command `:KatGenTermTheme terminal`, which generates an appropriate
 config file for the desired terminal:
 
 		       `Terminal : Setting`
@@ -82,7 +82,7 @@ config file for the desired terminal:
 		   	konsole : 'konsole'
 
 Example for the kitty terminal:
-			`KatGenTermTheme "kitty"`
+			`KatGenTermTheme kitty`
 Generates:
 			`kitty-kat.nvim-dark.conf`
 when generating with kat.nvim with a dark background. These files can be used

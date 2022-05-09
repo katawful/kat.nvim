@@ -41,7 +41,7 @@ The following terminals can have a 16 color config file generated based on the c
 
 Generate the color file like so:
 ``` vim
-:KatGenTermTheme "kitty"
+:KatGenTermTheme kitty
 ```
 This will generate "kitty-kat.nvim-dark.conf" at the current working directory when kat.nvim with a dark background is used.
 

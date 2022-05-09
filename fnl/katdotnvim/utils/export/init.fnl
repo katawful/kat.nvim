@@ -162,7 +162,5 @@
 
 ;; create user command for terminal color generation
 (command- :KatGenTermTheme
-          (fn [args] 
-            (print args.args)
-            (gen_term_colors args.args))
+          (fn [args] (gen_term_colors args.args))
           {:nargs 1})

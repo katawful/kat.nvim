@@ -140,7 +140,6 @@ local function gen_term_colors(terminal)
 end
 _2amodule_2a["gen_term_colors"] = gen_term_colors
 local function _12_(args)
-  print(args.args)
   return gen_term_colors(args.args)
 end
 vim.api.nvim_create_user_command("KatGenTermTheme", _12_, {nargs = 1})
