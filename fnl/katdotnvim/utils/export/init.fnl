@@ -148,6 +148,7 @@
 ;; FN -- wrap terminal generation for a single function
 (defn gen_term_colors [terminal]
   "Function for Neovim interaction, determines what terminal is being run"
+  (local error-message (string.format "'%s' is not a valid argument for :KatGenTermTheme, check supported terminals or enclose in quotes if nvim-0.7 is not available" terminal))
   (if (= (is-colorscheme?) true)
    (match (tostring terminal)
      :kitty (do (tset comment-type 1 kitty.comment-type)
@@ -158,9 +159,14 @@
                      (rxvt.output!))
      :urxvt (do (tset comment-type 1 rxvt.comment-type)
              (rxvt.output!))
-     :konsole (do (konsole.output!)))))
+     :konsole (do (konsole.output!))
+     _ (do (errors.message$ 2 error-message)))))
 
 ;; create user command for terminal color generation
-(command- :KatGenTermTheme
-          (fn [args] (gen_term_colors args.args))
-          {:nargs 1})
+(if (= (vim.fn.has "nvim-0.7") 1)
+  (command- :KatGenTermTheme
+            (fn [args] (gen_term_colors args.args))
+            {:nargs 1})
+  (command*-vim :KatGenTermTheme
+                {:nargs 1}
+                "lua require('katdotnvim.utils.export.init').gen_term_colors(<args>)"))

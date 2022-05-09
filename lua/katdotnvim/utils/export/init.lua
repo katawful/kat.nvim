@@ -115,6 +115,7 @@ local function is_colorscheme_3f()
 end
 _2amodule_2a["is-colorscheme?"] = is_colorscheme_3f
 local function gen_term_colors(terminal)
+  local error_message = string.format("'%s' is not a valid argument for :KatGenTermTheme, check supported terminals or enclose in quotes if nvim-0.7 is not available", terminal)
   if (is_colorscheme_3f() == true) then
     local _9_ = tostring(terminal)
     if (_9_ == "kitty") then
@@ -131,6 +132,9 @@ local function gen_term_colors(terminal)
       return rxvt["output!"]()
     elseif (_9_ == "konsole") then
       return konsole["output!"]()
+    elseif true then
+      local _0 = _9_
+      return errors["message$"](2, error_message)
     else
       return nil
     end
@@ -139,8 +143,12 @@ local function gen_term_colors(terminal)
   end
 end
 _2amodule_2a["gen_term_colors"] = gen_term_colors
-local function _12_(args)
-  return gen_term_colors(args.args)
+if (vim.fn.has("nvim-0.7") == 1) then
+  local function _12_(args)
+    return gen_term_colors(args.args)
+  end
+  vim.api.nvim_create_user_command("KatGenTermTheme", _12_, {nargs = 1})
+else
+  vim.api.nvim_command("command! -nargs=1 KatGenTermTheme lua require('katdotnvim.utils.export.init').gen_term_colors(<args>)")
 end
-vim.api.nvim_create_user_command("KatGenTermTheme", _12_, {nargs = 1})
 return _2amodule_2a
