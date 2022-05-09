@@ -2,7 +2,7 @@
   {autoload {colors katdotnvim.color
              ucolors katdotnvim.utils.color
              errors katdotnvim.utils.errors}
-   require-macros [katdotnvim.utils.macros.vimscript.macros]})
+   require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; Main plugin interface
 

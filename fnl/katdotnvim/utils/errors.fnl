@@ -1,5 +1,5 @@
 (module katdotnvim.utils.errors
-        {require-macros [katdotnvim.utils.macros.vimscript.macros]})
+        {require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; Module for error time management
 

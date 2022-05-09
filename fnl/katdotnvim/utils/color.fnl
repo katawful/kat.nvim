@@ -2,7 +2,7 @@
   {autoload {hsl externals.hsluv
              colors katdotnvim.color
              a aniseed.core}
-   require-macros [katdotnvim.utils.macros.iterator.macros]})
+   require-macros [katdotnvim.katcros-fnl.macros.lispism.macros]})
 
 ;;; Utilities for color management
 
@@ -62,7 +62,7 @@
                                                      (tostring v)
                                                      (tostring v))))
                       ; else means blend
-                      (do (set string (string.format "%s blend=%s" 
+                      (do (set string (string.format "%s blend=%s"
                                                      string
                                                      v)))))
                   string)
@@ -102,7 +102,7 @@
                                                      string
                                                      (tostring v))))
                       ; else means blend
-                      (do (set string (string.format "%s blend=%s" 
+                      (do (set string (string.format "%s blend=%s"
                                                      string
                                                      v)))))
                   string)

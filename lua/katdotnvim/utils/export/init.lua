@@ -10,8 +10,8 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
-local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, alacritty, colors, errors, groups, hsl, kitty, konsole, main, rxvt, s, ucolors, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.errors"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.export.rxvt"), autoload("katdotnvim.aniseed.string"), autoload("katdotnvim.utils.color"), nil
+local autoload = (require("aniseed.autoload")).autoload
+local a, alacritty, colors, errors, groups, hsl, kitty, konsole, main, rxvt, s, ucolors, _ = autoload("aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.errors"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.export.rxvt"), autoload("aniseed.string"), autoload("katdotnvim.utils.color"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["alacritty"] = alacritty
 _2amodule_locals_2a["colors"] = colors
@@ -139,7 +139,9 @@ local function gen_term_colors(terminal)
   end
 end
 _2amodule_2a["gen_term_colors"] = gen_term_colors
-do
-  vim.api.nvim_command("command! -nargs=1 KatGenTermTheme lua require('katdotnvim.utils.export.init').gen_term_colors(<args>)")
+local function _12_(args)
+  print(args.args)
+  return gen_term_colors(args.args)
 end
+vim.api.nvim_create_user_command("KatGenTermTheme", _12_, {nargs = 1})
 return _2amodule_2a
