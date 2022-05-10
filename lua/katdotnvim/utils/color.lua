@@ -11,10 +11,11 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local a, colors, hsl, _ = autoload("aniseed.core"), autoload("katdotnvim.color"), autoload("externals.hsluv"), nil
+local a, colors, hsl, s, _ = autoload("aniseed.core"), autoload("katdotnvim.color"), autoload("externals.hsluv"), autoload("aniseed.string"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["hsl"] = hsl
+_2amodule_locals_2a["s"] = s
 _2amodule_locals_2a["_"] = _
 local function blend(source_color, mix_color, alpha)
   local source_color0 = hsl.hex_to_rgb(source_color)
@@ -36,88 +37,224 @@ local function blend(source_color, mix_color, alpha)
   return output
 end
 _2amodule_2a["blend"] = blend
-local function highlight_24(gr, guifg, guibg, cfg, cbg, ...)
+local function highlight_24_3c_vimscript(gr, guifg, guibg, cfg, cbg, args)
   local group = tostring(gr)
+  local output = {group = group}
   local gui_fore
   if (guifg ~= "SKIP") then
+    output["fg"] = guifg
     gui_fore = string.format(" guifg=%s", guifg)
   else
     gui_fore = " "
   end
   local gui_back
   if (guibg ~= "SKIP") then
+    output["bg"] = guibg
     gui_back = string.format(" guibg=%s", guibg)
   else
     gui_back = " "
   end
   local c_fore
   if (cfg ~= "SKIP") then
+    output["ctermfg"] = cfg
     c_fore = string.format(" ctermfg=%s", cfg)
   else
     c_fore = " "
   end
   local c_back
   if (cbg ~= "SKIP") then
+    output["ctermbg"] = cbg
     c_back = string.format(" ctermbg=%s", cbg)
   else
     c_back = " "
   end
-  local args = {...}
   local extra
   if (#args > 0) then
     local string = ""
     for _0, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
+        output["sp"] = v
         string = string.format("%s guisp=%s", string, v)
       elseif (a["string?"](v) == true) then
+        if (v == "NONE") then
+          output["reverse"] = true
+        else
+          local gui = s.split(v, ",")
+          for _1, gui_val in pairs(gui) do
+            output[gui_val] = true
+          end
+        end
         string = string.format("%s gui=%s cterm=%s", string, tostring(v), tostring(v))
       else
+        output["blend"] = v
         string = string.format("%s blend=%s", string, v)
       end
     end
-    extra = string
-  else
     extra = ""
+  else
+    extra = nil
   end
-  local output = ("highlight " .. group .. gui_fore .. gui_back .. c_fore .. c_back .. extra)
-  vim.cmd(tostring(output))
+  do
+    local highlight = ("highlight " .. group .. gui_fore .. gui_back .. c_fore .. c_back .. extra)
+    vim.cmd(tostring(highlight))
+  end
   return output
 end
+_2amodule_2a["highlight$<-vimscript"] = highlight_24_3c_vimscript
+local function highlight_24_3c_api(gr, guifg, guibg, cfg, cbg, args)
+  local group = gr
+  local gui_fore
+  if ((guifg ~= "NONE") and (guifg ~= "SKIP")) then
+    gui_fore = guifg
+  else
+    gui_fore = nil
+  end
+  local gui_back
+  if ((guibg ~= "NONE") and (guibg ~= "SKIP")) then
+    gui_back = guibg
+  else
+    gui_back = nil
+  end
+  local c_fore
+  if ((cfg ~= "NONE") and (cfg ~= "SKIP")) then
+    c_fore = cfg
+  else
+    c_fore = nil
+  end
+  local c_back
+  if ((cbg ~= "NONE") and (cbg ~= "SKIP")) then
+    c_back = cbg
+  else
+    c_back = nil
+  end
+  local opts = {fg = gui_fore, bg = gui_back, ctermfg = c_fore, ctermbg = c_back}
+  for _0, value in pairs(args) do
+    if (string.sub(value, 1, 1) == "#") then
+      opts["sp"] = value
+    elseif (a["string?"](value) == true) then
+      if ((value ~= "NONE") and string.find(value, ",")) then
+        local gui = s.split(value, ",")
+        for _1, gui_val in pairs(gui) do
+          opts[gui_val] = true
+        end
+      elseif (value == "NONE") then
+        opts["reverse"] = false
+      else
+        opts[value] = true
+      end
+    else
+      opts["blend"] = value
+    end
+  end
+  vim.api.nvim_set_hl(0, group, opts)
+  do end (opts)["group"] = gr
+  return opts
+end
+_2amodule_2a["highlight$<-api"] = highlight_24_3c_api
+local function highlight_24(gr, guifg, guibg, cfg, cbg, ...)
+  local args = {...}
+  if (vim.fn.has("nvim-0.7") == 0) then
+    return highlight_24_3c_vimscript(gr, guifg, guibg, cfg, cbg, args)
+  else
+    return highlight_24_3c_api(gr, guifg, guibg, cfg, cbg, args)
+  end
+end
 _2amodule_2a["highlight$"] = highlight_24
-local function highlight_gui_24(gr, guifg, guibg, ...)
+local function highlight_gui_24_3c_api(gr, guifg, guibg, args)
+  local group = gr
+  local gui_fore
+  if ((guifg ~= "NONE") and (guifg ~= "SKIP")) then
+    gui_fore = guifg
+  else
+    gui_fore = nil
+  end
+  local gui_back
+  if ((guibg ~= "NONE") and (guibg ~= "SKIP")) then
+    gui_back = guibg
+  else
+    gui_back = nil
+  end
+  local opts = {fg = gui_fore, bg = gui_back}
+  for _0, value in pairs(args) do
+    if (string.sub(value, 1, 1) == "#") then
+      opts["sp"] = value
+    elseif (a["string?"](value) == true) then
+      if ((value ~= "NONE") and string.find(value, ",")) then
+        local gui = s.split(value, ",")
+        for _1, gui_val in pairs(gui) do
+          opts[gui_val] = true
+        end
+      elseif (value == "NONE") then
+        opts["reverse"] = false
+      else
+        opts[value] = true
+      end
+    else
+      opts["blend"] = value
+    end
+  end
+  vim.api.nvim_set_hl(0, group, opts)
+  do end (opts)["group"] = gr
+  return opts
+end
+_2amodule_2a["highlight-gui$<-api"] = highlight_gui_24_3c_api
+local function highlight_gui_24_3c_vimscript(gr, guifg, guibg, args)
   local group = tostring(gr)
+  local output = {group = group}
   local gui_fore
   if (guifg ~= "SKIP") then
+    output["fg"] = guifg
     gui_fore = string.format(" guifg=%s", guifg)
   else
     gui_fore = " "
   end
   local gui_back
   if (guibg ~= "SKIP") then
+    output["bg"] = guibg
     gui_back = string.format(" guibg=%s", guibg)
   else
     gui_back = " "
   end
-  local args = {...}
   local extra
   if (#args > 0) then
     local string = ""
     for _0, v in pairs(args) do
       if (string.sub(v, 1, 1) == "#") then
+        output["sp"] = v
         string = string.format("%s guisp=%s", string, v)
       elseif (a["string?"](v) == true) then
-        string = string.format("%s gui=%s", string, tostring(v))
+        if (v == "NONE") then
+          output["reverse"] = true
+        else
+          local gui = s.split(v, ",")
+          for _1, gui_val in pairs(gui) do
+            output[gui_val] = true
+          end
+        end
+        string = string.format("%s gui=%s cterm=%s", string, tostring(v), tostring(v))
       else
+        output["blend"] = v
         string = string.format("%s blend=%s", string, v)
       end
     end
-    extra = string
-  else
     extra = ""
+  else
+    extra = nil
   end
-  local output = ("highlight " .. group .. gui_fore .. gui_back .. extra)
-  vim.cmd(tostring(output))
+  do
+    local highlight = ("highlight " .. group .. gui_fore .. gui_back .. extra)
+    vim.cmd(tostring(highlight))
+  end
   return output
+end
+_2amodule_2a["highlight-gui$<-vimscript"] = highlight_gui_24_3c_vimscript
+local function highlight_gui_24(gr, guifg, guibg, ...)
+  local args = {...}
+  if (vim.fn.has("nvim-0.7") == 0) then
+    return highlight_gui_24_3c_vimscript(gr, guifg, guibg, args)
+  else
+    return highlight_gui_24_3c_api(gr, guifg, guibg, args)
+  end
 end
 _2amodule_2a["highlight-gui$"] = highlight_gui_24
 local function brighten(color, percent)
