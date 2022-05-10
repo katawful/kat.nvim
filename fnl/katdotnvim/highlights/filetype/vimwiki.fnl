@@ -36,7 +36,7 @@
                      :SKIP
                      (. (groups.errorBG) 2)
                      :SKIP
-                     :Bold)
+                     :bold)
   (ucolors.highlight$ :VimwikiDelText
                      (. (groups.fillBG) 1)
                      :SKIP
