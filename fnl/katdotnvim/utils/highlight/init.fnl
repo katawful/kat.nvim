@@ -40,7 +40,7 @@
     output))
 
 (defn attr->string [table]
-  "Get the boolean attributs of a highlight group as a string
+  "Get the boolean attributes of a highlight group as a string
 that is compatible with Vimscript's highlight function"
   (s.join "," (attr->table table)))
 

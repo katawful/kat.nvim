@@ -57,5 +57,5 @@
     (table.sort split-test)
     (table.sort split-expected)
     (t.ok? (vim.deep_equal split-test split-expected)
-           "Get the boolean attributs of a highlight group as a string
+           "Get the boolean attributes of a highlight group as a string
 that is compatible with Vimscript's highlight function")))
