@@ -1,27 +1,28 @@
 (module katdotnvim.utils.highlight.init
-  {autoload {s aniseed.string}})
+  {autoload {s aniseed.string
+             a aniseed.core}})
 
 ;;; Handles general manipulation of highlight groups
 
 (defn group [table]
   "Get the group name of a highlight group"
-  table.group)
+  (?. table :group))
 
 (defn gui-fg [table]
   "Get the gui foreground of a highlight group"
-  table.fg)
+  (?. table :fg))
 
 (defn gui-bg [table]
   "Get the gui background of a highlight group"
-  table.bg)
+  (?. table :bg))
 
 (defn term-fg [table]
   "Get the term foreground of a highlight group"
-  table.ctermfg)
+  (?. table :ctermfg))
 
 (defn term-bg [table]
   "Get the term background of a highlight group"
-  table.ctermbg)
+  (?. table :ctermbg))
 
 (defn special [table]
   "Get the special colors of a highlight group"
@@ -49,5 +50,8 @@
 (defn attr->string [table]
   "Get the boolean attributes of a highlight group as a string
 that is compatible with Vimscript's highlight function"
-  (s.join "," (attr->table table)))
+  (let [attr-table (attr->table table)]
+    (if (a.empty? attr-table)
+        nil
+        (s.join "," (attr->table table)))))
 
