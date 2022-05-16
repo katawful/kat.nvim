@@ -434,7 +434,7 @@
                         0.6)
      :bg :SKIP
      :ctermfg (. (fillBG) 3)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     {:group :ModeMsg

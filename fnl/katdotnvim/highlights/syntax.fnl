@@ -142,7 +142,7 @@
                              1)
      :bg :SKIP
      :ctermfg (. (groups.fillBG) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     {:group :Operator
@@ -151,7 +151,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (groups.mainFG) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     (fn [] (if (= vim.o.background :light)
@@ -162,7 +162,7 @@
                                         0.5)
                     :bg :SKIP
                     :ctermfg (. (groups.auxBG) 3)
-                    :ctermfg :SKIP
+                    :ctermbg :SKIP
                     :italic true})
 
                (do {:group :Keyword
@@ -172,7 +172,7 @@
                                           0.5)
                     :bg :SKIP
                     :ctermfg (. (groups.auxBG) 3)
-                    :ctermfg :SKIP
+                    :ctermbg :SKIP
                     :italic true})))
 
     {:group :Exception
@@ -182,7 +182,7 @@
                            0.2)
      :bg :SKIP
      :ctermfg (. (groups.selectionBG) 2)
-     :ctermfg :SKIP}
+     :ctermbg :SKIP}
 
     {:group :PreProc
      :fg (. (preproc) 1)
@@ -198,7 +198,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (preproc) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true
      :italic true}
 
@@ -208,7 +208,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (groups.highlightBG) 3)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true
      :italic true}
 
@@ -218,7 +218,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (groups.selectionBG) 3)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true
      :italic true}
 
@@ -228,7 +228,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (groups.auxBG) 3)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true
      :italic true}
 
@@ -245,7 +245,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (typeDef) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
     {:group :Structure
      :fg (ucolors.blend  (. (typeDef) 1)
@@ -253,7 +253,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (typeDef) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
     {:group :Typedef
      :fg (ucolors.saturation (ucolors.blend  (. (typeDef) 1)
@@ -262,7 +262,7 @@
                              1)
      :bg :SKIP
      :ctermfg (. (typeDef) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     {:group :Special
@@ -277,7 +277,7 @@
                          0.8)
      :bg :SKIP
      :ctermfg (. (special) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     {:group :Tag
@@ -286,7 +286,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (special) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     {:group :Delimiter
@@ -297,7 +297,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (special) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     {:group :SpecialComment
@@ -306,7 +306,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (special) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      (. vim.g.kat_nvim_commentStyle) true}
 
     {:group :Debug
@@ -315,7 +315,7 @@
                          0.2)
      :bg :SKIP
      :ctermfg (. (special) 2)
-     :ctermfg :SKIP
+     :ctermbg :SKIP
      :bold true}
 
     {:group :Underlined
@@ -339,7 +339,7 @@
                          (. (groups.mainFG) 1)
                          0.9)
      :ctermfg (. (groups.infoFG) 2)
-     :ctermfg (. (groups.infoBG) 2)}
+     :ctermbg (. (groups.infoBG) 2)}
 
     {:group :Ignore
      :fg (. (groups.meldFG) 1)
@@ -383,7 +383,7 @@
                          (. (groups.mainBG) 1)
                          0.6)
      :ctermfg (. (groups.mainFG) 2)
-     :ctermfg (. (groups.auxBG) 3)
+     :ctermbg (. (groups.auxBG) 3)
      :bold true}
 
     {:group :diffChanged
@@ -394,7 +394,7 @@
                         (. (groups.mainBG) 1)
                         0.6)
      :ctermfg (. (groups.mainFG) 2)
-     :ctermfg (. (groups.selectionBG) 3)
+     :ctermbg (. (groups.selectionBG) 3)
      :bold true}
 
     {:group :diffRemoved
@@ -405,7 +405,7 @@
                          (. (groups.mainBG) 1)
                          0.6)
      :ctermfg (. (groups.mainFG) 2)
-     :ctermfg (. (groups.warningBG) 2)
+     :ctermbg (. (groups.warningBG) 2)
      :bold true}])
 
 (defn init []
