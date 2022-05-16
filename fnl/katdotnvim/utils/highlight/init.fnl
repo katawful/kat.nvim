@@ -25,11 +25,11 @@
 
 (defn special [table]
   "Get the special colors of a highlight group"
-  table.sp)
+  (?. table :sp))
 
 (defn blend [table]
   "Get the blend of a highlight group"
-  table.blend)
+  (?. table :blend))
 
 (defn attr->table [table#]
   "Get the boolean attributes of a highlight group as a table"
@@ -38,6 +38,13 @@
       (if (= v true)
         (table.insert output k)))
     output))
+
+(defn all-attr->table [table#]
+  (let [output {}]
+      (each [k v (pairs table#)]
+        (if (or (= v true) (= v false))
+          (tset output k v)))
+      output))
 
 (defn attr->string [table]
   "Get the boolean attributes of a highlight group as a string

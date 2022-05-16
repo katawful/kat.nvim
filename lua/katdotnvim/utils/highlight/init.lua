@@ -34,11 +34,21 @@ local function term_bg(table)
 end
 _2amodule_2a["term-bg"] = term_bg
 local function special(table)
-  return table.sp
+  local t_1_ = table
+  if (nil ~= t_1_) then
+    t_1_ = (t_1_).sp
+  else
+  end
+  return t_1_
 end
 _2amodule_2a["special"] = special
 local function blend(table)
-  return table.blend
+  local t_3_ = table
+  if (nil ~= t_3_) then
+    t_3_ = (t_3_).blend
+  else
+  end
+  return t_3_
 end
 _2amodule_2a["blend"] = blend
 local function attr__3etable(table_23)
@@ -52,6 +62,17 @@ local function attr__3etable(table_23)
   return output
 end
 _2amodule_2a["attr->table"] = attr__3etable
+local function all_attr__3etable(table_23)
+  local output = {}
+  for k, v in pairs(table_23) do
+    if ((v == true) or (v == false)) then
+      output[k] = v
+    else
+    end
+  end
+  return output
+end
+_2amodule_2a["all-attr->table"] = all_attr__3etable
 local function attr__3estring(table)
   return s.join(",", attr__3etable(table))
 end
