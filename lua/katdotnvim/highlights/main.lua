@@ -11,9 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local colors, main, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.color")
+local colors, main, run, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.highlight.run"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["main"] = main
+_2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["ucolors"] = ucolors
 local function mainFG()
   local output = {}
@@ -130,75 +131,32 @@ local function auxBG()
   return output
 end
 _2amodule_2a["auxBG"] = auxBG
-local function init()
-  ucolors["highlight$"]("Normal", mainFG()[1], mainBG()[1], mainFG()[2], mainBG()[2])
-  ucolors["highlight$"]("NormalNC", mainFG()[1], mainBG()[1], mainFG()[2], mainBG()[2])
-  ucolors["highlight$"]("NormalFloat", mainFG()[1], shadowBG()[1], mainFG()[2], umbraBG()[2])
-  ucolors["highlight$"]("NonText", shadowFG()[1], mainBG()[1], umbraFG()[2], mainBG()[2])
-  ucolors["highlight$"]("MatchParen", "SKIP", shadowBG()[1], "SKIP", umbraBG()[2], "bold")
-  ucolors["highlight$"]("SpecialKey", ucolors.blend(errorBG()[1], mainBG()[1], 0.6), "NONE", warningBG()[2], "NONE", "italic")
-  ucolors["highlight$"]("Whitespace", colors.foreground()[5], "SKIP", umbraFG()[2], "SKIP")
-  ucolors["highlight$"]("EndOfBuffer", umbraFG()[1], "SKIP", umbraFG()[2], "SKIP", "bold")
-  ucolors["highlight$"]("Directory", ucolors.blend(ucolors.blend(infoBG()[1], mainFG()[1], 0.1), selectionBG()[1], 0.2), "SKIP", selectionBG()[2], "SKIP")
-  ucolors["highlight$"]("Conceal", shadowBG()[1], "NONE", umbraBG()[2], "NONE")
-  ucolors["highlight$"]("SpellBad", "SKIP", "SKIP", "SKIP", "NONE", "undercurl", errorBG()[1])
-  ucolors["highlight$"]("SpellCap", "SKIP", "SKIP", "SKIP", "NONE", "undercurl", selectionBG()[1])
-  ucolors["highlight$"]("SpellLocal", "SKIP", "SKIP", "SKIP", "NONE", "undercurl", auxBG()[1])
-  ucolors["highlight$"]("SpellRare", "SKIP", "SKIP", "SKIP", "NONE", "undercurl", fillBG()[1])
-  ucolors["highlight$"]("StatusLine", colors.background()[5], ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), umbraBG()[2], highlightBG()[3], "bold")
-  ucolors["highlight$"]("StatusLineNC", ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), colors.background()[5], umbraBG()[2], highlightBG()[3], "bold")
+local function high_colors()
+  local _3_
   if ((vim.o.background == "dark") and (main.contrast == "soft")) then
     local color = ucolors.brighten(highlightFG()[1], 0)
-    ucolors["highlight$"]("TabLine", color, highlightBG()[1], highlightFG()[2], highlightBG()[2])
-    ucolors["highlight$"]("TabLineFill", fillBG()[1], fillBG()[1], fillBG()[2], fillBG()[2])
-    ucolors["highlight$"]("TabLineSel", color, selectionBG()[1], selectionFG()[2], selectionBG()[2], "bold")
+    do local _ = {group = "TabLine", fg = color, bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]} end
+    do local _ = {group = "TabLineFill", fg = fillBG()[1], bg = fillBG()[1], ctermfg = fillBG()[2], ctermbg = fillBG()[2]} end
+    _3_ = {group = "TabLineSel", fg = color, bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2], bold = true}
   else
-    ucolors["highlight$"]("TabLine", highlightFG()[1], highlightBG()[1], highlightFG()[2], highlightBG()[2])
-    ucolors["highlight$"]("TabLineFill", fillBG()[1], fillBG()[1], fillBG()[2], fillBG()[2])
-    ucolors["highlight$"]("TabLineSel", selectionFG()[1], selectionBG()[1], selectionFG()[2], selectionBG()[2], "bold")
+    do local _ = {group = "TabLine", fg = highlightFG()[1], bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]} end
+    do local _ = {group = "TabLineFill", fg = fillBG()[1], bg = fillBG()[1], ctermfg = fillBG()[2], ctermbg = fillBG()[2]} end
+    _3_ = {group = "TabLineSel", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2], bold = true}
   end
-  ucolors["highlight$"]("Title", auxBG()[1], "NONE", auxBG()[2], "NONE", "bold")
-  ucolors["highlight$"]("Visual", "SKIP", ucolors.darken(selectionBG()[1], 0.2), "SKIP", warningBG()[2])
-  ucolors["highlight$"]("VisualNOS", "SKIP", ucolors.blend(selectionBG()[1], mainFG()[1], 0.5), "SKIP", warningBG()[2])
-  ucolors["highlight$"]("Pmenu", fillFG()[1], fillBG()[1], fillFG()[2], fillBG()[2])
-  ucolors["highlight$"]("PmenuSel", selectionFG()[1], selectionBG()[1], selectionFG()[2], selectionBG()[2])
-  ucolors["highlight$"]("PmenuSbar", highlightFG()[1], highlightBG()[1], highlightFG()[2], highlightBG()[2])
-  ucolors["highlight$"]("PmenuThumb", selectionFG()[1], selectionBG()[1], selectionFG()[2], selectionBG()[2])
-  ucolors["highlight$"]("WildMenu", selectionFG()[1], selectionBG()[1], selectionFG()[2], selectionBG()[2])
-  ucolors["highlight$"]("Question", ucolors.blend(auxBG()[1], mainFG()[1], 0.7), "SKIP", auxBG()[3], "SKIP", "bold,underline", auxBG()[1])
-  ucolors["highlight$"]("QuickFixLine", "SKIP", selectionBG()[1], "SKIP", selectionBG()[2])
-  ucolors["highlight$"]("Cursor", "SKIP", mainFG()[1], "SKIP", mainFG()[2], "reverse")
-  ucolors["highlight$"]("CursorIM", "SKIP", umbraFG()[1], "SKIP", umbraFG()[2], "reverse")
-  ucolors["highlight$"]("lCursor", "SKIP", shadowFG()[1], "SKIP", umbraFG()[2], "reverse")
-  ucolors["highlight$"]("CursorColumn", "SKIP", shadowBG()[1], "SKIP", umbraBG()[2])
-  ucolors["highlight$"]("CursorLine", "SKIP", shadowBG()[1], "SKIP", umbraBG()[2])
-  ucolors["highlight$"]("ColorColumn", "NONE", ucolors.blend(selectionBG()[1], mainFG()[1], 0.8), "NONE", selectionBG()[3], "bold")
-  ucolors["highlight$"]("TermCursor", "SKIP", mainFG()[1], "SKIP", mainFG()[2], "reverse")
-  ucolors["highlight$"]("TermCursorNC", "SKIP", umbraFG()[1], "SKIP", umbraFG()[2], "reverse")
-  ucolors["highlight$"]("ErrorMsg", errorFG()[1], errorBG()[1], errorFG()[2], errorBG()[2], "bold")
-  ucolors["highlight$"]("WarningMsg", warningFG()[1], warningBG()[1], warningFG()[2], warningBG()[2])
-  ucolors["highlight$"]("VertSplit", shadowBG()[1], shadowFG()[1], umbraBG()[2], umbraFG()[2])
-  ucolors["highlight$"]("Folded", selectionFG()[1], shadowBG()[1], selectionFG()[2], umbraBG()[2], "bold")
-  ucolors["highlight$"]("FoldColumn", selectionBG()[1], "NONE", selectionBG()[2], "NONE", "bold")
-  ucolors["highlight$"]("SignColumn", "NONE", "NONE", "NONE", "NONE", "bold")
-  ucolors["highlight$"]("IncSearch", mainFG()[1], infoBG()[1], mainFG()[2], infoBG()[2], "NONE")
-  ucolors["highlight$"]("Substitute", infoFG()[1], ucolors.blend(infoBG()[1], mainFG()[1], 0.7), infoFG()[2], infoBG()[3])
-  ucolors["highlight$"]("Search", infoFG()[1], ucolors.blend(infoBG()[1], mainBG()[1], 0.7), infoFG()[2], infoBG()[2])
-  ucolors["highlight$"]("LineNr", fillBG()[1], "SKIP", fillBG()[2], "SKIP")
-  ucolors["highlight$"]("CursorLineNr", ucolors.blend(fillBG()[1], mainFG()[1], 0.6), "SKIP", fillBG()[3], "SKIP", "bold")
-  ucolors["highlight$"]("ModeMsg", mainFG()[1], shadowBG()[1], mainFG()[2], umbraBG()[2], "bold")
-  ucolors["highlight$"]("MsgArea", mainFG()[1], umbraBG()[1], mainFG()[2], umbraBG()[2])
-  ucolors["highlight$"]("MsgSeparator", mainFG()[1], umbraBG()[1], mainFG()[2], umbraBG()[2])
-  ucolors["highlight$"]("MoreMsg", auxBG()[1], "SKIP", auxBG()[2], "SKIP")
-  ucolors["highlight$"]("debugPC", "SKIP", ucolors.blend(selectionBG()[1], mainFG()[1], 0.6), "SKIP", selectionBG()[3])
-  ucolors["highlight$"]("debugBreakpoint", "SKIP", ucolors.blend(errorBG()[1], mainFG()[1], 0.6), "SKIP", warningBG()[2])
-  if (vim.fn.has("gui") == 1) then
-    ucolors["highlight$"]("Menu", mainFG()[1], mainBG()[1], mainFG()[2], mainBG()[2])
-    ucolors["highlight$"]("Tooltip", fillFG()[1], fillBG()[1], fillFG()[2], fillBG()[2])
-    return ucolors["highlight$"]("Scrollbar", highlightFG()[1], highlightBG()[1], highlightFG()[2], highlightBG()[2])
-  else
-    return nil
+  local function _5_()
+    if (vim.fn.has("gui") == 1) then
+      do local _ = {group = "Menu", fg = mainFG()[1], bg = mainBG()[1], ctermfg = mainFG()[2], ctermbg = mainBG()[2]} end
+      do local _ = {group = "Tooltip", fg = fillFG()[1], bg = fillBG()[1], ctermfg = fillFG()[2], ctermbg = fillBG()[2]} end
+      return {group = "Scrollbar", fg = highlightFG()[1], bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}
+    else
+      return nil
+    end
   end
+  return {{group = "Normal", fg = mainFG()[1], bg = mainBG()[1], ctermfg = mainFG()[2], ctermbg = mainBG()[2]}, {group = "NormalNC", fg = mainFG()[1], bg = mainBG()[1], ctermfg = mainFG()[2], ctermbg = mainBG()[2]}, {group = "NormalFloat", fg = mainFG()[1], bg = shadowBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "NonText", fg = shadowFG()[1], bg = mainBG()[1], ctermfg = umbraFG()[2], ctermbg = mainBG()[2]}, {group = "MatchParen", fg = "SKIP", bg = shadowBG()[1], ctermfg = "SKIP", ctermbg = umbraBG()[2], bold = true}, {group = "SpecialKey", fg = ucolors.blend(errorBG()[1], mainBG()[1], 0.6), bg = "NONE", ctermfg = warningBG()[2], ctermbg = "NONE", italic = true}, {group = "Whitespace", fg = colors.foreground()[5], bg = "SKIP", ctermfg = umbraFG()[2], ctermbg = "SKIP"}, {group = "EndOfBuffer", fg = umbraFG()[1], bg = "SKIP", ctermfg = umbraFG()[2], ctermbg = "SKIP", bold = true}, {group = "Directory", fg = ucolors.blend(ucolors.blend(infoBG()[1], mainFG()[1], 0.1), selectionBG()[1], 0.2), bg = "SKIP", ctermfg = selectionBG()[2], ctermbg = "SKIP"}, {group = "Conceal", fg = shadowBG()[1], bg = "NONE", ctermfg = umbraBG()[2], ctermbg = "NONE"}, {group = "SpellBad", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = errorBG()[1]}, {group = "SpellCap", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = selectionBG()[1]}, {group = "SpellLocal", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = auxBG()[1]}, {group = "SpellRare", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = fillBG()[1]}, {group = "StatusLine", fg = colors.background()[5], bg = ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), ctermfg = umbraBG()[2], ctermbg = highlightBG()[3], bold = true}, {group = "StatusLineNC", fg = ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), bg = colors.background()[5], ctermfg = umbraBG()[2], ctermbg = highlightBG()[3], bold = true}, _3_, {group = "Title", fg = auxBG()[1], bg = "NONE", ctermfg = auxBG()[2], ctermbg = "NONE", bold = true}, {group = "Visual", fg = "SKIP", bg = ucolors.darken(selectionBG()[1], 0.2), ctermfg = "SKIP", ctermbg = warningBG()[2]}, {group = "VisualNOS", fg = "SKIP", bg = ucolors.blend(selectionBG()[1], mainFG()[1], 0.5), ctermfg = "SKIP", ctermbg = warningBG()[2]}, {group = "Pmenu", fg = fillFG()[1], bg = fillBG()[1], ctermfg = fillFG()[2], ctermbg = fillBG()[2]}, {group = "PmenuSel", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "PmenuSbar", fg = highlightFG()[1], bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}, {group = "PmenuThumb", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "WildMenu", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "Question", fg = ucolors.blend(auxBG()[1], mainFG()[1], 0.7), bg = "SKIP", ctermfg = auxBG()[3], ctermbg = "SKIP", bold = true, underline = true, sp = auxBG()[1]}, {group = "QuickFixLine", fg = "SKIP", bg = selectionBG()[1], ctermfg = "SKIP", ctermbg = selectionBG()[2]}, {group = "Cursor", fg = "SKIP", bg = mainFG()[1], ctermfg = "SKIP", ctermbg = mainFG()[2], reverse = true}, {group = "CursorIM", fg = "SKIP", bg = umbraFG()[1], ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "lCursor", fg = "SKIP", bg = shadowFG()[1], ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "CursorColumn", fg = "SKIP", bg = shadowBG()[1], ctermfg = "SKIP", ctermbg = umbraBG()[2]}, {group = "CursorLine", fg = "SKIP", bg = shadowBG()[1], ctermfg = "SKIP", ctermbg = umbraBG()[2]}, {group = "ColorColumn", fg = "NONE", bg = ucolors.blend(selectionBG()[1], mainFG()[1], 0.8), ctermfg = "NONE", ctermbg = selectionBG()[3], bold = true}, {group = "TermCursor", fg = "SKIP", bg = mainFG()[1], ctermfg = "SKIP", ctermbg = mainFG()[2], reverse = true}, {group = "TermCursorNC", fg = "SKIP", bg = umbraFG()[1], ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "ErrorMsg", fg = errorFG()[1], bg = errorBG()[1], ctermfg = errorFG()[2], ctermbg = errorBG()[2], bold = true}, {group = "WarningMsg", fg = warningFG()[1], bg = warningBG()[1], ctermfg = warningFG()[2], ctermbg = warningBG()[2]}, {group = "VertSplit", fg = shadowBG()[1], bg = shadowFG()[1], ctermfg = umbraBG()[2], ctermbg = umbraFG()[2]}, {group = "Folded", fg = selectionFG()[1], bg = shadowBG()[1], ctermfg = selectionFG()[2], ctermbg = umbraBG()[2], bold = true}, {group = "FoldColumn", fg = selectionBG()[1], bg = "NONE", ctermfg = selectionBG()[2], ctermbg = "NONE", bold = true}, {group = "SignColumn", fg = "NONE", bg = "NONE", ctermfg = "NONE", ctermbg = "NONE", bold = true}, {group = "IncSearch", fg = mainFG()[1], bg = infoBG()[1], ctermfg = mainFG()[2], ctermbg = infoBG()[2], reverse = false}, {group = "Substitute", fg = infoFG()[1], bg = ucolors.blend(infoBG()[1], mainFG()[1], 0.7), ctermfg = infoFG()[2], ctermbg = infoBG()[3]}, {group = "Search", fg = infoFG()[1], bg = ucolors.blend(infoBG()[1], mainBG()[1], 0.7), ctermfg = infoFG()[2], ctermbg = infoBG()[2]}, {group = "LineNr", fg = fillBG()[1], bg = "SKIP", ctermfg = fillBG()[2], ctermbg = "SKIP"}, {group = "CursorLineNr", fg = ucolors.blend(fillBG()[1], mainFG()[1], 0.6), bg = "SKIP", ctermfg = "SKIP", bold = true}, {group = "ModeMsg", fg = mainFG()[1], bg = shadowBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2], bold = true}, {group = "MsgArea", fg = mainFG()[1], bg = umbraBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "MsgSeparator", fg = mainFG()[1], bg = umbraBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "MoreMsg", fg = auxBG()[1], bg = "SKIP", ctermfg = auxBG()[2], ctermbg = "SKIP"}, {group = "debugPC", fg = "SKIP", bg = ucolors.blend(selectionBG()[1], mainFG()[1], 0.6), ctermfg = "SKIP", ctermbg = selectionBG()[3]}, {group = "debugBreakpoint", fg = "SKIP", bg = ucolors.blend(errorBG()[1], mainFG()[1], 0.6), ctermfg = "SKIP", ctermbg = warningBG()[2]}, _5_()}
+end
+_2amodule_2a["high-colors"] = high_colors
+local function init()
+  return run["highlight$<-table"](high_colors())
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a
