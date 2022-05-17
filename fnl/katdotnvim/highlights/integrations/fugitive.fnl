@@ -2,17 +2,22 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
+                   run katdotnvim.utils.highlight.run
                    groups katdotnvim.highlights.main}})
+(defn high-colors []
+  [
+    {:group :fugitiveHunk
+     :fg :SKIP
+     :bg (. (groups.shadowBG) 1)
+     :ctermfg :SKIP
+     :ctermbg (. (groups.umbraBG) 2)
+     :nocombine true}
+    {:group :gitDiff
+     :fg :SKIP
+     :bg (. (groups.shadowBG) 1)
+     :ctermfg :SKIP
+     :ctermbg (. (groups.umbraBG) 2)
+     :nocombine true}])
+
 (defn init []
-  (ucolors.highlight$ :fugitiveHunk
-                     :SKIP
-                     (. (groups.shadowBG) 1)
-                     :SKIP
-                     (. (groups.umbraBG) 2)
-                     :nocombine)
-  (ucolors.highlight$ :gitDiff
-                     :SKIP
-                     (. (groups.shadowBG) 1)
-                     :SKIP
-                     (. (groups.umbraBG) 2)
-                     :nocombine))
+  (run.highlight$<-table (high-colors)))

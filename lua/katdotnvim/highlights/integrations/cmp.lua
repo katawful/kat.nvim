@@ -11,13 +11,18 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local colors, groups, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
+local colors, groups, run, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.highlight.run"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["groups"] = groups
+_2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
+local function high_colors()
+  return {{group = "CmpItemKind", fg = groups.selectionBG()[1], bg = ucolors.brighten(groups.fillBG()[1], 0.1), ctermfg = groups.selectionBG()[2], ctermbg = groups.fillBG()[2]}}
+end
+_2amodule_2a["high-colors"] = high_colors
 local function init()
-  return ucolors["highlight$"]("CmpItemKind", groups.selectionBG()[1], ucolors.brighten(groups.fillBG()[1], 0.1), groups.selectionBG()[2], groups.fillBG()[2])
+  return run["highlight$<-table"](high_colors())
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a

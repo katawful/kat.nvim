@@ -2,13 +2,18 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
+                   run katdotnvim.utils.highlight.run
                    groups katdotnvim.highlights.main}})
 
 ; This handles nvim-cmp
 
+(defn high-colors []
+  [
+    {:group :CmpItemKind
+     :fg (. (groups.selectionBG) 1)
+     :bg (ucolors.brighten (. (groups.fillBG) 1) 0.1)
+     :ctermfg (. (groups.selectionBG) 2)
+     :ctermbg (. (groups.fillBG) 2)}])
+
 (defn init []
-  (ucolors.highlight$ :CmpItemKind
-                     (. (groups.selectionBG) 1)
-                     (ucolors.brighten (. (groups.fillBG) 1) 0.1)
-                     (. (groups.selectionBG) 2)
-                     (. (groups.fillBG) 2)))
+  (run.highlight$<-table (high-colors)))

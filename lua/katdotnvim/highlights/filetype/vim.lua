@@ -11,23 +11,22 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local colors, groups, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
+local colors, groups, run, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.highlight.run"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["groups"] = groups
+_2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
+local function high_colors()
+  return {{group = "vimCommentTitle", fg = groups.shadowBG()[1], bg = groups.shadowFG()[1], ctermfg = groups.umbraBG()[2], ctermbg = groups.umbraFG()[2], bold = true, italic = true}, {group = "vimBracket", fg = ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.7), bg = "SKIP", ctermfg = groups.fillBG()[2], ctermbg = "SKIP"}, {group = "vimMapModKey", fg = ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.8), bg = "SKIP", ctermfg = groups.fillBG()[2], ctermbg = "SKIP"}, {group = "vimFuncSID", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimSetSep", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimSep", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimContinue", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}}
+end
+_2amodule_2a["high-colors"] = high_colors
 local function init()
-  ucolors["highlight$"]("vimCommentTitle", groups.shadowBG()[1], groups.shadowFG()[1], groups.umbraBG()[2], groups.umbraFG()[2], "bold,italic")
-  ucolors["highlight$"]("vimBracket", ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.7), "SKIP", groups.fillBG()[2], "SKIP")
-  ucolors["highlight$"]("vimMapModKey", ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.8), "SKIP", groups.fillBG()[2], "SKIP")
-  ucolors["highlight$"]("vimFuncSID", groups.umbraFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")
-  ucolors["highlight$"]("vimSetSep", groups.umbraFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")
-  ucolors["highlight$"]("vimSep", groups.umbraFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")
-  ucolors["highlight$"]("vimContinue", groups.umbraFG()[1], "SKIP", groups.umbraFG()[2], "SKIP")
   vim.cmd("hi def link vimOperParen Variable")
   vim.cmd("hi def link vimFunction Function")
   vim.cmd("hi def link vimIsCommand Identifier")
-  return vim.cmd("hi def link vimUserFunc Function")
+  vim.cmd("hi def link vimUserFunc Function")
+  return run["highlight$<-table"](high_colors())
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a

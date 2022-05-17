@@ -2,30 +2,35 @@
         {autoload {ucolors katdotnvim.utils.color
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
+                   run katdotnvim.utils.highlight.run
                    groups katdotnvim.highlights.main}})
 
+(defn high-colors []
+  [
+    {:group :IndentBlanklineChar
+     :fg (. (groups.shadowBG) 1)
+     :bg :SKIP
+     :ctermfg (. (groups.umbraBG) 2)
+     :ctermbg :SKIP
+     :nocombine true}
+    {:group :IndentBlanklineSpaceChar
+     :fg (. (groups.shadowBG) 1)
+     :bg :SKIP
+     :ctermfg (. (groups.umbraBG) 2)
+     :ctermbg :SKIP
+     :nocombine true}
+    {:group :IndentBlanklineSpaceChar
+     :fg (. (groups.shadowBG) 1)
+     :bg :SKIP
+     :ctermfg (. (groups.umbraBG) 2)
+     :ctermbg :SKIP
+     :nocombine true}
+    {:group :IndentBlanklineContextChar
+     :fg (. (groups.selectionBG) 1)
+     :bg :SKIP
+     :ctermfg (. (groups.selectionBG) 2)
+     :ctermbg :SKIP
+     :nocombine true}])
+
 (defn init []
-  (ucolors.highlight$ :IndentBlanklineChar
-                     (. (groups.shadowBG) 1)
-                     :SKIP
-                     (. (groups.umbraBG) 2)
-                     :SKIP
-                     :nocombine)
-  (ucolors.highlight$ :IndentBlanklineSpaceChar
-                     (. (groups.shadowBG) 1)
-                     :SKIP
-                     (. (groups.umbraBG) 2)
-                     :SKIP
-                     :nocombine)
-  (ucolors.highlight$ :IndentBlanklineSpaceChar
-                     (. (groups.shadowBG) 1)
-                     :SKIP
-                     (. (groups.umbraBG) 2)
-                     :SKIP
-                     :nocombine)
-  (ucolors.highlight$ :IndentBlanklineContextChar
-                     (. (groups.selectionBG) 1)
-                     :SKIP
-                     (. (groups.selectionBG) 2)
-                     :SKIP
-                     :nocombine))
+  (run.highlight$<-table (high-colors)))

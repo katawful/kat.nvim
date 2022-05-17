@@ -11,64 +11,25 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local colors, groups, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
+local colors, groups, run, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.highlight.run"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["groups"] = groups
+_2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
-local function init()
-  ucolors["highlight$"]("LspReferenceText", "SKIP", groups.fillBG()[1], "SKIP", groups.fillBG()[2])
-  ucolors["highlight$"]("LspReferenceRead", "SKIP", groups.fillBG()[1], "SKIP", groups.fillBG()[2])
-  ucolors["highlight$"]("LspReferenceWrite", "SKIP", groups.fillBG()[1], "SKIP", groups.fillBG()[2])
-  ucolors["highlight$"]("LspCodeLens", groups.meldBG()[1], "SKIP", groups.umbraBG()[2], "SKIP")
-  ucolors["highlight$"]("LspSignatureActiveParameter", groups.selectionBG()[1], "SKIP", groups.selectionBG()[2], "SKIP")
-  if (vim.fn.has("nvim-0.6.0") == 0) then
-    ucolors["highlight$"]("LspDiagnosticsDefaultError", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsDefaultWarning", groups.warningBG()[1], "SKIP", groups.warningBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsDefaultInformation", groups.infoBG()[1], "SKIP", groups.infoBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsDefaultHint", groups.auxBG()[1], "SKIP", groups.auxBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsError", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsWarn", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsInfo", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsHint", groups.auxBG()[1], "SKIP", groups.auxBG()[2], "SKIP")
-    ucolors["highlight$"]("LspDiagnosticsVirtualTextError", groups.errorBG()[1], groups.shadowBG()[1], groups.errorBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsVirtualTextWarning", groups.warningBG()[1], groups.shadowBG()[1], groups.warningBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsVirtualTextInformation", groups.infoBG()[1], groups.shadowBG()[1], groups.infoBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsVirtualTextHint", groups.auxBG()[1], groups.shadowBG()[1], groups.auxBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsFloatingError", groups.errorBG()[1], groups.umbraBG()[1], groups.errorBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsFloatingWarning", groups.warningBG()[1], groups.umbraBG()[1], groups.warningBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsFloatingInformation", groups.infoBG()[1], groups.umbraBG()[1], groups.infoBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsFloatingHint", groups.auxBG()[1], groups.umbraBG()[1], groups.auxBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("LspDiagnosticsSignError", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("LspDiagnosticsSignWarning", groups.warningBG()[1], "SKIP", groups.warningBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("LspDiagnosticsSignInformation", groups.infoBG()[1], "SKIP", groups.infoBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("LspDiagnosticsSignHint", groups.auxBG()[1], "SKIP", groups.auxBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("LspDiagnosticsUnderlineError", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP", "underline", groups.errorBG()[1])
-    ucolors["highlight$"]("LspDiagnosticsUnderlineWarning", groups.warningBG()[1], "SKIP", groups.warningBG()[2], "SKIP", "underline", groups.warningBG()[1])
-    ucolors["highlight$"]("LspDiagnosticsUnderlineInformation", groups.infoBG()[1], "SKIP", groups.infoBG()[2], "SKIP", "underline", groups.infoBG()[1])
-    return ucolors["highlight$"]("LspDiagnosticsUnderlineHint", groups.auxBG()[1], "SKIP", groups.auxBG()[2], "SKIP", "underline", groups.auxBG()[1])
-  else
-    ucolors["highlight$"]("DiagnosticError", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP")
-    ucolors["highlight$"]("DiagnosticWarn", groups.warningBG()[1], "SKIP", groups.warningBG()[2], "SKIP")
-    ucolors["highlight$"]("DiagnosticInfo", groups.infoBG()[1], "SKIP", groups.infoBG()[2], "SKIP")
-    ucolors["highlight$"]("DiagnosticHint", groups.infoBG()[1], "SKIP", groups.infoBG()[2], "SKIP")
-    ucolors["highlight$"]("DiagnosticVirtualTextError", groups.errorBG()[1], groups.umbraBG()[1], groups.errorBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticVirtualTextWarn", groups.warningBG()[1], groups.umbraBG()[1], groups.warningBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticVirtualTextInfo", groups.infoBG()[1], groups.umbraBG()[1], groups.infoBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticVirtualTextHint", groups.auxBG()[1], groups.umbraBG()[1], groups.auxBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticFloatingError", groups.errorBG()[1], groups.shadowBG()[1], groups.errorBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticFloatingWarn", groups.warningBG()[1], groups.shadowBG()[1], groups.warningBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticFloatingInfo", groups.infoBG()[1], groups.shadowBG()[1], groups.infoBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticFloatingHint", groups.auxBG()[1], groups.shadowBG()[1], groups.auxBG()[2], groups.umbraBG()[2])
-    ucolors["highlight$"]("DiagnosticSignError", groups.errorBG()[1], "SKIP", groups.errorBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("DiagnosticSignWarn", groups.warningBG()[1], "SKIP", groups.warningBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("DiagnosticSignInfo", groups.infoBG()[1], "SKIP", groups.infoBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("DiagnosticSignHint", groups.auxBG()[1], "SKIP", groups.auxBG()[2], "SKIP", "bold")
-    ucolors["highlight$"]("DiagnosticUnderlineError", "SKIP", "SKIP", "SKIP", "NONE", "underline", groups.errorBG()[1])
-    ucolors["highlight$"]("DiagnosticUnderlineWarn", "SKIP", "SKIP", "SKIP", "NONE", "underline", groups.warningBG()[1])
-    ucolors["highlight$"]("DiagnosticUnderlineInfo", "SKIP", "SKIP", "SKIP", "NONE", "underline", groups.infoBG()[1])
-    return ucolors["highlight$"]("DiagnosticUnderlineHint", "SKIP", "SKIP", "SKIP", "NONE", "underline", groups.auxBG()[1])
+local function high_colors()
+  local function _1_()
+    if (vim.fn.has("nvim-0.6.0") == 0) then
+      return {group = "LspDiagnosticsDefaultError", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsDefaultWarning", fg = groups.warningBG()[1], bg = "SKIP", ctermfg = groups.warningBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsDefaultInformation", fg = groups.infoBG()[1], bg = "SKIP", ctermfg = groups.infoBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsDefaultHint", fg = groups.auxBG()[1], bg = "SKIP", ctermfg = groups.auxBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsError", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsWarn", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsInfo", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsHint", fg = groups.auxBG()[1], bg = "SKIP", ctermfg = groups.auxBG()[2], ctermbg = "SKIP"}, {group = "LspDiagnosticsVirtualTextError", fg = groups.errorBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.errorBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsVirtualTextWarning", fg = groups.warningBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.warningBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsVirtualTextInformation", fg = groups.infoBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.infoBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsVirtualTextHint", fg = groups.auxBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.auxBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsFloatingError", fg = groups.errorBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.errorBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsFloatingWarning", fg = groups.warningBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.warningBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsFloatingInformation", fg = groups.infoBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.infoBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsFloatingHint", fg = groups.auxBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.auxBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "LspDiagnosticsSignError", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP", bold = true}, {group = "LspDiagnosticsSignWarning", fg = groups.warningBG()[1], bg = "SKIP", ctermfg = groups.warningBG()[2], ctermbg = "SKIP", bold = true}, {group = "LspDiagnosticsSignInformation", fg = groups.infoBG()[1], bg = "SKIP", ctermfg = groups.infoBG()[2], ctermbg = "SKIP", bold = true}, {group = "LspDiagnosticsSignHint", fg = groups.auxBG()[1], bg = "SKIP", ctermfg = groups.auxBG()[2], ctermbg = "SKIP", bold = true}, {group = "LspDiagnosticsUnderlineError", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP", underline = true, sp = groups.errorBG()[1]}, {group = "LspDiagnosticsUnderlineWarning", fg = groups.warningBG()[1], bg = "SKIP", ctermfg = groups.warningBG()[2], ctermbg = "SKIP", underline = true, sp = groups.warningBG()[1]}, {group = "LspDiagnosticsUnderlineInformation", fg = groups.infoBG()[1], bg = "SKIP", ctermfg = groups.infoBG()[2], ctermbg = "SKIP", underline = true, sp = groups.infoBG()[1]}, {group = "LspDiagnosticsUnderlineHint", fg = groups.auxBG()[1], bg = "SKIP", ctermfg = groups.auxBG()[2], ctermbg = "SKIP", underline = true, sp = groups.auxBG()[1]}
+    else
+      return {group = "DiagnosticError", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP"}, {group = "DiagnosticWarn", fg = groups.warningBG()[1], bg = "SKIP", ctermfg = groups.warningBG()[2], ctermbg = "SKIP"}, {group = "DiagnosticInfo", fg = groups.infoBG()[1], bg = "SKIP", ctermfg = groups.infoBG()[2], ctermbg = "SKIP"}, {group = "DiagnosticHint", fg = groups.infoBG()[1], bg = "SKIP", ctermfg = groups.infoBG()[2], ctermbg = "SKIP"}, {group = "DiagnosticVirtualTextError", fg = groups.errorBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.errorBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticVirtualTextWarn", fg = groups.warningBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.warningBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticVirtualTextInfo", fg = groups.infoBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.infoBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticVirtualTextHint", fg = groups.auxBG()[1], bg = groups.umbraBG()[1], ctermfg = groups.auxBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticFloatingError", fg = groups.errorBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.errorBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticFloatingWarn", fg = groups.warningBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.warningBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticFloatingInfo", fg = groups.infoBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.infoBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticFloatingHint", fg = groups.auxBG()[1], bg = groups.shadowBG()[1], ctermfg = groups.auxBG()[2], ctermbg = groups.umbraBG()[2]}, {group = "DiagnosticSignError", fg = groups.errorBG()[1], bg = "SKIP", ctermfg = groups.errorBG()[2], ctermbg = "SKIP", bold = true}, {group = "DiagnosticSignWarn", fg = groups.warningBG()[1], bg = "SKIP", ctermfg = groups.warningBG()[2], ctermbg = "SKIP", bold = true}, {group = "DiagnosticSignInfo", fg = groups.infoBG()[1], bg = "SKIP", ctermfg = groups.infoBG()[2], ctermbg = "SKIP", bold = true}, {group = "DiagnosticSignHint", fg = groups.auxBG()[1], bg = "SKIP", ctermfg = groups.auxBG()[2], ctermbg = "SKIP", bold = true}, {group = "DiagnosticUnderlineError", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", underline = true, sp = groups.errorBG()[1]}, {group = "DiagnosticUnderlineWarn", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", underline = true, sp = groups.warningBG()[1]}, {group = "DiagnosticUnderlineInfo", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", underline = true, sp = groups.infoBG()[1]}, {group = "DiagnosticUnderlineHint", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", underline = true, sp = groups.auxBG()[1]}
+    end
   end
+  return {{group = "LspReferenceText", fg = "SKIP", bg = groups.fillBG()[1], ctermfg = "SKIP", ctermbg = groups.fillBG()[2]}, {group = "LspReferenceRead", fg = "SKIP", bg = groups.fillBG()[1], ctermfg = "SKIP", ctermbg = groups.fillBG()[2]}, {group = "LspReferenceWrite", fg = "SKIP", bg = groups.fillBG()[1], ctermfg = "SKIP", ctermbg = groups.fillBG()[2]}, {group = "LspCodeLens", fg = groups.meldBG()[1], bg = "SKIP", ctermfg = groups.umbraBG()[2], ctermbg = "SKIP"}, {group = "LspSignatureActiveParameter", fg = groups.selectionBG()[1], bg = "SKIP", ctermfg = groups.selectionBG()[2], ctermbg = "SKIP"}, _1_}
+end
+_2amodule_2a["high-colors"] = high_colors
+local function init()
+  return run["highlight$<-table"](high_colors())
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a

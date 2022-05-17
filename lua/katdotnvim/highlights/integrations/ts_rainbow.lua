@@ -11,19 +11,18 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local colors, groups, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
+local colors, groups, run, syntax, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.highlight.run"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
 do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["groups"] = groups
+_2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
+local function high_colors()
+  return {{group = "rainbowcol1", fg = ucolors.blend((colors.init("normalColors")).red, groups.meldFG()[1], 0.8), bg = "SKIP", ctermfg = 1, ctermbg = "SKIP"}, {group = "rainbowcol2", fg = ucolors.blend((colors.init("normalColors")).pink, groups.meldFG()[1], 0.8), bg = "SKIP", ctermfg = 2, ctermbg = "SKIP"}, {group = "rainbowcol3", fg = ucolors.blend((colors.init("normalColors")).purple, groups.meldFG()[1], 0.8), bg = "SKIP", ctermfg = 3, ctermbg = "SKIP"}, {group = "rainbowcol4", fg = ucolors.blend((colors.init("normalColors")).blue, groups.meldFG()[1], 0.8), bg = "SKIP", ctermfg = 4, ctermbg = "SKIP"}, {group = "rainbowcol5", fg = ucolors.blend((colors.init("normalColors")).green, groups.meldFG()[1], 0.8), bg = "SKIP", ctermfg = 5, ctermbg = "SKIP"}, {group = "rainbowcol6", fg = ucolors.blend((colors.init("normalColors")).orange, groups.meldFG()[1], 0.8), bg = "SKIP", ctermfg = 6, ctermbg = "SKIP"}, {group = "rainbowcol7", fg = ucolors.blend((colors.init("background"))[6], groups.meldFG()[1], 0.8), bg = "SKIP", ctermfg = 7, ctermbg = "SKIP"}}
+end
+_2amodule_2a["high-colors"] = high_colors
 local function init()
-  ucolors["highlight$"]("rainbowcol1", ucolors.blend((colors.init("normalColors")).red, groups.meldFG()[1], 0.8), "SKIP", 1, "SKIP")
-  ucolors["highlight$"]("rainbowcol2", ucolors.blend((colors.init("normalColors")).pink, groups.meldFG()[1], 0.8), "SKIP", 2, "SKIP")
-  ucolors["highlight$"]("rainbowcol3", ucolors.blend((colors.init("normalColors")).purple, groups.meldFG()[1], 0.8), "SKIP", 3, "SKIP")
-  ucolors["highlight$"]("rainbowcol4", ucolors.blend((colors.init("normalColors")).blue, groups.meldFG()[1], 0.8), "SKIP", 4, "SKIP")
-  ucolors["highlight$"]("rainbowcol5", ucolors.blend((colors.init("normalColors")).green, groups.meldFG()[1], 0.8), "SKIP", 5, "SKIP")
-  ucolors["highlight$"]("rainbowcol6", ucolors.blend((colors.init("normalColors")).orange, groups.meldFG()[1], 0.8), "SKIP", 6, "SKIP")
-  return ucolors["highlight$"]("rainbowcol7", ucolors.blend((colors.init("background"))[6], groups.meldFG()[1], 0.8), "SKIP", 7, "SKIP")
+  return run["highlight$<-table"](high_colors())
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a
