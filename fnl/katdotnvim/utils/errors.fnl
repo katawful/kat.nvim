@@ -38,7 +38,9 @@
                                          :vimwiki
                                          :markdown]))
         (if (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
-            (let- :g :kat_nvim_stupidFeatures false)))
+            (let- :g :kat_nvim_stupidFeatures false))
+        (if (= (vim.fn.exists :kat_nvim_dontRender) 0)
+          (let- :g :kat_nvim_dontRender 0)))
       (do
           (let- :g :kat_nvim_commentStyle :italic)
           (let- :g :kat_nvim_stupidFeatures false)
@@ -52,4 +54,5 @@
                                            :startify
                                            :coc
                                            :cmp
-                                           :fugitive]))))
+                                           :fugitive])
+          (let- :g :kat_nvim_dontRender 0))))

@@ -263,7 +263,7 @@
     :underline true}])
 
 (defn init []
-   (vim.cmd "hi def link TSVariable Variable")
-   (vim.cmd "hi def link TSProperty TSField")
-   (vim.cmd "hi def link TSParameter Variable")
+  (vim.cmd "hi def link TSVariable Variable")
+  (vim.cmd "hi def link TSProperty TSField")
+  (vim.cmd "hi def link TSParameter Variable")
   (run.highlight$<-table (high-colors)))

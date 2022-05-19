@@ -39,6 +39,10 @@ local function options__3edefault(check)
     end
     if (vim.fn.exists("kat_nvim_stupidFeatures") == 0) then
       vim.g["kat_nvim_stupidFeatures"] = false
+    else
+    end
+    if (vim.fn.exists("kat_nvim_dontRender") == 0) then
+      vim.g["kat_nvim_dontRender"] = 0
       return nil
     else
       return nil
@@ -48,6 +52,7 @@ local function options__3edefault(check)
     vim.g["kat_nvim_stupidFeatures"] = false
     vim.g["kat_nvim_integrations"] = {"vim", "vimwiki", "markdown"}
     vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
+    vim.g["kat_nvim_dontRender"] = 0
     return nil
   end
 end

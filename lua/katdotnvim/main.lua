@@ -28,28 +28,54 @@ local function init(in_contrast)
   end
   local contrast = in_contrast
   _2amodule_2a["contrast"] = contrast
+  local background = vim.o.background
+  _2amodule_2a["background"] = background
+  print(contrast)
+  print(background)
   if (contrast == "hard") then
     vim.g["colors_name"] = "kat.nvim"
   else
     vim.g["colors_name"] = "kat.nwim"
   end
-  do end (require("katdotnvim.highlights.main")).init()
-  do end (require("katdotnvim.highlights.syntax")).init()
-  do end (require("katdotnvim.highlights.terminal")).init()
-  if (vim.g.kat_nvim_stupidFeatures == true) then
-    do end (require("katdotnvim.stupid")).stupidFunction()
+  if (vim.g.kat_nvim_dontRender == 1) then
+    do end (require("katdotnvim.highlights.main")).init()
+    do end (require("katdotnvim.highlights.syntax")).init()
+    do end (require("katdotnvim.highlights.terminal")).init()
+    if (vim.g.kat_nvim_stupidFeatures == true) then
+      do end (require("katdotnvim.stupid")).stupidFunction()
+    else
+    end
+    require("katdotnvim.utils.export.init")
+    do end (require("katdotnvim.utils.export.render")).init()
+    for _0, v in ipairs(vim.g.kat_nvim_integrations) do
+      local output = ("katdotnvim.highlights.integrations." .. v)
+      require(output).init()
+    end
+    for _0, v in pairs(vim.g.kat_nvim_filetype) do
+      local output = ("katdotnvim.highlights.filetype." .. v)
+      require(output).init()
+    end
+    return nil
   else
+    do end (require(("katdotnvim.exported.main-" .. background .. "-" .. contrast))).init()
+    do end (require(("katdotnvim.exported.syntax-" .. background .. "-" .. contrast))).init()
+    do end (require("katdotnvim.highlights.terminal")).init()
+    if (vim.g.kat_nvim_stupidFeatures == true) then
+      do end (require("katdotnvim.stupid")).stupidFunction()
+    else
+    end
+    require("katdotnvim.utils.export.init")
+    do end (require("katdotnvim.utils.export.render")).init()
+    for _0, v in ipairs(vim.g.kat_nvim_integrations) do
+      local output = ("katdotnvim.exported.integrations." .. v .. "-" .. background .. "-" .. contrast)
+      require(output).init()
+    end
+    for _0, v in pairs(vim.g.kat_nvim_filetype) do
+      local output = ("katdotnvim.exported.filetype." .. v .. "-" .. background .. "-" .. contrast)
+      require(output).init()
+    end
+    return nil
   end
-  require("katdotnvim.utils.export.init")
-  for _0, v in ipairs(vim.g.kat_nvim_integrations) do
-    local output = ("katdotnvim.highlights.integrations." .. v)
-    require(output).init()
-  end
-  for _0, v in pairs(vim.g.kat_nvim_filetype) do
-    local output = ("katdotnvim.highlights.filetype." .. v)
-    require(output).init()
-  end
-  return nil
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a
