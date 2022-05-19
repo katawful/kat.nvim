@@ -30,8 +30,6 @@ local function init(in_contrast)
   _2amodule_2a["contrast"] = contrast
   local background = vim.o.background
   _2amodule_2a["background"] = background
-  print(contrast)
-  print(background)
   if (contrast == "hard") then
     vim.g["colors_name"] = "kat.nvim"
   else
