@@ -62,7 +62,7 @@ local function start_group()
       vim.api.nvim_set_option("background", back)
       print(back)
       for _2, v1 in ipairs(files) do
-        __fnl_global__build_2dstring_2d_3e(v1, color, back)
+        build_string__3efile(v1, color, back)
       end
     end
   end

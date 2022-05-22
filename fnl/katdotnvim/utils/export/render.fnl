@@ -82,7 +82,7 @@
         (set- background back)
         (print back)
         (each [_ v1 (ipairs files)]
-          (build-string-> v1 color back))))
+          (build-string->file v1 color back))))
     (let- :g :colors_name old-color)
     (set- background old-background)
     (let- :g :kat_nvim_dontRender old-dontRender)))
@@ -90,7 +90,6 @@
 ;; init functions, very dirty and not a great implementation
 (defn init []
   ; TODO -- add > 0.7 support
-  ; uses a table cause i'm lazy
   ; needs to be improved, I don't like how this works at all
   (command- :KatRenderFile (fn [] 
                              (start-group))
