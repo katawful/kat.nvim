@@ -149,7 +149,7 @@
    :ctermfg "NONE"
    :fg "NONE"
    :group "SignColumn"}
-  {:NONE true
+  {:reverse false
    :bg "#f2b15c"
    :ctermbg 3
    :ctermfg 7

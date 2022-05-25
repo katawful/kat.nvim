@@ -407,7 +407,7 @@
      :bg (. (infoBG) 1)
      :ctermfg (. (mainFG) 2)
      :ctermbg (. (infoBG) 2)
-     :NONE true}
+     :reverse false}
     {:group :Substitute
      :fg (. (infoFG) 1)
      :bg (ucolors.blend (. (infoBG) 1)
