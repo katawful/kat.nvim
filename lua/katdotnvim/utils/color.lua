@@ -124,9 +124,9 @@ end
 _2amodule_2a["highlight$<-api"] = highlight_24_3c_api
 local function highlight_24(opts)
   if (vim.fn.has("nvim-0.7") == 0) then
-    return highlight_24_3c_api(opts)
-  else
     return highlight_24_3c_vimscript(opts)
+  else
+    return highlight_24_3c_api(opts)
   end
 end
 _2amodule_2a["highlight$"] = highlight_24
