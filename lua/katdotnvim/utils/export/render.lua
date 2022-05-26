@@ -20,9 +20,10 @@ local function get_groups(source)
   local output_string = ""
   for _1, v in pairs(require(source.path)["high-colors"]()) do
     if (type(v) == "function") then
-      output_string = string.format("%s\n  %s", output_string, a.str(v()))
+      local current = {v()}
+      output_string = string.format("%s\n  %s\n", output_string, a["pr-str"](current))
     else
-      output_string = string.format("%s\n  %s", output_string, a.str(v))
+      output_string = string.format("%s\n  %s\n", output_string, a.str(v))
     end
   end
   return output_string

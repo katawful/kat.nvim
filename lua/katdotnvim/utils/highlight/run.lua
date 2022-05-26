@@ -21,7 +21,21 @@ local function highlight_24_3c_table(high_table)
         ucolors["highlight$"](nest)
       end
     elseif ((type(value) == "table") or (value() ~= nil)) then
-      ucolors["highlight$"](value)
+      local function _2_()
+        local t_1_ = value
+        if (nil ~= t_1_) then
+          t_1_ = (t_1_)[1]
+        else
+        end
+        return t_1_
+      end
+      if (type(_2_()) == "table") then
+        for _0, nest in pairs(value) do
+          ucolors["highlight$"](nest)
+        end
+      else
+        ucolors["highlight$"](value)
+      end
     else
     end
   end

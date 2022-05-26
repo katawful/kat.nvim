@@ -23,5 +23,9 @@ Table is: group guifg guibg termfg termbg attr special blend"
       ; the nil returning function doesn't go through
       (or (= (type value) :table)
           (not= (value) nil))
-      (ucolors.highlight$
-        value))))
+      (do
+        ; just check if we have a nested table or not
+        (if (= (type (?. value 1)) :table)
+          (each [_ nest (pairs value)]
+            (ucolors.highlight$ nest))
+          (ucolors.highlight$ value))))))

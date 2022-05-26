@@ -13,8 +13,9 @@
   (var output-string "")
   (each [_ v (pairs ((. (require source.path) :high-colors)))]
     (if (= (type v) :function)
-      (set output-string (string.format "%s\n  %s" output-string (a.str (v))))
-      (set output-string (string.format "%s\n  %s" output-string (a.str v)))))
+      (let [current [(v)]]
+        (set output-string (string.format "%s\n  %s\n" output-string (a.pr-str current))))
+      (set output-string (string.format "%s\n  %s\n" output-string (a.str v)))))
   output-string)
 
 ;; FN -- reindent a group file
@@ -77,7 +78,8 @@
 
 ;; FN -- deal with rendering the groups needed
 (defn start-group []
-  (let [files [{:name :main :path :katdotnvim.highlights.main :types :none}
+  (let [files [
+               {:name :main :path :katdotnvim.highlights.main :types :none}
                {:name :syntax :path :katdotnvim.highlights.syntax :types :none}
                {:name :cmp :path :katdotnvim.highlights.integrations.cmp :types :integrations}
                {:name :coc :path :katdotnvim.highlights.integrations.coc :types :integrations}
