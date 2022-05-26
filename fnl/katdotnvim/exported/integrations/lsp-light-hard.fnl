@@ -1,21 +1,26 @@
 (module katdotnvim.exported.integrations.lsp-light-hard
   {autoload {run katdotnvim.utils.highlight.run}})
 (defn render []
-  [
-   {:bg "#f29cb1" :ctermbg 5 :ctermfg "SKIP" :fg "SKIP" :group "LspReferenceText"}
-   {:bg "#f29cb1" :ctermbg 5 :ctermfg "SKIP" :fg "SKIP" :group "LspReferenceRead"}
-   {:bg "#f29cb1"
-    :ctermbg 5
-    :ctermfg "SKIP"
-    :fg "SKIP"
-    :group "LspReferenceWrite"}
-   {:bg "SKIP" :ctermbg "SKIP" :ctermfg 8 :fg "#537680" :group "LspCodeLens"}
-   {:bg "SKIP"
-    :ctermbg "SKIP"
-    :ctermfg 4
-    :fg "#2dacd2"
-    :group "LspSignatureActiveParameter"}
-   {:bg "SKIP" :ctermbg "SKIP" :ctermfg 1 :fg "#eb4949" :group "DiagnosticError"}
+ [
+  {:bg "#f29cb1" :ctermbg 5 :ctermfg "SKIP" :fg "SKIP" :group "LspReferenceText"}
+
+  {:bg "#f29cb1" :ctermbg 5 :ctermfg "SKIP" :fg "SKIP" :group "LspReferenceRead"}
+
+  {:bg "#f29cb1"
+   :ctermbg 5
+   :ctermfg "SKIP"
+   :fg "SKIP"
+   :group "LspReferenceWrite"}
+
+  {:bg "SKIP" :ctermbg "SKIP" :ctermfg 8 :fg "#537680" :group "LspCodeLens"}
+
+  {:bg "SKIP"
+   :ctermbg "SKIP"
+   :ctermfg 4
+   :fg "#2dacd2"
+   :group "LspSignatureActiveParameter"}
+
+  [{:bg "SKIP" :ctermbg "SKIP" :ctermfg 1 :fg "#eb4949" :group "DiagnosticError"}
    {:bg "SKIP" :ctermbg "SKIP" :ctermfg 9 :fg "#e67d80" :group "DiagnosticWarn"}
    {:bg "SKIP" :ctermbg "SKIP" :ctermfg 3 :fg "#f2b15c" :group "DiagnosticInfo"}
    {:bg "SKIP" :ctermbg "SKIP" :ctermfg 3 :fg "#f2b15c" :group "DiagnosticHint"}
@@ -110,6 +115,6 @@
     :fg "SKIP"
     :group "DiagnosticUnderlineHint"
     :sp "#006c4f"
-    :underline true}])
+    :underline true}]])
 
 (defn init [] (run.highlight$<-table (render)))
