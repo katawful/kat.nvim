@@ -28,7 +28,23 @@ local function get_groups(source)
   return output_string
 end
 _2amodule_2a["get-groups"] = get_groups
+local function reindent(file)
+  local output = file:gsub("(^%s+:)", "  %1")
+  return output
+end
+_2amodule_2a["reindent"] = reindent
+local function file_string__3efile_21(file, source)
+  local file_name
+  if (source.types == "none") then
+    file_name = ("fnl/katdotnvim/exported/" .. source.name .. "-" .. source.background .. "-" .. source.contrast .. ".fnl")
+  else
+    file_name = ("fnl/katdotnvim/exported/" .. source.types .. "/" .. source.name .. "-" .. source.background .. "-" .. source.contrast .. ".fnl")
+  end
+  return a.spit(file_name, reindent(file))
+end
+_2amodule_2a["file-string->file!"] = file_string__3efile_21
 local function build_string__3efile(source, color, back)
+  local source0 = source
   local contrast
   if (color == "kat.nwim") then
     contrast = "soft"
@@ -37,16 +53,14 @@ local function build_string__3efile(source, color, back)
   end
   local shade = back
   local output_string
-  if (source.types == "none") then
-    output_string = string.format("(module katdotnvim.exported.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source.name, shade, contrast, get_groups(source))
+  if (source0.types == "none") then
+    output_string = string.format("(module katdotnvim.exported.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.name, shade, contrast, get_groups(source0))
   else
-    output_string = string.format("(module katdotnvim.exported.%s.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source.types, source.name, shade, contrast, get_groups(source))
+    output_string = string.format("(module katdotnvim.exported.%s.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.types, source0.name, shade, contrast, get_groups(source0))
   end
-  if (source.types == "none") then
-    return a.spit(("fnl/katdotnvim/exported/" .. source.name .. "-" .. shade .. "-" .. contrast .. ".fnl"), output_string)
-  else
-    return a.spit(("fnl/katdotnvim/exported/" .. source.types .. "/" .. source.name .. "-" .. shade .. "-" .. contrast .. ".fnl"), output_string)
-  end
+  source0["contrast"] = contrast
+  source0["background"] = shade
+  return file_string__3efile_21(output_string, source0)
 end
 _2amodule_2a["build-string->file"] = build_string__3efile
 local function start_group()
@@ -60,7 +74,6 @@ local function start_group()
     for back, color in pairs(v) do
       vim.g["colors_name"] = color
       vim.api.nvim_set_option("background", back)
-      print(back)
       for _2, v1 in ipairs(files) do
         build_string__3efile(v1, color, back)
       end

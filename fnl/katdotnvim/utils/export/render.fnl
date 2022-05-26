@@ -17,14 +17,35 @@
       (set output-string (string.format "%s\n  %s" output-string (a.str v)))))
   output-string)
 
+;; FN -- reindent a group file
+;; -- searches for beginning line that has a ':'
+;; @file -- a file string
+;; $output -- reindented file string
+(defn reindent [file]
+  "Reindents a file. Group names get indented so they're at the right indent level"
+  (let [output (file:gsub "(^%s+:)" "  %1")]
+    output))
+
+;; FN -- output a file string to the appropriate file
+;; -- destructive
+;; @file -- file string
+;; @source -- source information
+(defn file-string->file! [file source]
+  "Outputs a file as a string to a file"
+  (let [file-name (if (= source.types :none)
+                    (.. "fnl/katdotnvim/exported/" source.name "-" source.background "-" source.contrast ".fnl")
+                    (.. "fnl/katdotnvim/exported/" source.types "/" source.name "-" source.background "-" source.contrast ".fnl"))]
+    (a.spit file-name (reindent file))))
+
 ;; FN -- build the string and output it to the necessary file
 ;; @source -- the source file
 ;; @color -- current colorscheme
 ;; @back -- current background
 (defn build-string->file [source color back]
-  (let [contrast (if (= color "kat.nwim")
-                   "soft"
-                   "hard")
+  (let [source source
+        contrast (if (= color "kat.nwim")
+                  "soft"
+                  "hard")
         shade back
         output-string
         (if (= source.types :none)
@@ -49,9 +70,10 @@
            shade
            contrast
            (get-groups source)))]
-    (if (= source.types :none)
-     (a.spit (.. "fnl/katdotnvim/exported/" source.name "-" shade "-" contrast ".fnl") output-string)
-     (a.spit (.. "fnl/katdotnvim/exported/" source.types "/" source.name "-" shade "-" contrast ".fnl") output-string))))
+    (tset source :contrast contrast)
+    (tset source :background shade)
+    (file-string->file! output-string source)))
+
 
 ;; FN -- deal with rendering the groups needed
 (defn start-group []
@@ -80,7 +102,6 @@
       (each [back color (pairs v)]
         (let- :g :colors_name color)
         (set- background back)
-        (print back)
         (each [_ v1 (ipairs files)]
           (build-string->file v1 color back))))
     (let- :g :colors_name old-color)
