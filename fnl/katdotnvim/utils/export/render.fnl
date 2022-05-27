@@ -42,7 +42,7 @@
 ;; @source -- the source file
 ;; @color -- current colorscheme
 ;; @back -- current background
-(defn build-string->file [source color back]
+(defn build-string->file! [source color back]
   (let [source source
         contrast (if (= color "kat.nwim")
                   "soft"
@@ -105,7 +105,7 @@
         (let- :g :colors_name color)
         (set- background back)
         (each [_ v1 (ipairs files)]
-          (build-string->file v1 color back))))
+          (build-string->file! v1 color back))))
     (let- :g :colors_name old-color)
     (set- background old-background)
     (let- :g :kat_nvim_dontRender old-dontRender)))

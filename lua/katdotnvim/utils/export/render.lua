@@ -44,7 +44,7 @@ local function file_string__3efile_21(file, source)
   return a.spit(file_name, reindent(file))
 end
 _2amodule_2a["file-string->file!"] = file_string__3efile_21
-local function build_string__3efile(source, color, back)
+local function build_string__3efile_21(source, color, back)
   local source0 = source
   local contrast
   if (color == "kat.nwim") then
@@ -63,7 +63,7 @@ local function build_string__3efile(source, color, back)
   source0["background"] = shade
   return file_string__3efile_21(output_string, source0)
 end
-_2amodule_2a["build-string->file"] = build_string__3efile
+_2amodule_2a["build-string->file!"] = build_string__3efile_21
 local function start_group()
   local files = {{name = "main", path = "katdotnvim.highlights.main", types = "none"}, {name = "syntax", path = "katdotnvim.highlights.syntax", types = "none"}, {name = "cmp", path = "katdotnvim.highlights.integrations.cmp", types = "integrations"}, {name = "coc", path = "katdotnvim.highlights.integrations.coc", types = "integrations"}, {name = "fugitive", path = "katdotnvim.highlights.integrations.fugitive", types = "integrations"}, {name = "indent_blankline", path = "katdotnvim.highlights.integrations.indent_blankline", types = "integrations"}, {name = "lsp", path = "katdotnvim.highlights.integrations.lsp", types = "integrations"}, {name = "startify", path = "katdotnvim.highlights.integrations.startify", types = "integrations"}, {name = "treesitter", path = "katdotnvim.highlights.integrations.treesitter", types = "integrations"}, {name = "ts_rainbow", path = "katdotnvim.highlights.integrations.ts_rainbow", types = "integrations"}, {name = "markdown", path = "katdotnvim.highlights.filetype.markdown", types = "filetype"}, {name = "vim", path = "katdotnvim.highlights.filetype.vim", types = "filetype"}, {name = "vimwiki", path = "katdotnvim.highlights.filetype.vimwiki", types = "filetype"}}
   local colors = {{light = "kat.nwim"}, {light = "kat.nvim"}, {dark = "kat.nwim"}, {dark = "kat.nvim"}}
@@ -76,7 +76,7 @@ local function start_group()
       vim.g["colors_name"] = color
       vim.api.nvim_set_option("background", back)
       for _2, v1 in ipairs(files) do
-        build_string__3efile(v1, color, back)
+        build_string__3efile_21(v1, color, back)
       end
     end
   end
