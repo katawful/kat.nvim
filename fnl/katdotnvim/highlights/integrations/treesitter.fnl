@@ -22,6 +22,8 @@
     :ctermbg :SKIP
     :bold true}
 
+   {:group "TSProperty"
+    :link "TSField"}
 
    {:group :TSFuncBuiltin
     :fg (ucolors.blend  (. (syntax.identifier) 1)
@@ -52,6 +54,12 @@
     :ctermfg (. (groups.errorBG) 2)
     :ctermbg :SKIP
     :bold true}
+
+   {:group "TSVariable"
+    :link "Variable"}
+
+   {:group "TSParameter"
+    :link "Variable"}
 
    {:group :TSVariableBuiltin
     :fg (ucolors.darken (ucolors.blend  (. (syntax.identifier) 1)
@@ -263,7 +271,4 @@
     :underline true}])
 
 (defn init []
-  (vim.cmd "hi def link TSVariable Variable")
-  (vim.cmd "hi def link TSProperty TSField")
-  (vim.cmd "hi def link TSParameter Variable")
   (run.highlight$<-table (high-colors)))

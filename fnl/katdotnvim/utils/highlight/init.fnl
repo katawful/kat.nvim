@@ -32,6 +32,10 @@
   "Get the blend of a highlight group"
   (?. table :blend))
 
+(defn link [table]
+  "Get the linking group for a highlight group"
+  (?. table :link))
+
 (defn attr->table [table#]
   "Get the boolean attributes of a highlight group as a table"
   (let [output []]

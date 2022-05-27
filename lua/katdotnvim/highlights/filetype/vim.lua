@@ -18,14 +18,10 @@ _2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function high_colors()
-  return {{group = "vimCommentTitle", fg = groups.shadowBG()[1], bg = groups.shadowFG()[1], ctermfg = groups.umbraBG()[2], ctermbg = groups.umbraFG()[2], bold = true, italic = true}, {group = "vimBracket", fg = ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.7), bg = "SKIP", ctermfg = groups.fillBG()[2], ctermbg = "SKIP"}, {group = "vimMapModKey", fg = ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.8), bg = "SKIP", ctermfg = groups.fillBG()[2], ctermbg = "SKIP"}, {group = "vimFuncSID", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimSetSep", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimSep", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimContinue", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}}
+  return {{group = "vimCommentTitle", fg = groups.shadowBG()[1], bg = groups.shadowFG()[1], ctermfg = groups.umbraBG()[2], ctermbg = groups.umbraFG()[2], bold = true, italic = true}, {group = "vimBracket", fg = ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.7), bg = "SKIP", ctermfg = groups.fillBG()[2], ctermbg = "SKIP"}, {group = "vimMapModKey", fg = ucolors.blend((colors.init("normalColors")).pink, groups.mainFG()[1], 0.8), bg = "SKIP", ctermfg = groups.fillBG()[2], ctermbg = "SKIP"}, {group = "vimFuncSID", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimSetSep", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimSep", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimContinue", fg = groups.umbraFG()[1], bg = "SKIP", ctermfg = groups.umbraFG()[2], ctermbg = "SKIP"}, {group = "vimOperParen", link = "Variable"}, {group = "vimFunction", link = "Function"}, {group = "vimIsCommand", link = "Identifier"}, {group = "vimUserFunc", link = "Function"}}
 end
 _2amodule_2a["high-colors"] = high_colors
 local function init()
-  vim.cmd("hi def link vimOperParen Variable")
-  vim.cmd("hi def link vimFunction Function")
-  vim.cmd("hi def link vimIsCommand Identifier")
-  vim.cmd("hi def link vimUserFunc Function")
   return run["highlight$<-table"](high_colors())
 end
 _2amodule_2a["init"] = init

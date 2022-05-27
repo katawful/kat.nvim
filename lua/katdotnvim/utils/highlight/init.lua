@@ -77,6 +77,15 @@ local function blend(table)
   return t_13_
 end
 _2amodule_2a["blend"] = blend
+local function link(table)
+  local t_15_ = table
+  if (nil ~= t_15_) then
+    t_15_ = (t_15_).link
+  else
+  end
+  return t_15_
+end
+_2amodule_2a["link"] = link
 local function attr__3etable(table_23)
   local output = {}
   for k, v in pairs(table_23) do

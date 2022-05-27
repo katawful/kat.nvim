@@ -50,11 +50,19 @@
      :fg (. (groups.umbraFG) 1)
      :bg :SKIP
      :ctermfg (. (groups.umbraFG) 2)
-     :ctermbg :SKIP}])
+     :ctermbg :SKIP}
+
+    {:group "vimOperParen"
+     :link "Variable"}
+    
+    {:group "vimFunction"
+     :link "Function"}
+    
+    {:group "vimIsCommand"
+     :link "Identifier"}
+    
+    {:group "vimUserFunc"
+     :link "Function"}])
    
 (defn init []
-  (vim.cmd "hi def link vimOperParen Variable")
-  (vim.cmd "hi def link vimFunction Function")
-  (vim.cmd "hi def link vimIsCommand Identifier")
-  (vim.cmd "hi def link vimUserFunc Function")
   (run.highlight$<-table (high-colors)))
