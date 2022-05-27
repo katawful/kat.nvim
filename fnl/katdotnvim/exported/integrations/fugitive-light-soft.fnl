@@ -8,10 +8,12 @@
    :fg "SKIP"
    :group "fugitiveHunk"
    :nocombine true}
+
   {:bg "#78aab8"
    :ctermbg 8
    :ctermfg "SKIP"
    :fg "SKIP"
    :group "gitDiff"
-   :nocombine true}])
+   :nocombine true}
+])
 (defn init [] (run.highlight$<-table (render)))

@@ -18,11 +18,7 @@ local function render()
 end
 _2amodule_2a["render"] = render
 local function init()
-  run["highlight$<-table"](render())
-  vim.cmd("hi def link vimOperParen Variable")
-  vim.cmd("hi def link vimFunction Function")
-  vim.cmd("hi def link vimIsCommand Identifier")
-  return vim.cmd("hi def link vimUserFunc Function")
+  return run["highlight$<-table"](render())
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a

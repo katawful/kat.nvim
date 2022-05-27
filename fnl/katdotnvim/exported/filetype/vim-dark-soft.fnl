@@ -9,14 +9,25 @@
    :fg "#405881"
    :group "vimCommentTitle"
    :italic true}
-  {:bg "SKIP" :ctermbg "SKIP" :ctermfg 5 :fg "#f1b8c7" :group "vimBracket"}
-  {:bg "SKIP" :ctermbg "SKIP" :ctermfg 5 :fg "#f2aec0" :group "vimMapModKey"}
-  {:bg "SKIP" :ctermbg "SKIP" :ctermfg 15 :fg "#daf6ff" :group "vimFuncSID"}
-  {:bg "SKIP" :ctermbg "SKIP" :ctermfg 15 :fg "#daf6ff" :group "vimSetSep"}
-  {:bg "SKIP" :ctermbg "SKIP" :ctermfg 15 :fg "#daf6ff" :group "vimSep"}
-  {:bg "SKIP" :ctermbg "SKIP" :ctermfg 15 :fg "#daf6ff" :group "vimContinue"}])
-(defn init [] (run.highlight$<-table (render))
-  (vim.cmd "hi def link vimOperParen Variable")
-  (vim.cmd "hi def link vimFunction Function")
-  (vim.cmd "hi def link vimIsCommand Identifier")
-  (vim.cmd "hi def link vimUserFunc Function"))
+
+  {:bg "SKIP"   :ctermbg "SKIP"   :ctermfg 5   :fg "#f1b8c7"   :group "vimBracket"}
+
+  {:bg "SKIP"   :ctermbg "SKIP"   :ctermfg 5   :fg "#f2aec0"   :group "vimMapModKey"}
+
+  {:bg "SKIP"   :ctermbg "SKIP"   :ctermfg 15   :fg "#daf6ff"   :group "vimFuncSID"}
+
+  {:bg "SKIP"   :ctermbg "SKIP"   :ctermfg 15   :fg "#daf6ff"   :group "vimSetSep"}
+
+  {:bg "SKIP"   :ctermbg "SKIP"   :ctermfg 15   :fg "#daf6ff"   :group "vimSep"}
+
+  {:bg "SKIP"   :ctermbg "SKIP"   :ctermfg 15   :fg "#daf6ff"   :group "vimContinue"}
+
+  {:group "vimOperParen"   :link "Variable"}
+
+  {:group "vimFunction"   :link "Function"}
+
+  {:group "vimIsCommand"   :link "Identifier"}
+
+  {:group "vimUserFunc"   :link "Function"}
+])
+(defn init [] (run.highlight$<-table (render)))
