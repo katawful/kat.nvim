@@ -30,7 +30,7 @@ local function get_groups(source)
 end
 _2amodule_2a["get-groups"] = get_groups
 local function reindent(file)
-  local output = file:gsub("(^%s+:)", "  %1")
+  local output = file:gsub("(%s:)", "  %1")
   return output
 end
 _2amodule_2a["reindent"] = reindent

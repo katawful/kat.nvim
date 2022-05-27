@@ -24,7 +24,7 @@
 ;; $output -- reindented file string
 (defn reindent [file]
   "Reindents a file. Group names get indented so they're at the right indent level"
-  (let [output (file:gsub "(^%s+:)" "  %1")]
+  (let [output (file:gsub "(%s:)" "  %1")]
     output))
 
 ;; FN -- output a file string to the appropriate file
