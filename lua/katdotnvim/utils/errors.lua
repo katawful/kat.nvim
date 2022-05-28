@@ -29,18 +29,22 @@ local function options__3edefault(check)
       vim.g["kat_nvim_commentStyle"] = "italic"
     else
     end
+    if (vim.fn.exists("kat_nvim_compile_enable") == 0) then
+      vim.g["kat_nvim_compile_enable"] = 0
+    else
+    end
     if (vim.fn.exists("kat_nvim_integrations") == 0) then
       vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
     else
     end
     if (vim.fn.exists("kat_nvim_max_version") == 0) then
-      local _4_
+      local _5_
       if (vim.fn.has("nvim-0.7") == 0) then
-        _4_ = "0.6"
+        _5_ = "0.6"
       else
-        _4_ = "0.7"
+        _5_ = "0.7"
       end
-      vim.g["kat_nvim_max_version"] = _4_
+      vim.g["kat_nvim_max_version"] = _5_
     else
     end
     if (vim.fn.exists("kat_nvim_filetype") == 0) then
@@ -63,6 +67,7 @@ local function options__3edefault(check)
     vim.g["kat_nvim_integrations"] = {"vim", "vimwiki", "markdown"}
     vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
     vim.g["kat_nvim_dontRender"] = 0
+    vim.g["kat_nvim_compile_enable"] = 0
     return nil
   end
 end

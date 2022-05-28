@@ -22,6 +22,8 @@
           (do
             (if (= (vim.fn.exists :kat_nvim_commentStyle) 0)
                 (let- :g :kat_nvim_commentStyle :italic))
+            (if (= (vim.fn.exists :kat_nvim_compile_enable) 0)
+                (let- :g :kat_nvim_compile_enable 0))
             (if (= (vim.fn.exists :kat_nvim_integrations) 0)
                 (let- :g :kat_nvim_integrations
                       [:treesitter
@@ -54,4 +56,5 @@
                    :coc
                    :cmp
                    :fugitive])
-            (let- :g :kat_nvim_dontRender 0))))
+            (let- :g :kat_nvim_dontRender 0)
+            (let- :g :kat_nvim_compile_enable 0))))
