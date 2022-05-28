@@ -6,6 +6,7 @@
 
 ; this handles stupid features
 
+;; fnlfmt: skip
 (defn stupidFunction []
   (def timer (vim.loop.new_timer))
   (var i 0)

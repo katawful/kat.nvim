@@ -7,13 +7,10 @@
 
 ; This handles nvim-cmp
 
-(defn high-colors []
-  [
-    {:group :CmpItemKind
-     :fg (. (groups.selectionBG) 1)
-     :bg (ucolors.brighten (. (groups.fillBG) 1) 0.1)
-     :ctermfg (. (groups.selectionBG) 2)
-     :ctermbg (. (groups.fillBG) 2)}])
+(defn high-colors [] [{:group :CmpItemKind
+                       :fg (. (groups.selectionBG) 1)
+                       :bg (ucolors.brighten (. (groups.fillBG) 1) 0.1)
+                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermbg (. (groups.fillBG) 2)}])
 
-(defn init []
-  (run.highlight$<-table (high-colors)))
+(defn init [] (run.highlight$<-table (high-colors)))

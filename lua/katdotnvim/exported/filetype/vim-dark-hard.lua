@@ -14,7 +14,7 @@ local autoload = (require("aniseed.autoload")).autoload
 local run = autoload("katdotnvim.utils.highlight.run")
 do end (_2amodule_locals_2a)["run"] = run
 local function render()
-  return {{bg = "#78aab8", bold = true, ctermbg = 15, ctermfg = 8, fg = "#405881", group = "vimCommentTitle", italic = true}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 5, fg = "#ebb7c8", group = "vimBracket"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 5, fg = "#edaec1", group = "vimMapModKey"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimFuncSID"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimSetSep"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimSep"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimContinue"}}
+  return {{bg = "#78aab8", bold = true, ctermbg = 15, ctermfg = 8, fg = "#405881", group = "vimCommentTitle", italic = true}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 5, fg = "#ebb7c8", group = "vimBracket"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 5, fg = "#edaec1", group = "vimMapModKey"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimFuncSID"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimSetSep"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimSep"}, {bg = "SKIP", ctermbg = "SKIP", ctermfg = 15, fg = "#b0ddeb", group = "vimContinue"}, {group = "vimOperParen", link = "Variable"}, {group = "vimFunction", link = "Function"}, {group = "vimIsCommand", link = "Identifier"}, {group = "vimUserFunc", link = "Function"}}
 end
 _2amodule_2a["render"] = render
 local function init()
