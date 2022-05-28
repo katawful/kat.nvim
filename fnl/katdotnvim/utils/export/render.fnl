@@ -1,5 +1,6 @@
 (module katdotnvim.utils.export.render
-        {autoload {groups katdotnvim.highlights.main a aniseed.core}
+        {autoload {groups katdotnvim.highlights.main a aniseed.core
+                   warning katdotnvim.utils.warning}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros
                          katcros-fnl.macros.nvim.api.options.macros]})
 
@@ -153,8 +154,13 @@
         (let- :g :kat_nvim_dontRender old-dontRender)))
 
 ;; init functions, very dirty and not a great implementation
-(defn init [] ; TODO -- add > 0.7 support
-      ; needs to be improved, I don't like how this works at all
-      (command- :KatRenderFile (fn []
-                                 (start-group))
-                "render colorscheme file"))
+(defn init []
+  (if (= vim.g.kat_nvim_compile_enable 1)
+    (do
+      (warning.message$ 1 "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
+      (if (= vim.g.kat_nvim_max_version "0.6")
+        (command*-vim :KatNvimRenderFiles {:nargs 0}
+                      "lua require('katdotnvim.utils.export.render').start_group()")
+        (command- :KatNvimRenderFiles (fn []
+                                        (start-group))
+                  "render colorscheme file")))))

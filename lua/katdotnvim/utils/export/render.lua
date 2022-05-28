@@ -11,9 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local a, groups, _, _0 = autoload("aniseed.core"), autoload("katdotnvim.highlights.main"), nil, nil
+local a, groups, warning, _, _0 = autoload("aniseed.core"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.warning"), nil, nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["groups"] = groups
+_2amodule_locals_2a["warning"] = warning
 _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0
 local function get_groups(source)
@@ -107,10 +108,19 @@ local function start_group()
 end
 _2amodule_2a["start-group"] = start_group
 local function init()
-  local function _9_()
-    return start_group()
+  if (vim.g.kat_nvim_compile_enable == 1) then
+    warning["message$"](1, "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
+    if (vim.g.kat_nvim_max_version == "0.6") then
+      return vim.api.nvim_command("command! -nargs=0 KatNvimRenderFiles lua require('katdotnvim.utils.export.render').start_group()")
+    else
+      local function _9_()
+        return start_group()
+      end
+      return vim.api.nvim_create_user_command("KatNvimRenderFiles", _9_, {desc = "render colorscheme file"})
+    end
+  else
+    return nil
   end
-  return vim.api.nvim_create_user_command("KatRenderFile", _9_, {desc = "render colorscheme file"})
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a
