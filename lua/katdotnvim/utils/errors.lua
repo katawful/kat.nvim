@@ -33,6 +33,16 @@ local function options__3edefault(check)
       vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
     else
     end
+    if (vim.fn.exists("kat_nvim_max_version") == 0) then
+      local _4_
+      if (vim.fn.has("nvim-0.7") == 0) then
+        _4_ = "0.6"
+      else
+        _4_ = "0.7"
+      end
+      vim.g["kat_nvim_max_version"] = _4_
+    else
+    end
     if (vim.fn.exists("kat_nvim_filetype") == 0) then
       vim.g["kat_nvim_filetype"] = {"vim", "vimwiki", "markdown"}
     else
