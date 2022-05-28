@@ -29,11 +29,29 @@ local function get_groups(source)
   return output_string
 end
 _2amodule_2a["get-groups"] = get_groups
-local function reindent(file)
-  local output = file:gsub("(%s:)", "  %1")
-  return output
+local function internal_string(source)
+  local old_version = vim.g.kat_nvim_max_version
+  local output_string = ""
+  local _3_
+  do
+    local t_2_ = source
+    if (nil ~= t_2_) then
+      t_2_ = (t_2_).version
+    else
+    end
+    _3_ = t_2_
+  end
+  if (_3_ ~= nil) then
+    vim.g["kat_nvim_max_version"] = source.version
+    output_string = string.format("(if (= vim.g.kat_nvim_max_version \"%s\")\n      (values\n        %s\n        )", source.version, get_groups(source))
+    do end (vim.g)["kat_nvim_max_version"] = old_version
+    output_string = string.format("%s\n      (values\n        %s\n        ))", output_string, get_groups(source))
+    output_string = get_groups(source)
+  else
+  end
+  return output_string
 end
-_2amodule_2a["reindent"] = reindent
+_2amodule_2a["internal-string"] = internal_string
 local function file_string__3efile_21(file, source)
   local file_name
   if (source.types == "none") then
@@ -41,7 +59,7 @@ local function file_string__3efile_21(file, source)
   else
     file_name = ("fnl/katdotnvim/exported/" .. source.types .. "/" .. source.name .. "-" .. source.background .. "-" .. source.contrast .. ".fnl")
   end
-  return a.spit(file_name, reindent(file))
+  return a.spit(file_name, file)
 end
 _2amodule_2a["file-string->file!"] = file_string__3efile_21
 local function build_string__3efile_21(source, color, back)
@@ -55,9 +73,9 @@ local function build_string__3efile_21(source, color, back)
   local shade = back
   local output_string
   if (source0.types == "none") then
-    output_string = string.format("(module katdotnvim.exported.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.name, shade, contrast, get_groups(source0))
+    output_string = string.format("(module katdotnvim.exported.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.name, shade, contrast, internal_string(source0))
   else
-    output_string = string.format("(module katdotnvim.exported.%s.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.types, source0.name, shade, contrast, get_groups(source0))
+    output_string = string.format("(module katdotnvim.exported.%s.%s-%s-%s\n  {autoload {run katdotnvim.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.types, source0.name, shade, contrast, internal_string(source0))
   end
   source0["contrast"] = contrast
   source0["background"] = shade
@@ -65,11 +83,12 @@ local function build_string__3efile_21(source, color, back)
 end
 _2amodule_2a["build-string->file!"] = build_string__3efile_21
 local function start_group()
-  local files = {{name = "main", path = "katdotnvim.highlights.main", types = "none"}, {name = "syntax", path = "katdotnvim.highlights.syntax", types = "none"}, {name = "cmp", path = "katdotnvim.highlights.integrations.cmp", types = "integrations"}, {name = "coc", path = "katdotnvim.highlights.integrations.coc", types = "integrations"}, {name = "fugitive", path = "katdotnvim.highlights.integrations.fugitive", types = "integrations"}, {name = "indent_blankline", path = "katdotnvim.highlights.integrations.indent_blankline", types = "integrations"}, {name = "lsp", path = "katdotnvim.highlights.integrations.lsp", types = "integrations"}, {name = "startify", path = "katdotnvim.highlights.integrations.startify", types = "integrations"}, {name = "treesitter", path = "katdotnvim.highlights.integrations.treesitter", types = "integrations"}, {name = "ts_rainbow", path = "katdotnvim.highlights.integrations.ts_rainbow", types = "integrations"}, {name = "markdown", path = "katdotnvim.highlights.filetype.markdown", types = "filetype"}, {name = "vim", path = "katdotnvim.highlights.filetype.vim", types = "filetype"}, {name = "vimwiki", path = "katdotnvim.highlights.filetype.vimwiki", types = "filetype"}}
+  local files = {{name = "main", path = "katdotnvim.highlights.main", types = "none"}, {name = "syntax", path = "katdotnvim.highlights.syntax", types = "none"}, {name = "cmp", path = "katdotnvim.highlights.integrations.cmp", types = "integrations"}, {name = "coc", path = "katdotnvim.highlights.integrations.coc", types = "integrations"}, {name = "fugitive", path = "katdotnvim.highlights.integrations.fugitive", types = "integrations"}, {name = "indent_blankline", path = "katdotnvim.highlights.integrations.indent_blankline", types = "integrations"}, {name = "lsp", path = "katdotnvim.highlights.integrations.lsp", types = "integrations", version = "0.6"}, {name = "startify", path = "katdotnvim.highlights.integrations.startify", types = "integrations"}, {name = "treesitter", path = "katdotnvim.highlights.integrations.treesitter", types = "integrations"}, {name = "ts_rainbow", path = "katdotnvim.highlights.integrations.ts_rainbow", types = "integrations"}, {name = "markdown", path = "katdotnvim.highlights.filetype.markdown", types = "filetype"}, {name = "vim", path = "katdotnvim.highlights.filetype.vim", types = "filetype"}, {name = "vimwiki", path = "katdotnvim.highlights.filetype.vimwiki", types = "filetype"}}
   local colors = {{light = "kat.nwim"}, {light = "kat.nvim"}, {dark = "kat.nwim"}, {dark = "kat.nvim"}}
   local old_color = vim.g.colors_name
   local old_background = vim.o.background
   local old_dontRender = vim.g.kat_nvim_dontRender
+  local old_version = vim.g.kat_nvim_max_version
   vim.g["kat_nvim_dontRender"] = 1
   for _1, v in ipairs(colors) do
     for back, color in pairs(v) do
@@ -80,6 +99,7 @@ local function start_group()
       end
     end
   end
+  vim.g["kat_nvim_max_version"] = old_version
   vim.g["colors_name"] = old_color
   vim.api.nvim_set_option("background", old_background)
   do end (vim.g)["kat_nvim_dontRender"] = old_dontRender
@@ -87,10 +107,10 @@ local function start_group()
 end
 _2amodule_2a["start-group"] = start_group
 local function init()
-  local function _5_()
+  local function _9_()
     return start_group()
   end
-  return vim.api.nvim_create_user_command("KatRenderFile", _5_, {desc = "render colorscheme file"})
+  return vim.api.nvim_create_user_command("KatRenderFile", _9_, {desc = "render colorscheme file"})
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a
