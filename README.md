@@ -133,7 +133,8 @@ These files are what Vim will use to let us change the colorscheme between it's 
 Thus running make will fail if you try to compile this repo without the local fennel script.
 
 ## Render Color Files
-Set `vim.g.kat_nvim_compile_enable = true`, then when inside this repo use the user command "KatNvimRender
+Set `vim.g.kat_nvim_compile_enable = true`, then when inside this repo use the user command "KatNvimRenderFiles".
+You should then format with fnlfmt.
 
 ## fnlfmt
 `make format` will format all files with `fnlfmt`. It assumes that is in your $PATH.
