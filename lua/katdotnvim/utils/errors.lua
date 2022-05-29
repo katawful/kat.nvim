@@ -30,7 +30,7 @@ local function options__3edefault(check)
     else
     end
     if (vim.fn.exists("kat_nvim_compile_enable") == 0) then
-      vim.g["kat_nvim_compile_enable"] = 0
+      vim.g["kat_nvim_compile_enable"] = false
     else
     end
     if (vim.fn.exists("kat_nvim_integrations") == 0) then
@@ -56,7 +56,7 @@ local function options__3edefault(check)
     else
     end
     if (vim.fn.exists("kat_nvim_dontRender") == 0) then
-      vim.g["kat_nvim_dontRender"] = 0
+      vim.g["kat_nvim_dontRender"] = false
       return nil
     else
       return nil
@@ -66,8 +66,8 @@ local function options__3edefault(check)
     vim.g["kat_nvim_stupidFeatures"] = false
     vim.g["kat_nvim_integrations"] = {"vim", "vimwiki", "markdown"}
     vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
-    vim.g["kat_nvim_dontRender"] = 0
-    vim.g["kat_nvim_compile_enable"] = 0
+    vim.g["kat_nvim_dontRender"] = false
+    vim.g["kat_nvim_compile_enable"] = false
     return nil
   end
 end

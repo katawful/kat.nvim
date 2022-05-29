@@ -141,7 +141,7 @@
             old-background vim.o.background
             old-dontRender vim.g.kat_nvim_dontRender
             old-version vim.g.kat_nvim_max_version]
-        (let- :g :kat_nvim_dontRender 1)
+        (let- :g :kat_nvim_dontRender true)
         (each [_ v (ipairs colors)]
           (each [back color (pairs v)]
             (let- :g :colors_name color)
@@ -155,7 +155,7 @@
 
 ;; init functions, very dirty and not a great implementation
 (defn init []
-  (if (= vim.g.kat_nvim_compile_enable 1)
+  (if (= vim.g.kat_nvim_compile_enable true)
     (do
       (warning.message$ 1 "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
       (if (= vim.g.kat_nvim_max_version "0.6")

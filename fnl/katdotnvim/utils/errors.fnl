@@ -23,7 +23,7 @@
             (if (= (vim.fn.exists :kat_nvim_commentStyle) 0)
                 (let- :g :kat_nvim_commentStyle :italic))
             (if (= (vim.fn.exists :kat_nvim_compile_enable) 0)
-                (let- :g :kat_nvim_compile_enable 0))
+                (let- :g :kat_nvim_compile_enable false))
             (if (= (vim.fn.exists :kat_nvim_integrations) 0)
                 (let- :g :kat_nvim_integrations
                       [:treesitter
@@ -42,7 +42,7 @@
             (if (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
                 (let- :g :kat_nvim_stupidFeatures false))
             (if (= (vim.fn.exists :kat_nvim_dontRender) 0)
-                (let- :g :kat_nvim_dontRender 0)))
+                (let- :g :kat_nvim_dontRender false)))
           (do
             (let- :g :kat_nvim_commentStyle :italic)
             (let- :g :kat_nvim_stupidFeatures false)
@@ -56,5 +56,5 @@
                    :coc
                    :cmp
                    :fugitive])
-            (let- :g :kat_nvim_dontRender 0)
-            (let- :g :kat_nvim_compile_enable 0))))
+            (let- :g :kat_nvim_dontRender false)
+            (let- :g :kat_nvim_compile_enable false))))

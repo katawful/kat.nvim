@@ -90,7 +90,7 @@ local function start_group()
   local old_background = vim.o.background
   local old_dontRender = vim.g.kat_nvim_dontRender
   local old_version = vim.g.kat_nvim_max_version
-  vim.g["kat_nvim_dontRender"] = 1
+  vim.g["kat_nvim_dontRender"] = true
   for _1, v in ipairs(colors) do
     for back, color in pairs(v) do
       vim.g["colors_name"] = color
@@ -108,7 +108,7 @@ local function start_group()
 end
 _2amodule_2a["start-group"] = start_group
 local function init()
-  if (vim.g.kat_nvim_compile_enable == 1) then
+  if (vim.g.kat_nvim_compile_enable == true) then
     warning["message$"](1, "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
     if (vim.g.kat_nvim_max_version == "0.6") then
       return vim.api.nvim_command("command! -nargs=0 KatNvimRenderFiles lua require('katdotnvim.utils.export.render').start_group()")

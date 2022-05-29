@@ -18,7 +18,7 @@
       (if (= contrast :hard)
           (let- :g :colors_name :kat.nvim)
           (let- :g :colors_name :kat.nwim))
-      (if (= vim.g.kat_nvim_dontRender 1) 
+      (if (= vim.g.kat_nvim_dontRender true) 
           ; do the dynamic path
           (do
             ((. (require :katdotnvim.highlights.main) :init))

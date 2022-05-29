@@ -35,7 +35,7 @@ local function init(in_contrast)
   else
     vim.g["colors_name"] = "kat.nwim"
   end
-  if (vim.g.kat_nvim_dontRender == 1) then
+  if (vim.g.kat_nvim_dontRender == true) then
     do end (require("katdotnvim.highlights.main")).init()
     do end (require("katdotnvim.highlights.syntax")).init()
     do end (require("katdotnvim.highlights.terminal")).init()
