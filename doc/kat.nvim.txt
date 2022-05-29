@@ -69,6 +69,19 @@ A boolean that enables the pointless features I have added to this plugin.
 Currently it only supports fading |hl-Function| highlight group. It works
 fairly well, but I cannot guarantee its use nor performance.
 
+*g:kat_nvim_max_version*
+A string that denotes the max supported Neovim version for using this plugin.
+Sets to the current supported Neovim version by default.
+
+*g:kat_nvim_dont_render*
+A boolean to not use rendered color files, and instead generate all colors
+programmatically.
+
+*g:kat_nvim_compile_enable*
+A developer setting, allows for the complation of color files when inside this
+repo when using `:KatNvimRenderFiles`. Should be set to default unless you're
+about to compile files.
+
 ==============================================================================
 Section 2: Terminal Support                 *kat.nvim-terminal* *:KatGenTermTheme*
 Terminal colors can be generated for the following GUI aware terminals with
@@ -166,13 +179,24 @@ the root directory of this repository. It is not provided. It is currently
 used to build the files in `/colors`.
 
 ------------------------------------------------------------------------------
-Section 5d: Structure                          *kat.nvim-contributing.structure*
+Section 5d: Rendering Color Files              *kat.nvim-contributing.rendering*
+Set `let g:kat_nvim_compile_enable = v:true`, then when inside this repo use
+the user command `:KatNvimRenderFiles`. You should then format with fnlfmt.
+
+------------------------------------------------------------------------------
+Section 5e: fnlfmt                                *kat.nvim-contributing.fnlfmt*
+fnlfmt, assuming it is in your `$PATH`, can be used with `make format` to
+format all files. Make sure to check anything you add for ideal formatting and
+add a skip header if needed
+
+------------------------------------------------------------------------------
+Section 5f: Structure                          *kat.nvim-contributing.structure*
 Put the files in the right spot, filetypes go in
 `katdotnvim.highlights.filetype`. Plugins go in
 `katdotnvim.highlights.integrations`.
 
 ------------------------------------------------------------------------------
-Section 5e: Adding Options                       *kat.nvim-contributing.options*
+Section 5g: Adding Options                       *kat.nvim-contributing.options*
 If you add a filetype or plugin integration, or add a new global variable,
 make sure to add the defaults into the set defaults function in
 `katdotnvim.utils.error`.

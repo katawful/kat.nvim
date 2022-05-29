@@ -29,6 +29,20 @@ Simply set the contrast to whichever you prefer, and set your background in your
 
 See the examples above for the differences.
 
+# Rendered Support
+By default this color scheme will use pre-compiled files to set colors.
+This is a massive performance benefit, shaving almost 25ms off of my startup time for this plugin on my system (~30ms to ~6ms).
+The old method of setting colors can be used if wanted.
+Simply set `vim.g.kat_nvim_dont_render` to true and reload the colorscheme.
+
+The rendered files themselves support any lingering 0.6 features, and work with each variant and with terminal colors.
+
+# 0.7 support
+This plugin uses Neovim 0.7 features if available.
+There is no major difference in use with older versions for this plugin, but as time continues and 0.7 feature become the norm, 0.6 support and below will slowly be taken out of this plugin. A deprecation process will be done when this starts.
+
+For those wondering, when comparing 0.7 and 0.6 based highlighting function support for rendered files, I noticed a less than 1ms difference in startup time.
+
 # Terminal Colors Support
 The following terminals can have a 16 color config file generated based on the current in use kat.nvim theme:
 
@@ -47,15 +61,15 @@ This will generate "kitty-kat.nvim-dark.conf" at the current working directory w
 
 # Options
 
-There are currently 4 options: `g:kat_nvim_commentStyle`, `g:kat_nvim_integrations`, `g:kat_nvim_filetype`, and `g:kat_nvim_stupidFeatures`.
-The following is a table explaining how these variables work, and what values they can take.
-
 | Variable | Function | Options | Default |
 |---|---|---|---|
 | `g:kat_nvim_commentStyle` | affects how comments are styled | any valid `gui` string |  `'italic'` |
 | `g:kat_nvim_integrations`| what plugins colors are loaded | a list of strings, see below for current integrations | all are enabled |
 | `g:kat_nvim_filetype` | what filetype colors are loaded | a list of strings, see below for current filetypes | all are enabled |
 | `g:kat_nvim_stupidFeatures` | features that work but probably shouldn't be used | boolean | `v:false` |
+| `g:kat_nvim_max_version` | A string of the max supported nvim version | e.g. "0.7" | Sets to max version needed for plugin to work |
+| `g:kat_nvim_dont_render` | Don't use prerender color files | boolean | `v:false` |
+| `g:kat_nvim_compile_enable` | Developer setting, allows compilation of color files when inside this repo | boolean | `v:false` |
 
 # Integrations
 | Plugin | Option Name |
@@ -117,6 +131,12 @@ You need a local build of [fennel](https://github.com/bakpakin/Fennel/blob/main/
 This is to compile the fennel files in `colors/`.
 These files are what Vim will use to let us change the colorscheme between it's various types.
 Thus running make will fail if you try to compile this repo without the local fennel script.
+
+## Render Color Files
+Set `vim.g.kat_nvim_compile_enable = true`, then when inside this repo use the user command "KatNvimRender
+
+## fnlfmt
+`make format` will format all files with `fnlfmt`. It assumes that is in your $PATH.
 
 ## File Structure
 Pretty self explanatory, plugin integrations go in `katdotnvim/highlights/integrations`, filetype additions in the other folder.
