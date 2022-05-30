@@ -70,13 +70,10 @@
                        :ctermfg (. (identifier) 2)
                        :ctermbg :SKIP}
                       {:group :Function
-                       :fg (ucolors.saturation (ucolors.brighten (ucolors.blend (. (identifier)
-                                                                                   1)
-                                                                                (. (groups.errorBG)
-                                                                                   1)
-                                                                                0.3)
-                                                                 0.1)
-                                               0.5)
+                       :fg (-> (. (identifier) 1)
+                               (ucolors.blend (. (groups.errorBG) 1) 0.3)
+                               (ucolors.brighten 0.1)
+                               (ucolors.saturation 0.5))
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP
@@ -84,22 +81,18 @@
                       (fn []
                         (if (= vim.o.background :light)
                             {:group :Variable
-                             :fg (ucolors.darken (ucolors.blend (. (identifier)
-                                                                   1)
-                                                                (. (colors.foreground)
-                                                                   6)
-                                                                0.5)
-                                                 0.4)
+                             :fg (-> (. (identifier) 1)
+                                     (ucolors.blend (. (colors.foreground) 6)
+                                                    0.5)
+                                     (ucolors.darken 0.4))
                              :bg :SKIP
                              :ctermfg (. (groups.selectionBG) 2)
                              :ctermbg :SKIP}
                             {:group :Variable
-                             :fg (ucolors.brighten (ucolors.blend (. (identifier)
-                                                                     1)
-                                                                  (. (colors.foreground)
-                                                                     6)
-                                                                  0.5)
-                                                   0.4)
+                             :fg (-> (. (identifier) 1)
+                                     (ucolors.blend (. (colors.foreground) 6)
+                                                    0.5)
+                                     (ucolors.brighten 0.4))
                              :bg :SKIP
                              :ctermfg (. (groups.selectionBG) 2)
                              :ctermbg :SKIP}))
@@ -110,31 +103,24 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Conditional
-                       :fg (ucolors.brighten (ucolors.blend (. (statement) 1)
-                                                            (. (groups.highlightBG)
-                                                               1)
-                                                            0.2)
-                                             0.1)
+                       :fg (-> (. (statement) 1)
+                               (ucolors.blend (. (groups.highlightBG) 1) 0.2)
+                               (ucolors.brighten 0.1))
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP}
                       {:group :Repeat
-                       :fg (ucolors.saturation (ucolors.brighten (ucolors.blend (. (statement)
-                                                                                   1)
-                                                                                (. (groups.infoBG)
-                                                                                   1)
-                                                                                0.2)
-                                                                 0.3)
-                                               0.8)
+                       :fg (-> (. (statement) 1)
+                               (ucolors.blend (. (groups.infoBG) 1) 0.2)
+                               (ucolors.brighten 0.3)
+                               (ucolors.saturation 0.8))
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP}
                       {:group :Label
-                       :fg (ucolors.saturation (ucolors.blend (. (statement) 1)
-                                                              (. (groups.fillBG)
-                                                                 1)
-                                                              0.2)
-                                               1)
+                       :fg (-> (. (statement) 1)
+                               (ucolors.blend (. (groups.fillBG) 1) 0.2)
+                               (ucolors.saturation 1))
                        :bg :SKIP
                        :ctermfg (. (groups.fillBG) 2)
                        :ctermbg :SKIP
@@ -150,34 +136,26 @@
                         (if (= vim.o.background :light)
                             (do
                               {:group :Keyword
-                               :fg (ucolors.darken (ucolors.blend (. (statement)
-                                                                     1)
-                                                                  (. (groups.auxBG)
-                                                                     1)
-                                                                  0.2)
-                                                   0.5)
+                               :fg (-> (. (statement) 1)
+                                       (ucolors.blend (. (groups.auxBG) 1) 0.2)
+                                       (ucolors.darken 0.5))
                                :bg :SKIP
                                :ctermfg (. (groups.auxBG) 3)
                                :ctermbg :SKIP
                                :italic true})
                             (do
                               {:group :Keyword
-                               :fg (ucolors.brighten (ucolors.blend (. (statement)
-                                                                       1)
-                                                                    (. (groups.auxBG)
-                                                                       1)
-                                                                    0.2)
-                                                     0.5)
+                               :fg (-> (. (statement) 1)
+                                       (ucolors.blend (. (groups.auxBG) 1) 0.2)
+                                       (ucolors.brighten 0.5))
                                :bg :SKIP
                                :ctermfg (. (groups.auxBG) 3)
                                :ctermbg :SKIP
                                :italic true})))
                       {:group :Exception
-                       :fg (ucolors.brighten (ucolors.blend (. (statement) 1)
-                                                            (. (groups.selectionBG)
-                                                               1)
-                                                            0.1)
-                                             0.2)
+                       :fg (-> (. (statement) 1)
+                               (ucolors.blend (. (groups.selectionBG) 1) 0.1)
+                               (ucolors.brighten 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP}
@@ -241,11 +219,9 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Typedef
-                       :fg (ucolors.saturation (ucolors.blend (. (typeDef) 1)
-                                                              (. (colors.background)
-                                                                 6)
-                                                              0.2)
-                                               1)
+                       :fg (-> (. (typeDef) 1)
+                               (ucolors.blend (. (colors.background) 6) 0.2)
+                               (ucolors.saturation 1))
                        :bg :SKIP
                        :ctermfg (. (typeDef) 2)
                        :ctermbg :SKIP
@@ -270,12 +246,9 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Delimiter
-                       :fg (ucolors.blend (. (special) 1)
-                                          (ucolors.blend (. (colors.background)
-                                                            6)
-                                                         (. (groups.mainFG) 1)
-                                                         0.8)
-                                          0.2)
+                       :fg (-> (. (colors.background) 6)
+                               (ucolors.blend (. (groups.mainFG) 1) 0.8)
+                               (ucolors.blend (. (special) 1) 0.8))
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP

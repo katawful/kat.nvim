@@ -1,8 +1,7 @@
-(module katdotnvim.stupid
-        {autoload {ucolors katdotnvim.utils.color
-                   colors katdotnvim.color
-                   syntax katdotnvim.highlights.syntax
-                   a aniseed.core}})
+(module katdotnvim.stupid {autoload {ucolors katdotnvim.utils.color
+                                     colors katdotnvim.color
+                                     syntax katdotnvim.highlights.syntax
+                                     a aniseed.core}})
 
 ; this handles stupid features
 

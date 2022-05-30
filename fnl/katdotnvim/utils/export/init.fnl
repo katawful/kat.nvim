@@ -25,6 +25,7 @@
 ;; FN converts an RGB table to a comma delimited string
 ;; @rgb -- input rgb
 ;; $string -- output string
+
 ;; fnlfmt: skip
 (defn rgb->string [rgb] "Converts decimal rgb table to a 256 color string"
       (let [string (string.format "%s,%s,%s"

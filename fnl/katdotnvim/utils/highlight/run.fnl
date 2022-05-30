@@ -5,6 +5,7 @@
 
 ;; FN -- highlight Neovim with a table of table of values
 ;; @high-table -- table to highlight
+
 ;; fnlfmt: skip
 (defn highlight$<-table [high-table]
       "Highlight Neovim from a table of values

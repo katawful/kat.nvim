@@ -1,5 +1,6 @@
 (module katdotnvim.utils.export.render
-        {autoload {groups katdotnvim.highlights.main a aniseed.core
+        {autoload {groups katdotnvim.highlights.main
+                   a aniseed.core
                    warning katdotnvim.utils.warning}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros
                          katcros-fnl.macros.nvim.api.options.macros]})
@@ -21,6 +22,7 @@
 
 ;; FN -- constructs the internal string
 ;; -- makes sure to keep versioning in check
+
 ;; fnlfmt: skip
 (defn internal-string [source]
       (let [old-version vim.g.kat_nvim_max_version]
@@ -66,6 +68,7 @@
 ;; @source -- the source file
 ;; @color -- current colorscheme
 ;; @back -- current background
+
 ;; fnlfmt: skip
 (defn build-string->file! [source color back]
       (let [source source
@@ -154,13 +157,14 @@
         (let- :g :kat_nvim_dontRender old-dontRender)))
 
 ;; init functions, very dirty and not a great implementation
-(defn init []
-  (if (= vim.g.kat_nvim_compile_enable true)
-    (do
-      (warning.message$ 1 "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
-      (if (= vim.g.kat_nvim_max_version "0.6")
-        (command*-vim :KatNvimRenderFiles {:nargs 0}
-                      "lua require('katdotnvim.utils.export.render').start_group()")
-        (command- :KatNvimRenderFiles (fn []
-                                        (start-group))
-                  "render colorscheme file")))))
+(defn init [] (if (= vim.g.kat_nvim_compile_enable true)
+                  (do
+                    (warning.message$ 1
+                                      "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
+                    (if (= vim.g.kat_nvim_max_version :0.6)
+                        (command*-vim :KatNvimRenderFiles {:nargs 0}
+                                      "lua require('katdotnvim.utils.export.render').start_group()")
+                        (command- :KatNvimRenderFiles
+                                  (fn []
+                                    (start-group))
+                                  "render colorscheme file")))))
