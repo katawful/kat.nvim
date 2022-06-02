@@ -4,7 +4,7 @@
                    colors katdotnvim.color
                    groups katdotnvim.highlights.main
                    main katdotnvim.main
-                   errors katdotnvim.utils.errors
+                   errors katdotnvim.utils.message.errors
                    kitty katdotnvim.utils.export.kitty
                    alacritty katdotnvim.utils.export.alacritty
                    rxvt katdotnvim.utils.export.rxvt

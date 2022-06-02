@@ -1,14 +1,14 @@
 (module katdotnvim.main
         {autoload {colors katdotnvim.color
                    ucolors katdotnvim.utils.color
-                   errors katdotnvim.utils.errors}
+                   options katdotnvim.utils.options.init}
          require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; Main plugin interface
 
 ;; fnlfmt: skip
 (defn init [in-contrast] "Main plugin interface" ; define some defaults
-      (errors.options->default true)
+      (options.default true)
       (when vim.g.colors_name
         (vim.cmd "highlight clear"))
       (when (= (vim.fn.exists :syntax_on) 1)

@@ -1,7 +1,7 @@
 (module katdotnvim.utils.export.render
         {autoload {groups katdotnvim.highlights.main
                    a aniseed.core
-                   warning katdotnvim.utils.warning}
+                   warning katdotnvim.utils.message.warning}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros
                          katcros-fnl.macros.nvim.api.options.macros]})
 
