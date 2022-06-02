@@ -11,7 +11,7 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local main, ucolors = autoload("katdotnvim.main"), autoload("katdotnvim.utils.color")
+local main, ucolors = autoload("katdotnvim.main"), autoload("katdotnvim.utils.highlight.utils")
 do end (_2amodule_locals_2a)["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local light_fore_back = "#121c2d"

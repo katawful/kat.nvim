@@ -1,6 +1,5 @@
 (module katdotnvim.main
         {autoload {colors katdotnvim.color
-                   ucolors katdotnvim.utils.color
                    options katdotnvim.utils.options.init}
          require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 

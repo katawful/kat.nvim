@@ -1,9 +1,5 @@
 (module katdotnvim.utils.export.init
         {autoload {hsl externals.hsluv
-                   ucolors katdotnvim.utils.color
-                   colors katdotnvim.color
-                   groups katdotnvim.highlights.main
-                   main katdotnvim.main
                    errors katdotnvim.utils.message.errors
                    kitty katdotnvim.utils.export.kitty
                    alacritty katdotnvim.utils.export.alacritty

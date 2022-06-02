@@ -11,8 +11,9 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local a, colors, syntax, ucolors = autoload("aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.color")
+local a, apply, colors, syntax, ucolors = autoload("aniseed.core"), autoload("katdotnvim.utils.highlight.init"), autoload("katdotnvim.color"), autoload("katdotnvim.highlights.syntax"), autoload("katdotnvim.utils.highlight.utils")
 do end (_2amodule_locals_2a)["a"] = a
+_2amodule_locals_2a["apply"] = apply
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
@@ -23,7 +24,7 @@ local function stupidFunction()
   local increase = true
   local function _1_()
     local opts = {group = "Function", bg = "SKIP", fg = ucolors.saturation(ucolors.brighten(ucolors.blend(syntax.identifier()[1], (colors["normal-colors"]()).red, (i * 0.1)), 0.1), 0.5), bold = true}
-    ucolors["highlight$"](opts)
+    apply["highlight$"](opts)
     if (increase == true) then
       i = (i + 1)
     else

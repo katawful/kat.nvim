@@ -1,5 +1,5 @@
 (module katdotnvim.highlights.integrations.bufferline
-        {autoload {ucolors katdotnvim.utils.color
+        {autoload {ucolors katdotnvim.utils.highlight.utils
                    colors katdotnvim.color
                    syntax katdotnvim.highlights.syntax
                    groups katdotnvim.highlights.main

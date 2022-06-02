@@ -11,19 +11,15 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local a, alacritty, colors, errors, groups, hsl, kitty, konsole, main, rxvt, s, ucolors, _ = autoload("aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.message.errors"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.export.rxvt"), autoload("aniseed.string"), autoload("katdotnvim.utils.color"), nil
+local a, alacritty, errors, hsl, kitty, konsole, rxvt, s, _ = autoload("aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("katdotnvim.utils.message.errors"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.utils.export.rxvt"), autoload("aniseed.string"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["alacritty"] = alacritty
-_2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["errors"] = errors
-_2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["kitty"] = kitty
 _2amodule_locals_2a["konsole"] = konsole
-_2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["rxvt"] = rxvt
 _2amodule_locals_2a["s"] = s
-_2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
 local comment_type = {}
 _2amodule_locals_2a["comment-type"] = comment_type
@@ -60,20 +56,20 @@ local function color_nest__3eone_line_color_25(key, value, input_color)
   return color_string
 end
 _2amodule_2a["color-nest->one-line-color%"] = color_nest__3eone_line_color_25
-local function table__3eone_line_color(colors0, terminal)
+local function table__3eone_line_color(colors, terminal)
   local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(vim.o.background))
-  for key, value in pairs(colors0) do
+  for key, value in pairs(colors) do
     color_string = string.format("%s%s\n", color_string, key)
     color_string = color_nest__3eone_line_color_25(key, value, color_string)
   end
   return color_string
 end
 _2amodule_2a["table->one-line-color"] = table__3eone_line_color
-local function string__3etwo_line_color_2a(colors0, terminal)
+local function string__3etwo_line_color_2a(colors, terminal)
   local color_string
   local function _5_()
     local tbl = {}
-    for key, val in pairs(colors0) do
+    for key, val in pairs(colors) do
       table.insert(tbl, string.format("%s\n%s\n", key, val))
     end
     return tbl
@@ -82,12 +78,12 @@ local function string__3etwo_line_color_2a(colors0, terminal)
   return color_string
 end
 _2amodule_2a["string->two-line-color*"] = string__3etwo_line_color_2a
-local function string__3eone_line_color(colors0, terminal)
+local function string__3eone_line_color(colors, terminal)
   local color_string
   local function _6_()
     local tbl = {}
     table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(vim.o.background)))
-    for key, val in pairs(colors0) do
+    for key, val in pairs(colors) do
       table.insert(tbl, string.format("%s %s\n", key, val))
     end
     return tbl

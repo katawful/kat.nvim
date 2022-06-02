@@ -1,5 +1,5 @@
 local _2afile_2a = "fnl/lualine/themes/kat.fnl"
-local ucolors = require("katdotnvim.utils.color")
+local ucolors = require("katdotnvim.utils.highlight.utils")
 local colors = require("katdotnvim.color")
 local syntax = require("katdotnvim.highlights.syntax")
 local groups = require("katdotnvim.highlights.main")

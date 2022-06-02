@@ -1,6 +1,6 @@
 (module katdotnvim.highlights.integrations.treesitter
         {autoload {colors katdotnvim.color
-                   ucolors katdotnvim.utils.color
+                   ucolors katdotnvim.utils.highlight.utils
                    groups katdotnvim.highlights.main
                    run katdotnvim.utils.highlight.run
                    syntax katdotnvim.highlights.syntax}})
