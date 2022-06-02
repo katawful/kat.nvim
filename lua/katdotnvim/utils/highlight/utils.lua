@@ -1,4 +1,4 @@
-local _2afile_2a = "fnl/katdotnvim/utils/color.fnl"
+local _2afile_2a = "fnl/katdotnvim/utils/highlight/utils.fnl"
 local _2amodule_name_2a = "katdotnvim.utils.color"
 local _2amodule_2a
 do
