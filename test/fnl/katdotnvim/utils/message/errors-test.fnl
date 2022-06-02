@@ -1,5 +1,5 @@
-(module katdotnvim.utils.errors-test
-  {autoload {errors katdotnvim.utils.errors}})
+(module katdotnvim.utils.message.errors-test
+  {autoload {errors katdotnvim.utils.message.errors}})
 
 (deftest message$
   (t.= "kat.nvim E1: This is a test!"
