@@ -16,7 +16,7 @@ _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["options"] = options
 _2amodule_locals_2a["_"] = _
 local function init(in_contrast)
-  options.default(true)
+  options.default()
   if vim.g.colors_name then
     vim.cmd("highlight clear")
   else

@@ -7,7 +7,7 @@
 
 ;; fnlfmt: skip
 (defn init [in-contrast] "Main plugin interface" ; define some defaults
-      (options.default true)
+      (options.default)
       (when vim.g.colors_name
         (vim.cmd "highlight clear"))
       (when (= (vim.fn.exists :syntax_on) 1)
