@@ -146,10 +146,10 @@ Pretty self explanatory, plugin integrations go in `katdotnvim/highlights/integr
 Make sure you add the necessary option to the default function in `katdotnvim/utils/error.fnl`.
 
 # License
-While most of this project is my code, some of it is copyright from others
+The following are directories from different, but compatible, licenses
 
 * `lua/externals/hsluv.lua`
-* Aniseed
+* Aniseed - distributed in `lua/katdotnvim/aniseed/`
 
 hsluv is provided as free to use, being able to be integrated into this project provided it's copyright statement is kept in place. For convenience it is placed below as well:
 ```
@@ -170,5 +170,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 Aniseed is provided into the public domain, and free to use for integration under the [unlicense](https://unlicense.org/) license. [See](https://github.com/Olical/aniseed) the full project for full licensing details.
+
+Macros shipped in `lua/katdotnvim/katcros-fnl` is provided under the GPL v3 license. [See](https://github.com/katawful/katcros-fnl).
 
 The rest of the code is published under the GPL v3 license, see LICENSE.txt for details
