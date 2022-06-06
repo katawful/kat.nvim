@@ -1,5 +1,6 @@
 (module katdotnvim.utils.highlight.run
-        {autoload {a aniseed.core ucolors katdotnvim.utils.highlight.utils
+        {autoload {a aniseed.core
+                   ucolors katdotnvim.utils.highlight.utils
                    apply katdotnvim.utils.highlight.init}})
 
 ;;; Handles running of highlight groups

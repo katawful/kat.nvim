@@ -1,5 +1,6 @@
 (module katdotnvim.color
-        {autoload {ucolors katdotnvim.utils.highlight.utils main katdotnvim.main}})
+        {autoload {ucolors katdotnvim.utils.highlight.utils
+                   main katdotnvim.main}})
 
 ;;; This stores and exports all needed colors as functions
 

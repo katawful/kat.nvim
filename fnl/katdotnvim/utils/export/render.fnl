@@ -160,7 +160,7 @@
 (defn init [] (if (= vim.g.kat_nvim_compile_enable true)
                   (do
                     (message.warn$ (message.<-table :utils.export.render
-                                                    "compilation-dev"))
+                                                    :compilation-dev))
                     (if (= vim.g.kat_nvim_max_version :0.6)
                         (command*-vim :KatNvimRenderFiles {:nargs 0}
                                       "lua require('katdotnvim.utils.export.render').start_group()")
