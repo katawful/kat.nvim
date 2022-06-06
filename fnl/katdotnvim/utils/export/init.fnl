@@ -1,6 +1,6 @@
 (module katdotnvim.utils.export.init
         {autoload {hsl externals.hsluv
-                   errors katdotnvim.utils.message.errors
+                   message katdotnvim.utils.message.init
                    kitty katdotnvim.utils.export.kitty
                    alacritty katdotnvim.utils.export.alacritty
                    rxvt katdotnvim.utils.export.rxvt
@@ -118,22 +118,22 @@
         color-string))
 
 ;; FN -- notify the user that a terminal theme was generated for said colorscheme
-(defn notify$ [terminal test]
-      "Notifies the user about the generated color file"
-      (let [output (string.format "kat.nvim: %s color file generated at cwd using %s colorscheme with %s background"
-                                  terminal (tostring vim.g.colors_name)
-                                  (tostring vim.o.background))]
-        (when (= test nil)
-          (vim.notify output vim.log.levels.INFO))
-        output))
+(defn notify$ [terminal]
+      "Small wrapper around utils.message.init"
+      (message.info$ (string.format (message.<-table
+                                      :utils.export.init
+                                      "term-theme-generated")
+                                    terminal
+                                    vim.g.colors_name
+                                    vim.o.background)))
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? [] "Returns true when we are using a kat.nvim theme"
       (if (and (not= vim.g.colors_name :kat.nvim)
                (not= vim.g.colors_name :kat.nwim))
           (do
-            (errors.message$ 1
-                             "Not a kat.nvim colorscheme, theme won't compile")
+            (message.error$ (message.<-table "utils.export.init"
+                                             "not-colorscheme"))
             false)
           (do
             true)))
@@ -160,7 +160,10 @@
             :konsole (do
                        (konsole.output!))
             _ (do
-                (errors.message$ 2 error-message)))))
+                (message.error$ (string.format
+                                  (message.<-table :utils.export.init
+                                                   "invalid-arg")
+                                  terminal))))))
 
 ;; create user command for terminal color generation
 (if (= (vim.fn.has :nvim-0.7) 1)

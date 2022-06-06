@@ -1,7 +1,7 @@
 (module katdotnvim.utils.export.render
         {autoload {groups katdotnvim.highlights.main
                    a aniseed.core
-                   warning katdotnvim.utils.message.warning}
+                   message katdotnvim.utils.message.init}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros
                          katcros-fnl.macros.nvim.api.options.macros]})
 
@@ -159,8 +159,8 @@
 ;; init functions, very dirty and not a great implementation
 (defn init [] (if (= vim.g.kat_nvim_compile_enable true)
                   (do
-                    (warning.message$ 1
-                                      "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
+                    (message.warn$ (message.<-table :utils.export.render
+                                                    "compilation-dev"))
                     (if (= vim.g.kat_nvim_max_version :0.6)
                         (command*-vim :KatNvimRenderFiles {:nargs 0}
                                       "lua require('katdotnvim.utils.export.render').start_group()")

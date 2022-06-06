@@ -11,10 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local a, groups, warning, _, _0 = autoload("aniseed.core"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.message.warning"), nil, nil
+local a, groups, message, _, _0 = autoload("aniseed.core"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.message.init"), nil, nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["groups"] = groups
-_2amodule_locals_2a["warning"] = warning
+_2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0
 local function get_groups(source)
@@ -109,7 +109,7 @@ end
 _2amodule_2a["start-group"] = start_group
 local function init()
   if (vim.g.kat_nvim_compile_enable == true) then
-    warning["message$"](1, "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
+    message["warn$"](message["<-table"]("utils.export.render", "compilation-dev"))
     if (vim.g.kat_nvim_max_version == "0.6") then
       return vim.api.nvim_command("command! -nargs=0 KatNvimRenderFiles lua require('katdotnvim.utils.export.render').start_group()")
     else
