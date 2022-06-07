@@ -11,19 +11,15 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local a, alacritty, colors, errors, groups, hsl, kitty, konsole, main, rxvt, s, ucolors, _ = autoload("aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.errors"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.export.rxvt"), autoload("aniseed.string"), autoload("katdotnvim.utils.color"), nil
+local a, alacritty, hsl, kitty, konsole, message, rxvt, s, _ = autoload("aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.export.rxvt"), autoload("aniseed.string"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["alacritty"] = alacritty
-_2amodule_locals_2a["colors"] = colors
-_2amodule_locals_2a["errors"] = errors
-_2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["kitty"] = kitty
 _2amodule_locals_2a["konsole"] = konsole
-_2amodule_locals_2a["main"] = main
+_2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["rxvt"] = rxvt
 _2amodule_locals_2a["s"] = s
-_2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
 local comment_type = {}
 _2amodule_locals_2a["comment-type"] = comment_type
@@ -60,20 +56,20 @@ local function color_nest__3eone_line_color_25(key, value, input_color)
   return color_string
 end
 _2amodule_2a["color-nest->one-line-color%"] = color_nest__3eone_line_color_25
-local function table__3eone_line_color(colors0, terminal)
+local function table__3eone_line_color(colors, terminal)
   local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(vim.o.background))
-  for key, value in pairs(colors0) do
+  for key, value in pairs(colors) do
     color_string = string.format("%s%s\n", color_string, key)
     color_string = color_nest__3eone_line_color_25(key, value, color_string)
   end
   return color_string
 end
 _2amodule_2a["table->one-line-color"] = table__3eone_line_color
-local function string__3etwo_line_color_2a(colors0, terminal)
+local function string__3etwo_line_color_2a(colors, terminal)
   local color_string
   local function _5_()
     local tbl = {}
-    for key, val in pairs(colors0) do
+    for key, val in pairs(colors) do
       table.insert(tbl, string.format("%s\n%s\n", key, val))
     end
     return tbl
@@ -82,12 +78,12 @@ local function string__3etwo_line_color_2a(colors0, terminal)
   return color_string
 end
 _2amodule_2a["string->two-line-color*"] = string__3etwo_line_color_2a
-local function string__3eone_line_color(colors0, terminal)
+local function string__3eone_line_color(colors, terminal)
   local color_string
   local function _6_()
     local tbl = {}
     table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(vim.o.background)))
-    for key, val in pairs(colors0) do
+    for key, val in pairs(colors) do
       table.insert(tbl, string.format("%s %s\n", key, val))
     end
     return tbl
@@ -96,18 +92,13 @@ local function string__3eone_line_color(colors0, terminal)
   return color_string
 end
 _2amodule_2a["string->one-line-color"] = string__3eone_line_color
-local function notify_24(terminal, test)
-  local output = string.format("kat.nvim: %s color file generated at cwd using %s colorscheme with %s background", terminal, tostring(vim.g.colors_name), tostring(vim.o.background))
-  if (test == nil) then
-    vim.notify(output, vim.log.levels.INFO)
-  else
-  end
-  return output
+local function notify_24(terminal)
+  return message["info$"](string.format(message["<-table"]("utils.export.init", "term-theme-generated"), terminal, vim.g.colors_name, vim.o.background))
 end
 _2amodule_2a["notify$"] = notify_24
 local function is_colorscheme_3f()
   if ((vim.g.colors_name ~= "kat.nvim") and (vim.g.colors_name ~= "kat.nwim")) then
-    errors["message$"](1, "Not a kat.nvim colorscheme, theme won't compile")
+    message["error$"](message["<-table"]("utils.export.init", "not-colorscheme"))
     return false
   else
     return true
@@ -115,26 +106,25 @@ local function is_colorscheme_3f()
 end
 _2amodule_2a["is-colorscheme?"] = is_colorscheme_3f
 local function gen_term_colors(terminal)
-  local error_message = string.format("'%s' is not a valid argument for :KatGenTermTheme, check supported terminals or enclose in quotes if nvim-0.7 is not available", terminal)
   if (is_colorscheme_3f() == true) then
-    local _9_ = tostring(terminal)
-    if (_9_ == "kitty") then
+    local _8_ = tostring(terminal)
+    if (_8_ == "kitty") then
       comment_type[1] = kitty["comment-type"]
       return kitty["output!"]()
-    elseif (_9_ == "alacritty") then
+    elseif (_8_ == "alacritty") then
       comment_type[1] = alacritty["comment-type"]
       return alacritty["output!"]()
-    elseif (_9_ == "rxvt-unicode") then
+    elseif (_8_ == "rxvt-unicode") then
       comment_type[1] = rxvt["comment-type"]
       return rxvt["output!"]()
-    elseif (_9_ == "urxvt") then
+    elseif (_8_ == "urxvt") then
       comment_type[1] = rxvt["comment-type"]
       return rxvt["output!"]()
-    elseif (_9_ == "konsole") then
+    elseif (_8_ == "konsole") then
       return konsole["output!"]()
     elseif true then
-      local _0 = _9_
-      return errors["message$"](2, error_message)
+      local _0 = _8_
+      return message["error$"](string.format(message["<-table"]("utils.export.init", "invalid-arg"), terminal))
     else
       return nil
     end
@@ -144,10 +134,10 @@ local function gen_term_colors(terminal)
 end
 _2amodule_2a["gen_term_colors"] = gen_term_colors
 if (vim.fn.has("nvim-0.7") == 1) then
-  local function _12_(args)
+  local function _11_(args)
     return gen_term_colors(args.args)
   end
-  vim.api.nvim_create_user_command("KatGenTermTheme", _12_, {nargs = 1})
+  vim.api.nvim_create_user_command("KatGenTermTheme", _11_, {nargs = 1})
 else
   vim.api.nvim_command("command! -nargs=1 KatGenTermTheme lua require('katdotnvim.utils.export.init').gen_term_colors(<args>)")
 end

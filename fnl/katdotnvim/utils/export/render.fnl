@@ -1,6 +1,7 @@
 (module katdotnvim.utils.export.render
-        {autoload {groups katdotnvim.highlights.main a aniseed.core
-                   warning katdotnvim.utils.warning}
+        {autoload {groups katdotnvim.highlights.main
+                   a aniseed.core
+                   message katdotnvim.utils.message.init}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros
                          katcros-fnl.macros.nvim.api.options.macros]})
 
@@ -9,7 +10,7 @@
 ;; FN -- get the groups from a color file as a string
 ;; @source -- the file in question
 ;; $output-string -- the string of groups
-(defn get-groups [source] (var output-string "")
+(defn- get-groups [source] (var output-string "")
       (each [_ v (pairs ((. (require source.path) :high-colors)))]
         (if (= (type v) :function)
             (let [current [(v)]]
@@ -21,8 +22,9 @@
 
 ;; FN -- constructs the internal string
 ;; -- makes sure to keep versioning in check
+
 ;; fnlfmt: skip
-(defn internal-string [source]
+(defn- internal-string [source]
       (let [old-version vim.g.kat_nvim_max_version]
         (var output-string "") ; if version is not empty
         (if (not= (?. source :version) nil)
@@ -53,7 +55,7 @@
 ;; -- destructive
 ;; @file -- file string
 ;; @source -- source information
-(defn file-string->file! [file source] "Outputs a file as a string to a file"
+(defn- file-string->file! [file source] "Outputs a file as a string to a file"
       (let [file-name (if (= source.types :none)
                           (.. :fnl/katdotnvim/exported/ source.name "-"
                               source.background "-" source.contrast :.fnl)
@@ -66,8 +68,9 @@
 ;; @source -- the source file
 ;; @color -- current colorscheme
 ;; @back -- current background
+
 ;; fnlfmt: skip
-(defn build-string->file! [source color back]
+(defn- build-string->file! [source color back]
       (let [source source
             contrast (if (= color :kat.nwim) :soft :hard)
             shade back
@@ -94,7 +97,7 @@
         (file-string->file! output-string source)))
 
 ;; FN -- deal with rendering the groups needed
-(defn start-group []
+(defn- start-group []
       (let [files [{:name :main :path :katdotnvim.highlights.main :types :none}
                    {:name :syntax
                     :path :katdotnvim.highlights.syntax
@@ -154,13 +157,14 @@
         (let- :g :kat_nvim_dontRender old-dontRender)))
 
 ;; init functions, very dirty and not a great implementation
-(defn init []
-  (if (= vim.g.kat_nvim_compile_enable true)
-    (do
-      (warning.message$ 1 "Compilation is a development feature, please consider setting \"vim.g.kat_nvim_compile_enable\" to 0")
-      (if (= vim.g.kat_nvim_max_version "0.6")
-        (command*-vim :KatNvimRenderFiles {:nargs 0}
-                      "lua require('katdotnvim.utils.export.render').start_group()")
-        (command- :KatNvimRenderFiles (fn []
-                                        (start-group))
-                  "render colorscheme file")))))
+(defn init [] (if (= vim.g.kat_nvim_compile_enable true)
+                  (do
+                    (message.warn$ (message.<-table :utils.export.render
+                                                    :compilation-dev))
+                    (if (= vim.g.kat_nvim_max_version :0.6)
+                        (command*-vim :KatNvimRenderFiles {:nargs 0}
+                                      "lua require('katdotnvim.utils.export.render').start_group()")
+                        (command- :KatNvimRenderFiles
+                                  (fn []
+                                    (start-group))
+                                  "render colorscheme file")))))

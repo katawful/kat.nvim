@@ -1,6 +1,6 @@
 (module katdotnvim.utils.export.alacritty
         {autoload {hsl externals.hsluv
-                   ucolors katdotnvim.utils.color
+                   ucolors katdotnvim.utils.highlight.utils
                    colors katdotnvim.color
                    groups katdotnvim.highlights.main
                    main katdotnvim.main

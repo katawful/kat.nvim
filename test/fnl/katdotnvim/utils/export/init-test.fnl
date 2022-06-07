@@ -63,9 +63,9 @@ color\nkey1 value1\nkey2\nkey3 value3\nkey4 value4\n"
   (table.sort result)
   (t.ok? (vim.deep_equal expected result)))
 
-(deftest notify$
-  (t.= (string.format 
-         "kat.nvim: kitty color file generated at cwd using %s colorscheme with %s background"
-         vim.g.colors_name
-         vim.o.background)
-       (export.notify$ :kitty true)))
+; (deftest notify$
+;   (t.= (string.format 
+;          "kat.nvim: kitty color file generated at cwd using %s colorscheme with %s background"
+;          vim.g.colors_name
+;          vim.o.background)
+;        (export.notify$ :kitty true)))

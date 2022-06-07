@@ -1,6 +1,6 @@
 (module katdotnvim.highlights.integrations.treesitter
         {autoload {colors katdotnvim.color
-                   ucolors katdotnvim.utils.color
+                   ucolors katdotnvim.utils.highlight.utils
                    groups katdotnvim.highlights.main
                    run katdotnvim.utils.highlight.run
                    syntax katdotnvim.highlights.syntax}})
@@ -10,12 +10,10 @@
 (def stringColor (. (groups.auxBG) 1))
 
 (defn high-colors [] [{:group :TSField
-                       :fg (ucolors.brighten (ucolors.blend (. (syntax.identifier)
-                                                               1)
-                                                            (. (colors.init :normalColors)
-                                                               :purple)
-                                                            0.2)
-                                             0.2)
+                       :fg (-> (. (syntax.identifier) 1)
+                               (ucolors.blend (. (colors.normal-colors) :purple)
+                                              0.2)
+                               (ucolors.brighten 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP
@@ -23,8 +21,7 @@
                       {:group :TSProperty :link :TSField}
                       {:group :TSFuncBuiltin
                        :fg (ucolors.blend (. (syntax.identifier) 1)
-                                          (. (colors.init :normalColors) :red)
-                                          0.3)
+                                          (. (colors.normal-colors) :red) 0.3)
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
@@ -38,13 +35,11 @@
                        :bold true
                        :italic true}
                       {:group :TSMethod
-                       :fg (ucolors.saturation (ucolors.brighten (ucolors.blend (. (syntax.identifier)
-                                                                                   1)
-                                                                                (. (colors.init :normalColors)
-                                                                                   :red)
-                                                                                0.3)
-                                                                 0.1)
-                                               0.1)
+                       :fg (-> (. (syntax.identifier) 1)
+                               (ucolors.blend (. (colors.normal-colors) :red)
+                                              0.3)
+                               (ucolors.brighten 0.1)
+                               (ucolors.saturation 0.1))
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
@@ -52,12 +47,9 @@
                       {:group :TSVariable :link :Variable}
                       {:group :TSParameter :link :Variable}
                       {:group :TSVariableBuiltin
-                       :fg (ucolors.darken (ucolors.blend (. (syntax.identifier)
-                                                             1)
-                                                          (. (colors.init :foreground)
-                                                             3)
-                                                          0.8)
-                                           0.2)
+                       :fg (-> (. (syntax.identifier) 1)
+                               (ucolors.blend (. (colors.foreground) 3) 0.8)
+                               (ucolors.darken 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP
@@ -66,33 +58,28 @@
                         (if (= vim.g.kat_nvim_style :light)
                             (do
                               {:group :TSNamespace
-                               :fg (ucolors.darken (ucolors.blend (. (syntax.identifier)
-                                                                     1)
-                                                                  (. (colors.init :normalColors)
-                                                                     :green)
-                                                                  0.3)
-                                                   0.4)
+                               :fg (-> (. (syntax.identifier) 1)
+                                       (ucolors.blend (. (colors.normal-colors)
+                                                         :green)
+                                                      0.3)
+                                       (ucolors.darken 0.4))
                                :bg :SKIP
                                :ctermfg (. (groups.auxBG) 2)
                                :ctermbg :SKIP})
                             (do
                               {:group :TSNamespace
-                               :fg (ucolors.brighten (ucolors.blend (. (syntax.identifier)
-                                                                       1)
-                                                                    (. (colors.init :normalColors)
-                                                                       :green)
-                                                                    0.3)
-                                                     0.2)
+                               :fg (-> (. (syntax.identifier) 1)
+                                       (ucolors.blend (. (colors.normal-colors)
+                                                         :green)
+                                                      0.3)
+                                       (ucolors.brighten 0.2))
                                :bg :SKIP
                                :ctermfg (. (groups.auxBG) 2)
                                :ctermbg :SKIP})))
                       {:group :TSParameterReference
-                       :fg (ucolors.brighten (ucolors.blend (. (syntax.identifier)
-                                                               1)
-                                                            (. (colors.init :foreground)
-                                                               3)
-                                                            0.8)
-                                             0.2)
+                       :fg (-> (. (syntax.identifier) 1)
+                               (ucolors.blend (. (colors.foreground) 3) 0.8)
+                               (ucolors.brighten 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.umbraBG) 2)
                        :ctermbg :SKIP
@@ -122,8 +109,7 @@
                        :italic true}
                       {:group :TSConstructor
                        :fg (ucolors.blend (. (syntax.typeDef) 1)
-                                          (. (colors.init :normalColors) :red)
-                                          0.4)
+                                          (. (colors.normal-colors) :red) 0.4)
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP}
@@ -134,11 +120,10 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSConstBuiltin
-                       :fg (ucolors.darken (ucolors.blend (. (groups.fillBG) 1)
-                                                          (. (colors.init :normalColors)
-                                                             :blue)
-                                                          0.8)
-                                           0.2)
+                       :fg (-> (. (groups.fillBG) 1)
+                               (ucolors.blend (. (colors.normal-colors) :blue)
+                                              0.8)
+                               (ucolors.darken 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP}
@@ -149,51 +134,42 @@
                        :ctermfg (. (groups.fillBG) 3)
                        :ctermbg :SKIP}
                       {:group :TSKeywordFunction
-                       :fg (ucolors.brighten (ucolors.blend (. (syntax.statement)
-                                                               1)
-                                                            (. (colors.init :normalColors)
-                                                               :green)
-                                                            0.2)
-                                             0.1)
+                       :fg (-> (. (syntax.statement) 1)
+                               (ucolors.blend (. (colors.normal-colors) :green)
+                                              0.2)
+                               (ucolors.brighten 0.1))
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg :SKIP
                        :bold true
                        :italic true}
                       {:group :TSKeywordReturn
-                       :fg (ucolors.brighten (ucolors.blend (. (syntax.statement)
-                                                               1)
-                                                            (. (colors.init :normalColors)
-                                                               :blue)
-                                                            0.1)
-                                             0.2)
+                       :fg (-> (. (syntax.statement) 1)
+                               (ucolors.blend (. (colors.normal-colors) :blue)
+                                              0.1)
+                               (ucolors.brighten 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP
                        :bold true
                        :italic true}
                       {:group :TSKeywordOperator
-                       :fg (ucolors.brighten (ucolors.blend (. (syntax.statement)
-                                                               1)
-                                                            (. (groups.meldFG)
-                                                               1)
-                                                            0.1)
-                                             0.2)
+                       :fg (-> (. (syntax.statement) 1)
+                               (ucolors.blend (. (groups.meldFG) 1) 0.1)
+                               (ucolors.brighten 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP}
                       {:group :TSPunctDelimiter
                        :fg (ucolors.blend (. (syntax.preproc) 1)
-                                          (. (colors.init :normalColors)
-                                             :purple)
-                                          0.2)
+                                          (. (colors.normal-colors) :purple) 0.2)
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 3)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSPunctBracket
                        :fg (ucolors.blend (. (syntax.preproc) 1)
-                                          (. (colors.init :background) 6) 0.2)
+                                          (. (colors.background) 6) 0.2)
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP
@@ -206,37 +182,33 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSTagDelimiter
-                       :fg (ucolors.darken (ucolors.blend (. (syntax.preproc) 1)
-                                                          (. (colors.init :normalColors)
-                                                             :red)
-                                                          0.4)
-                                           0.2)
+                       :fg (-> (. (syntax.preproc) 1)
+                               (ucolors.blend (. (colors.normal-colors) :red)
+                                              0.4)
+                               (ucolors.darken 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSStringRegex
                        :fg (ucolors.blend stringColor
-                                          (. (colors.init :normalColors) :blue)
-                                          0.5)
+                                          (. (colors.normal-colors) :blue) 0.5)
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSStringEscape
                        :fg (ucolors.blend stringColor
-                                          (. (colors.init :normalColors) :red)
-                                          0.2)
+                                          (. (colors.normal-colors) :red) 0.2)
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSSymbol
-                       :fg (ucolors.saturation (ucolors.blend stringColor
-                                                              (. (colors.init :normalColors)
-                                                                 :purple)
-                                                              0.3)
-                                               0.8)
+                       :fg (-> stringColor
+                               (ucolors.blend (. (colors.normal-colors) :purple)
+                                              0.3)
+                               (ucolors.saturation 0.8))
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP}

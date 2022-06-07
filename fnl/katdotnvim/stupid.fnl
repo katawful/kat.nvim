@@ -1,8 +1,8 @@
-(module katdotnvim.stupid
-        {autoload {ucolors katdotnvim.utils.color
-                   colors katdotnvim.color
-                   syntax katdotnvim.highlights.syntax
-                   a aniseed.core}})
+(module katdotnvim.stupid {autoload {ucolors katdotnvim.utils.highlight.utils
+                                     apply katdotnvim.utils.highlight.init
+                                     colors katdotnvim.color
+                                     syntax katdotnvim.highlights.syntax
+                                     a aniseed.core}})
 
 ; this handles stupid features
 
@@ -26,7 +26,7 @@
                                        0.1)
                                      0.5)
                                :bold true}]
-                    (ucolors.highlight$ opts)
+                    (apply.highlight$ opts)
                     (if (= increase true)
                       (set i (+ i 1))
                       (set i (- i 1)))

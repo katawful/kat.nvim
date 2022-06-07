@@ -1,5 +1,5 @@
-(module katdotnvim.utils.highlight.init-test
-  {autoload {get katdotnvim.utils.highlight.init
+(module katdotnvim.utils.highlight.get-test
+  {autoload {get katdotnvim.utils.highlight.get
              s aniseed.string}})
 
 (def- high-table {:group "Test"

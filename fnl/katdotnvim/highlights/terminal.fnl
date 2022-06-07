@@ -1,6 +1,6 @@
 (module katdotnvim.highlights.terminal
         {autoload {colors katdotnvim.color
-                   ucolors katdotnvim.utils.color
+                   ucolors katdotnvim.utils.highlight.utils
                    syntax katdotnvim.highlights.syntax
                    groups katdotnvim.highlights.main
                    main katdotnvim.main}

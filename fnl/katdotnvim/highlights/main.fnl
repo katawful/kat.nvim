@@ -1,6 +1,6 @@
 (module katdotnvim.highlights.main
         {autoload {colors katdotnvim.color
-                   ucolors katdotnvim.utils.color
+                   ucolors katdotnvim.utils.highlight.utils
                    run katdotnvim.utils.highlight.run
                    main katdotnvim.main}})
 
@@ -63,15 +63,13 @@
 (defn groupFunction [] (var output "")
       (if (= vim.o.background :light)
           (do
-            (set output (ucolors.saturation (ucolors.darken (. (colors.normal-colors)
-                                                               :green)
-                                                            0.5)
-                                            0.4)))
+            (set output (-> (. (colors.normal-colors) :green)
+                            (ucolors.darken 0.5)
+                            (ucolors.saturation 0.4))))
           (do
-            (set output (ucolors.saturation (ucolors.brighten (. (colors.normal-colors)
-                                                                 :green)
-                                                              0.5)
-                                            -0.2)))) output)
+            (set output (-> (. (colors.normal-colors) :green)
+                            (ucolors.brighten 0.5)
+                            (ucolors.saturation -0.2))))) output)
 
 (defn auxBG [] (local output [(groupFunction) 2 10]) output)
 
@@ -123,8 +121,9 @@
         :ctermbg :SKIP
         :bold true}
        {:group :Directory
-        :fg (ucolors.blend (ucolors.blend (. (infoBG) 1) (. (mainFG) 1) 0.1)
-                           (. (selectionBG) 1) 0.2)
+        :fg (-> (. (infoBG) 1)
+                (ucolors.blend (. (mainFG) 1) 0.1)
+                (ucolors.blend (. (selectionBG) 1) 0.2))
         :bg :SKIP
         :ctermfg (. (selectionBG) 2)
         :ctermbg :SKIP}

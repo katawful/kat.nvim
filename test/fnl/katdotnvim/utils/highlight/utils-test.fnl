@@ -1,5 +1,5 @@
-(module katdotnvim.utils.color-test
-  {autoload {ucolor katdotnvim.utils.color}})
+(module katdotnvim.utils.highlight.utils-test
+  {autoload {ucolor katdotnvim.utils.highlight.utils}})
 
 (deftest blend
   (t.= "#1a2632" (ucolor.blend "#222222" "#182736" 0.2)

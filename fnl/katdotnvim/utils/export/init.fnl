@@ -1,10 +1,6 @@
 (module katdotnvim.utils.export.init
         {autoload {hsl externals.hsluv
-                   ucolors katdotnvim.utils.color
-                   colors katdotnvim.color
-                   groups katdotnvim.highlights.main
-                   main katdotnvim.main
-                   errors katdotnvim.utils.errors
+                   message katdotnvim.utils.message.init
                    kitty katdotnvim.utils.export.kitty
                    alacritty katdotnvim.utils.export.alacritty
                    rxvt katdotnvim.utils.export.rxvt
@@ -25,6 +21,7 @@
 ;; FN converts an RGB table to a comma delimited string
 ;; @rgb -- input rgb
 ;; $string -- output string
+
 ;; fnlfmt: skip
 (defn rgb->string [rgb] "Converts decimal rgb table to a 256 color string"
       (let [string (string.format "%s,%s,%s"
@@ -121,22 +118,18 @@
         color-string))
 
 ;; FN -- notify the user that a terminal theme was generated for said colorscheme
-(defn notify$ [terminal test]
-      "Notifies the user about the generated color file"
-      (let [output (string.format "kat.nvim: %s color file generated at cwd using %s colorscheme with %s background"
-                                  terminal (tostring vim.g.colors_name)
-                                  (tostring vim.o.background))]
-        (when (= test nil)
-          (vim.notify output vim.log.levels.INFO))
-        output))
+(defn notify$ [terminal] "Small wrapper around utils.message.init"
+      (message.info$ (string.format (message.<-table :utils.export.init
+                                                     :term-theme-generated)
+                                    terminal vim.g.colors_name vim.o.background)))
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? [] "Returns true when we are using a kat.nvim theme"
       (if (and (not= vim.g.colors_name :kat.nvim)
                (not= vim.g.colors_name :kat.nwim))
           (do
-            (errors.message$ 1
-                             "Not a kat.nvim colorscheme, theme won't compile")
+            (message.error$ (message.<-table :utils.export.init
+                                             :not-colorscheme))
             false)
           (do
             true)))
@@ -144,8 +137,6 @@
 ;; FN -- wrap terminal generation for a single function
 (defn gen_term_colors [terminal]
       "Function for Neovim interaction, determines what terminal is being run"
-      (local error-message (string.format "'%s' is not a valid argument for :KatGenTermTheme, check supported terminals or enclose in quotes if nvim-0.7 is not available"
-                                          terminal))
       (if (= (is-colorscheme?) true)
           (match (tostring terminal)
             :kitty (do
@@ -163,7 +154,9 @@
             :konsole (do
                        (konsole.output!))
             _ (do
-                (errors.message$ 2 error-message)))))
+                (message.error$ (string.format (message.<-table :utils.export.init
+                                                                :invalid-arg)
+                                               terminal))))))
 
 ;; create user command for terminal color generation
 (if (= (vim.fn.has :nvim-0.7) 1)
