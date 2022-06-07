@@ -17,7 +17,7 @@
 ;; %number -- a number for the index, so it can be looked up like Vim errors
 ;; %message -- the message itself, can be an unformatted string
 ;; fnlfmt: skip
-(def notifications
+(defonce- notifications
      {
       :utils.export.render {
                             :compilation-dev {:number 1

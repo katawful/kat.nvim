@@ -29,7 +29,7 @@ local function get_groups(source)
   end
   return output_string
 end
-_2amodule_2a["get-groups"] = get_groups
+_2amodule_locals_2a["get-groups"] = get_groups
 local function internal_string(source)
   local old_version = vim.g.kat_nvim_max_version
   local output_string = ""
@@ -52,7 +52,7 @@ local function internal_string(source)
   end
   return output_string
 end
-_2amodule_2a["internal-string"] = internal_string
+_2amodule_locals_2a["internal-string"] = internal_string
 local function file_string__3efile_21(file, source)
   local file_name
   if (source.types == "none") then
@@ -62,7 +62,7 @@ local function file_string__3efile_21(file, source)
   end
   return a.spit(file_name, file)
 end
-_2amodule_2a["file-string->file!"] = file_string__3efile_21
+_2amodule_locals_2a["file-string->file!"] = file_string__3efile_21
 local function build_string__3efile_21(source, color, back)
   local source0 = source
   local contrast
@@ -82,7 +82,7 @@ local function build_string__3efile_21(source, color, back)
   source0["background"] = shade
   return file_string__3efile_21(output_string, source0)
 end
-_2amodule_2a["build-string->file!"] = build_string__3efile_21
+_2amodule_locals_2a["build-string->file!"] = build_string__3efile_21
 local function start_group()
   local files = {{name = "main", path = "katdotnvim.highlights.main", types = "none"}, {name = "syntax", path = "katdotnvim.highlights.syntax", types = "none"}, {name = "cmp", path = "katdotnvim.highlights.integrations.cmp", types = "integrations"}, {name = "coc", path = "katdotnvim.highlights.integrations.coc", types = "integrations"}, {name = "fugitive", path = "katdotnvim.highlights.integrations.fugitive", types = "integrations"}, {name = "indent_blankline", path = "katdotnvim.highlights.integrations.indent_blankline", types = "integrations"}, {name = "lsp", path = "katdotnvim.highlights.integrations.lsp", types = "integrations", version = "0.6"}, {name = "startify", path = "katdotnvim.highlights.integrations.startify", types = "integrations"}, {name = "treesitter", path = "katdotnvim.highlights.integrations.treesitter", types = "integrations"}, {name = "ts_rainbow", path = "katdotnvim.highlights.integrations.ts_rainbow", types = "integrations"}, {name = "markdown", path = "katdotnvim.highlights.filetype.markdown", types = "filetype"}, {name = "vim", path = "katdotnvim.highlights.filetype.vim", types = "filetype"}, {name = "vimwiki", path = "katdotnvim.highlights.filetype.vimwiki", types = "filetype"}}
   local colors = {{light = "kat.nwim"}, {light = "kat.nvim"}, {dark = "kat.nwim"}, {dark = "kat.nvim"}}
@@ -106,7 +106,7 @@ local function start_group()
   do end (vim.g)["kat_nvim_dontRender"] = old_dontRender
   return nil
 end
-_2amodule_2a["start-group"] = start_group
+_2amodule_locals_2a["start-group"] = start_group
 local function init()
   if (vim.g.kat_nvim_compile_enable == true) then
     message["warn$"](message["<-table"]("utils.export.render", "compilation-dev"))
