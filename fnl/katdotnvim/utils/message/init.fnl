@@ -16,6 +16,7 @@
 ;; %type -- a shorthand description of the notification at hand
 ;; %number -- a number for the index, so it can be looked up like Vim errors
 ;; %message -- the message itself, can be an unformatted string
+
 ;; fnlfmt: skip
 (defonce- notifications
      {
