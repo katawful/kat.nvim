@@ -1,6 +1,5 @@
 (module katdotnvim.main
-        {autoload {colors katdotnvim.color
-                   options katdotnvim.utils.options.init}
+        {autoload {options katdotnvim.utils.options.init}
          require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; Main plugin interface
@@ -11,7 +10,8 @@
       (when vim.g.colors_name
         (vim.cmd "highlight clear"))
       (when (= (vim.fn.exists :syntax_on) 1)
-        (vim.cmd "syntax reset")) (def contrast in-contrast)
+        (vim.cmd "syntax reset"))
+      (def contrast in-contrast)
       (def background vim.o.background)
       ; set g:colors_name for hard and soft themes
       (if (= contrast :hard)

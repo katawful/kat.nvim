@@ -14,9 +14,9 @@ local autoload = (require("aniseed.autoload")).autoload
 local main, ucolors = autoload("katdotnvim.main"), autoload("katdotnvim.utils.highlight.utils")
 do end (_2amodule_locals_2a)["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
-local light_fore_back = "#121c2d"
+local light_fore_back = "#daf6ff"
 _2amodule_locals_2a["light-fore-back"] = light_fore_back
-local dark_fore_back = "#daf6ff"
+local dark_fore_back = "#121c2d"
 _2amodule_locals_2a["dark-fore-back"] = dark_fore_back
 local red_primary = "#eb4949"
 _2amodule_locals_2a["red-primary"] = red_primary
@@ -39,17 +39,17 @@ local function def_back_colors()
   local back
   if (vim.o.background == "dark") then
     if (main.contrast == "soft") then
-      back = {ucolors.brighten(light_fore_back, 0.1), light_fore_back, ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
+      back = {ucolors.brighten(dark_fore_back, 0.1), dark_fore_back, ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
     elseif ((main.contrast == "hard") or (main.contrast == nil)) then
-      back = {light_fore_back, ucolors.brighten(light_fore_back, 0.1), ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
+      back = {dark_fore_back, ucolors.brighten(dark_fore_back, 0.1), ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
     else
       back = nil
     end
   elseif (vim.o.background == "light") then
     if (main.contrast == "soft") then
-      back = {ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
+      back = {ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
     elseif ((main.contrast == "hard") or (main.contrast == nil)) then
-      back = {dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
+      back = {light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
     else
       back = nil
     end
@@ -63,17 +63,17 @@ local function def_fore_colors()
   local fore
   if (vim.o.background == "dark") then
     if (main.contrast == "soft") then
-      fore = {ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
+      fore = {ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
     elseif ((main.contrast == "hard") or (main.contrast == nil)) then
-      fore = {dark_fore_back, ucolors.saturation(ucolors.darken(dark_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(dark_fore_back, 0.9), -0.5)}
+      fore = {light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
     else
       fore = nil
     end
   elseif (vim.o.background == "light") then
     if (main.contrast == "soft") then
-      fore = {ucolors.brighten(light_fore_back, 0.1), light_fore_back, ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
+      fore = {ucolors.brighten(dark_fore_back, 0.1), dark_fore_back, ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
     elseif ((main.contrast == "hard") or (main.contrast == nil)) then
-      fore = {light_fore_back, ucolors.brighten(light_fore_back, 0.1), ucolors.brighten(light_fore_back, 0.3), ucolors.brighten(light_fore_back, 0.5), ucolors.brighten(light_fore_back, 0.7), ucolors.brighten(light_fore_back, 0.9)}
+      fore = {dark_fore_back, ucolors.brighten(dark_fore_back, 0.1), ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
     else
       fore = nil
     end

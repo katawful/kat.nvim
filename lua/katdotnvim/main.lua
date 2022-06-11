@@ -11,8 +11,7 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("aniseed.autoload")).autoload
-local colors, options, _ = autoload("katdotnvim.color"), autoload("katdotnvim.utils.options.init"), nil
-_2amodule_locals_2a["colors"] = colors
+local options, _ = autoload("katdotnvim.utils.options.init"), nil
 _2amodule_locals_2a["options"] = options
 _2amodule_locals_2a["_"] = _
 local function init(in_contrast)

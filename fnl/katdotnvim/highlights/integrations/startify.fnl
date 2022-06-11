@@ -28,24 +28,24 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StartifyPath
-                       :fg (. (colors.init :background) 6)
+                       :fg (. (colors.background) 6)
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP}
                       {:group :StartifySlash
-                       :fg (. (colors.init :foreground) 4)
+                       :fg (. (colors.foreground) 4)
                        :bg :SKIP
                        :ctermfg (. (groups.mainFG) 2)
                        :ctermbg :SKIP}
                       {:group :StartifySection
-                       :fg (ucolors.blend (. (colors.init :normalColors) :red)
+                       :fg (ucolors.blend (. (colors.normal-colors) :red)
                                           (. (groups.mainFG) 1) 0.8)
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StartifySpecial
-                       :fg (. (colors.init :background) 6)
+                       :fg (. (colors.background) 6)
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP}
@@ -55,7 +55,7 @@
                        :ctermfg (. (groups.fillBG) 2)
                        :ctermbg :SKIP}
                       {:group :StartifyFooter
-                       :fg (. (colors.init :background) 4)
+                       :fg (. (colors.background) 4)
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP}])
