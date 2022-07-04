@@ -8,19 +8,19 @@
 ;; values are:
 ;; red, blue, green, pink, orange, purple, pink
 ;; f1-f6, b1-b6
-(def- color* (let [normal-colors (colors.normal-colors)]
-                  foreground (colors.foreground)
-                  background (colors.background)
-                  output {}
+(def- color* (let [normal-colors (colors.normal-colors)
+                   foreground (colors.foreground)
+                   background (colors.background)
+                   output {}]
               (each [k v (pairs normal-colors)]
                 (tset output k v))
               (for [i 1 6]
-                (tset output (.. "f" i) (. foreground i))
-                (tset output (.. "b" i) (. background i)))
+                (tset output (.. "f" (- i 1)) (. foreground  i))
+                (tset output (.. "b" (- i 1)) (. background  i)))
               output))
 
 ;;; Output colors
-;;; Naming: color_letter
+;;; Naming: color_letter, color-a_color-b_mix-amount, color_saturation-amount
 ;;; Color is color name, optional character is variant descriptor
 ;;; 'b': bright, 'd': dark. nothing is assumed neutral
 ;;; Number is brighter background, darker foreground in 20% luminance steps
