@@ -28,11 +28,12 @@
 ;;; also note that '_' is used, for maximum Lua compatibility
 (def kat {})
 
+;; Set base colors and fg/bg
 (tset kat :pink color*.pink)
 (tset kat :red color*.red)
 (tset kat :blue color*.blue)
 (tset kat :green color*.green)
 (tset kat :purple color*.purple)
 (tset kat :orange color*.orange)
-(tset kat :fg color*.f1)
-(tset kat :bg color*.b1)
+(tset kat :fg color*.f0)
+(tset kat :bg color*.b0)
