@@ -53,6 +53,10 @@
 (tset kat.fg :meld color*.f3)
 (tset kat.fg :BADNAME4 color*.f4)
 (tset kat.fg :BADNAME5 color*.f5)
+(tset kat.fg :auto (if (and (= vim.o.background :dark) (= vim.o.background :soft))
+                     (-> color*.f0
+                         (ucolors.brighten 1))
+                     color*.f0))
 
 ;; Set background variations
 ;; Naming: variation_bg
@@ -76,19 +80,42 @@
                         (-> color*.green
                             (ucolors.brighten 0.5)
                             (ucolors.saturation -0.2))))
+;; Green match fg
+(tset kat.green :match_fg (ucolors.blend color*.green color*.f0))
+;; Green match bg
+(tset kat.green :match_bg (ucolors.blend color*.green color*.b0))
 
-;; Blue that auto matches the background
+;; Blue that auto matches the background and mixed with orange
 ;; For emphasis, not needed for contrast
-(tset kat.blue :match_fg (-> color*.orange
-                            (ucolors.blend color*.f0 0.1)
-                            (ucolors.blend color*.blue 0.2)))
-
+(tset kat.blue :mix_orange_match_fg (-> color*.orange
+                                       (ucolors.blend color*.f0 0.1)
+                                       (ucolors.blend color*.blue 0.2)))
 ;; Darker blue
 (tset kat.blue :darker (ucolors.darken color*.blue 0.2))
+;; Blue matched with fg
+(tset kat.blue :match_fg (ucolors.blend color*.blue color*.f0 0.5))
+;; Blue matched with bg
+(tset kat.blue :match_bg (ucolors.blend color*.blue color*.b0 0.5))
 
-;; Purple matched with bg
+;; Red matched with bg
 ;; In use for "Warning" groups
 (tset kat.red :match_bg (ucolors.blend color*.red color*.b0 0.7))
+;; Red matched with fg
+(tset kat.red :match_fg (ucolors.blend color*.red color*.f0 0.6))
 
 ;; Purple matched with bg
 (tset kat.purple :match_bg (ucolors.blend color*.purple color*.b0 0.7))
+;; Purple matched with fg
+(tset kat.purple :match_fg (ucolors.blend color*.purple color*.f0 0.7))
+
+;; Orange matched with fg
+(tset kat.orange :match_fg (ucolors.blend color*.orange color*.f0 0.7))
+;; Orange matched with bg
+(tset kat.orange :match_bg (ucolors.blend color*.orange color*.b0 0.7))
+
+;; Pink matched with fg
+(tset kat.pink :match_fg (ucolors.blend color*.pink color*.f0 0.6))
+;; Pink matched with bg
+(tset kat.pink :match_bg (ucolors.blend color*.pink color*.b0 0.6))
+
+(print (vim.inspect kat))
