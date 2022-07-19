@@ -22,7 +22,8 @@
 
 ;;; Output colors as table
 ;;; We use a mutable table instead of variables since def is a const
-;;; Naming: color_match, color-a_color-b_mix-amount, color_saturation-amount
+;;; Each color variation can have a description
+;;; Naming: color_match, mix_color-a_color-b, color_saturation-amount
 ;;; Number is brighter background, darker foreground in 20% luminance steps
 ;;; also note that '_' is used, for maximum Lua compatibility
 (def kat {:pink {}
@@ -35,87 +36,91 @@
           :bg {}})
 
 ;; Set base colors and fg/bg
-(tset kat.pink :base color*.pink)
-(tset kat.red :base color*.red)
-(tset kat.blue :base color*.blue)
-(tset kat.green :base color*.green) ; Note, use green_match_auto if you just need green
-(tset kat.purple :base color*.purple)
-(tset kat.orange :base color*.orange)
-(tset kat.fg :base color*.f0)
-(tset kat.bg :base color*.b0)
+(set kat.pink.base {:desc :base :color color*.pink})
+(set kat.red.base {:desc :base :color color*.red})
+(set kat.blue.base {:desc :base :color color*.blue})
+(set kat.green.base {:desc :base :color color*.green}) ; Note, use green_match_auto if you just need green
+(set kat.purple.base {:desc :base :color color*.purple})
+(set kat.orange.base {:desc :base :color color*.orange})
+(set kat.fg.base {:desc :base :color color*.f0})
+(set kat.bg.base {:desc :base :color color*.b0})
 
 ;; Set foreground variations
 ;; Naming: variation_fg
 ;; TODO: rename last two variations
 
-(tset kat.fg :umbra color*.f1)
-(tset kat.fg :shadow color*.f2)
-(tset kat.fg :meld color*.f3)
-(tset kat.fg :BADNAME4 color*.f4)
-(tset kat.fg :BADNAME5 color*.f5)
-(tset kat.fg :auto (if (and (= vim.o.background :dark) (= vim.o.background :soft))
-                     (-> color*.f0
-                         (ucolors.brighten 1))
-                     color*.f0))
+(set kat.fg.umbra {:desc :umbra :color color*.f1})
+(set kat.fg.shadow {:desc :shadow :color color*.f2})
+(set kat.fg.meld {:desc :meld :color color*.f3})
+(set kat.fg.BADNAME4 {:desc :BADNAME4 :color color*.f4})
+(set kat.fg.BADNAME5 {:desc :BADNAME5 :color color*.f5})
+(set kat.fg.auto {:desc :auto :color (if (and (= vim.o.background :dark) (= vim.o.background :soft))
+                                       (-> color*.f0
+                                           (ucolors.brighten 1))
+                                       color*.f0)})
 
 ;; Set background variations
 ;; Naming: variation_bg
 ;; TODO: rename last two variations
 
-(tset kat.bg :umbra color*.b1)
-(tset kat.bg :shadow color*.b2)
-(tset kat.bg :meld color*.b3)
-(tset kat.bg :BADNAME4 color*.b4)
-(tset kat.bg :BADNAME5 color*.b5)
+(set kat.bg.umbra {:desc :umbra :color color*.b1})
+(set kat.bg.shadow {:desc :shadow :color color*.b2})
+(set kat.bg.meld {:desc :meld :color color*.b3})
+(set kat.bg.BADNAME4 {:desc :BADNAME4 :color color*.b4})
+(set kat.bg.BADNAME5 {:desc :BADNAME5 :color color*.b5})
 
 ;; Set color variations
 
 ;; Green that auto matches the background
 ;; Default green might not fit the background in use
 ;; This is the recommended green to use
-(tset kat.green :auto (if (= vim.o.background :light)
-                        (-> color*.green
-                            (ucolors.darken 0.5)
-                            (ucolors.saturation 0.4))
-                        (-> color*.green
-                            (ucolors.brighten 0.5)
-                            (ucolors.saturation -0.2))))
+(set kat.green.auto {:desc :auto 
+                     :color (if (= vim.o.background :light)
+                              (-> color*.green
+                                  (ucolors.darken 0.5)
+                                  (ucolors.saturation 0.4))
+                              (-> color*.green
+                                  (ucolors.brighten 0.5)
+                                  (ucolors.saturation -0.2)))})
 ;; Green match fg
-(tset kat.green :match_fg (ucolors.blend color*.green color*.f0))
+(set kat.green.match_fg {:desc :match_fg :color (ucolors.blend color*.green color*.f0 0.5)})
 ;; Green match bg
-(tset kat.green :match_bg (ucolors.blend color*.green color*.b0))
+(set kat.green.match_bg {:desc :match_bg :color (ucolors.blend color*.green color*.b0 0.5)})
 
 ;; Blue that auto matches the background and mixed with orange
 ;; For emphasis, not needed for contrast
-(tset kat.blue :mix_orange_match_fg (-> color*.orange
-                                       (ucolors.blend color*.f0 0.1)
-                                       (ucolors.blend color*.blue 0.2)))
+(set kat.blue.mix_orange_match_fg {:desc :mix_orange_match_fg 
+                                   :color (-> color*.orange
+                                           (ucolors.blend color*.f0 0.1)
+                                           (ucolors.blend color*.blue 0.2))})
 ;; Darker blue
-(tset kat.blue :darker (ucolors.darken color*.blue 0.2))
+(set kat.blue.darker {:desc :darker :color (ucolors.darken color*.blue 0.2)})
 ;; Blue matched with fg
-(tset kat.blue :match_fg (ucolors.blend color*.blue color*.f0 0.5))
+(set kat.blue.match_fg {:desc :match_fg :color (ucolors.blend color*.blue color*.f0 0.5)})
 ;; Blue matched with bg
-(tset kat.blue :match_bg (ucolors.blend color*.blue color*.b0 0.5))
+(set kat.blue.match_bg {:desc :match_bg :color (ucolors.blend color*.blue color*.b0 0.5)})
+;; Blue mixed with bg5
+(set kat.blue.mix_bg5 {:desc :mix_bg5 :color (ucolors.blend color*.blue color*.b5 0.65)})
 
 ;; Red matched with bg
 ;; In use for "Warning" groups
-(tset kat.red :match_bg (ucolors.blend color*.red color*.b0 0.7))
+(set kat.red.match_bg {:desc :match_bg :color (ucolors.blend color*.red color*.b0 0.7)})
 ;; Red matched with fg
-(tset kat.red :match_fg (ucolors.blend color*.red color*.f0 0.6))
+(set kat.red.match_fg {:desc :match_fg :color (ucolors.blend color*.red color*.f0 0.6)})
 
 ;; Purple matched with bg
-(tset kat.purple :match_bg (ucolors.blend color*.purple color*.b0 0.7))
+(set kat.purple.match_bg {:desc :match_bg :color (ucolors.blend color*.purple color*.b0 0.7)})
 ;; Purple matched with fg
-(tset kat.purple :match_fg (ucolors.blend color*.purple color*.f0 0.7))
+(set kat.purple.match_fg {:desc :match_fg :color (ucolors.blend color*.purple color*.f0 0.7)})
+;; Purple mixed with pink
+(set kat.purple.mix_pink {:desc :mix_pink :color (ucolors.blend color*.pink color*.purple 0.65)})
 
 ;; Orange matched with fg
-(tset kat.orange :match_fg (ucolors.blend color*.orange color*.f0 0.7))
+(set kat.orange.match_fg {:desc :match_fg :color (ucolors.blend color*.orange color*.f0 0.7)})
 ;; Orange matched with bg
-(tset kat.orange :match_bg (ucolors.blend color*.orange color*.b0 0.7))
+(set kat.orange.match_bg {:desc :match_bg :color (ucolors.blend color*.orange color*.b0 0.7)})
 
 ;; Pink matched with fg
-(tset kat.pink :match_fg (ucolors.blend color*.pink color*.f0 0.6))
+(set kat.pink.match_fg {:desc :match_fg :color (ucolors.blend color*.pink color*.f0 0.6)})
 ;; Pink matched with bg
-(tset kat.pink :match_bg (ucolors.blend color*.pink color*.b0 0.6))
-
-(print (vim.inspect kat))
+(set kat.pink.match_bg {:desc :match_bg :color (ucolors.blend color*.pink color*.b0 0.6)})
