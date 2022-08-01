@@ -18,6 +18,7 @@ compile:
 	deps/aniseed/scripts/embed.sh aniseed katdotnvim
 	deps/aniseed/scripts/embed.sh katcros-fnl katdotnvim
 	deps/aniseed/scripts/compile.sh
+	ANISEED_EMBED_PREFIX=katdotnvim deps/aniseed/scripts/compile.sh
 
 test:
 	# rm -rf test/lua

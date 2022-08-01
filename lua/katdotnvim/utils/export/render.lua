@@ -10,8 +10,8 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
-local autoload = (require("aniseed.autoload")).autoload
-local a, groups, message, _, _0 = autoload("aniseed.core"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.message.init"), nil, nil
+local autoload = (require("katdotnvim.aniseed.autoload")).autoload
+local a, groups, message, _, _0 = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.message.init"), nil, nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["message"] = message
