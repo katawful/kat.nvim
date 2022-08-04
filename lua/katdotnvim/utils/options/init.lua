@@ -16,7 +16,7 @@ local function default_2a()
   vim.g["kat_nvim_commentStyle"] = "italic"
   vim.g["kat_nvim_stupidFeatures"] = false
   vim.g["kat_nvim_integrations"] = {"vim", "vimwiki", "markdown"}
-  vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
+  vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "gitsigns", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
   vim.g["kat_nvim_dontRender"] = false
   vim.g["kat_nvim_compile_enable"] = false
   return nil
@@ -32,7 +32,7 @@ local function default()
   else
   end
   if (vim.fn.exists("kat_nvim_integrations") == 0) then
-    vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
+    vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "gitsigns", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
   else
   end
   if (vim.fn.exists("kat_nvim_max_version") == 0) then

@@ -53,7 +53,8 @@ Default:
 					  `"indent_blankline",`
 					  `"coc",`
 					  `"cmp",`
-					`  "fugitive"}`
+					`  "fugitive"`
+					 ` "gitsigns"}`
 See |kat.nvim-plugins| for what these correspond to.
 
 *g:kat_nvim_filetype*
@@ -118,6 +119,7 @@ This is the list of plugins that match this colorscheme.
 			     Airline : Use plugin settings: 'kat'
 			     Lualine : Use plugin settings: 'kat'
 			     Fugitive: 'fugitive'
+			     Gitsigns: 'gitsigns'
 
 ==============================================================================
 Section 4: Supported Filetypes                              *kat.nvim-filetypes*
