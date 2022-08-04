@@ -50,7 +50,8 @@
               (local output
                      (.. :katdotnvim.exported.integrations. v "-" background
                          "-" contrast))
-              ((. (require output) :init)))
+              (when (not= v :gitsigns)
+                ((. (require output) :init))))
             (each [_ v (pairs vim.g.kat_nvim_filetype)]
               (local output (.. :katdotnvim.exported.filetype. v "-" background
                                 "-" contrast))

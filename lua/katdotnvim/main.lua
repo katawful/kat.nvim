@@ -64,7 +64,10 @@ local function init(in_contrast)
     do end (require("katdotnvim.utils.export.render")).init()
     for _0, v in ipairs(vim.g.kat_nvim_integrations) do
       local output = ("katdotnvim.exported.integrations." .. v .. "-" .. background .. "-" .. contrast)
-      require(output).init()
+      if (v ~= "gitsigns") then
+        require(output).init()
+      else
+      end
     end
     for _0, v in pairs(vim.g.kat_nvim_filetype) do
       local output = ("katdotnvim.exported.filetype." .. v .. "-" .. background .. "-" .. contrast)
