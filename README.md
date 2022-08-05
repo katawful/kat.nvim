@@ -86,6 +86,7 @@ This will generate "kitty-kat.nvim-dark.conf" at the current working directory w
 | [Airline](https://github.com/vim-airline/vim-airline) | Use plugin settings: 'kat' |
 | [Lualine](https://github.com/nvim-lualine/lualine.nvim) | Use plugin settings: 'kat' |
 | [Fugitive](https://github.com/tpope/vim-fugitive) | 'fugitive' |
+| [gitsigns](https://github.com/lewis6991/gitsigns.nvim/) | 'gitsigns' |
 
 # Filetypes
 |Filetypes| Option Name |

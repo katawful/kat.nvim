@@ -11,6 +11,7 @@
       (let- :g :kat_nvim_integrations
             [:treesitter
              :lsp
+             :gitsigns
              :ts_rainbow
              :indent_blankline
              :startify
@@ -30,6 +31,7 @@
           (let- :g :kat_nvim_integrations
                 [:treesitter
                  :lsp
+                 :gitsigns
                  :ts_rainbow
                  :indent_blankline
                  :startify
