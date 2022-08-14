@@ -152,11 +152,11 @@ Buffer created user commands will fail if ?buffer is not provided"
     (var str# "")
     (each [_ v# (ipairs arg-string#)]
       (set str# (string.format "%s %s" str# v#)))
-    (assert-compile (start-char#:match "[A-Z]")
-                    "Expected a user command that starts with an upper-case letter"
-                    command#)
-    (let [output# (.. (tostring command#) " " str#)]
-     `(vim.cmd ,output#))))
+    (if (= (type command#) :string)
+      (assert-compile (start-char#:match "[A-Z]")
+                      "Expected a user command that starts with an upper-case letter"
+                      command#))
+   `(vim.cmd (.. ,command# ,str#))))
 
 (fn command- [...] "Macro -- alias for cre-command" (cre-command ...))
 

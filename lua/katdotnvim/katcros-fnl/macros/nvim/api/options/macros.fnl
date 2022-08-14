@@ -242,8 +242,7 @@ However, since it sets local options its generally avoided for system wide confi
 For b, w, and t scope, they can be indexed like (. b 1) for their
 Lua table equivalent. The other scopes can't take an index and will
 return an error."
-  (let [test-scope# (tostring scope)
-        var# (tostring variable)]
+  (let [var# (tostring variable)]
     (if (list? scope)
       ;; need to destruct the indexed list and inject the appropriate table
       (let [matched-scope# (tostring (. scope 2))
@@ -268,6 +267,27 @@ return an error."
    (each [variable# value# (pairs variables)]
      (table.insert output# `,(set-var scope variable# value#)))
    `,output#))
+
+(fn get-var [scope variable] "Macro -- get the value of a Vim variable"
+  (let [var# (tostring variable)]
+    (if (list? scope)
+      ;; need to destruct the indexed list and inject the appropriate table
+      (let [matched-scope# (tostring (. scope 2))
+            index# (. scope 3)]
+       (assert-compile (or (= matched-scope# :b)
+                           (= matched-scope# :w)
+                           (= matched-scope# :t))
+                       (string.format "Expected b, w, or t scope; got %s" matched-scope#)
+                       matched-scope#)
+       `(. (. (. vim ,matched-scope#) ,index#) ,var#))
+      (let [scope# (tostring scope)]
+        (assert-compile (or (= scope# :g)
+                            (= scope# :b)
+                            (= scope# :w)
+                            (= scope# :t)
+                            (= scope# :v)
+                            (= scope# :env)))
+        `(. (. vim ,scope#) ,var#)))))
 
 ;; Macro -- set a global option
 (fn setg- [option value]
@@ -353,6 +373,7 @@ return an error."
  : get-opt
  : set-var
  : set-vars
+ : get-var
  :let- let-
  :set- set-
  :setl- setl-
