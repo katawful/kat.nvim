@@ -108,4 +108,133 @@ local function foreground()
   return def_fore_colors()
 end
 _2amodule_2a["foreground"] = foreground
+local color_2a
+do
+  local normal_colors0 = def_normal_colors()
+  local foreground0 = def_back_colors()
+  local background0 = def_fore_colors()
+  local output = {}
+  for k, v in pairs(normal_colors0) do
+    output[k] = v
+  end
+  for i = 1, 6 do
+    output[("f" .. (i - 1))] = (foreground0)[i]
+    output[("b" .. (i - 1))] = (background0)[i]
+  end
+  color_2a = output
+end
+local kat = {pink = {}, red = {}, blue = {}, green = {}, purple = {}, orange = {}, teal = {}, plum = {}, fg = {}, bg = {}}
+_2amodule_2a["kat"] = kat
+kat.pink.base = {desc = "Base color, no changes applied", color = color_2a.pink}
+kat.red.base = {desc = "Base color, no changes applied", color = color_2a.red}
+kat.blue.base = {desc = "Base color, no changes applied", color = color_2a.blue}
+kat.green.base = {desc = "Base color, no changes applied", color = color_2a.green}
+kat.purple.base = {desc = "Base color, no changes applied", color = color_2a.purple}
+kat.orange.base = {desc = "Base color, no changes applied", color = color_2a.orange}
+kat.fg.base = {desc = "Base color, no changes applied", color = color_2a.f0}
+kat.bg.base = {desc = "Base color, no changes applied", color = color_2a.b0}
+kat.fg.umbra = {desc = "Umbra/second color, lighter shadow variation", color = color_2a.f1}
+kat.fg.shadow = {desc = "Shadow/third color, used to contrast base fg", color = color_2a.f2}
+kat.fg.meld = {desc = "Meld/fourth, used to blend in with the base fg", color = color_2a.f3}
+kat.fg.fifth = {desc = "5th bg color, dark for dark background and bright for light background", color = color_2a.f4}
+kat.fg.sixth = {desc = "6th bg color, dark for dark background and bright for light background", color = color_2a.f5}
+local _9_
+if ((vim.o.background == "dark") and (vim.o.background == "soft")) then
+  _9_ = ucolors.brighten(color_2a.f0, 1)
+else
+  _9_ = color_2a.f0
+end
+kat.fg.auto = {desc = "Auto matching color, used to always maintain bright color regardless of contrast", color = _9_}
+kat.bg.umbra = {desc = "Umbra/second color, lighter shadow variation", color = color_2a.b1}
+kat.bg.shadow = {desc = "Shadow/third color, used to contrast base bg", color = color_2a.b2}
+kat.bg.meld = {desc = "Meld/fourth color, used to blend in with the base fg", color = color_2a.b3}
+kat.bg.fifth = {desc = "5th bg color, bright for dark background and dark for light background", color = color_2a.b4}
+kat.bg.sixth = {desc = "6th bg color, bright for dark background and dark for light background", color = color_2a.b5}
+local _11_
+if (vim.o.background == "light") then
+  _11_ = ucolors.saturation(ucolors.darken(color_2a.green, 0.5), 0.4)
+else
+  _11_ = ucolors.saturation(ucolors.brighten(color_2a.green, 0.5), -0.2)
+end
+kat.green.auto = {desc = "Auto matching color, used to increase contrast depending on background", color = _11_}
+kat.green.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.green, color_2a.f0, 0.5)}
+kat.green.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.green, color_2a.b0, 0.5)}
+kat.green.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.green, color_2a.blue, 0.5)}
+kat.green.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.green, color_2a.red, 0.2)}
+kat.green.mix_purple = {desc = "Mixes in purple", color = ucolors.saturation(ucolors.blend(color_2a.green, color_2a.purple, 0.3), 0.8)}
+kat.blue.mix_orange_match_fg = {desc = "Mixes in orange, then matches to base fg color", color = ucolors.blend(ucolors.blend(color_2a.orange, color_2a.f0, 0.1), color_2a.blue, 0.2)}
+kat.blue.darker = {desc = "Darkens color by 20%", color = ucolors.darken(color_2a.blue, 0.2)}
+kat.blue.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.blue, color_2a.f0, 0.5)}
+kat.blue.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.blue, color_2a.b0, 0.5)}
+do
+  local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
+  kat.teal.base = {desc = "Base color, is a mix of blue and sixth background", color = teal}
+  local _13_
+  if (vim.o.background == "light") then
+    _13_ = ucolors.darken(ucolors.blend(teal, color_2a.f5, 0.5), 0.4)
+  else
+    _13_ = ucolors.brighten(ucolors.blend(teal, color_2a.f5, 0.5), 0.4)
+  end
+  kat.teal.auto = {desc = "Auto matches based on background", color = _13_}
+  kat.teal.mix_purple = {desc = "Mixes in purple", color = ucolors.brighten(ucolors.blend(teal, color_2a.purple, 0.2), 0.2)}
+  kat.teal.mix_red = {desc = "Mixes in red", color = ucolors.blend(teal, color_2a.red, 0.3)}
+  kat.teal.mix_red_brighten = {desc = "Mixes in red, brightens", color = ucolors.saturation(ucolors.blend(ucolors.blend(teal, color_2a.red, 0.3), 0.1), 0.1)}
+  kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
+  kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
+  kat.teal.mix_shadow_fg = {desc = "Mixes in shadow fg", color = ucolors.darken(ucolors.blend(teal, color_2a.f2, 0.8), 0.2)}
+  if (vim.o.background == "light") then
+    local _15_
+    if (vim.o.background == "light") then
+      _15_ = ucolors.darken(ucolors.blend(teal, color_2a.green, 0.3), 0.4)
+    else
+      _15_ = ucolors.brighten(ucolors.blend(teal, color_2a.green, 0.3), 0.2)
+    end
+    kat.teal.mix_green = {desc = "Mixes in green, matches background", color = _15_}
+  else
+  end
+end
+kat.red.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.red, color_2a.b0, 0.7)}
+kat.red.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.red, color_2a.f0, 0.6)}
+kat.red.mix_red = {desc = "Mixes in red", color = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.red, 0.2), 0.1)}
+kat.red.mix_orange = {desc = "Mixes in orange", color = ucolors.saturation(ucolors.brighten(ucolors.blend(color_2a.red, color_2a.orange, 0.2), 0.3), 0.8)}
+kat.red.mix_pink = {desc = "Mixes in pink", color = ucolors.saturation(ucolors.blend(color_2a.red, color_2a.pink, 0.2), 1)}
+kat.red.mix_meld_fg = {desc = "Mixes in meld fg color", color = ucolors.blend(color_2a.red, color_2a.f3, 0.2)}
+local _18_
+if (vim.o.background == "light") then
+  _18_ = ucolors.darken(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
+else
+  _18_ = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
+end
+kat.red.mix_green = {desc = "Mixes in green, matches to background", color = _18_}
+kat.red.mix_blue = {desc = "Mixes in blue", color = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.blue, 0.1), 0.2)}
+kat.red.darken = {desc = "Darkens red", color = ucolors.darken(color_2a.red, 0.2)}
+kat.purple.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.purple, color_2a.b0, 0.7)}
+kat.purple.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.purple, color_2a.f0, 0.7)}
+do
+  local plum = ucolors.blend(color_2a.pink, color_2a.purple, 0.65)
+  kat.plum.base = {desc = "Base color, mixes purple and pink", color = plum}
+  kat.plum.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(plum, color_2a.f0, 0.8)}
+  kat.plum.mix_red = {desc = "Mixes in red", color = ucolors.blend(plum, color_2a.red, 0.2)}
+  kat.plum.mix_meld_bg = {desc = "Mixes in meld bg", color = ucolors.blend(plum, color_2a.b3, 0.2)}
+  kat.plum.mix_green = {desc = "Mixes in green", color = ucolors.blend(plum, color_2a.green, 0.2)}
+end
+kat.orange.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.orange, color_2a.f0, 0.7)}
+kat.orange.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.orange, color_2a.b0, 0.7)}
+kat.orange.mix_green = {desc = "Mixes in green", color = ucolors.blend(color_2a.orange, color_2a.green, 0.2)}
+kat.orange.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.orange, color_2a.blue, 0.2)}
+kat.orange.mix_sixth_bg = {desc = "Mixes in sixth bg", color = ucolors.saturation(ucolors.blend(color_2a.orange, color_2a.b5, 0.2), 1)}
+kat.orange.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.orange, color_2a.red, 0.4)}
+kat.pink.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.pink, color_2a.f0, 0.6)}
+kat.pink.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.pink, color_2a.b0, 0.6)}
+kat.pink.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.pink, color_2a.red, 0.2)}
+kat.pink.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.pink, color_2a.blue, 0.2)}
+kat.pink.mix_purple = {desc = "Mixes in purple", color = ucolors.blend(color_2a.pink, color_2a.purple, 0.2)}
+kat.pink.mix_green = {desc = "Mixes in green", color = ucolors.blend(color_2a.pink, color_2a.green, 0.2)}
+do
+  local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
+  kat.pink.mix_teal = {desc = "Mixes in teal", color = ucolors.blend(color_2a.pink, teal, 0.2)}
+end
+kat.pink.mix_meld_fg = {desc = "Mix meld fg", color = ucolors.blend(color_2a.pink, color_2a.f3)}
+kat.pink.mix_meld_bg = {desc = "Mix meld bg", color = ucolors.blend(color_2a.pink, color_2a.b3)}
+kat.pink.mix_sixth_bg = {desc = "Mix sixth bg", color = ucolors.blend(color_2a.pink, color_2a.b5)}
 return _2amodule_2a
