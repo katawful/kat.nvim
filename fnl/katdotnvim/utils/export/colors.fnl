@@ -55,7 +55,6 @@
 
 ;; Set foreground variations
 ;; Naming: variation_fg
-;; TODO: rename last two variations
 
 (set kat.fg.umbra {:desc "Umbra/second color, lighter shadow variation"
                    :color color*.f1})
@@ -81,7 +80,6 @@
 
 ;; Set background variations
 ;; Naming: variation_bg
-;; TODO: rename last two variations
 
 (set kat.bg.umbra {:desc "Umbra/second color, lighter shadow variation"
                    :color color*.b1})
