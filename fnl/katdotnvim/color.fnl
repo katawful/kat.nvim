@@ -171,9 +171,8 @@
 ;;; Output colors as table
 ;;; We use a mutable table instead of variables since def is a const
 ;;; Each color variation can have a description
-;;; Naming: color_match, mix_color-a_color-b, color_saturation-amount
-;;; Number is brighter background, darker foreground in 20% luminance steps
-;;; also note that '_' is used, for maximum Lua compatibility
+;;; Naming: color.match, color.mix_color-b, color.saturation-amount
+;;; '_' is used, for maximum Lua compatibility
 (def kat {:pink {}
           :red {}
           :blue {}
@@ -185,14 +184,14 @@
           :fg {}
           :bg {}})
 
-;; Set base colors and fg/bg
+;;; Set base colors and fg/bg
 (set kat.pink.base {:desc "Base color, no changes applied" :color color*.pink})
 (set kat.red.base {:desc "Base color, no changes applied" :color color*.red})
 (set kat.blue.base {:desc "Base color, no changes applied" :color color*.blue})
+;; Note, use green_match_auto if you just need green
 (set kat.green.base {:desc "Base color, no changes applied"
                      :color color*.green})
 
-; Note, use green_match_auto if you just need green
 (set kat.purple.base {:desc "Base color, no changes applied"
                       :color color*.purple})
 
@@ -202,7 +201,7 @@
 (set kat.fg.base {:desc "Base color, no changes applied" :color color*.f0})
 (set kat.bg.base {:desc "Base color, no changes applied" :color color*.b0})
 
-;; Set foreground variations
+;;; Set foreground variations
 ;; Naming: variation_fg
 
 (set kat.fg.umbra {:desc "Umbra/second color, lighter shadow variation"
@@ -227,7 +226,7 @@
                                  (ucolors.brighten 1))
                              color*.f0)})
 
-;; Set background variations
+;;; Set background variations
 ;; Naming: variation_bg
 
 (set kat.bg.umbra {:desc "Umbra/second color, lighter shadow variation"
