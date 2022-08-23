@@ -66,6 +66,9 @@ end
 kat.green.auto = {desc = "Auto matching color, used to increase contrast depending on background", color = _3_}
 kat.green.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.green, color_2a.f0, 0.5)}
 kat.green.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.green, color_2a.b0, 0.5)}
+kat.green.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.green, color_2a.blue, 0.5)}
+kat.green.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.green, color_2a.red, 0.2)}
+kat.green.mix_purple = {desc = "Mixes in purple", color = ucolors.saturation(ucolors.blend(color_2a.green, color_2a.purple, 0.3), 0.8)}
 kat.blue.mix_orange_match_fg = {desc = "Mixes in orange, then matches to base fg color", color = ucolors.blend(ucolors.blend(color_2a.orange, color_2a.f0, 0.1), color_2a.blue, 0.2)}
 kat.blue.darker = {desc = "Darkens color by 20%", color = ucolors.darken(color_2a.blue, 0.2)}
 kat.blue.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.blue, color_2a.f0, 0.5)}
@@ -80,20 +83,36 @@ do
     _5_ = ucolors.brighten(ucolors.blend(teal, color_2a.f5, 0.5), 0.4)
   end
   kat.teal.auto = {desc = "Auto matches based on background", color = _5_}
+  kat.teal.mix_purple = {desc = "Mixes in purple", color = ucolors.brighten(ucolors.blend(teal, color_2a.purple, 0.2), 0.2)}
+  kat.teal.mix_red = {desc = "Mixes in red", color = ucolors.blend(teal, color_2a.red, 0.3)}
+  kat.teal.mix_red_brighten = {desc = "Mixes in red, brightens", color = ucolors.saturation(ucolors.blend(ucolors.blend(teal, color_2a.red, 0.3), 0.1), 0.1)}
+  kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
+  kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
+  kat.teal.mix_shadow_fg = {desc = "Mixes in shadow fg", color = ucolors.darken(ucolors.blend(teal, color_2a.f2, 0.8), 0.2)}
+  if (vim.o.background == "light") then
+    local _7_
+    if (vim.o.background == "light") then
+      _7_ = ucolors.darken(ucolors.blend(teal, color_2a.green, 0.3), 0.4)
+    else
+      _7_ = ucolors.brighten(ucolors.blend(teal, color_2a.green, 0.3), 0.2)
+    end
+    kat.teal.mix_green = {desc = "Mixes in green, matches background", color = _7_}
+  else
+  end
 end
 kat.red.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.red, color_2a.b0, 0.7)}
 kat.red.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.red, color_2a.f0, 0.6)}
-kat.red.mix_purple = {desc = "Mixes in purple", color = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.purple, 0.2), 0.1)}
+kat.red.mix_red = {desc = "Mixes in red", color = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.red, 0.2), 0.1)}
 kat.red.mix_orange = {desc = "Mixes in orange", color = ucolors.saturation(ucolors.brighten(ucolors.blend(color_2a.red, color_2a.orange, 0.2), 0.3), 0.8)}
 kat.red.mix_pink = {desc = "Mixes in pink", color = ucolors.saturation(ucolors.blend(color_2a.red, color_2a.pink, 0.2), 1)}
 kat.red.mix_meld_fg = {desc = "Mixes in meld fg color", color = ucolors.blend(color_2a.red, color_2a.f3, 0.2)}
-local _7_
+local _10_
 if (vim.o.background == "light") then
-  _7_ = ucolors.darken(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
+  _10_ = ucolors.darken(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
 else
-  _7_ = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
+  _10_ = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
 end
-kat.red.mix_green = {desc = "Mixes in green, matches to background", color = _7_}
+kat.red.mix_green = {desc = "Mixes in green, matches to background", color = _10_}
 kat.red.mix_blue = {desc = "Mixes in blue", color = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.blue, 0.1), 0.2)}
 kat.red.darken = {desc = "Darkens red", color = ucolors.darken(color_2a.red, 0.2)}
 kat.purple.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.purple, color_2a.b0, 0.7)}
@@ -111,11 +130,18 @@ kat.orange.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(
 kat.orange.mix_green = {desc = "Mixes in green", color = ucolors.blend(color_2a.orange, color_2a.green, 0.2)}
 kat.orange.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.orange, color_2a.blue, 0.2)}
 kat.orange.mix_sixth_bg = {desc = "Mixes in sixth bg", color = ucolors.saturation(ucolors.blend(color_2a.orange, color_2a.b5, 0.2), 1)}
+kat.orange.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.orange, color_2a.red, 0.4)}
 kat.pink.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.pink, color_2a.f0, 0.6)}
 kat.pink.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.pink, color_2a.b0, 0.6)}
 kat.pink.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.pink, color_2a.red, 0.2)}
 kat.pink.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.pink, color_2a.blue, 0.2)}
 kat.pink.mix_purple = {desc = "Mixes in purple", color = ucolors.blend(color_2a.pink, color_2a.purple, 0.2)}
 kat.pink.mix_green = {desc = "Mixes in green", color = ucolors.blend(color_2a.pink, color_2a.green, 0.2)}
-print(vim.inspect(kat))
+do
+  local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
+  kat.pink.mix_teal = {desc = "Mixes in teal", color = ucolors.blend(color_2a.pink, teal, 0.2)}
+end
+kat.pink.mix_meld_fg = {desc = "Mix meld fg", color = ucolors.blend(color_2a.pink, color_2a.f3)}
+kat.pink.mix_meld_bg = {desc = "Mix meld bg", color = ucolors.blend(color_2a.pink, color_2a.b3)}
+kat.pink.mix_sixth_bg = {desc = "Mix sixth bg", color = ucolors.blend(color_2a.pink, color_2a.b5)}
 return _2amodule_2a
