@@ -101,6 +101,63 @@ Currently the only feature is color fading for the `Function` highlight group. S
 
 ![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/flashy.GIF)
 
+# Using in Other Plugins
+To make integration with other plugins easier, the majority of colors used in this plugin are exported in `katdotnvim.color` in the table named `kat`:
+```lua
+local kat_colors = require('katdotnvim.color').kat
+```
+There are 10 tables contained in `kat`:
+
+- pink
+- red
+- blue
+- green
+- purple
+- orange
+- teal
+- plum
+- fg
+- bg
+
+'fg' and 'bg' are the foreground and background colors.
+They are generally not mixed with other colors, but rather come from earlier definitions.
+The other color tables contain the various mixings used throughout this colorscheme.
+
+Within each color table contains a table of the colors themselves, each with 2 keys:
+
+- 'desc`
+- 'color'
+
+'desc' contains a description of the color, while 'color' is the color itself.
+
+The following is a snippet to only get the descriptions of a color table:
+```lua
+vim.api.nvim_create_user_command("KatColor",
+    function(args)
+        local output = {}
+        for _, color in pairs(args.fargs) do
+            local col_table = require("katdotnvim.color").kat[color]
+            if col_table then
+                output[color] = {}
+                for key, value in pairs(col_table) do
+                    output[color][key] = value.desc
+                end
+            end
+        end
+        table.sort(output)
+        print(vim.inspect(output))
+    end, {nargs = "+"})
+```
+Simply input the colors you want from above and it will print the colors to `:messages`.
+
+## Example
+```lua
+local pink = require("katdotnvim.color").kat.pink
+
+vim.api.nvim_set_hl(0, "Normal", {guifg = pink.base.color})
+```
+Colors are very simple to use. You can either import just `kat` to get all the colors you need at once, or the sub tables like `kat.pink`. It is entirely up to you.
+
 # Contributing
 I am always open to expanding this colorscheme.
 This plugin was written in Fennel with Aniseed.

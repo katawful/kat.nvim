@@ -18,6 +18,7 @@ CONTENTS                                                     *kat.nvim-contents*
 2. Terminal Support ..................................|kat.nvim-terminal|
 3. Supported Plugins..................................|kat.nvim-plugins|
 4. Supported Filetypes................................|kat.nvim-filetypes|
+5. Using in Other Plugins.............................|kat.nvim-develop|
 5. Contributing.......................................|kat.nvim-contributing|
 
 ==============================================================================
@@ -129,6 +130,59 @@ This is the list of filetypes that match this colorscheme.
 			   Vimscript : 'vim'
 			    Markdown : 'markdown'
 			     Vimwiki : 'vimwiki'
+
+==============================================================================
+Section 5: Using in Other Plugins                            *kat.nvim-develop*
+The Lua module `katdotnvim.color` provides all the colors used for this
+colorscheme within the table `kat`. There are 10 sub-tables within `kat`:
+                                                      *kat.nvim-develop-colors*
+
+                           'pink'
+			   'red'
+			   'blue'
+			   'green'
+			   'purple'
+			   'orange'
+			   'teal'
+			   'plum'
+			   'fg'
+			   'bg'
+
+'fg' and 'bg' are the foreground and background colors. They are generally not
+mixed with other colors, but rather come from earlier definitions. The other
+color tables contain the various mixings used throughout this colorscheme.
+
+Within each color table contains a table of the colors themselves, each with 2
+keys: 'desc' and 'color'.
+
+------------------------------------------------------------------------------
+Section 5a: Example                                   *kat.nvim-develop.example*
+
+`local pink = require("katdotnvim.color").kat.pink`
+`vim.api.nvim_set_hl(0, "Normal", {guifg = pink.base.color})`
+
+------------------------------------------------------------------------------
+Section 5b: Printing Color Table Descriptions        *kat.nvim-develop-snippet*
+
+`vim.api.nvim_create_user_command("KatColor",`
+`    function(args)`
+`        local output = {}`
+`        for _, color in pairs(args.fargs) do`
+`            local col_table = require("katdotnvim.color").kat[color]`
+`            if col_table then`
+`                output[color] = {}`
+`                for key, value in pairs(col_table) do`
+`                    output[color][key] = value.desc`
+`                end`
+`            end`
+`        end`
+`        table.sort(output)`
+`        print(vim.inspect(output))`
+`    end, {nargs = "+"})`
+
+This prints just the description of each of |kat.nvim-develop.colors| passed
+as arguments to the user-command. Simply execute this somewhere and use at
+your leisure.
 
 ==============================================================================
 Section 5: Contributing                                  *kat.nvim-contributing*
