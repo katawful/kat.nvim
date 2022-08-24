@@ -340,7 +340,7 @@
        {:desc "Mixes in red, brightens"
         :color (-> teal
                    (ucolors.blend color*.red 0.3)
-                   (ucolors.blend 0.1)
+                   (ucolors.brighten 0.1)
                    (ucolors.saturation 0.1))})
   ;; Teal mix pink
   (set kat.teal.mix_pink
@@ -528,12 +528,12 @@
 
 ;; Pink mix meld fg
 (set kat.pink.mix_meld_fg
-     {:desc "Mix meld fg" :color (ucolors.blend color*.pink color*.f3)})
+     {:desc "Mix meld fg" :color (ucolors.blend color*.pink color*.f3 0.2)})
 
 ;; Pink mix meld bg
 (set kat.pink.mix_meld_bg
-     {:desc "Mix meld bg" :color (ucolors.blend color*.pink color*.b3)})
+     {:desc "Mix meld bg" :color (ucolors.blend color*.pink color*.b3 0.2)})
 
 ;; Pink mix sixth bg
 (set kat.pink.mix_sixth_bg
-     {:desc "Mix sixth bg" :color (ucolors.blend color*.pink color*.b5)})
+     {:desc "Mix sixth bg" :color (ucolors.blend color*.pink color*.b5 0.2)})

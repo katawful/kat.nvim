@@ -178,7 +178,7 @@ do
   kat.teal.auto = {desc = "Auto matches based on background", color = _13_}
   kat.teal.mix_purple = {desc = "Mixes in purple", color = ucolors.brighten(ucolors.blend(teal, color_2a.purple, 0.2), 0.2)}
   kat.teal.mix_red = {desc = "Mixes in red", color = ucolors.blend(teal, color_2a.red, 0.3)}
-  kat.teal.mix_red_brighten = {desc = "Mixes in red, brightens", color = ucolors.saturation(ucolors.blend(ucolors.blend(teal, color_2a.red, 0.3), 0.1), 0.1)}
+  kat.teal.mix_red_brighten = {desc = "Mixes in red, brightens", color = ucolors.saturation(ucolors.brighten(ucolors.blend(teal, color_2a.red, 0.3), 0.1), 0.1)}
   kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
   kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
   kat.teal.mix_shadow_fg = {desc = "Mixes in shadow fg", color = ucolors.darken(ucolors.blend(teal, color_2a.f2, 0.8), 0.2)}
@@ -234,7 +234,7 @@ do
   local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
   kat.pink.mix_teal = {desc = "Mixes in teal", color = ucolors.blend(color_2a.pink, teal, 0.2)}
 end
-kat.pink.mix_meld_fg = {desc = "Mix meld fg", color = ucolors.blend(color_2a.pink, color_2a.f3)}
-kat.pink.mix_meld_bg = {desc = "Mix meld bg", color = ucolors.blend(color_2a.pink, color_2a.b3)}
-kat.pink.mix_sixth_bg = {desc = "Mix sixth bg", color = ucolors.blend(color_2a.pink, color_2a.b5)}
+kat.pink.mix_meld_fg = {desc = "Mix meld fg", color = ucolors.blend(color_2a.pink, color_2a.f3, 0.2)}
+kat.pink.mix_meld_bg = {desc = "Mix meld bg", color = ucolors.blend(color_2a.pink, color_2a.b3, 0.2)}
+kat.pink.mix_sixth_bg = {desc = "Mix sixth bg", color = ucolors.blend(color_2a.pink, color_2a.b5, 0.2)}
 return _2amodule_2a
