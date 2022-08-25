@@ -37,11 +37,14 @@ Simply set `vim.g.kat_nvim_dont_render` to true and reload the colorscheme.
 
 The rendered files themselves support any lingering 0.6 features, and work with each variant and with terminal colors.
 
-# 0.7 support
-This plugin uses Neovim 0.7 features if available.
-There is no major difference in use with older versions for this plugin, but as time continues and 0.7 feature become the norm, 0.6 support and below will slowly be taken out of this plugin. A deprecation process will be done when this starts.
-
-For those wondering, when comparing 0.7 and 0.6 based highlighting function support for rendered files, I noticed a less than 1ms difference in startup time.
+# 0.6 Deprecation Warning
+As of 2022-08-24, Neovim 0.6 support is now considered deprecated.
+Any use of 0.6 features will print warnings, and for the first official release will be removed entirely.
+This is expected sometime within September 2022.
+Please upgrade.
+For Ubuntu users, the [Neovim PPA](https://launchpad.net/~neovim-ppa/+archive/ubuntu/stable) is on 0.7.2 as of this commit.
+Fedora and Arch are on 0.7.2 as well.
+Debian and other distro users that do not have access to 0.7.2 in their package manager will have to find a way to use the current release.
 
 # Terminal Colors Support
 The following terminals can have a 16 color config file generated based on the current in use kat.nvim theme:

@@ -11,11 +11,29 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local options, _ = autoload("katdotnvim.utils.options.init"), nil
+local message, options, _, _0 = autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), nil, nil
+_2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["options"] = options
-_2amodule_locals_2a["_"] = _
+_2amodule_locals_2a["_"] = _0
+_2amodule_locals_2a["_"] = _0
 local function init(in_contrast)
   options.default()
+  local _1_
+  do
+    local result_2_auto = vim.fn.has("nvim-0.7")
+    if (result_2_auto == 0) then
+      _1_ = false
+    else
+      _1_ = true
+    end
+  end
+  if not _1_ then
+    local function mess()
+      return message["warn$"](message["<-table"]("utils.highlight.init", "0.6-deprecation"))
+    end
+    vim.defer_fn(mess, 1000)
+  else
+  end
   if vim.g.colors_name then
     vim.cmd("highlight clear")
   else
@@ -43,11 +61,11 @@ local function init(in_contrast)
     end
     require("katdotnvim.utils.export.init")
     do end (require("katdotnvim.utils.export.render")).init()
-    for _0, v in ipairs(vim.g.kat_nvim_integrations) do
+    for _1, v in ipairs(vim.g.kat_nvim_integrations) do
       local output = ("katdotnvim.highlights.integrations." .. v)
       require(output).init()
     end
-    for _0, v in pairs(vim.g.kat_nvim_filetype) do
+    for _1, v in pairs(vim.g.kat_nvim_filetype) do
       local output = ("katdotnvim.highlights.filetype." .. v)
       require(output).init()
     end
@@ -62,14 +80,14 @@ local function init(in_contrast)
     end
     require("katdotnvim.utils.export.init")
     do end (require("katdotnvim.utils.export.render")).init()
-    for _0, v in ipairs(vim.g.kat_nvim_integrations) do
+    for _1, v in ipairs(vim.g.kat_nvim_integrations) do
       local output = ("katdotnvim.exported.integrations." .. v .. "-" .. background .. "-" .. contrast)
       if (v ~= "gitsigns") then
         require(output).init()
       else
       end
     end
-    for _0, v in pairs(vim.g.kat_nvim_filetype) do
+    for _1, v in pairs(vim.g.kat_nvim_filetype) do
       local output = ("katdotnvim.exported.filetype." .. v .. "-" .. background .. "-" .. contrast)
       require(output).init()
     end
