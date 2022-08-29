@@ -18,7 +18,7 @@ local function decode(json)
   return vim.json.decode(json)
 end
 _2amodule_2a["decode"] = decode
-local function __3efile_21(json, file)
+local function __3efile_21(file, json)
   os.execute(("rm " .. file))
   local json_file = io.open(file, "w")
   local function close_handlers_8_auto(ok_9_auto, ...)

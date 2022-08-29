@@ -6,7 +6,7 @@
 
 (defn decode [json] "Decode json into a lua table" (vim.json.decode json))
 
-(defn ->file! [json file] "Store json to file" (os.execute (.. "rm " file))
+(defn ->file! [file json] "Store json to file" (os.execute (.. "rm " file))
       (with-open [json-file (io.open file :w)]
         (json-file:write json)))
 
