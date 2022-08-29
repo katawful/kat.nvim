@@ -15,3 +15,8 @@
         (if json-file
             (json-file:read :*a)
             "{}")))
+
+(defn file-parse [suffix] "Returns 'high-colors' function from a file
+Searches from 'katdotnvim.highlights'"
+  (let [file (string.format "katdotnvim.highlights.%s" suffix)]
+    ((. (require file) :high-colors))))

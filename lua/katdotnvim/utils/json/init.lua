@@ -55,4 +55,9 @@ local function _3c_file(file)
   return close_handlers_8_auto(_G.xpcall(_4_, (package.loaded.fennel or debug).traceback))
 end
 _2amodule_2a["<-file"] = _3c_file
+local function file_parse(suffix)
+  local file = string.format("katdotnvim.highlights.%s", suffix)
+  return require(file)["high-colors"]()
+end
+_2amodule_2a["file-parse"] = file_parse
 return _2amodule_2a
