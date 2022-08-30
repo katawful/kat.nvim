@@ -7,14 +7,11 @@
 
 (defonce files [:main
                 :syntax
-                :integrations.airline
-                :integrations.bufferline
                 :integrations.cmp
                 :integrations.coc
                 :integrations.fugitive
                 :integrations.gitsigns
                 :integrations.indent_blankline
-                :integrations.lightline
                 :integrations.lsp
                 :integrations.startify
                 :integrations.treesitter
@@ -25,7 +22,21 @@
 
 (defonce path (.. std-data "/kat.nvim/json/"))
 
-(defn encode [table] "Encode lua table as a json" (vim.json.encode table))
+(defn encode [tbl] "Encode lua table as a json"
+  (let [encodee []
+        source tbl]
+    (each [_ value (pairs source)]
+      ;; check for function
+      (if (and (= (type value) :function) (not= (value) nil))
+          (each [_ nest (pairs [(value)])]
+            (table.insert encodee nest))
+          (or (= (type value) :table) (not= (value) nil))
+          ;; if just table
+          (if (= (type (?. value 1)) :table)
+              (each [_ nest (pairs value)]
+                (table.insert encodee nest))
+              (table.insert encodee value))))
+    (vim.json.encode encodee)))
 
 (defn decode [json] "Decode json into a lua table" (vim.json.decode json))
 

@@ -17,12 +17,38 @@ local function _1_(...)
 end
 std_data = ((_2amodule_2a)["std-data"] or _1_(...))
 do end (_2amodule_2a)["std-data"] = std_data
-local files = ((_2amodule_2a).files or {"main", "syntax", "integrations.airline", "integrations.bufferline", "integrations.cmp", "integrations.coc", "integrations.fugitive", "integrations.gitsigns", "integrations.indent_blankline", "integrations.lightline", "integrations.lsp", "integrations.startify", "integrations.treesitter", "integrations.ts_rainbow", "filetype.markdown", "filetype.vim", "filetype.vimwiki"})
+local files = ((_2amodule_2a).files or {"main", "syntax", "integrations.cmp", "integrations.coc", "integrations.fugitive", "integrations.gitsigns", "integrations.indent_blankline", "integrations.lsp", "integrations.startify", "integrations.treesitter", "integrations.ts_rainbow", "filetype.markdown", "filetype.vim", "filetype.vimwiki"})
 do end (_2amodule_2a)["files"] = files
 local path = ((_2amodule_2a).path or (std_data .. "/kat.nvim/json/"))
 do end (_2amodule_2a)["path"] = path
-local function encode(table)
-  return vim.json.encode(table)
+local function encode(tbl)
+  local encodee = {}
+  local source = tbl
+  for _, value in pairs(source) do
+    if ((type(value) == "function") and (value() ~= nil)) then
+      for _0, nest in pairs({value()}) do
+        table.insert(encodee, nest)
+      end
+    elseif ((type(value) == "table") or (value() ~= nil)) then
+      local function _3_()
+        local t_2_ = value
+        if (nil ~= t_2_) then
+          t_2_ = (t_2_)[1]
+        else
+        end
+        return t_2_
+      end
+      if (type(_3_()) == "table") then
+        for _0, nest in pairs(value) do
+          table.insert(encodee, nest)
+        end
+      else
+        table.insert(encodee, value)
+      end
+    else
+    end
+  end
+  return vim.json.encode(encodee)
 end
 _2amodule_2a["encode"] = encode
 local function decode(json)
