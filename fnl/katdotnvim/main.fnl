@@ -1,6 +1,8 @@
 (module katdotnvim.main
         {autoload {options katdotnvim.utils.options.init
-                   message katdotnvim.utils.message.init}
+                   message katdotnvim.utils.message.init
+                   run katdotnvim.utils.highlight.run
+                   read katdotnvim.utils.json.read}
          require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros
                          katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
@@ -44,23 +46,15 @@
               ((. (require output) :init))))
           ;; do the prerendered path
           (do
-            ((. (require (.. :katdotnvim.exported.main- background "-" contrast))
-                :init))
-            ((. (require (.. :katdotnvim.exported.syntax- background "-"
-                             contrast)) :init))
+            (run.highlight$<-table (read.file! :main))
+            (run.highlight$<-table (read.file! :syntax))
             ((. (require :katdotnvim.highlights.terminal) :init))
             (if (= vim.g.kat_nvim_stupidFeatures true)
                 ((. (require :katdotnvim.stupid) :stupidFunction)))
-            (require :katdotnvim.utils.export.init) 
+            (require :katdotnvim.utils.export.init)
             ;; add integrations
             ((. (require :katdotnvim.utils.export.render) :init))
             (each [_ v (ipairs vim.g.kat_nvim_integrations)]
-              (local output
-                     (.. :katdotnvim.exported.integrations. v "-" background
-                         "-" contrast))
-              (when (not= v :gitsigns)
-                ((. (require output) :init))))
+              (run.highlight$<-table (read.file! (.. "integrations." v))))
             (each [_ v (pairs vim.g.kat_nvim_filetype)]
-              (local output (.. :katdotnvim.exported.filetype. v "-" background
-                                "-" contrast))
-              ((. (require output) :init))))))
+              (run.highlight$<-table (read.file! (.. "filetype." v)))))))

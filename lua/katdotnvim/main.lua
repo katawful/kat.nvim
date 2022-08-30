@@ -11,9 +11,11 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local message, options, _, _0 = autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), nil, nil
+local message, options, read, run, _, _0 = autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.highlight.run"), nil, nil
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["options"] = options
+_2amodule_locals_2a["read"] = read
+_2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0
 local function init(in_contrast)
@@ -71,8 +73,8 @@ local function init(in_contrast)
     end
     return nil
   else
-    do end (require(("katdotnvim.exported.main-" .. background .. "-" .. contrast))).init()
-    do end (require(("katdotnvim.exported.syntax-" .. background .. "-" .. contrast))).init()
+    run["highlight$<-table"](read["file!"]("main"))
+    run["highlight$<-table"](read["file!"]("syntax"))
     do end (require("katdotnvim.highlights.terminal")).init()
     if (vim.g.kat_nvim_stupidFeatures == true) then
       do end (require("katdotnvim.stupid")).stupidFunction()
@@ -81,15 +83,10 @@ local function init(in_contrast)
     require("katdotnvim.utils.export.init")
     do end (require("katdotnvim.utils.export.render")).init()
     for _1, v in ipairs(vim.g.kat_nvim_integrations) do
-      local output = ("katdotnvim.exported.integrations." .. v .. "-" .. background .. "-" .. contrast)
-      if (v ~= "gitsigns") then
-        require(output).init()
-      else
-      end
+      run["highlight$<-table"](read["file!"](("integrations." .. v)))
     end
     for _1, v in pairs(vim.g.kat_nvim_filetype) do
-      local output = ("katdotnvim.exported.filetype." .. v .. "-" .. background .. "-" .. contrast)
-      require(output).init()
+      run["highlight$<-table"](read["file!"](("filetype." .. v)))
     end
     return nil
   end
