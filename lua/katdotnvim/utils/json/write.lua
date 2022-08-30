@@ -17,7 +17,7 @@ local header = ((_2amodule_2a).header or string.format("%s", json.path))
 do end (_2amodule_2a)["header"] = header
 local function file_21(file)
   vim.fn.system(string.format("mkdir -p %s", header))
-  return json["->file!"]((json.path .. file .. ".json"), json.encode(json["file-parse"](file)))
+  return json["->file!"](string.format("%s/%s-%s-%s.json", json.path, file, vim.g.colors_name, vim.o.background), json.encode(json["file-parse"](file)))
 end
 _2amodule_2a["file!"] = file_21
 return _2amodule_2a
