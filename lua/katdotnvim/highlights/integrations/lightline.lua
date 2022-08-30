@@ -1,5 +1,5 @@
 local _2afile_2a = "fnl/katdotnvim/highlights/integrations/lightline.fnl"
-local ucolors = require("katdotnvim.utils.highlights.utils")
+local ucolors = require("katdotnvim.utils.highlight.utils")
 local colors = require("katdotnvim.color")
 local syntax = require("katdotnvim.highlights.syntax")
 local groups = require("katdotnvim.highlights.main")
