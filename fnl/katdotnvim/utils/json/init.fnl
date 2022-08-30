@@ -34,10 +34,11 @@
         (json-file:write json)))
 
 (defn <-file [file] "Read stored json"
-      (with-open [json-file (io.open file :r)]
+      (let [json-file (io.open file :r)]
         (if json-file
-            (json-file:read :*a)
-            "{}")))
+          (do (json-file:read :*a)
+            (io.close json-file))
+          "{}")))
 
 (defn file-parse [suffix] "Returns 'high-colors' function from a file
 Searches from 'katdotnvim.highlights'"

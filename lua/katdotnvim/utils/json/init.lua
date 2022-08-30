@@ -48,22 +48,12 @@ end
 _2amodule_2a["->file!"] = __3efile_21
 local function _3c_file(file)
   local json_file = io.open(file, "r")
-  local function close_handlers_8_auto(ok_9_auto, ...)
-    json_file:close()
-    if ok_9_auto then
-      return ...
-    else
-      return error(..., 0)
-    end
+  if json_file then
+    json_file:read("*a")
+    return io.close(json_file)
+  else
+    return "{}"
   end
-  local function _5_()
-    if json_file then
-      return json_file:read("*a")
-    else
-      return "{}"
-    end
-  end
-  return close_handlers_8_auto(_G.xpcall(_5_, (package.loaded.fennel or debug).traceback))
 end
 _2amodule_2a["<-file"] = _3c_file
 local function file_parse(suffix)
