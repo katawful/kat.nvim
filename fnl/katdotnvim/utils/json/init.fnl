@@ -47,8 +47,9 @@
 (defn <-file [file] "Read stored json"
       (let [json-file (io.open file :r)]
         (if json-file
-          (do (json-file:read :*a)
-            (io.close json-file))
+          (do (let [out (json-file:read :*a)]
+                (io.close json-file)
+                out))
           "{}")))
 
 (defn file-parse [suffix] "Returns 'high-colors' function from a file

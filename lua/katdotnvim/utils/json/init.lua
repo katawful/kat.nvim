@@ -66,17 +66,18 @@ local function __3efile_21(file, json)
       return error(..., 0)
     end
   end
-  local function _3_()
+  local function _8_()
     return json_file:write(json)
   end
-  return close_handlers_8_auto(_G.xpcall(_3_, (package.loaded.fennel or debug).traceback))
+  return close_handlers_8_auto(_G.xpcall(_8_, (package.loaded.fennel or debug).traceback))
 end
 _2amodule_2a["->file!"] = __3efile_21
 local function _3c_file(file)
   local json_file = io.open(file, "r")
   if json_file then
-    json_file:read("*a")
-    return io.close(json_file)
+    local out = json_file:read("*a")
+    io.close(json_file)
+    return out
   else
     return "{}"
   end
