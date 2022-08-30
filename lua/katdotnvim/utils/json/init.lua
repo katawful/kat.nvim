@@ -10,6 +10,17 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
+local std_data
+local function _1_(...)
+  local path = vim.fn.stdpath("data")
+  return (path .. "/kat")
+end
+std_data = ((_2amodule_2a)["std-data"] or _1_(...))
+do end (_2amodule_2a)["std-data"] = std_data
+local files = ((_2amodule_2a).files or {"main", "syntax", "integrations.airline", "integrations.bufferline", "integrations.cmp", "integrations.coc", "integrations.fugitive", "integrations.gitsigns", "integrations.indent_blankline", "integrations.lightline", "integrations.lsp", "integrations.startify", "integrations.treesitter", "integrations.ts_rainbow", "filetype.markdown", "filetype.vim", "filetype.vimwiki"})
+do end (_2amodule_2a)["files"] = files
+local path = ((_2amodule_2a).path or (std_data .. "/kat.nvim/json/"))
+do end (_2amodule_2a)["path"] = path
 local function encode(table)
   return vim.json.encode(table)
 end
@@ -29,10 +40,10 @@ local function __3efile_21(file, json)
       return error(..., 0)
     end
   end
-  local function _2_()
+  local function _3_()
     return json_file:write(json)
   end
-  return close_handlers_8_auto(_G.xpcall(_2_, (package.loaded.fennel or debug).traceback))
+  return close_handlers_8_auto(_G.xpcall(_3_, (package.loaded.fennel or debug).traceback))
 end
 _2amodule_2a["->file!"] = __3efile_21
 local function _3c_file(file)
@@ -45,14 +56,14 @@ local function _3c_file(file)
       return error(..., 0)
     end
   end
-  local function _4_()
+  local function _5_()
     if json_file then
       return json_file:read("*a")
     else
       return "{}"
     end
   end
-  return close_handlers_8_auto(_G.xpcall(_4_, (package.loaded.fennel or debug).traceback))
+  return close_handlers_8_auto(_G.xpcall(_5_, (package.loaded.fennel or debug).traceback))
 end
 _2amodule_2a["<-file"] = _3c_file
 local function file_parse(suffix)

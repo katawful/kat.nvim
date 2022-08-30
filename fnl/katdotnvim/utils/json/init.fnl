@@ -2,6 +2,29 @@
 
 ;;; JSON manipulation
 
+(defonce std-data (let [path (vim.fn.stdpath :data)]
+                    (.. path "/kat")))
+
+(defonce files [:main
+                :syntax
+                :integrations.airline
+                :integrations.bufferline
+                :integrations.cmp
+                :integrations.coc
+                :integrations.fugitive
+                :integrations.gitsigns
+                :integrations.indent_blankline
+                :integrations.lightline
+                :integrations.lsp
+                :integrations.startify
+                :integrations.treesitter
+                :integrations.ts_rainbow
+                :filetype.markdown
+                :filetype.vim
+                :filetype.vimwiki])
+
+(defonce path (.. std-data "/kat.nvim/json/"))
+
 (defn encode [table] "Encode lua table as a json" (vim.json.encode table))
 
 (defn decode [json] "Decode json into a lua table" (vim.json.decode json))
