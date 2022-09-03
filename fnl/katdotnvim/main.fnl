@@ -1,6 +1,7 @@
 (module katdotnvim.main
         {autoload {options katdotnvim.utils.options.init
                    message katdotnvim.utils.message.init
+                   color katdotnvim.color
                    run katdotnvim.utils.highlight.run
                    read katdotnvim.utils.json.read}
          require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros
@@ -23,6 +24,9 @@
         (vim.cmd "syntax reset"))
       (def contrast in-contrast)
       (def background vim.o.background)
+      (def contrast-mut [in-constrast])
+      (def background-mut [vim.o.background])
+      (color.update)
       ;; set g:colors_name for hard and soft themes
       (if (= contrast :hard)
           (let- :g :colors_name :kat.nvim)

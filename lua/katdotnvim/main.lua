@@ -11,7 +11,8 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local message, options, read, run, _, _0 = autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.highlight.run"), nil, nil
+local color, message, options, read, run, _, _0 = autoload("katdotnvim.color"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.highlight.run"), nil, nil
+_2amodule_locals_2a["color"] = color
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["options"] = options
 _2amodule_locals_2a["read"] = read
@@ -48,6 +49,11 @@ local function init(in_contrast)
   _2amodule_2a["contrast"] = contrast
   local background = vim.o.background
   _2amodule_2a["background"] = background
+  local contrast_mut = {__fnl_global__in_2dconstrast}
+  _2amodule_2a["contrast-mut"] = contrast_mut
+  local background_mut = {vim.o.background}
+  _2amodule_2a["background-mut"] = background_mut
+  color.update()
   if (contrast == "hard") then
     vim.g["colors_name"] = "kat.nvim"
   else
