@@ -40,8 +40,8 @@ local function render_file()
       end
     end
   end
-  vim.g["kat_nvim_max_version"] = old_version
   vim.g["kat_nvim_dontRender"] = old_dontRender
+  vim.g["kat_nvim_max_version"] = old_version
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
@@ -129,8 +129,8 @@ local function override(args)
     render_color({args.source, args.dark_soft, "kat.nwim"}, {"dark", "soft"})
   else
   end
-  vim.g["kat_nvim_max_version"] = old_version
   vim.g["kat_nvim_dontRender"] = old_dontRender
+  vim.g["kat_nvim_max_version"] = old_version
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
@@ -149,8 +149,8 @@ local function override_all(args)
   assert((#assertion == 2), "only 2 arguments allowed")
   do end (vim.g)["kat_nvim_dontRender"] = true
   render_color_2a({args.source, args[1]})
-  do end (vim.g)["kat_nvim_max_version"] = old_version
-  vim.g["kat_nvim_dontRender"] = old_dontRender
+  do end (vim.g)["kat_nvim_dontRender"] = old_dontRender
+  vim.g["kat_nvim_max_version"] = old_version
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
