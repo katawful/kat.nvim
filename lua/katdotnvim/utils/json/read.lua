@@ -20,4 +20,8 @@ local function file_21(file)
   return json.decode(json["<-file"](string.format("%s%s-%s-%s.json", header, file, vim.g.colors_name, (main["background-mut"])[1])))
 end
 _2amodule_2a["file!"] = file_21
+local function full_file_21(full_file)
+  return json.decode(json["<-file"](string.format("%s%s", header, full_file)))
+end
+_2amodule_2a["full-file!"] = full_file_21
 return _2amodule_2a

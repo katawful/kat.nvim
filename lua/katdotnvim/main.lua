@@ -11,11 +11,12 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local color, json, message, options, read, run, _, _0 = autoload("katdotnvim.color"), autoload("katdotnvim.utils.json.init"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.highlight.run"), nil, nil
+local color, json, message, options, override, read, run, _, _0 = autoload("katdotnvim.color"), autoload("katdotnvim.utils.json.init"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), autoload("katdotnvim.utils.override.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.highlight.run"), nil, nil
 _2amodule_locals_2a["color"] = color
 _2amodule_locals_2a["json"] = json
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["options"] = options
+_2amodule_locals_2a["override"] = override
 _2amodule_locals_2a["read"] = read
 _2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["_"] = _0
@@ -60,24 +61,21 @@ local function init(in_contrast)
   else
     vim.g["colors_name"] = "kat.nwim"
   end
-  local has_render = io.open((json.path .. "main-kat.nvim-dark.json"), "r")
+  local has_render = override["main-files"]()
+  local matcher = string.format("%s-%s.json", vim.g.colors_name, background)
   if has_render then
-    run["highlight$<-table"](read["file!"]("main"))
-    run["highlight$<-table"](read["file!"]("syntax"))
+    for file, _1 in pairs(has_render) do
+      if string.find(file, matcher, 1, true) then
+        run["highlight$<-table"](read["full-file!"](file))
+      else
+      end
+    end
     do end (require("katdotnvim.highlights.terminal")).init()
     if (vim.g.kat_nvim_stupidFeatures == true) then
       do end (require("katdotnvim.stupid")).stupidFunction()
     else
     end
-    require("katdotnvim.utils.export.init")
-    do end (require("katdotnvim.utils.export.render")).init()
-    for _1, v in ipairs(vim.g.kat_nvim_integrations) do
-      run["highlight$<-table"](read["file!"](("integrations." .. v)))
-    end
-    for _1, v in pairs(vim.g.kat_nvim_filetype) do
-      run["highlight$<-table"](read["file!"](("filetype." .. v)))
-    end
-    return io.close(has_render)
+    return require("katdotnvim.utils.export.init")
   else
     do end (require("katdotnvim.highlights.main")).init()
     do end (require("katdotnvim.highlights.syntax")).init()
