@@ -20,10 +20,10 @@ local function file_21(file, json0)
   return json0["->file!"](string.format("%s/%s-%s-%s.json", json0.path, file, vim.g.colors_name, (main["background-mut"])[1]), json0)
 end
 _2amodule_2a["file!"] = file_21
-local function override_file_21(source_json, override)
+local function override_file_21(source_json, override, colors_name)
   vim.fn.system(string.format("mkdir -p %s", header))
   vim.fn.system(string.format("mkdir -p %s", (header .. override)))
-  return json["->file!"](string.format("%s%s/%s-%s.json", header, override, vim.g.colors_name, (main["background-mut"])[1]), source_json)
+  return json["->file!"](string.format("%s%s/%s-%s.json", header, override, colors_name, (main["background-mut"])[1]), source_json)
 end
 _2amodule_2a["override-file!"] = override_file_21
 return _2amodule_2a

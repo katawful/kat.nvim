@@ -12,8 +12,8 @@
                                vim.g.colors_name (. main.background-mut 1))
                 json))
 
-(defn override-file! [source-json override] "Writes a json file to std for overriding"
+(defn override-file! [source-json override colors_name] "Writes a json file to std for overriding"
   (vim.fn.system (string.format "mkdir -p %s" header))
   (vim.fn.system (string.format "mkdir -p %s" (.. header override)))
   (json.->file! (string.format "%s%s/%s-%s.json" header override
-                               vim.g.colors_name (. main.background-mut 1)) source-json))
+                               colors_name (. main.background-mut 1)) source-json))
