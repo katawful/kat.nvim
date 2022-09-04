@@ -107,9 +107,13 @@ local function highlight_24_3c_api(opts)
     else
       c_back = nil
     end
-    local args = {fg = gui_fore, bg = gui_back, ctermfg = c_fore, ctermbg = c_back, special = get.special(opts), blend = get.blend(opts)}
+    local args = {fg = gui_fore, bg = gui_back, ctermfg = c_fore, ctermbg = c_back, special = get.special(opts), default = get.default(opts), blend = get.blend(opts)}
     for k, v in pairs(get["all-attr->table"](opts)) do
       args[k] = v
+    end
+    if args.default then
+      print(vim.inspect(args))
+    else
     end
     return vim.api.nvim_set_hl(0, group, args)
   end

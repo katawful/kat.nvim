@@ -89,9 +89,12 @@ highlighting for Neovim 0.7 and newer users"
                        :ctermfg c-fore
                        :ctermbg c-back
                        :special (get.special opts)
+                       :default (get.default opts)
                        :blend (get.blend opts)}]
              (each [k v (pairs (get.all-attr->table opts))]
                (tset args k v))
+             (when args.default
+               (print (vim.inspect args)))
              (vim.api.nvim_set_hl 0 group args))))
 
 ;; FN -- generate a highlight with the appropriate hex color inputs and group

@@ -86,6 +86,15 @@ local function link(table)
   return t_15_
 end
 _2amodule_2a["link"] = link
+local function default(table)
+  local t_17_ = table
+  if (nil ~= t_17_) then
+    t_17_ = (t_17_).default
+  else
+  end
+  return t_17_
+end
+_2amodule_2a["default"] = default
 local function attr__3etable(table_23)
   local output = {}
   for k, v in pairs(table_23) do
