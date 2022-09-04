@@ -11,12 +11,13 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local json = autoload("katdotnvim.utils.json.init")
+local json, main = autoload("katdotnvim.utils.json.init"), autoload("katdotnvim.main")
 do end (_2amodule_locals_2a)["json"] = json
+_2amodule_locals_2a["main"] = main
 local header = ((_2amodule_2a).header or string.format("%s", json.path))
 do end (_2amodule_2a)["header"] = header
 local function file_21(file)
-  return json.decode(json["<-file"](string.format("%s/%s-%s-%s.json", header, file, vim.g.colors_name, vim.o.background)))
+  return json.decode(json["<-file"](string.format("%s/%s-%s-%s.json", header, file, vim.g.colors_name, main.background)))
 end
 _2amodule_2a["file!"] = file_21
 return _2amodule_2a

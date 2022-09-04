@@ -26,13 +26,13 @@ local comment_type = "#"
 _2amodule_2a["comment-type"] = comment_type
 local function gen_colors()
   local white
-  if (vim.o.background == "light") then
+  if (main.background == "light") then
     white = ("'" .. colors.background()[1] .. "'")
   else
     white = ("'" .. colors.foreground()[1] .. "'")
   end
   local black
-  if (vim.o.background == "light") then
+  if (main.background == "light") then
     black = ("'" .. colors.foreground()[1] .. "'")
   else
     black = ("'" .. colors.background()[1] .. "'")
@@ -40,13 +40,13 @@ local function gen_colors()
   local cyan = ("'" .. ucolors.brighten(groups.selectionBG()[1], 0.3) .. "'")
   local output
   local _3_
-  if (vim.o.background == "light") then
+  if (main.background == "light") then
     _3_ = {["  black:"] = ("'" .. groups.umbraFG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. groups.umbraBG()[1] .. "'")}
   else
     _3_ = {["  black:"] = ("'" .. groups.umbraBG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. groups.umbraFG()[1] .. "'")}
   end
   local _5_
-  if (vim.o.background == "dark") then
+  if (main.background == "dark") then
     _5_ = {["  black:"] = ("'" .. groups.meldFG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. groups.meldBG()[1] .. "'")}
   else
     _5_ = {["  black:"] = ("'" .. groups.meldBG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. ("'" .. groups.meldFG()[1] .. "'"))}
@@ -56,7 +56,7 @@ local function gen_colors()
 end
 _2amodule_2a["gen-colors"] = gen_colors
 local function output_21()
-  local file_name = string.format("alacritty-%s-%s.yml", tostring(vim.g.colors_name), tostring(vim.o.background))
+  local file_name = string.format("alacritty-%s-%s.yml", tostring(vim.g.colors_name), tostring(main.background))
   local fd = assert(loop.fs_open(file_name, "w", 0))
   assert(loop.fs_chmod(file_name, 420))
   assert(loop.fs_write(fd, export["table->one-line-color"](gen_colors(), alacritty), 0))

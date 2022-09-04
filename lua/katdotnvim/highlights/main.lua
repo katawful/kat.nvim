@@ -18,7 +18,7 @@ _2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["ucolors"] = ucolors
 local function mainFG()
   local output = {}
-  if ((vim.o.background == "dark") and (main.contrast == "soft")) then
+  if ((main.background == "dark") and (main.contrast == "soft")) then
     output[1] = ucolors.brighten(colors.foreground()[1], 0.8)
     do end (output)[2] = 7
   else
@@ -118,7 +118,7 @@ end
 _2amodule_2a["auxFG"] = auxFG
 local function groupFunction()
   local output = ""
-  if (vim.o.background == "light") then
+  if (main.background == "light") then
     output = ucolors.saturation(ucolors.darken((colors["normal-colors"]()).green, 0.5), 0.4)
   else
     output = ucolors.saturation(ucolors.brighten((colors["normal-colors"]()).green, 0.5), -0.2)
@@ -133,7 +133,7 @@ end
 _2amodule_2a["auxBG"] = auxBG
 local function high_colors()
   local _3_
-  if ((vim.o.background == "dark") and (main.contrast == "soft")) then
+  if ((main.background == "dark") and (main.contrast == "soft")) then
     local color = ucolors.brighten(highlightFG()[1], 0)
     do local _ = {group = "TabLine", fg = color, bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]} end
     do local _ = {group = "TabLineFill", fg = fillBG()[1], bg = fillBG()[1], ctermfg = fillBG()[2], ctermbg = fillBG()[2]} end

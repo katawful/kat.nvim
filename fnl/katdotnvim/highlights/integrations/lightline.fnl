@@ -5,13 +5,13 @@
 (local main (require :katdotnvim.main))
 (local mainFG (. (groups.mainFG) 1))
 
-(if (and (= vim.o.background :dark) (= main.contrast :soft))
+(if (and (= main.background :dark) (= main.contrast :soft))
     (do
       (tset mainFG 1 (ucolors.brighten (. (groups.mainFG) 1) 0.8))))
 
 (fn mainFG []
   (var output (. (groups.mainFG) 1))
-  (if (and (= vim.o.background :dark) (= main.contrast :soft))
+  (if (and (= main.background :dark) (= main.contrast :soft))
       (do
         (set output (ucolors.brighten (. (groups.mainFG) 1) 0.8))))
   output)

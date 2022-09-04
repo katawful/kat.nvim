@@ -41,14 +41,14 @@ end
 _2amodule_2a["special"] = special
 local function high_colors()
   local function _1_()
-    if (vim.o.background == "light") then
+    if (main.background == "light") then
       return {group = "Variable", fg = ucolors.darken(ucolors.blend(identifier()[1], colors.foreground()[6], 0.5), 0.4), bg = "SKIP", ctermfg = groups.selectionBG()[2], ctermbg = "SKIP"}
     else
       return {group = "Variable", fg = ucolors.brighten(ucolors.blend(identifier()[1], colors.foreground()[6], 0.5), 0.4), bg = "SKIP", ctermfg = groups.selectionBG()[2], ctermbg = "SKIP"}
     end
   end
   local function _3_()
-    if (vim.o.background == "light") then
+    if (main.background == "light") then
       return {group = "Keyword", fg = ucolors.darken(ucolors.blend(statement()[1], groups.auxBG()[1], 0.2), 0.5), bg = "SKIP", ctermfg = groups.auxBG()[3], ctermbg = "SKIP", italic = true}
     else
       return {group = "Keyword", fg = ucolors.brighten(ucolors.blend(statement()[1], groups.auxBG()[1], 0.2), 0.5), bg = "SKIP", ctermfg = groups.auxBG()[3], ctermbg = "SKIP", italic = true}

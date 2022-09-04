@@ -2,6 +2,7 @@
         {autoload {hsl externals.hsluv
                    message katdotnvim.utils.message.init
                    kitty katdotnvim.utils.export.kitty
+                   main katdotnvim.main
                    alacritty katdotnvim.utils.export.alacritty
                    rxvt katdotnvim.utils.export.rxvt
                    konsole katdotnvim.utils.export.konsole
@@ -71,7 +72,7 @@
       (var color-string
            (string.format file-header (. comment-type 1) terminal
                           (. comment-type 1) (tostring vim.g.colors_name)
-                          (tostring vim.o.background)))
+                          (tostring main.background)))
       (each [key value (pairs colors)]
         (set color-string (string.format "%s%s\n" color-string key))
         (set color-string (color-nest->one-line-color% key value color-string)))
@@ -109,7 +110,7 @@
                                                                 (. comment-type
                                                                    1)
                                                                 (tostring vim.g.colors_name)
-                                                                (tostring vim.o.background)))
+                                                                (tostring main.background)))
                                    (each [key val (pairs colors)]
                                      (table.insert tbl
                                                    (string.format "%s %s\n" key
@@ -121,7 +122,7 @@
 (defn notify$ [terminal] "Small wrapper around utils.message.init"
       (message.info$ (string.format (message.<-table :utils.export.init
                                                      :term-theme-generated)
-                                    terminal vim.g.colors_name vim.o.background)))
+                                    terminal vim.g.colors_name main.background)))
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? [] "Returns true when we are using a kat.nvim theme"

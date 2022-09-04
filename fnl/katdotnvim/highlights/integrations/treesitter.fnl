@@ -55,7 +55,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       (fn []
-                        (if (= vim.o.background :light)
+                        (if (= main.background :light)
                             (do
                               {:group :TSNamespace
                                :fg (-> (. (syntax.identifier) 1)

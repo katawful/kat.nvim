@@ -70,8 +70,8 @@ Opacity=1
 Wallpaper="
                                                (.. (tostring vim.g.colors_name)
                                                    "-"
-                                                   (tostring vim.o.background)))}]
-        (if (= vim.o.background :light)
+                                                   (tostring main.background)))}]
+        (if (= main.background :light)
             (do
               (tset output "[Color0Faint]"
                     (.. :Color=
@@ -459,7 +459,7 @@ Wallpaper="
 ;; FN -- output konsole string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "konsole-%s-%s.colorscheme"
                                                 (tostring vim.g.colors_name)
-                                                (tostring vim.o.background))
+                                                (tostring main.background))
                        fd (assert (loop.fs_open file-name :w 0))]
                    (assert (loop.fs_chmod file-name 420))
                    (assert (loop.fs_write fd

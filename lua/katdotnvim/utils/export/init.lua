@@ -11,12 +11,13 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, alacritty, hsl, kitty, konsole, message, rxvt, s, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.export.rxvt"), autoload("katdotnvim.aniseed.string"), nil
+local a, alacritty, hsl, kitty, konsole, main, message, rxvt, s, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.utils.export.alacritty"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.export.rxvt"), autoload("katdotnvim.aniseed.string"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["alacritty"] = alacritty
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["kitty"] = kitty
 _2amodule_locals_2a["konsole"] = konsole
+_2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["rxvt"] = rxvt
 _2amodule_locals_2a["s"] = s
@@ -57,7 +58,7 @@ local function color_nest__3eone_line_color_25(key, value, input_color)
 end
 _2amodule_2a["color-nest->one-line-color%"] = color_nest__3eone_line_color_25
 local function table__3eone_line_color(colors, terminal)
-  local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(vim.o.background))
+  local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(main.background))
   for key, value in pairs(colors) do
     color_string = string.format("%s%s\n", color_string, key)
     color_string = color_nest__3eone_line_color_25(key, value, color_string)
@@ -82,7 +83,7 @@ local function string__3eone_line_color(colors, terminal)
   local color_string
   local function _6_()
     local tbl = {}
-    table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(vim.o.background)))
+    table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(main.background)))
     for key, val in pairs(colors) do
       table.insert(tbl, string.format("%s %s\n", key, val))
     end
@@ -93,7 +94,7 @@ local function string__3eone_line_color(colors, terminal)
 end
 _2amodule_2a["string->one-line-color"] = string__3eone_line_color
 local function notify_24(terminal)
-  return message["info$"](string.format(message["<-table"]("utils.export.init", "term-theme-generated"), terminal, vim.g.colors_name, vim.o.background))
+  return message["info$"](string.format(message["<-table"]("utils.export.init", "term-theme-generated"), terminal, vim.g.colors_name, main.background))
 end
 _2amodule_2a["notify$"] = notify_24
 local function is_colorscheme_3f()

@@ -19,7 +19,7 @@ _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function tabFG()
   local output = ""
-  if ((vim.o.background == "dark") and (main.contrast == "soft")) then
+  if ((main.background == "dark") and (main.contrast == "soft")) then
     output = ucolors.brighten(groups.mainFG()[1], 0.8)
   else
     output = groups.mainFG()[1]

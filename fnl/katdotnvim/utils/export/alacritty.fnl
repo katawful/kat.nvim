@@ -18,11 +18,11 @@
 ;; $output -- table of colors where the key is the string for the alacritty group
 (defn gen-colors [] "Exports a nested table of strings for alacritty"
       (local white
-             (if (= vim.o.background :light)
+             (if (= main.background :light)
                  (.. "'" (. (colors.background) 1) "'")
                  (.. "'" (. (colors.foreground) 1) "'")))
       (local black
-             (if (= vim.o.background :light)
+             (if (= main.background :light)
                  (.. "'" (. (colors.foreground) 1) "'")
                  (.. "'" (. (colors.background) 1) "'")))
       (local cyan
@@ -83,7 +83,7 @@
                                                                :pink)
                                                             "'")
                                            "  white:" white}
-                               " bright:" (if (= vim.o.background :light)
+                               " bright:" (if (= main.background :light)
                                               (do
                                                 {"  black:" (.. "'"
                                                                 (. (groups.umbraFG)
@@ -162,7 +162,7 @@
                                                                 (. (groups.umbraFG)
                                                                    1)
                                                                 "'")}))
-                               " dim:" (if (= vim.o.background :dark)
+                               " dim:" (if (= main.background :dark)
                                            (do
                                              {"  black:" (.. "'"
                                                              (. (groups.meldFG)
@@ -252,7 +252,7 @@
 ;; FN -- output alacritty string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "alacritty-%s-%s.yml"
                                                 (tostring vim.g.colors_name)
-                                                (tostring vim.o.background))
+                                                (tostring main.background))
                        fd (assert (loop.fs_open file-name :w 0))]
                    (assert (loop.fs_chmod file-name 420))
                    (assert (loop.fs_write fd

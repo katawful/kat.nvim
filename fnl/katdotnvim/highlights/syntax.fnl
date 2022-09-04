@@ -79,7 +79,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       (fn []
-                        (if (= vim.o.background :light)
+                        (if (= main.background :light)
                             {:group :Variable
                              :fg (-> (. (identifier) 1)
                                      (ucolors.blend (. (colors.foreground) 6)
@@ -133,7 +133,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       (fn []
-                        (if (= vim.o.background :light)
+                        (if (= main.background :light)
                             (do
                               {:group :Keyword
                                :fg (-> (. (statement) 1)
