@@ -37,18 +37,18 @@ end
 _2amodule_locals_2a["def-normal-colors"] = def_normal_colors
 local function def_back_colors()
   local back
-  if (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "dark") then
-    if (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "soft") then
+  if ((main["background-mut"])[1] == "dark") then
+    if ((main["contrast-mut"])[1] == "soft") then
       back = {ucolors.brighten(dark_fore_back, 0.1), dark_fore_back, ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
-    elseif ((((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "hard") or (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == nil)) then
+    elseif (((main["contrast-mut"])[1] == "hard") or ((main["contrast-mut"])[1] == nil)) then
       back = {dark_fore_back, ucolors.brighten(dark_fore_back, 0.1), ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
     else
       back = nil
     end
-  elseif (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "light") then
-    if (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "soft") then
+  elseif ((main["background-mut"])[1] == "light") then
+    if ((main["contrast-mut"])[1] == "soft") then
       back = {ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
-    elseif ((((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "hard") or (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == nil)) then
+    elseif (((main["contrast-mut"])[1] == "hard") or ((main["contrast-mut"])[1] == nil)) then
       back = {light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
     else
       back = nil
@@ -61,18 +61,18 @@ end
 _2amodule_locals_2a["def-back-colors"] = def_back_colors
 local function def_fore_colors()
   local fore
-  if (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "dark") then
-    if (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "soft") then
+  if ((main["background-mut"])[1] == "dark") then
+    if ((main["contrast-mut"])[1] == "soft") then
       fore = {ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
-    elseif ((((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "hard") or (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == nil)) then
+    elseif (((main["contrast-mut"])[1] == "hard") or ((main["contrast-mut"])[1] == nil)) then
       fore = {light_fore_back, ucolors.saturation(ucolors.darken(light_fore_back, 0.1), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.3), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.5), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.7), -0.5), ucolors.saturation(ucolors.darken(light_fore_back, 0.9), -0.5)}
     else
       fore = nil
     end
-  elseif (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "light") then
-    if (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "soft") then
+  elseif ((main["background-mut"])[1] == "light") then
+    if ((main["contrast-mut"])[1] == "soft") then
       fore = {ucolors.brighten(dark_fore_back, 0.1), dark_fore_back, ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
-    elseif ((((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "hard") or (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == nil)) then
+    elseif (((main["contrast-mut"])[1] == "hard") or ((main["contrast-mut"])[1] == nil)) then
       fore = {dark_fore_back, ucolors.brighten(dark_fore_back, 0.1), ucolors.brighten(dark_fore_back, 0.3), ucolors.brighten(dark_fore_back, 0.5), ucolors.brighten(dark_fore_back, 0.7), ucolors.brighten(dark_fore_back, 0.9)}
     else
       fore = nil
@@ -140,7 +140,7 @@ local function update()
   kat.fg.fifth = {desc = "5th bg color, dark for dark background and bright for light background", color = color_2a.f4}
   kat.fg.sixth = {desc = "6th bg color, dark for dark background and bright for light background", color = color_2a.f5}
   local _9_
-  if ((((main["background-mut"])[1])[__fnl_global___2dmut][1] == "dark") and (((main["contrast-mut"])[1])[__fnl_global___2dmut][1] == "soft")) then
+  if (((main["background-mut"])[1] == "dark") and ((main["contrast-mut"])[1] == "soft")) then
     _9_ = ucolors.brighten(color_2a.f0, 1)
   else
     _9_ = color_2a.f0
@@ -152,7 +152,7 @@ local function update()
   kat.bg.fifth = {desc = "5th bg color, bright for dark background and dark for light background", color = color_2a.b4}
   kat.bg.sixth = {desc = "6th bg color, bright for dark background and dark for light background", color = color_2a.b5}
   local _11_
-  if (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "light") then
+  if ((main["background-mut"])[1] == "light") then
     _11_ = ucolors.saturation(ucolors.darken(color_2a.green, 0.5), 0.4)
   else
     _11_ = ucolors.saturation(ucolors.brighten(color_2a.green, 0.5), -0.2)
@@ -171,7 +171,7 @@ local function update()
     local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
     kat.teal.base = {desc = "Base color, is a mix of blue and sixth background", color = teal}
     local _13_
-    if (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "light") then
+    if ((main["background-mut"])[1] == "light") then
       _13_ = ucolors.darken(ucolors.blend(teal, color_2a.f5, 0.5), 0.4)
     else
       _13_ = ucolors.brighten(ucolors.blend(teal, color_2a.f5, 0.5), 0.4)
@@ -183,9 +183,9 @@ local function update()
     kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
     kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
     kat.teal.mix_shadow_fg = {desc = "Mixes in shadow fg", color = ucolors.darken(ucolors.blend(teal, color_2a.f2, 0.8), 0.2)}
-    if (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "light") then
+    if ((main["background-mut"])[1] == "light") then
       local _15_
-      if (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "light") then
+      if ((main["background-mut"])[1] == "light") then
         _15_ = ucolors.darken(ucolors.blend(teal, color_2a.green, 0.3), 0.4)
       else
         _15_ = ucolors.brighten(ucolors.blend(teal, color_2a.green, 0.3), 0.2)
@@ -201,7 +201,7 @@ local function update()
   kat.red.mix_pink = {desc = "Mixes in pink", color = ucolors.saturation(ucolors.blend(color_2a.red, color_2a.pink, 0.2), 1)}
   kat.red.mix_meld_fg = {desc = "Mixes in meld fg color", color = ucolors.blend(color_2a.red, color_2a.f3, 0.2)}
   local _18_
-  if (((main["background-mut"])[1])[__fnl_global___2dmut][1] == "light") then
+  if ((main["background-mut"])[1] == "light") then
     _18_ = ucolors.darken(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
   else
     _18_ = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
