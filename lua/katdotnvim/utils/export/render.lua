@@ -40,8 +40,8 @@ local function render_file()
       end
     end
   end
-  vim.g["kat_nvim_dontRender"] = old_dontRender
   vim.g["kat_nvim_max_version"] = old_version
+  vim.g["kat_nvim_dontRender"] = old_dontRender
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
@@ -129,8 +129,8 @@ local function override(args)
     render_color({args.source, args.dark_soft, "kat.nwim"}, {"dark", "soft"})
   else
   end
-  vim.g["kat_nvim_dontRender"] = old_dontRender
   vim.g["kat_nvim_max_version"] = old_version
+  vim.g["kat_nvim_dontRender"] = old_dontRender
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
@@ -149,8 +149,8 @@ local function override_all(args)
   assert((#assertion == 2), "only 2 arguments allowed")
   do end (vim.g)["kat_nvim_dontRender"] = true
   render_color_2a({args.source, args[1]})
-  do end (vim.g)["kat_nvim_dontRender"] = old_dontRender
-  vim.g["kat_nvim_max_version"] = old_version
+  do end (vim.g)["kat_nvim_max_version"] = old_version
+  vim.g["kat_nvim_dontRender"] = old_dontRender
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
@@ -159,12 +159,12 @@ end
 _2amodule_2a["override_all"] = override_all
 local function init()
   if (vim.g.kat_nvim_max_version == "0.6") then
-    return vim.api.nvim_command("command! -nargs=0 KatNvimRenderFiles lua require('katdotnvim.utils.export.render').render-file()")
+    return vim.api.nvim_command("command! -nargs=0 KatNvimRender lua require('katdotnvim.utils.export.render').render-file()")
   else
     local function _17_()
       return render_file()
     end
-    return vim.api.nvim_create_user_command("KatNvimRenderFiles", _17_, {desc = "render colorscheme file"})
+    return vim.api.nvim_create_user_command("KatNvimRender", _17_, {desc = "Render kat.nvim colorscheme to file"})
   end
 end
 _2amodule_2a["init"] = init

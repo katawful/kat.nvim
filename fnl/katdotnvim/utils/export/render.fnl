@@ -122,10 +122,10 @@ of kat.nvim"
 ;; init functions, very dirty and not a great implementation
 (defn init [] (if (= vim.g.kat_nvim_max_version :0.6)
                   (do
-                    (command*-vim :KatNvimRenderFiles {:nargs 0}
+                    (command*-vim :KatNvimRender {:nargs 0}
                                   "lua require('katdotnvim.utils.export.render').render-file()"))
                   (do
-                    (command- :KatNvimRenderFiles
+                    (command- :KatNvimRender
                               (fn []
                                 (render-file))
-                              "render colorscheme file"))))
+                              "Render kat.nvim colorscheme to file"))))
