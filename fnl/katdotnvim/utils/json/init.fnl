@@ -3,7 +3,7 @@
 ;;; JSON manipulation
 
 (defonce std-data (let [path (vim.fn.stdpath :data)]
-                    (.. path "/kat")))
+                    (.. path :/kat)))
 
 (defonce files [:main
                 :syntax
@@ -20,39 +20,52 @@
                 :filetype.vim
                 :filetype.vimwiki])
 
-(defonce path (.. std-data "/kat.nvim/json/"))
+(defonce path (.. std-data :/kat.nvim/json/))
 
-(defn encode [tbl] "Encode lua table as a json"
-  (let [encodee []
-        source tbl]
-    (each [_ value (pairs source)]
-      ;; check for function
-      (if (and (= (type value) :function) (not= (value) nil))
-          (each [_ nest (pairs [(value)])]
-            (table.insert encodee nest))
-          (or (= (type value) :table) (not= (value) nil))
-          ;; if just table
-          (if (= (type (?. value 1)) :table)
-              (each [_ nest (pairs value)]
+(defn encode [tbl] "Encode lua table as a json
+@tbl -- a valid Lua table
+This function evaluates all possible values"
+      (let [encodee []
+            source tbl]
+        (each [_ value (pairs source)]
+          ;; check for function
+          (if (and (= (type value) :function) (not= (value) nil))
+              (each [_ nest (pairs [(value)])]
                 (table.insert encodee nest))
-              (table.insert encodee value))))
-    (vim.json.encode encodee)))
+              (or (= (type value) :table) (not= (value) nil))
+              ;; if just table
+              (if (= (type (?. value 1)) :table)
+                  (each [_ nest (pairs value)]
+                    (table.insert encodee nest))
+                  (table.insert encodee value))))
+        (vim.json.encode encodee)))
 
-(defn decode [json] "Decode json into a lua table" (vim.json.decode json))
+(defn decode [json]
+      "Decode json into a lua table\n@json -- a valid json object"
+      (vim.json.decode json))
 
-(defn ->file! [file json] "Store json to file" (os.execute (.. "rm " file))
-      (with-open [json-file (io.open file :w)]
-        (json-file:write json)))
+(defn ->file! [file json] "Store json to file
+@file -- a json file path
+@json -- a valid json object"
+      (os.execute (.. "rm -f " file)
+                  (with-open [json-file (io.open file :w)]
+                    (json-file:write json))))
 
-(defn <-file [file] "Read stored json"
+(defn <-file [file] "Read stored json
+@file -- a json file path
+Returns empty table upon nil file"
       (let [json-file (io.open file :r)]
         (if json-file
-          (do (let [out (json-file:read :*a)]
+            (do
+              (let [out (json-file:read :*a)]
                 (io.close json-file)
                 out))
-          "{}")))
+            "{}")))
 
-(defn file-parse [suffix] "Returns 'high-colors' function from a file
-Searches from 'katdotnvim.highlights'"
-  (let [file (string.format "katdotnvim.highlights.%s" suffix)]
-    ((. (require file) :high-colors))))
+(defn file-parse [suffix]
+      "Returns 'high-colors' function from a file
+Searches from 'katdotnvim.highlights'
+@suffix -- based on the module structure of this plugin
+           with 'katdotnvim.highlights' removed from the module name"
+      (let [file (string.format "katdotnvim.highlights.%s" suffix)]
+        ((. (require file) :high-colors))))

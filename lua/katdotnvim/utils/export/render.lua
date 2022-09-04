@@ -40,8 +40,8 @@ local function render_file()
       end
     end
   end
-  vim.g["kat_nvim_dontRender"] = old_dontRender
   vim.g["kat_nvim_max_version"] = old_version
+  vim.g["kat_nvim_dontRender"] = old_dontRender
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
@@ -71,7 +71,12 @@ local function override(args)
   local old_background = (main["background-mut"])[1]
   local old_dontRender = vim.g.kat_nvim_dontRender
   local old_version = vim.g.kat_nvim_max_version
-  vim.g["kat_nvim_dontRender"] = true
+  local assertion = {}
+  for k, _1 in pairs(args) do
+    table.insert(assertion, true)
+  end
+  assert((#assertion == 2), "only 2 arguments allowed")
+  do end (vim.g)["kat_nvim_dontRender"] = true
   local _2_
   do
     local t_1_ = args
@@ -124,8 +129,8 @@ local function override(args)
     render_color({args.source, args.dark_soft, "kat.nwim"}, {"dark", "soft"})
   else
   end
-  vim.g["kat_nvim_dontRender"] = old_dontRender
   vim.g["kat_nvim_max_version"] = old_version
+  vim.g["kat_nvim_dontRender"] = old_dontRender
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
@@ -137,10 +142,15 @@ local function override_all(args)
   local old_background = (main["background-mut"])[1]
   local old_dontRender = vim.g.kat_nvim_dontRender
   local old_version = vim.g.kat_nvim_max_version
-  vim.g["kat_nvim_dontRender"] = true
+  local assertion = {}
+  for k, _1 in pairs(args) do
+    table.insert(assertion, true)
+  end
+  assert((#assertion == 2), "only 2 arguments allowed")
+  do end (vim.g)["kat_nvim_dontRender"] = true
   render_color_2a({args.source, args[1]})
-  do end (vim.g)["kat_nvim_dontRender"] = old_dontRender
-  vim.g["kat_nvim_max_version"] = old_version
+  do end (vim.g)["kat_nvim_max_version"] = old_version
+  vim.g["kat_nvim_dontRender"] = old_dontRender
   do local _ = {nil, nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast

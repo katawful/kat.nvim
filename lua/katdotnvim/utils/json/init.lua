@@ -56,20 +56,22 @@ local function decode(json)
 end
 _2amodule_2a["decode"] = decode
 local function __3efile_21(file, json)
-  os.execute(("rm " .. file))
-  local json_file = io.open(file, "w")
-  local function close_handlers_8_auto(ok_9_auto, ...)
-    json_file:close()
-    if ok_9_auto then
-      return ...
-    else
-      return error(..., 0)
+  local function _7_()
+    local json_file = io.open(file, "w")
+    local function close_handlers_8_auto(ok_9_auto, ...)
+      json_file:close()
+      if ok_9_auto then
+        return ...
+      else
+        return error(..., 0)
+      end
     end
+    local function _9_()
+      return json_file:write(json)
+    end
+    return close_handlers_8_auto(_G.xpcall(_9_, (package.loaded.fennel or debug).traceback))
   end
-  local function _8_()
-    return json_file:write(json)
-  end
-  return close_handlers_8_auto(_G.xpcall(_8_, (package.loaded.fennel or debug).traceback))
+  return os.execute(("rm -f " .. file), _7_())
 end
 _2amodule_2a["->file!"] = __3efile_21
 local function _3c_file(file)
