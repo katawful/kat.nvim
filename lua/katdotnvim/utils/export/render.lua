@@ -24,20 +24,18 @@ _2amodule_locals_2a["write"] = write
 _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0
 local function render_file()
-  local colors = {{light = "soft"}, {light = "hard"}, {dark = "soft"}, {dark = "hard"}}
+  local colors = {{"light", "soft", "kat.nwim"}, {"light", "hard", "kat.nvim"}, {"dark", "soft", "kat.nwim"}, {"dark", "hard", "kat.nvim"}}
   local old_contrast = (main["contrast-mut"])[1]
   local old_background = (main["background-mut"])[1]
   local old_dontRender = vim.g.kat_nvim_dontRender
   local old_version = vim.g.kat_nvim_max_version
   vim.g["kat_nvim_dontRender"] = true
   for _1, v in ipairs(colors) do
-    for back, contrast in pairs(v) do
-      main["background-mut"][1] = back
-      main["contrast-mut"][1] = contrast
-      color_table.update()
-      for _2, file in ipairs(json.files) do
-        write["file!"](file)
-      end
+    main["background-mut"][1] = v[1]
+    main["contrast-mut"][1] = v[2]
+    color_table.update()
+    for _2, file in ipairs(json.files) do
+      write["file!"](file, json.encode(json["file-parse"](file)), v[3])
     end
   end
   vim.g["kat_nvim_max_version"] = old_version

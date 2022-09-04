@@ -11,8 +11,9 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local color, message, options, read, run, _, _0 = autoload("katdotnvim.color"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.highlight.run"), nil, nil
+local color, json, message, options, read, run, _, _0 = autoload("katdotnvim.color"), autoload("katdotnvim.utils.json.init"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.options.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.highlight.run"), nil, nil
 _2amodule_locals_2a["color"] = color
+_2amodule_locals_2a["json"] = json
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["options"] = options
 _2amodule_locals_2a["read"] = read
@@ -59,7 +60,25 @@ local function init(in_contrast)
   else
     vim.g["colors_name"] = "kat.nwim"
   end
-  if (vim.g.kat_nvim_dontRender == true) then
+  local has_render = io.open((json.path .. "main-kat.nvim-dark.json"), "r")
+  if has_render then
+    run["highlight$<-table"](read["file!"]("main"))
+    run["highlight$<-table"](read["file!"]("syntax"))
+    do end (require("katdotnvim.highlights.terminal")).init()
+    if (vim.g.kat_nvim_stupidFeatures == true) then
+      do end (require("katdotnvim.stupid")).stupidFunction()
+    else
+    end
+    require("katdotnvim.utils.export.init")
+    do end (require("katdotnvim.utils.export.render")).init()
+    for _1, v in ipairs(vim.g.kat_nvim_integrations) do
+      run["highlight$<-table"](read["file!"](("integrations." .. v)))
+    end
+    for _1, v in pairs(vim.g.kat_nvim_filetype) do
+      run["highlight$<-table"](read["file!"](("filetype." .. v)))
+    end
+    return io.close(has_render)
+  else
     do end (require("katdotnvim.highlights.main")).init()
     do end (require("katdotnvim.highlights.syntax")).init()
     do end (require("katdotnvim.highlights.terminal")).init()
@@ -76,23 +95,6 @@ local function init(in_contrast)
     for _1, v in pairs(vim.g.kat_nvim_filetype) do
       local output = ("katdotnvim.highlights.filetype." .. v)
       require(output).init()
-    end
-    return nil
-  else
-    run["highlight$<-table"](read["file!"]("main"))
-    run["highlight$<-table"](read["file!"]("syntax"))
-    do end (require("katdotnvim.highlights.terminal")).init()
-    if (vim.g.kat_nvim_stupidFeatures == true) then
-      do end (require("katdotnvim.stupid")).stupidFunction()
-    else
-    end
-    require("katdotnvim.utils.export.init")
-    do end (require("katdotnvim.utils.export.render")).init()
-    for _1, v in ipairs(vim.g.kat_nvim_integrations) do
-      run["highlight$<-table"](read["file!"](("integrations." .. v)))
-    end
-    for _1, v in pairs(vim.g.kat_nvim_filetype) do
-      run["highlight$<-table"](read["file!"](("filetype." .. v)))
     end
     return nil
   end

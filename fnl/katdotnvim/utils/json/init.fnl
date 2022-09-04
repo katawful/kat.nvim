@@ -47,9 +47,9 @@ This function evaluates all possible values"
 (defn ->file! [file json] "Store json to file
 @file -- a json file path
 @json -- a valid json object"
-      (os.execute (.. "rm -f " file)
-                  (with-open [json-file (io.open file :w)]
-                    (json-file:write json))))
+      (os.execute (.. "rm -f " file))
+      (with-open [json-file (io.open file :w)]
+        (json-file:write json)))
 
 (defn <-file [file] "Read stored json
 @file -- a json file path
