@@ -3,6 +3,7 @@
                    ucolors katdotnvim.utils.highlight.utils
                    groups katdotnvim.highlights.main
                    run katdotnvim.utils.highlight.run
+                   main katdotnvim.main
                    syntax katdotnvim.highlights.syntax}})
 
 ; this handles all tree-sitter highlight groups
