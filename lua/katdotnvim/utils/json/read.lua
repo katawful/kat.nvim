@@ -17,7 +17,7 @@ _2amodule_locals_2a["main"] = main
 local header = ((_2amodule_2a).header or string.format("%s", json.path))
 do end (_2amodule_2a)["header"] = header
 local function file_21(file)
-  return json.decode(json["<-file"](string.format("%s/%s-%s-%s.json", header, file, vim.g.colors_name, main.background)))
+  return json.decode(json["<-file"](string.format("%s/%s-%s-%s.json", header, file, vim.g.colors_name, (main["background-mut"])[1])))
 end
 _2amodule_2a["file!"] = file_21
 return _2amodule_2a

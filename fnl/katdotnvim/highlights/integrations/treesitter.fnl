@@ -56,7 +56,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       (fn []
-                        (if (= main.background :light)
+                        (if (= (. main.background-mut 1) :light)
                             (do
                               {:group :TSNamespace
                                :fg (-> (. (syntax.identifier) 1)

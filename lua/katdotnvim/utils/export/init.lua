@@ -58,7 +58,7 @@ local function color_nest__3eone_line_color_25(key, value, input_color)
 end
 _2amodule_2a["color-nest->one-line-color%"] = color_nest__3eone_line_color_25
 local function table__3eone_line_color(colors, terminal)
-  local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(main.background))
+  local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring((main["background-mut"])[1]))
   for key, value in pairs(colors) do
     color_string = string.format("%s%s\n", color_string, key)
     color_string = color_nest__3eone_line_color_25(key, value, color_string)
@@ -83,7 +83,7 @@ local function string__3eone_line_color(colors, terminal)
   local color_string
   local function _6_()
     local tbl = {}
-    table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring(main.background)))
+    table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring((main["background-mut"])[1])))
     for key, val in pairs(colors) do
       table.insert(tbl, string.format("%s %s\n", key, val))
     end
@@ -94,7 +94,7 @@ local function string__3eone_line_color(colors, terminal)
 end
 _2amodule_2a["string->one-line-color"] = string__3eone_line_color
 local function notify_24(terminal)
-  return message["info$"](string.format(message["<-table"]("utils.export.init", "term-theme-generated"), terminal, vim.g.colors_name, main.background))
+  return message["info$"](string.format(message["<-table"]("utils.export.init", "term-theme-generated"), terminal, vim.g.colors_name, (main["background-mut"])[1]))
 end
 _2amodule_2a["notify$"] = notify_24
 local function is_colorscheme_3f()

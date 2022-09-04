@@ -79,7 +79,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       (fn []
-                        (if (= main.background :light)
+                        (if (= (. main.background-mut 1) :light)
                             {:group :Variable
                              :fg (-> (. (identifier) 1)
                                      (ucolors.blend (. (colors.foreground) 6)
@@ -133,7 +133,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       (fn []
-                        (if (= main.background :light)
+                        (if (= (. main.background-mut 1) :light)
                             (do
                               {:group :Keyword
                                :fg (-> (. (statement) 1)

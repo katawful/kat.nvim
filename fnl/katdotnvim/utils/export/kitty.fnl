@@ -22,8 +22,8 @@
                     :background (. (groups.mainBG) 1)
                     :selection_foreground (. (groups.selectionFG) 1)
                     :selection_background (. (groups.selectionBG) 1)
-                    :contrast main.contrast
-                    :shade main.background
+                    :contrast (. main.contrast-mut 1)
+                    :shade (. main.background-mut 1)
                     :cursor (. (. (groups.mainFG) 1) 1)
                     :cursor_text_color :background
                     :color0 (. (groups.mainBG) 1)
@@ -36,7 +36,7 @@
                     :color7 (. (groups.mainFG) 1)
                     :color8 (. (groups.umbraBG) 1)
                     :color15 (. (groups.umbraFG) 1)}]
-        (if (= main.background :light)
+        (if (= (. main.background-mut 1) :light)
             (do
               (tset output :color9
                     (ucolors.darken (. (colors.normal-colors) :red) 0.2))
@@ -68,7 +68,7 @@
 ;; FN -- output kitty string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "kitty-%s-%s.conf"
                                                 (tostring vim.g.colors_name)
-                                                (tostring main.background))
+                                                (tostring (. main.background-mut 1)))
                        fd (assert (loop.fs_open file-name :w 0))]
                    (assert (loop.fs_chmod file-name 420))
                    (assert (loop.fs_write fd

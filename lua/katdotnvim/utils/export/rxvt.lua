@@ -26,7 +26,7 @@ local comment_type = "!"
 _2amodule_2a["comment-type"] = comment_type
 local function gen_colors()
   local output = {["URxvt*foreground:"] = groups.mainFG()[1], ["URxvt*background:"] = groups.mainBG()[1], ["URxvt*color0:"] = groups.mainBG()[1], ["URxvt*color1:"] = (colors["normal-colors"]()).red, ["URxvt*color2:"] = (colors["normal-colors"]()).green, ["URxvt*color3:"] = (colors["normal-colors"]()).orange, ["URxvt*color4:"] = (colors["normal-colors"]()).blue, ["URxvt*color5:"] = (colors["normal-colors"]()).pink, ["URxvt*color6:"] = (colors["normal-colors"]()).purple, ["URxvt*color7:"] = groups.mainFG()[1], ["URxvt*color8:"] = groups.umbraBG()[1], ["URxvt*color15:"] = groups.umbraFG()[1]}
-  if (main.background == "light") then
+  if ((main["background-mut"])[1] == "light") then
     output["URxvt*color9:"] = ucolors.darken((colors["normal-colors"]()).red, 0.2)
     do end (output)["URxvt*color10:"] = ucolors.darken((colors["normal-colors"]()).green, 0.2)
     do end (output)["URxvt*color11:"] = ucolors.darken((colors["normal-colors"]()).orange, 0.2)
@@ -45,7 +45,7 @@ local function gen_colors()
 end
 _2amodule_2a["gen-colors"] = gen_colors
 local function output_21()
-  local file_name = string.format("Urxvt-%s-%s.Xresources", tostring(vim.g.colors_name), tostring(main.background))
+  local file_name = string.format("Urxvt-%s-%s.Xresources", tostring(vim.g.colors_name), tostring((main["background-mut"])[1]))
   local fd = assert(loop.fs_open(file_name, "w", 0))
   assert(loop.fs_chmod(file_name, 420))
   assert(loop.fs_write(fd, export["string->one-line-color"](gen_colors(), "rxvt-unicode"), 0))

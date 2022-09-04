@@ -22,7 +22,7 @@ local stringColor = groups.auxBG()[1]
 _2amodule_2a["stringColor"] = stringColor
 local function high_colors()
   local function _1_()
-    if (main.background == "light") then
+    if ((main["background-mut"])[1] == "light") then
       return {group = "TSNamespace", fg = ucolors.darken(ucolors.blend(syntax.identifier()[1], (colors["normal-colors"]()).green, 0.3), 0.4), bg = "SKIP", ctermfg = groups.auxBG()[2], ctermbg = "SKIP"}
     else
       return {group = "TSNamespace", fg = ucolors.brighten(ucolors.blend(syntax.identifier()[1], (colors["normal-colors"]()).green, 0.3), 0.2), bg = "SKIP", ctermfg = groups.auxBG()[2], ctermbg = "SKIP"}

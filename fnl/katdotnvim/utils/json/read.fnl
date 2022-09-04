@@ -9,4 +9,4 @@
 (defn file! [file] "Reads a json file"
   (json.decode (json.<-file (string.format "%s/%s-%s-%s.json" header file
                                            vim.g.colors_name
-                                           main.background))))
+                                           (. main.background-mut 1)))))

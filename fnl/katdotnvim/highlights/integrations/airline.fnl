@@ -5,7 +5,7 @@
 (local main (require :katdotnvim.main))
 (local mainFG (. (groups.mainFG) 1))
 
-(if (and (= main.background :dark) (= main.contrast :soft))
+(if (and (= (. main.background-mut 1) :dark) (= (. main.contrast-mut 1) :soft))
     (do
       (tset mainFG 1 (ucolors.brighten (. (groups.mainFG) 1) 0.8))))
 

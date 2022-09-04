@@ -21,8 +21,8 @@
                     "URxvt*background:" (. (groups.mainBG) 1)
                     ; :selection_foreground (. (groups.selectionFG) 1)
                     ; :selection_background (. (groups.selectionBG) 1)
-                    ; :contrast main.contrast
-                    ; :shade main.background
+                    ; :contrast (. main.contrast-mut 1)
+                    ; :shade (. main.background-mut 1)
                     ; :cursor (. (. (groups.mainFG) 1) 1)
                     ; :cursor_text_color :background
                     "URxvt*color0:" (. (groups.mainBG) 1)
@@ -35,7 +35,7 @@
                     "URxvt*color7:" (. (groups.mainFG) 1)
                     "URxvt*color8:" (. (groups.umbraBG) 1)
                     "URxvt*color15:" (. (groups.umbraFG) 1)}]
-        (if (= main.background :light)
+        (if (= (. main.background-mut 1) :light)
             (do
               (tset output "URxvt*color9:"
                     (ucolors.darken (. (colors.normal-colors) :red) 0.2))
@@ -67,7 +67,7 @@
 ;; FN -- output rxvt string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "Urxvt-%s-%s.Xresources"
                                                 (tostring vim.g.colors_name)
-                                                (tostring main.background))
+                                                (tostring (. main.background-mut 1)))
                        fd (assert (loop.fs_open file-name :w 0))]
                    (assert (loop.fs_chmod file-name 420))
                    (assert (loop.fs_write fd

@@ -17,7 +17,7 @@
       (let- :g :terminal_color_6 (. (colors.init :normalColors) :purple))
       (let- :g :terminal_color_7 (. (colors.init :foreground) 1))
       (let- :g :terminal_color_8 (. (colors.init :background) 2))
-      (if (= main.background :light)
+      (if (= (. main.background-mut 1) :light)
           (do
             (let- :g :terminal_color_9
                   (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
