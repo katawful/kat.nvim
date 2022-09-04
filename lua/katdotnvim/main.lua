@@ -63,10 +63,28 @@ local function init(in_contrast)
   end
   local has_render = override["main-files"]()
   local matcher = string.format("%s-%s.json", vim.g.colors_name, background)
+  local integrations
+  do
+    local output = {}
+    for _1, v in pairs(vim.g.kat_nvim_integrations) do
+      output[("integrations." .. v)] = true
+    end
+    for _1, v in pairs(vim.g.kat_nvim_filetype) do
+      output[("filetype." .. v)] = true
+    end
+    integrations = output
+  end
   if has_render then
+    run["highlight$<-table"](read["file!"]("main"))
+    run["highlight$<-table"](read["file!"]("syntax"))
     for file, _1 in pairs(has_render) do
       if string.find(file, matcher, 1, true) then
-        run["highlight$<-table"](read["full-file!"](file))
+        for key, _2 in pairs(integrations) do
+          if string.find(file, key, 1, true) then
+            run["highlight$<-table"](read["full-file!"](file))
+          else
+          end
+        end
       else
       end
     end

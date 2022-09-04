@@ -34,12 +34,22 @@
           (let- :g :colors_name :kat.nvim)
           (let- :g :colors_name :kat.nwim))
       (let [has-render (override.main-files)
-            matcher (string.format "%s-%s.json" vim.g.colors_name background)]
+            matcher (string.format "%s-%s.json" vim.g.colors_name background)
+            integrations (let [output {}]
+                           (each [_ v (pairs vim.g.kat_nvim_integrations)]
+                             (tset output (.. "integrations." v) true))
+                           (each [_ v (pairs vim.g.kat_nvim_filetype)]
+                             (tset output (.. "filetype." v) true))
+                           output)]
         (if has-render
           (do
+            (run.highlight$<-table (read.file! :main))
+            (run.highlight$<-table (read.file! :syntax))
             (each [file _ (pairs has-render)]
               (when (string.find file matcher 1 true)
-                (run.highlight$<-table (read.full-file! file))))
+                (each [key _ (pairs integrations)]
+                  (when (string.find file key 1 true)
+                    (run.highlight$<-table (read.full-file! file))))))
             ((. (require :katdotnvim.highlights.terminal) :init))
             (if (= vim.g.kat_nvim_stupidFeatures true)
               ((. (require :katdotnvim.stupid) :stupidFunction)))
