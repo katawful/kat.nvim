@@ -83,7 +83,8 @@
                                                                :pink)
                                                             "'")
                                            "  white:" white}
-                               " bright:" (if (= (. main.background-mut 1) :light)
+                               " bright:" (if (= (. main.background-mut 1)
+                                                 :light)
                                               (do
                                                 {"  black:" (.. "'"
                                                                 (. (groups.umbraFG)
@@ -252,7 +253,8 @@
 ;; FN -- output alacritty string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "alacritty-%s-%s.yml"
                                                 (tostring vim.g.colors_name)
-                                                (tostring (. main.background-mut 1)))
+                                                (tostring (. main.background-mut
+                                                             1)))
                        fd (assert (loop.fs_open file-name :w 0))]
                    (assert (loop.fs_chmod file-name 420))
                    (assert (loop.fs_write fd

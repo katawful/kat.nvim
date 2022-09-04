@@ -6,7 +6,8 @@
                    main katdotnvim.main}})
 
 (defn tabFG [] (var output "")
-      (if (and (= (. main.background-mut 1) :dark) (= (. main.contrast-mut 1) :soft))
+      (if (and (= (. main.background-mut 1) :dark)
+               (= (. main.contrast-mut 1) :soft))
           (do
             (set output (ucolors.brighten (. (groups.mainFG) 1) 0.8)))
           (do

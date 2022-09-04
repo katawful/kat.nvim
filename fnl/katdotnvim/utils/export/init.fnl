@@ -110,7 +110,8 @@
                                                                 (. comment-type
                                                                    1)
                                                                 (tostring vim.g.colors_name)
-                                                                (tostring (. main.background-mut 1))))
+                                                                (tostring (. main.background-mut
+                                                                             1))))
                                    (each [key val (pairs colors)]
                                      (table.insert tbl
                                                    (string.format "%s %s\n" key
@@ -122,7 +123,8 @@
 (defn notify$ [terminal] "Small wrapper around utils.message.init"
       (message.info$ (string.format (message.<-table :utils.export.init
                                                      :term-theme-generated)
-                                    terminal vim.g.colors_name (. main.background-mut 1))))
+                                    terminal vim.g.colors_name
+                                    (. main.background-mut 1))))
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? [] "Returns true when we are using a kat.nvim theme"
