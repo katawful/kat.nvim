@@ -30,4 +30,46 @@ local function main_files()
   end
 end
 _2amodule_2a["main-files"] = main_files
+local function get_dir()
+  local desc_num = (10 + (#json.files * 4))
+  local fd = vim.loop.fs_opendir(json.path, nil, desc_num)
+  local output = {}
+  if fd then
+    for _, descriptor in pairs(vim.loop.fs_readdir(fd)) do
+      if (descriptor.type == "directory") then
+        output[descriptor.name] = true
+      else
+      end
+    end
+    vim.loop.fs_closedir(fd)
+    return output
+  else
+    return nil
+  end
+end
+_2amodule_2a["get-dir"] = get_dir
+local function files()
+  local desc_num = 20
+  local dirs = get_dir()
+  local output = {}
+  if dirs then
+    for dir, _ in pairs(dirs) do
+      local fd = vim.loop.fs_opendir((json.path .. dir), nil, desc_num)
+      if fd then
+        for _0, descriptor in pairs(vim.loop.fs_readdir(fd)) do
+          if (descriptor.type == "file") then
+            output[(dir .. "/" .. descriptor.name)] = true
+          else
+          end
+        end
+      else
+      end
+      vim.loop.fs_closedir(fd)
+    end
+    return output
+  else
+    return nil
+  end
+end
+_2amodule_2a["files"] = files
 return _2amodule_2a

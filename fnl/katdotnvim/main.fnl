@@ -43,7 +43,12 @@
             ((. (require :katdotnvim.highlights.terminal) :init))
             (if (= vim.g.kat_nvim_stupidFeatures true)
               ((. (require :katdotnvim.stupid) :stupidFunction)))
-            (require :katdotnvim.utils.export.init))
+            (require :katdotnvim.utils.export.init)
+            (let [has-overrides (override.files)]
+              (when has-overrides
+                (each [file _ (pairs has-overrides)]
+                  (when (string.find file matcher 1 true)
+                    (run.highlight$<-table (read.full-file! file)))))))
             ;; add integrations
             ;; TODO - deal with overrides here
           (do

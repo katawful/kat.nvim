@@ -75,7 +75,19 @@ local function init(in_contrast)
       do end (require("katdotnvim.stupid")).stupidFunction()
     else
     end
-    return require("katdotnvim.utils.export.init")
+    require("katdotnvim.utils.export.init")
+    local has_overrides = override.files()
+    if has_overrides then
+      for file, _1 in pairs(has_overrides) do
+        if string.find(file, matcher, 1, true) then
+          run["highlight$<-table"](read["full-file!"](file))
+        else
+        end
+      end
+      return nil
+    else
+      return nil
+    end
   else
     do end (require("katdotnvim.highlights.main")).init()
     do end (require("katdotnvim.highlights.syntax")).init()
