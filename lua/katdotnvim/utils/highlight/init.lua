@@ -111,10 +111,6 @@ local function highlight_24_3c_api(opts)
     for k, v in pairs(get["all-attr->table"](opts)) do
       args[k] = v
     end
-    if args.default then
-      print(vim.inspect(args))
-    else
-    end
     return vim.api.nvim_set_hl(0, group, args)
   end
 end
