@@ -40,7 +40,6 @@ This will render out all of the colors, synchronously, to said data path.
 ## Overrides
 
 ```lua
-
 local render = require('katdotnvim.utils.export.render')
 local my_overrides = function ()
     render.override_all({
