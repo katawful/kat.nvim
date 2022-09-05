@@ -124,7 +124,18 @@ local function init(in_contrast)
       local output = ("katdotnvim.highlights.filetype." .. v)
       require(output).init()
     end
-    return nil
+    local has_overrides = override.files()
+    if has_overrides then
+      for file, _1 in pairs(has_overrides) do
+        if string.find(file, matcher, 1, true) then
+          run["highlight$<-table"](read["full-file!"](file))
+        else
+        end
+      end
+      return nil
+    else
+      return nil
+    end
   end
 end
 _2amodule_2a["init"] = init

@@ -59,8 +59,6 @@
                 (each [file _ (pairs has-overrides)]
                   (when (string.find file matcher 1 true)
                     (run.highlight$<-table (read.full-file! file)))))))
-            ;; add integrations
-            ;; TODO - deal with overrides here
           (do
             ((. (require :katdotnvim.highlights.main) :init))
             ((. (require :katdotnvim.highlights.syntax) :init))
@@ -75,6 +73,9 @@
               ((. (require output) :init)))
             (each [_ v (pairs vim.g.kat_nvim_filetype)]
               (local output (.. :katdotnvim.highlights.filetype. v))
-              ((. (require output) :init)))))))
-
-;; TODO also load overrides here
+              ((. (require output) :init)))
+            (let [has-overrides (override.files)]
+              (when has-overrides
+                (each [file _ (pairs has-overrides)]
+                  (when (string.find file matcher 1 true)
+                    (run.highlight$<-table (read.full-file! file))))))))))
