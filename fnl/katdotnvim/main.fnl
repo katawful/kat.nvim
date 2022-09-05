@@ -76,4 +76,5 @@
             (each [_ v (pairs vim.g.kat_nvim_filetype)]
               (local output (.. :katdotnvim.highlights.filetype. v))
               ((. (require output) :init)))))))
-            ;; TODO also load overrides here
+
+;; TODO also load overrides here

@@ -122,12 +122,13 @@ of kat.nvim"
         (tset main.contrast-mut 1 old-contrast)))
 
 ;; init functions, very dirty and not a great implementation
-(defn init [] (if (= vim.g.kat_nvim_max_version :0.6)
-                  (do
-                    (command*-vim :KatNvimRender {:nargs 0}
-                                  "lua require('katdotnvim.utils.export.render').render-file()"))
-                  (do
-                    (command- :KatNvimRender
-                              (fn []
-                                (render-file))
-                              "Render kat.nvim colorscheme to file"))))
+(defn init []
+      (if (= vim.g.kat_nvim_max_version :0.6)
+          (do
+            (command*-vim :KatNvimRender {:nargs 0}
+                          "lua require('katdotnvim.utils.export.render').render-file()"))
+          (do
+            (command- :KatNvimRender
+                      (fn []
+                        (render-file))
+                      "Render kat.nvim colorscheme to file"))))
