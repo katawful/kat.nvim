@@ -18,8 +18,9 @@ CONTENTS                                                     *kat.nvim-contents*
 2. Terminal Support ..................................|kat.nvim-terminal|
 3. Supported Plugins..................................|kat.nvim-plugins|
 4. Supported Filetypes................................|kat.nvim-filetypes|
-5. Using in Other Plugins.............................|kat.nvim-develop|
-5. Contributing.......................................|kat.nvim-contributing|
+5. Rendering..........................................|kat.nvim-render|
+6. Using in Other Plugins.............................|kat.nvim-develop|
+7. Contributing.......................................|kat.nvim-contributing|
 
 ==============================================================================
 Section 1: Options                                            *kat.nvim-options*
@@ -132,7 +133,108 @@ This is the list of filetypes that match this colorscheme.
 			     Vimwiki : 'vimwiki'
 
 ==============================================================================
-Section 5: Using in Other Plugins                            *kat.nvim-develop*
+Section 5: Rendering to File                                  *kat.nvim-render*
+All the colors for this colorscheme can be rendered. A user-command is
+provided: `KatNvimRender`. This will render JSON files to `stdpath(data)` in
+the folder `kat/kat.nvim/json`. For example on Linux:
+`/home/user/.local/share/nvim/kat/kat.nvim/json/`
+
+kat.nvim will use these files first before resorting to the dynamic method.
+
+------------------------------------------------------------------------------
+Section 5a: Overrides                                      *kat.nvim-overrides*
+Overrides for groups can be defined, which will be loaded with the same method
+for rendered files.
+
+>
+  local render = require('katdotnvim.utils.export.render')
+  local my_overrides = function ()
+      render.override_all({
+	  source = "kat",
+	  {
+	      {group = "Normal", fg = "#ffffff", default = true},
+	      {group = "Visual", fg = "#ff0000", default = true}}})
+
+      local color = function ()
+	  if vim.o.background == "light" then
+	      return "#000000"
+	  else
+	      return "#ffffff"
+	  end
+      end
+
+      render.override ({
+	  source = "kat",
+	  light_hard = {
+	      {group = "Normal", fg = color, default = true},
+	      {group = "Visual", fg = "#ff0000", default = true}}})
+      render.override ({
+	  source = "kat",
+	  light_soft = {
+	      {group = "Normal", fg = color, default = true},
+	      {group = "Visual", fg = "#ff0000", default = true}}})
+      render.override ({
+	  source = "kat",
+	  dark_hard = {
+	      {group = "Normal", fg = color, default = true},
+	      {group = "Visual", fg = "#ff0000", default = true}}})
+      render.override ({
+	  source = "kat",
+	  dark_soft = {
+	      {group = "Normal", fg = color, default = true},
+	      {group = "Visual", fg = "#ff0000", default = true}}})
+  end
+  vim.api.nvim_create_user_command("MyOverrides", my_overrides, {})
+<
+
+
+Overrides can be defined, which will be loaded with the same method.
+There are 2 override functions:
+
+- `override`: Define an override for a variation of kat.nvim
+- `override_all`: Define an override for all variations of kat.nvim
+
+`override_all` cannot change values for the group based upon values like
+`vim.o.background` or kat.nvim's current contrast. `override` should be used
+for that instead.
+
+Both functions take a table with 2 keys: both take a `source` key with a
+string value corresponding to a name of your desire (like computer username).
+For `override_all`, the second key is a unnamed table of highlight groups. For
+`override`, the second key must be one of the following:
+
+			    'light_hard'
+			    'light_soft'
+			    'dark_hard'
+			    'dark_soft'
+
+It is recommended to define all 4, but it is not required.
+
+------------------------------------------------------------------------------
+Section 5b: Highlight Table                                *kat.nvim-hl-table*
+This colorscheme uses a custom highlight table to consolidate everything. It
+is mostly based on the opts table for `nvim_set_hl`, but with added keys:
+
+>
+    group = "hl-group-name, a string",
+    fg = "gui-fg, any valid color",
+    bg = "gui-bg, any valid color",
+    ctermfg = "cterm-fg, a number 0-255",
+    ctermbg = "cterm-bg, a number 0-255",
+    sp = "gui hl for special highlights, any valid color",
+    attr = "one of the possible attributes, true",
+    default = "only overwrite values found in this table, true. different from the built in default key",
+<
+
+While it isn't generally needed for overrides (as you have the 'default' key),
+all 4 color keys can take `"SKIP"` and `"NONE"` as additional values. "SKIP"
+simply does not try to overwrite any value found, while "NONE" directly sets
+the value to empty.
+
+See |attr-list| for the list of attribute keys possible.
+
+==============================================================================
+Section 6: Using in Other Plugins                            *kat.nvim-develop*
 The Lua module `katdotnvim.color` provides all the colors used for this
 colorscheme within the table `kat`. There are 10 sub-tables within `kat`:
                                                       *kat.nvim-develop-colors*
@@ -156,13 +258,13 @@ Within each color table contains a table of the colors themselves, each with 2
 keys: 'desc' and 'color'.
 
 ------------------------------------------------------------------------------
-Section 5a: Example                                   *kat.nvim-develop.example*
+Section 6a: Example                                   *kat.nvim-develop.example*
 
 `local pink = require("katdotnvim.color").kat.pink`
 `vim.api.nvim_set_hl(0, "Normal", {guifg = pink.base.color})`
 
 ------------------------------------------------------------------------------
-Section 5b: Printing Color Table Descriptions        *kat.nvim-develop-snippet*
+Section 6b: Printing Color Table Descriptions        *kat.nvim-develop-snippet*
 
 `vim.api.nvim_create_user_command("KatColor",`
 `    function(args)`
@@ -185,7 +287,7 @@ as arguments to the user-command. Simply execute this somewhere and use at
 your leisure.
 
 ==============================================================================
-Section 5: Contributing                                  *kat.nvim-contributing*
+Section 7: Contributing                                  *kat.nvim-contributing*
 I am open to expanding this colorscheme, but do this using Fennel with
 Aniseed, there are some peculiarities with how it needs to be developed. The
 most obvious example is that it must be developed entirely in Fennel with
@@ -193,7 +295,7 @@ Aniseed. I won't accept Lua code or Aniseed-less Fennel code. Fennel isn't
 that hard to learn, and you can mostly just copy an equivalent file.
 
 ------------------------------------------------------------------------------
-Section 5a: Internal Variables                  *kat.nvim-contributing.internal*
+Section 7a: Internal Variables                  *kat.nvim-contributing.internal*
 Internal variables are whatever variables that should not be exposed to the
 end user. If you need to expose a variable to the end user, use a
 |global-variable| through the |vim.g| namespace. Internal variables should
@@ -207,7 +309,7 @@ variables they are found in `katdotnvim.highlights.syntax`. You are fine
 defining them locally within your addition if they're only meant to be there.
 
 ------------------------------------------------------------------------------
-Section 5b: Color Functions                        *kat.nvim-contributing.color*
+Section 7b: Color Functions                        *kat.nvim-contributing.color*
 Color variables are not actually variables, they are functions that return a
 hex color string. This is to allow easy access to them without polluting
 global namespaces, while also allowing colorschemes to be changed during
@@ -229,30 +331,30 @@ using `defn`. You also can't use `def` for top level variables, you must use
    - A plain color function must be passed to a variable
 
 ------------------------------------------------------------------------------
-Section 5c: Compiling                          *kat.nvim-contributing.compiling*
+Section 7c: Compiling                          *kat.nvim-contributing.compiling*
 In order to compile this with make, you must have a local build of fennel in
 the root directory of this repository. It is not provided. It is currently
 used to build the files in `/colors`.
 
 ------------------------------------------------------------------------------
-Section 5d: Rendering Color Files              *kat.nvim-contributing.rendering*
+Section 7d: Rendering Color Files              *kat.nvim-contributing.rendering*
 Set `let g:kat_nvim_compile_enable = v:true`, then when inside this repo use
 the user command `:KatNvimRenderFiles`. You should then format with fnlfmt.
 
 ------------------------------------------------------------------------------
-Section 5e: fnlfmt                                *kat.nvim-contributing.fnlfmt*
+Section 7e: fnlfmt                                *kat.nvim-contributing.fnlfmt*
 fnlfmt, assuming it is in your `$PATH`, can be used with `make format` to
 format all files. Make sure to check anything you add for ideal formatting and
 add a skip header if needed
 
 ------------------------------------------------------------------------------
-Section 5f: Structure                          *kat.nvim-contributing.structure*
+Section 7f: Structure                          *kat.nvim-contributing.structure*
 Put the files in the right spot, filetypes go in
 `katdotnvim.highlights.filetype`. Plugins go in
 `katdotnvim.highlights.integrations`.
 
 ------------------------------------------------------------------------------
-Section 5g: Adding Options                       *kat.nvim-contributing.options*
+Section 7g: Adding Options                       *kat.nvim-contributing.options*
 If you add a filetype or plugin integration, or add a new global variable,
 make sure to add the defaults into the set defaults function in
 `katdotnvim.utils.error`.

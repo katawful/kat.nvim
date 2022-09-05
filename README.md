@@ -29,13 +29,103 @@ Simply set the contrast to whichever you prefer, and set your background in your
 
 See the examples above for the differences.
 
-# Rendered Support
-By default this color scheme will use pre-compiled files to set colors.
-This is a massive performance benefit, shaving almost 25ms off of my startup time for this plugin on my system (~30ms to ~6ms).
-The old method of setting colors can be used if wanted.
-Simply set `vim.g.kat_nvim_dont_render` to true and reload the colorscheme.
+# Rendering
+Colors for this colorscheme can be rendered to system-local JSON files for much faster startup time.
+These will render to your Neovim `std data`, for example on Linux:
+`/home/user/.local/share/nvim/kat/kat.nvim/json`.
 
-The rendered files themselves support any lingering 0.6 features, and work with each variant and with terminal colors.
+To render all of the base colorscheme files, use the user-command `KatNvimRender`.
+This will render out all of the colors, synchronously, to said data path.
+
+## Overrides
+
+```lua
+
+local render = require('katdotnvim.utils.export.render')
+local my_overrides = function ()
+    render.override_all({
+        source = "kat",
+        {
+            {group = "Normal", fg = "#ffffff", default = true},
+            {group = "Visual", fg = "#ff0000", default = true}}})
+
+    local color = function ()
+        if vim.o.background == "light" then
+            return "#000000"
+        else
+            return "#ffffff"
+        end
+    end
+
+    render.override ({
+        source = "kat",
+        light_hard = {
+            {group = "Normal", fg = color, default = true},
+            {group = "Visual", fg = "#ff0000", default = true}}})
+    render.override ({
+        source = "kat",
+        light_soft = {
+            {group = "Normal", fg = color, default = true},
+            {group = "Visual", fg = "#ff0000", default = true}}})
+    render.override ({
+        source = "kat",
+        dark_hard = {
+            {group = "Normal", fg = color, default = true},
+            {group = "Visual", fg = "#ff0000", default = true}}})
+    render.override ({
+        source = "kat",
+        dark_soft = {
+            {group = "Normal", fg = color, default = true},
+            {group = "Visual", fg = "#ff0000", default = true}}})
+end
+vim.api.nvim_create_user_command("MyOverrides", my_overrides, {})
+```
+
+Overrides can be defined, which will be loaded with the same method.
+There are 2 override functions:
+
+- `override`: Define an override for a variation of kat.nvim
+- `override_all`: Define an override for all variations of kat.nvim
+
+`override_all` cannot change values for the group based upon values like `vim.o.background` or kat.nvim's current contrast.
+`override` should be used for that instead.
+
+Both functions take a table with 2 keys: both take a `source` key with a string value corresponding to a name of your desire (like computer username).
+For `override_all`, the second key is a unnamed table of highlight groups.
+For `override`, the second key must be one of the following:
+
+- 'light_hard'
+- 'light_soft'
+- 'dark_hard'
+- 'dark_soft'
+
+It is recommended to define all 4, but it is not required.
+
+kat.nvim will use all rendered files it finds.
+
+Neovim version support also works with this feature, though remember to delete and regenerate if you update to a new version with a breaking change.
+
+### Highlight Table
+This colorscheme uses a custom highlight table to consolidate everything.
+It is mostly based on the opts table for `nvim_set_hl`, but with added keys:
+
+```lua
+{
+    group = "hl-group-name, a string",
+    fg = "gui-fg, any valid color",
+    bg = "gui-bg, any valid color",
+    ctermfg = "cterm-fg, a number 0-255",
+    ctermbg = "cterm-bg, a number 0-255",
+    sp = "gui hl for special highlights, any valid color",
+    attr = "one of the possible attributes, true",
+    default = "only overwrite values found in this table, true. different from the built in default key",
+}
+```
+
+While it isn't generally needed for overrides (as you have the 'default' key), all 4 color keys can take `"SKIP"` and `"NONE"` as additional values.
+"SKIP" simply does not try to overwrite any value found, while "NONE" directly sets the value to empty.
+
+See [attr-list](https://neovim.io/doc/user/syntax.html#attr-list) for the list of attribute keys possible.
 
 # 0.6 Deprecation Warning
 As of 2022-08-24, Neovim 0.6 support is now considered deprecated.
