@@ -10,6 +10,8 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
+local _ = nil
+_2amodule_locals_2a["_"] = _
 local std_data
 local function _1_(...)
   local path = vim.fn.stdpath("data")
@@ -24,9 +26,9 @@ do end (_2amodule_2a)["path"] = path
 local function encode(tbl)
   local encodee = {}
   local source = tbl
-  for _, value in pairs(source) do
+  for _0, value in pairs(source) do
     if ((type(value) == "function") and (value() ~= nil)) then
-      for _0, nest in pairs({value()}) do
+      for _1, nest in pairs({value()}) do
         table.insert(encodee, nest)
       end
     elseif ((type(value) == "table") or (value() ~= nil)) then
@@ -39,7 +41,7 @@ local function encode(tbl)
         return t_2_
       end
       if (type(_3_()) == "table") then
-        for _0, nest in pairs(value) do
+        for _1, nest in pairs(value) do
           table.insert(encodee, nest)
         end
       else

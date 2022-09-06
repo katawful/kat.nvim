@@ -11,13 +11,14 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, colors, get, hsl, s, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.highlight.get"), autoload("externals.hsluv"), autoload("katdotnvim.aniseed.string"), nil
+local a, colors, get, hsl, s, _, _0 = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.highlight.get"), autoload("externals.hsluv"), autoload("katdotnvim.aniseed.string"), nil, nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["get"] = get
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["s"] = s
-_2amodule_locals_2a["_"] = _
+_2amodule_locals_2a["_"] = _0
+_2amodule_locals_2a["_"] = _0
 local function get_existing(group)
   local gui = vim.api.nvim_get_hl_by_name(group, true)
   local fg = gui.foreground
@@ -288,7 +289,16 @@ local function highlight_24_3c_api(opts)
 end
 _2amodule_locals_2a["highlight$<-api"] = highlight_24_3c_api
 local function highlight_24(opts)
-  if (vim.fn.has("nvim-0.7") == 0) then
+  local _43_
+  do
+    local result_2_auto = vim.fn.has("nvim-0.7")
+    if (result_2_auto == 0) then
+      _43_ = false
+    else
+      _43_ = true
+    end
+  end
+  if _43_ then
     return highlight_24_3c_vimscript(opts)
   else
     return highlight_24_3c_api(opts)

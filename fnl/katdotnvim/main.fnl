@@ -21,9 +21,9 @@
                                                       :0.6-deprecation)))
           (vim.defer_fn mess 1000)))
       (when vim.g.colors_name
-        (vim.cmd "highlight clear"))
-      (when (= (vim.fn.exists :syntax_on) 1)
-        (vim.cmd "syntax reset"))
+        (do-ex highlight "clear"))
+      (when (do-viml exists :syntax_on)
+        (do-ex syntax "reset"))
       (def contrast in-contrast)
       (def background vim.o.background)
       (def contrast-mut [in-constrast])
@@ -31,8 +31,8 @@
       (color.update)
       ;; set g:colors_name for hard and soft themes
       (if (= contrast :hard)
-          (let- :g :colors_name :kat.nvim)
-          (let- :g :colors_name :kat.nwim))
+          (set-var g :colors_name :kat.nvim)
+          (set-var g :colors_name :kat.nwim))
       (let [has-render (override.main-files)
             matcher (string.format "%s-%s.json" vim.g.colors_name background)
             integrations (let [output {}]

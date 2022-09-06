@@ -40,11 +40,20 @@ local function init(in_contrast)
   else
   end
   if vim.g.colors_name then
-    vim.cmd("highlight clear")
+    vim.api.nvim_exec("highlight  clear", true)
   else
   end
-  if (vim.fn.exists("syntax_on") == 1) then
-    vim.cmd("syntax reset")
+  local _6_
+  do
+    local result_2_auto = vim.fn.exists("syntax_on")
+    if (result_2_auto == 0) then
+      _6_ = false
+    else
+      _6_ = true
+    end
+  end
+  if _6_ then
+    vim.api.nvim_exec("syntax  reset", true)
   else
   end
   local contrast = in_contrast

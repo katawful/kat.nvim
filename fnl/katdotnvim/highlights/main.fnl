@@ -2,7 +2,8 @@
         {autoload {colors katdotnvim.color
                    ucolors katdotnvim.utils.highlight.utils
                    run katdotnvim.utils.highlight.run
-                   main katdotnvim.main}})
+                   main katdotnvim.main}
+         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
 ; define variables to use for generic uses
 ; each variable is actually a function that gets called so that they always update and work with Aniseed modules
@@ -409,7 +410,7 @@
         :bg (ucolors.blend (. (errorBG) 1) (. (mainFG) 1) 0.6)
         :ctermfg :SKIP
         :ctermbg (. (warningBG) 2)}
-       (if (= (vim.fn.has :gui) 1)
+       (if (do-viml has :gui)
            (do
              {:group :Menu
               :fg (. (mainFG) 1)

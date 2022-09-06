@@ -4,7 +4,8 @@
                    get katdotnvim.utils.highlight.get
                    a aniseed.core
                    s aniseed.string}
-         require-macros [katdotnvim.katcros-fnl.macros.lispism.macros]})
+         require-macros [katcros-fnl.macros.lispism.macros
+                         katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; Functions for highlighting
 
@@ -185,6 +186,6 @@ highlighting for Neovim 0.7 and newer users
 ;; @opts -- Neovim standard table of highlight values
 (defn highlight$ [opts] "Generate a highlight using term and GUI colors
 @opts -- highlight table"
-      (if (= (vim.fn.has :nvim-0.7) 0)
+      (if (do-viml has :nvim-0.7)
           (highlight$<-vimscript opts)
           (highlight$<-api opts)))

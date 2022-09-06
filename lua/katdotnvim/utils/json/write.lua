@@ -10,9 +10,10 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
-local json, main = require("katdotnvim.utils.json.init"), require("katdotnvim.main")
-do end (_2amodule_locals_2a)["json"] = json
+local json, main, _ = require("katdotnvim.utils.json.init"), require("katdotnvim.main"), nil
+_2amodule_locals_2a["json"] = json
 _2amodule_locals_2a["main"] = main
+_2amodule_locals_2a["_"] = _
 local header = ((_2amodule_2a).header or string.format("%s", json.path))
 do end (_2amodule_2a)["header"] = header
 local function file_21(file, source_json, colors_name)

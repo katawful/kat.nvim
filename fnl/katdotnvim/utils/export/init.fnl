@@ -8,7 +8,7 @@
                    konsole katdotnvim.utils.export.konsole
                    a aniseed.core
                    s aniseed.string}
-         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; Main file for exporting color files
 
@@ -162,8 +162,8 @@
                                                terminal))))))
 
 ;; create user command for terminal color generation
-(if (= (vim.fn.has :nvim-0.7) 1)
-    (command- :KatGenTermTheme
+(if (do-viml has :nvim-0.7)
+    (cre-command :KatGenTermTheme
               (fn [args]
                 (gen_term_colors args.args)) {:nargs 1})
     (command*-vim :KatGenTermTheme {:nargs 1}

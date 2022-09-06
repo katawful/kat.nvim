@@ -1,8 +1,9 @@
-(module katdotnvim.utils.json.init)
+(module katdotnvim.utils.json.init
+  {require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; JSON manipulation
 
-(defonce std-data (let [path (vim.fn.stdpath :data)]
+(defonce std-data (let [path (do-viml stdpath :data)]
                     (.. path :/kat)))
 
 (defonce files [:main
