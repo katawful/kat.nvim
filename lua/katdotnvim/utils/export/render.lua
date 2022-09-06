@@ -27,9 +27,7 @@ local function render_file()
   local colors = {{"light", "soft", "kat.nwim"}, {"light", "hard", "kat.nvim"}, {"dark", "soft", "kat.nwim"}, {"dark", "hard", "kat.nvim"}}
   local old_contrast = (main["contrast-mut"])[1]
   local old_background = (main["background-mut"])[1]
-  local old_dontRender = vim.g.kat_nvim_dontRender
   local old_version = vim.g.kat_nvim_max_version
-  vim.g["kat_nvim_dontRender"] = true
   for _1, v in ipairs(colors) do
     main["background-mut"][1] = v[1]
     main["contrast-mut"][1] = v[2]
@@ -38,9 +36,8 @@ local function render_file()
       write["file!"](file, json.encode(json["file-parse"](file)), v[3])
     end
   end
-  vim.g["kat_nvim_dontRender"] = old_dontRender
   vim.g["kat_nvim_max_version"] = old_version
-  do local _ = {nil, nil} end
+  do local _ = {nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
   return nil
@@ -67,14 +64,12 @@ _2amodule_locals_2a["render-color*"] = render_color_2a
 local function override(args)
   local old_contrast = (main["contrast-mut"])[1]
   local old_background = (main["background-mut"])[1]
-  local old_dontRender = vim.g.kat_nvim_dontRender
   local old_version = vim.g.kat_nvim_max_version
   local assertion = {}
   for k, _1 in pairs(args) do
     table.insert(assertion, true)
   end
   assert((#assertion == 2), "only 2 arguments allowed")
-  do end (vim.g)["kat_nvim_dontRender"] = true
   local _2_
   do
     local t_1_ = args
@@ -127,9 +122,8 @@ local function override(args)
     render_color({args.source, args.dark_soft, "kat.nwim"}, {"dark", "soft"})
   else
   end
-  vim.g["kat_nvim_dontRender"] = old_dontRender
   vim.g["kat_nvim_max_version"] = old_version
-  do local _ = {nil, nil} end
+  do local _ = {nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
   return nil
@@ -138,18 +132,15 @@ _2amodule_2a["override"] = override
 local function override_all(args)
   local old_contrast = (main["contrast-mut"])[1]
   local old_background = (main["background-mut"])[1]
-  local old_dontRender = vim.g.kat_nvim_dontRender
   local old_version = vim.g.kat_nvim_max_version
   local assertion = {}
   for k, _1 in pairs(args) do
     table.insert(assertion, true)
   end
   assert((#assertion == 2), "only 2 arguments allowed")
-  do end (vim.g)["kat_nvim_dontRender"] = true
   render_color_2a({args.source, args[1]})
-  do end (vim.g)["kat_nvim_dontRender"] = old_dontRender
-  vim.g["kat_nvim_max_version"] = old_version
-  do local _ = {nil, nil} end
+  do end (vim.g)["kat_nvim_max_version"] = old_version
+  do local _ = {nil} end
   main["background-mut"][1] = old_background
   main["contrast-mut"][1] = old_contrast
   return nil

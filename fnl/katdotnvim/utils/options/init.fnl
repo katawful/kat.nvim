@@ -1,5 +1,6 @@
 (module katdotnvim.utils.options.init
-        {require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
+        {autoload {message katdotnvim.utils.message.init}
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; Module for option management
 
@@ -17,16 +18,29 @@
              :startify
              :coc
              :cmp
-             :fugitive]) (let- :g :kat_nvim_dontRender false)
+             :fugitive])
+      (let- :g :kat_nvim_dontRender false)
       (let- :g :kat_nvim_compile_enable false))
 
 ;; FN -- check global variables and set to default values if needed
 (defn default []
       "Check global variables and set to default if no value was set"
       (if (= (vim.fn.exists :kat_nvim_commentStyle) 0)
-          (let- :g :kat_nvim_commentStyle :italic))
+          (let- :g :kat_nvim_commentStyle :italic)
+          (do
+            (fn mess []
+              (message.warn$ (string.format (message.<-table :utils.options.init
+                                                             :option-deprecation)
+                                            :vim.g.kat_nvim_commentStyle)))
+            (vim.defer_fn mess 1000)))
       (if (= (vim.fn.exists :kat_nvim_compile_enable) 0)
-          (let- :g :kat_nvim_compile_enable false))
+          (let- :g :kat_nvim_compile_enable false)
+          (do
+            (fn mess []
+              (message.warn$ (string.format (message.<-table :utils.options.init
+                                                             :option-deprecation)
+                                            :vim.g.kat_nvim_compile_enable)))
+            (vim.defer_fn mess 1000)))
       (if (= (vim.fn.exists :kat_nvim_integrations) 0)
           (let- :g :kat_nvim_integrations
                 [:treesitter
@@ -46,4 +60,10 @@
       (if (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
           (let- :g :kat_nvim_stupidFeatures false))
       (if (= (vim.fn.exists :kat_nvim_dontRender) 0)
-          (let- :g :kat_nvim_dontRender false)))
+          (let- :g :kat_nvim_dontRender false)
+          (do
+            (fn mess []
+              (message.warn$ (string.format (message.<-table :utils.options.init
+                                                             :option-deprecation)
+                                            :vim.g.kat_nvim_dontRender)))
+            (vim.defer_fn mess 1000))))

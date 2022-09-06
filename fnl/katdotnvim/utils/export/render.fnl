@@ -21,17 +21,14 @@
                      [:dark :hard :kat.nvim]]
              old-contrast (. main.contrast-mut 1)
              old-background (. main.background-mut 1)
-             old-dontRender vim.g.kat_nvim_dontRender
              old-version vim.g.kat_nvim_max_version]
-         (set-var g :kat_nvim_dontRender true)
          (each [_ v (ipairs colors)]
            (tset main.background-mut 1 (. v 1))
            (tset main.contrast-mut 1 (. v 2))
            (color-table.update)
            (each [_ file (ipairs json.files)]
              (write.file! file (json.encode (json.file-parse file)) (. v 3))))
-         (set-vars g {:kat_nvim_max_version old-version
-                      :kat_nvim_dontRender old-dontRender})
+         (set-vars g {:kat_nvim_max_version old-version})
          (tset main.background-mut 1 old-background)
          (tset main.contrast-mut 1 old-contrast)))
 
@@ -77,13 +74,11 @@ The second key contains a table of highlight tables.
 It is best to make an override for each possible 2nd key"
       (let [old-contrast (. main.contrast-mut 1)
             old-background (. main.background-mut 1)
-            old-dontRender vim.g.kat_nvim_dontRender
             old-version vim.g.kat_nvim_max_version
             assertion []]
         (each [k _ (pairs args)]
           (table.insert assertion true))
         (assert (= (length assertion) 2) "only 2 arguments allowed")
-        (set-var g :kat_nvim_dontRender true)
         (if (?. args :light_hard)
             (render-color [args.source args.light_hard :kat.nvim]
                           [:light :hard]))
@@ -94,8 +89,7 @@ It is best to make an override for each possible 2nd key"
             (render-color [args.source args.dark_hard :kat.nvim] [:dark :hard]))
         (if (?. args :dark_soft)
             (render-color [args.source args.dark_soft :kat.nwim] [:dark :soft]))
-        (set-vars g {:kat_nvim_max_version old-version
-                     :kat_nvim_dontRender old-dontRender})
+        (set-vars g {:kat_nvim_max_version old-version})
         (tset main.background-mut 1 old-background)
         (tset main.contrast-mut 1 old-contrast)))
 
@@ -108,16 +102,13 @@ This is generally recommended if your override doesn't have to change for the va
 of kat.nvim"
       (let [old-contrast (. main.contrast-mut 1)
             old-background (. main.background-mut 1)
-            old-dontRender vim.g.kat_nvim_dontRender
             old-version vim.g.kat_nvim_max_version
             assertion []]
         (each [k _ (pairs args)]
           (table.insert assertion true))
         (assert (= (length assertion) 2) "only 2 arguments allowed")
-        (set-var g :kat_nvim_dontRender true)
         (render-color* [args.source (. args 1)])
-        (set-vars g {:kat_nvim_max_version old-version
-                     :kat_nvim_dontRender old-dontRender})
+        (set-vars g {:kat_nvim_max_version old-version})
         (tset main.background-mut 1 old-background)
         (tset main.contrast-mut 1 old-contrast)))
 

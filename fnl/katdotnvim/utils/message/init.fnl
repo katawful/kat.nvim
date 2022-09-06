@@ -20,6 +20,10 @@
 ;; fnlfmt: skip
 (defonce- notifications
      {
+      :utils.options.init {
+                           :option-deprecation {:number 3
+                                                :type :warn
+                                                :message "Option '%s' is considered deprecated for removal by September 30th 2022. Please unbind."}}
       :utils.export.render {
                             :compilation-dev {:number 1
                                               :type :warn
