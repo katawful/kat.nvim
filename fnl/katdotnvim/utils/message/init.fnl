@@ -46,7 +46,10 @@
 ;; FN -- wraps vim.notify for messaging needs
 ;; @log-level -- string of the log level desired
 ;; @message -- the message to output
-(defn- notify$ [log-level message] "Wrapper for vim.notify"
+(defn- notify$ [log-level message] "Wrapper for vim.notify
+@log-level -- string of log level wanted
+@message -- message to output
+Outputs a message"
        (match log-level
          :error (vim.notify message vim.log.levels.ERROR)
          :warn (vim.notify message vim.log.levels.WARN)
@@ -72,7 +75,10 @@
 ;; @from-module -- what module the message is coming from
 ;; @message-type -- what type of message it is
 (defn <-table [from-module message-type]
-      "Constructs message based on the internal table"
+      "Constructs message based on the internal table
+@from-module -- string of module to load message from
+@message-type -- message used for said module
+Returns message string"
       (let [message-table (. (. notifications from-module) message-type)
             notify-type (match message-table.type
                           :error :E

@@ -15,6 +15,7 @@
 (defn init [in-contrast] "Main plugin interface"
       (options.default) ; define some defaults
 
+      ;; Setup colorscheme
       (when (not (do-viml has :nvim-0.7))
         (do
           (fn mess [] (message.warn$ (message.<-table :utils.highlight.init
@@ -24,15 +25,18 @@
         (do-ex highlight "clear"))
       (when (do-viml exists :syntax_on)
         (do-ex syntax "reset"))
+
+      ;; Define variations for kat.nvim
       (def contrast in-contrast)
       (def background vim.o.background)
       (def contrast-mut [in-constrast])
       (def background-mut [vim.o.background])
       (color.update)
-      ;; set g:colors_name for hard and soft themes
       (if (= contrast :hard)
           (set-var g :colors_name :kat.nvim)
           (set-var g :colors_name :kat.nwim))
+
+      ;; Load colors
       (let [has-render (override.main-files)
             matcher (string.format "%s-%s.json" vim.g.colors_name background)
             integrations (let [output {}]
@@ -41,6 +45,8 @@
                            (each [_ v (pairs vim.g.kat_nvim_filetype)]
                              (tset output (.. "filetype." v) true))
                            output)]
+        ;; This path is if we had found the files in stdpath('data')
+        ;; It is not the cleanest or most thorough, a backup system is planned for later
         (if has-render
           (do
             (run.highlight$<-table (read.file! :main))
@@ -54,11 +60,13 @@
             (if (= vim.g.kat_nvim_stupidFeatures true)
               ((. (require :katdotnvim.stupid) :stupidFunction)))
             (require :katdotnvim.utils.export.init)
+            ;; Load in overrides from end user
             (let [has-overrides (override.files)]
               (when has-overrides
                 (each [file _ (pairs has-overrides)]
                   (when (string.find file matcher 1 true)
                     (run.highlight$<-table (read.full-file! file)))))))
+          ;; Run dynamically generated colors
           (do
             ((. (require :katdotnvim.highlights.main) :init))
             ((. (require :katdotnvim.highlights.syntax) :init))
@@ -74,6 +82,7 @@
             (each [_ v (pairs vim.g.kat_nvim_filetype)]
               (local output (.. :katdotnvim.highlights.filetype. v))
               ((. (require output) :init)))
+            ;; Load in overrides from end user
             (let [has-overrides (override.files)]
               (when has-overrides
                 (each [file _ (pairs has-overrides)]

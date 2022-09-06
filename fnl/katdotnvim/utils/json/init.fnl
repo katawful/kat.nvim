@@ -41,8 +41,10 @@ This function evaluates all possible values"
                   (table.insert encodee value))))
         (vim.json.encode encodee)))
 
+;; fnlfmt: skip
 (defn decode [json]
-      "Decode json into a lua table\n@json -- a valid json object"
+      "Decode json into a lua table
+@json -- a valid json object"
       (vim.json.decode json))
 
 (defn ->file! [file json] "Store json to file

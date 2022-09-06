@@ -173,7 +173,8 @@
           :fg {}
           :bg {}})
 
-(defn update [] ;;; Set base colors and fg/bg
+(defn update [] "Allow colors to update upon change"
+      ;; Set base colors and fg/bg
       ;; Key -- key value table that holds all colors from the color table for easy access
       ;; values are:
       ;; red, blue, green, pink, orange, purple, pink

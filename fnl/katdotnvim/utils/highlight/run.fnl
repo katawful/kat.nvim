@@ -10,8 +10,8 @@
 
 ;; fnlfmt: skip
 (defn highlight$<-table [high-table]
-      "Highlight Neovim from a table of values
-Table is: group guifg guibg termfg termbg attr special blend"
+      "Highlight Neovim from a higlight table
+Handles evaluating functions and nested tables"
       (each [_ value (pairs high-table)] 
         ; in some cases we have a function to handle different kinds of ; highlighting of some groups ; make sure that function does not return incase its not relevant
         (if (and (= (type value) :function) (not= (value) nil))

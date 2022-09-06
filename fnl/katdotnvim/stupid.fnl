@@ -4,7 +4,8 @@
                                      syntax katdotnvim.highlights.syntax
                                      a aniseed.core}})
 
-; this handles stupid features
+;;; Handles so called 'stupid' features
+;;; Name is considered deprecated, but no warning until v2.0
 
 ;; fnlfmt: skip
 (defn stupidFunction []

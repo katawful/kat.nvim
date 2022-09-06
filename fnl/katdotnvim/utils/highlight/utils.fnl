@@ -14,7 +14,11 @@
 ;; @mix-color -- the color we want to mix with
 ;; @alpha -- a 0 - 1 decimal value that determines how much mix value is allowed
 ;; $output -- blended hex color
-(defn blend [source-color mix-color alpha] "Blend two colors by some alpha"
+(defn blend [source-color mix-color alpha] "Blend two hex colors by some alpha
+@source-color -- left color
+@mix-color -- right color
+@alpha -- decimal number. 0 blends in only left color, 1 blends in only right color
+Returns hex color"
       (let [source-color (hsl.hex_to_rgb source-color)
             mix-color (hsl.hex_to_rgb mix-color)
             return-color (value->table i 3
@@ -31,7 +35,10 @@
 ;; @color -- input hex color
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
-(defn brighten [color percent] "Brighten a hex color by some percent"
+(defn brighten [color percent] "Brighten a hex color by some percent
+@color -- hex color
+@percent -- decimal
+Returns hex color"
       (let [hsl-color (hsl.hex_to_hsluv color)
             luminance (- 100 (. hsl-color 3))
             input-luminance (let [mid-luminance (+ (. hsl-color 3)
@@ -45,7 +52,10 @@
 ;; @tuple -- input color as a 3 value sequential table
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
-(defn hsluv-brighten [tuple percent] "Brighten a hsluv color by some percent"
+(defn hsluv-brighten [tuple percent] "Brighten a hsluv color by some percent
+@color -- hsluv color, a 3 key seq table
+@percent -- decimal
+Returns hex color"
       (let [hsl-color tuple
             luminance (- 100 (. hsl-color 3))
             input-luminance (let [mid-luminance (* (. hsl-color 3)
@@ -59,7 +69,10 @@
 ;; @color -- input hex color
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
-(defn darken [color percent] "Darken a hex color by some percent"
+(defn darken [color percent] "Darken a hex color by some percent
+@color -- hex color
+@percent -- decimal
+Returns hex color"
       (let [hsl-color (hsl.hex_to_hsluv color)
             luminance (- 100 (. hsl-color 3))
             input-luminance (let [mid-luminance (* (. hsl-color 3)
@@ -74,7 +87,10 @@
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
 (defn saturation [color percent]
-      "Change saturation of hex color by some percent"
+      "Change saturation of hex color by some percent
+@color -- hex color
+@percent -- decimal
+Returns hex color"
       (let [hsl-color (hsl.hex_to_hsluv color)
             saturation (. hsl-color 2)
             input-saturation (let [mid-saturation (+ (. hsl-color 2)

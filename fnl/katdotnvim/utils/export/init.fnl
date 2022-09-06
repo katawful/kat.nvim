@@ -24,7 +24,9 @@
 ;; $string -- output string
 
 ;; fnlfmt: skip
-(defn rgb->string [rgb] "Converts decimal rgb table to a 256 color string"
+(defn rgb->string [rgb] "Converts decimal rgb table to a 256 color string
+@rgb -- a seq table with 3 values, decimal rgb values
+Returns a rgb color string"
       (let [string (string.format "%s,%s,%s"
                                   (math.floor (* (. rgb 1) 255))
                                   (math.floor (* (. rgb 2) 255))
@@ -34,7 +36,9 @@
 ;; FN converts a hex color string to a RGB color string
 ;; @hex -- input hex
 ;; $string -- output string
-(defn hex->rgb-string [hex] "Converts a hex color to a 256 rgb string"
+(defn hex->rgb-string [hex] "Converts a hex color to a 256 rgb string
+@hex -- a hex string
+Returns a color rgb string"
       (let [string (rgb->string (hsl.hex_to_rgb hex))]
         string))
 
@@ -45,7 +49,11 @@
 ;; @value -- value from nested table
 ;; $color-string mutated string of colors
 (defn color-nest->one-line-color% [key value input-color]
-      "Iterates over a nested color array and returns a one-line color config string"
+      "Iterates over a nested color array and returns a one-line color config string
+@key -- key from nested table
+@value -- value from nested table
+@input-color -- input hex color
+Returns a new colorstring"
       (var color-string input-color)
       (match (type value)
         :table (do
@@ -68,7 +76,10 @@
 ;; @terminal -- the terminal used
 ;; $color-string -- string to be put into a file
 (defn table->one-line-color [colors terminal]
-      "Converts nested table of colors to a one-line color config string"
+      "Converts nested table of colors to a one-line color config string
+@colors -- input color table
+@terminal -- string of terminal used
+Returns a color string"
       (var color-string
            (string.format file-header (. comment-type 1) terminal
                           (. comment-type 1) (tostring vim.g.colors_name)
@@ -85,7 +96,10 @@
 ;; @terminal -- terminal used
 ;; $color-string -- string to be put into a file
 (defn string->two-line-color* [colors terminal]
-      "Converts a table of strings to a two-line color config string, with no comments"
+      "Converts a table of strings to a two-line color config string, with no comments
+@colors -- input color table
+@terminal -- string of terminal used
+Returns a color string"
       (let [color-string (s.join (let [tbl []]
                                    (each [key val (pairs colors)]
                                      (table.insert tbl
@@ -100,7 +114,10 @@
 ;; @terminal -- the terminal used
 ;; $color-string -- string to be put into a file
 (defn string->one-line-color [colors terminal]
-      "Converts a table of strings to a one-line color config string"
+      "Converts a table of strings to a one-line color config string
+@colors -- input color table
+@terminal -- string of terminal used
+Returns a color string"
       (let [color-string (s.join (let [tbl []]
                                    (table.insert tbl
                                                  (string.format file-header
@@ -120,7 +137,9 @@
         color-string))
 
 ;; FN -- notify the user that a terminal theme was generated for said colorscheme
-(defn notify$ [terminal] "Small wrapper around utils.message.init"
+(defn notify$ [terminal] "Small wrapper around utils.message.init
+@terminal -- string of terminal desired
+Outputs a message on vim.notify"
       (message.info$ (string.format (message.<-table :utils.export.init
                                                      :term-theme-generated)
                                     terminal vim.g.colors_name
@@ -139,7 +158,8 @@
 
 ;; FN -- wrap terminal generation for a single function
 (defn gen_term_colors [terminal]
-      "Function for Neovim interaction, determines what terminal is being run"
+      "Function for Neovim interaction, determines what terminal is being run
+@terminal -- string of terminal used"
       (if (= (is-colorscheme?) true)
           (match (tostring terminal)
             :kitty (do
