@@ -60,6 +60,7 @@
             (if (= vim.g.kat_nvim_stupidFeatures true)
               ((. (require :katdotnvim.stupid) :stupidFunction)))
             (require :katdotnvim.utils.export.init)
+            ((. (require :katdotnvim.utils.export.render) :init))
             ;; Load in overrides from end user
             (let [has-overrides (override.files)]
               (when has-overrides

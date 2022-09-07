@@ -103,6 +103,7 @@ local function init(in_contrast)
     else
     end
     require("katdotnvim.utils.export.init")
+    do end (require("katdotnvim.utils.export.render")).init()
     local has_overrides = override.files()
     if has_overrides then
       for file, _1 in pairs(has_overrides) do
