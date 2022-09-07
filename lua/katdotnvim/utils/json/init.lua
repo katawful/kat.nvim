@@ -28,19 +28,35 @@ local function encode(tbl)
   local source = tbl
   for _0, value in pairs(source) do
     if ((type(value) == "function") and (value() ~= nil)) then
-      for _1, nest in pairs({value()}) do
-        table.insert(encodee, nest)
-      end
-    elseif ((type(value) == "table") or (value() ~= nil)) then
-      local function _3_()
-        local t_2_ = value
-        if (nil ~= t_2_) then
-          t_2_ = (t_2_)[1]
+      local function _2_()
+        local t_3_ = value()
+        if (nil ~= t_3_) then
+          t_3_ = (t_3_)[1]
         else
         end
-        return t_2_
+        return t_3_
       end
-      if (type(_3_()) == "table") then
+      if ((type(value()) == "table") and _2_()) then
+        for _1, nest in pairs(value()) do
+          if (type(nest) == "function") then
+            table.insert(encodee, nest())
+          else
+            table.insert(encodee, nest)
+          end
+        end
+      else
+        table.insert(encodee, value())
+      end
+    elseif ((type(value) == "table") or (value() ~= nil)) then
+      local function _8_()
+        local t_7_ = value
+        if (nil ~= t_7_) then
+          t_7_ = (t_7_)[1]
+        else
+        end
+        return t_7_
+      end
+      if (type(_8_()) == "table") then
         for _1, nest in pairs(value) do
           table.insert(encodee, nest)
         end
@@ -68,10 +84,10 @@ local function __3efile_21(file, json)
       return error(..., 0)
     end
   end
-  local function _8_()
+  local function _13_()
     return json_file:write(json)
   end
-  return close_handlers_8_auto(_G.xpcall(_8_, (package.loaded.fennel or debug).traceback))
+  return close_handlers_8_auto(_G.xpcall(_13_, (package.loaded.fennel or debug).traceback))
 end
 _2amodule_2a["->file!"] = __3efile_21
 local function _3c_file(file)

@@ -31,8 +31,12 @@ This function evaluates all possible values"
         (each [_ value (pairs source)]
           ;; check for function
           (if (and (= (type value) :function) (not= (value) nil))
-              (each [_ nest (pairs [(value)])]
-                (table.insert encodee nest))
+              (if (and (= (type (value)) :table) (?. (value) 1))
+                (each [_ nest (pairs (value))]
+                  (if (= (type nest) :function)
+                    (table.insert encodee (nest))
+                    (table.insert encodee nest)))
+                (table.insert encodee (value)))
               (or (= (type value) :table) (not= (value) nil))
               ;; if just table
               (if (= (type (?. value 1)) :table)
