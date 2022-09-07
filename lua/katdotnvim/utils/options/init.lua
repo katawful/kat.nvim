@@ -38,8 +38,6 @@ local function default()
     end
   end
   if _1_ then
-    print("NEIO")
-    print(deprecation_check.messaged)
     if (deprecation_check.messaged == false) then
       local function mess()
         return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_commentStyle"))

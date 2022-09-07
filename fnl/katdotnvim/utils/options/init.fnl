@@ -30,8 +30,6 @@
       "Check global variables and set to default if no value was set"
       (if (do-viml exists :kat_nvim_commentStyle)
           (do
-            (print "NEIO")
-            (print deprecation-check.messaged)
             (if (= deprecation-check.messaged false)
               (do
                 (fn mess []
