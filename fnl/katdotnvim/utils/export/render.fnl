@@ -15,22 +15,22 @@
 
 ;; FN -- deal with rendering the groups needed
 (defn render-file [] "Render to file for built in color files"
-       (let [colors [[:light :soft :kat.nwim]
-                     [:light :hard :kat.nvim]
-                     [:dark :soft :kat.nwim]
-                     [:dark :hard :kat.nvim]]
-             old-contrast (. main.contrast-mut 1)
-             old-background (. main.background-mut 1)
-             old-version vim.g.kat_nvim_max_version]
-         (each [_ v (ipairs colors)]
-           (tset main.background-mut 1 (. v 1))
-           (tset main.contrast-mut 1 (. v 2))
-           (color-table.update)
-           (each [_ file (ipairs json.files)]
-             (write.file! file (json.encode (json.file-parse file)) (. v 3))))
-         (set-vars g {:kat_nvim_max_version old-version})
-         (tset main.background-mut 1 old-background)
-         (tset main.contrast-mut 1 old-contrast)))
+      (let [colors [[:light :soft :kat.nwim]
+                    [:light :hard :kat.nvim]
+                    [:dark :soft :kat.nwim]
+                    [:dark :hard :kat.nvim]]
+            old-contrast (. main.contrast-mut 1)
+            old-background (. main.background-mut 1)
+            old-version vim.g.kat_nvim_max_version]
+        (each [_ v (ipairs colors)]
+          (tset main.background-mut 1 (. v 1))
+          (tset main.contrast-mut 1 (. v 2))
+          (color-table.update)
+          (each [_ file (ipairs json.files)]
+            (write.file! file (json.encode (json.file-parse file)) (. v 3))))
+        (set-vars g {:kat_nvim_max_version old-version})
+        (tset main.background-mut 1 old-background)
+        (tset main.contrast-mut 1 old-contrast)))
 
 (defn- render-color [args mutations] "Render color for a variation
 @args -- a seq table of arguments

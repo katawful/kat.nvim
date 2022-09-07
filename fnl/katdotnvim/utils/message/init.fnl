@@ -74,8 +74,7 @@ Outputs a message"
 ;; FN -- constructs message to be output
 ;; @from-module -- what module the message is coming from
 ;; @message-type -- what type of message it is
-(defn <-table [from-module message-type]
-      "Constructs message based on the internal table
+(defn <-table [from-module message-type] "Constructs message based on the internal table
 @from-module -- string of module to load message from
 @message-type -- message used for said module
 Returns message string"

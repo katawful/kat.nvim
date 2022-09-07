@@ -1,5 +1,5 @@
 (module katdotnvim.utils.json.init
-  {require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+        {require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; JSON manipulation
 
@@ -32,11 +32,11 @@ This function evaluates all possible values"
           ;; check for function
           (if (and (= (type value) :function) (not= (value) nil))
               (if (and (= (type (value)) :table) (?. (value) 1))
-                (each [_ nest (pairs (value))]
-                  (if (= (type nest) :function)
-                    (table.insert encodee (nest))
-                    (table.insert encodee nest)))
-                (table.insert encodee (value)))
+                  (each [_ nest (pairs (value))]
+                    (if (= (type nest) :function)
+                        (table.insert encodee (nest))
+                        (table.insert encodee nest)))
+                  (table.insert encodee (value)))
               (or (= (type value) :table) (not= (value) nil))
               ;; if just table
               (if (= (type (?. value 1)) :table)

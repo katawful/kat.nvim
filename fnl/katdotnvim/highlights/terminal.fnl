@@ -20,28 +20,35 @@
       (if (= (. main.background-mut 1) :light)
           (do
             (set-var g :terminal_color_9
-                  (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
+                     (ucolors.darken (. (colors.init :normalColors) :red) 0.2))
             (set-var g :terminal_color_10
-                  (ucolors.darken (. (colors.init :normalColors) :green) 0.2))
+                     (ucolors.darken (. (colors.init :normalColors) :green) 0.2))
             (set-var g :terminal_color_11
-                  (ucolors.darken (. (colors.init :normalColors) :orange) 0.2))
+                     (ucolors.darken (. (colors.init :normalColors) :orange)
+                                     0.2))
             (set-var g :terminal_color_12
-                  (ucolors.darken (. (colors.init :normalColors) :blue) 0.2))
+                     (ucolors.darken (. (colors.init :normalColors) :blue) 0.2))
             (set-var g :terminal_color_13
-                  (ucolors.darken (. (colors.init :normalColors) :pink) 0.2))
+                     (ucolors.darken (. (colors.init :normalColors) :pink) 0.2))
             (set-var g :terminal_color_14
-                  (ucolors.darken (. (colors.init :normalColors) :purple) 0.2)))
+                     (ucolors.darken (. (colors.init :normalColors) :purple)
+                                     0.2)))
           (do
             (set-var g :terminal_color_9
-                  (ucolors.brighten (. (colors.init :normalColors) :red) 0.2))
+                     (ucolors.brighten (. (colors.init :normalColors) :red) 0.2))
             (set-var g :terminal_color_10
-                  (ucolors.brighten (. (colors.init :normalColors) :green) 0.2))
+                     (ucolors.brighten (. (colors.init :normalColors) :green)
+                                       0.2))
             (set-var g :terminal_color_11
-                  (ucolors.brighten (. (colors.init :normalColors) :orange) 0.2))
+                     (ucolors.brighten (. (colors.init :normalColors) :orange)
+                                       0.2))
             (set-var g :terminal_color_12
-                  (ucolors.brighten (. (colors.init :normalColors) :blue) 0.2))
+                     (ucolors.brighten (. (colors.init :normalColors) :blue)
+                                       0.2))
             (set-var g :terminal_color_13
-                  (ucolors.brighten (. (colors.init :normalColors) :pink) 0.2))
+                     (ucolors.brighten (. (colors.init :normalColors) :pink)
+                                       0.2))
             (set-var g :terminal_color_14
-                  (ucolors.brighten (. (colors.init :normalColors) :purple) 0.2))))
+                     (ucolors.brighten (. (colors.init :normalColors) :purple)
+                                       0.2))))
       (set-var g :terminal_color_15 (. (colors.init :foreground) 2)))

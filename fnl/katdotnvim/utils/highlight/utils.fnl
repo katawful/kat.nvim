@@ -86,8 +86,7 @@ Returns hex color"
 ;; @color -- input hex color
 ;; @percent -- amount to adjust as a decimal percent
 ;; $output -- changed hex color
-(defn saturation [color percent]
-      "Change saturation of hex color by some percent
+(defn saturation [color percent] "Change saturation of hex color by some percent
 @color -- hex color
 @percent -- decimal
 Returns hex color"

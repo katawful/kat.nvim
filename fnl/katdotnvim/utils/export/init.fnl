@@ -53,8 +53,7 @@ Returns a color rgb string"
 @key -- key from nested table
 @value -- value from nested table
 @input-color -- input hex color
-Returns a new colorstring"
-      (var color-string input-color)
+Returns a new colorstring" (var color-string input-color)
       (match (type value)
         :table (do
                  (each [sub-key sub-val (pairs value)]
@@ -75,8 +74,7 @@ Returns a new colorstring"
 ;; @colors -- the input color table
 ;; @terminal -- the terminal used
 ;; $color-string -- string to be put into a file
-(defn table->one-line-color [colors terminal]
-      "Converts nested table of colors to a one-line color config string
+(defn table->one-line-color [colors terminal] "Converts nested table of colors to a one-line color config string
 @colors -- input color table
 @terminal -- string of terminal used
 Returns a color string"
@@ -95,8 +93,7 @@ Returns a color string"
 ;; @color -- input color table
 ;; @terminal -- terminal used
 ;; $color-string -- string to be put into a file
-(defn string->two-line-color* [colors terminal]
-      "Converts a table of strings to a two-line color config string, with no comments
+(defn string->two-line-color* [colors terminal] "Converts a table of strings to a two-line color config string, with no comments
 @colors -- input color table
 @terminal -- string of terminal used
 Returns a color string"
@@ -113,8 +110,7 @@ Returns a color string"
 ;; @colors -- the input color table
 ;; @terminal -- the terminal used
 ;; $color-string -- string to be put into a file
-(defn string->one-line-color [colors terminal]
-      "Converts a table of strings to a one-line color config string
+(defn string->one-line-color [colors terminal] "Converts a table of strings to a one-line color config string
 @colors -- input color table
 @terminal -- string of terminal used
 Returns a color string"
@@ -157,8 +153,7 @@ Outputs a message on vim.notify"
             true)))
 
 ;; FN -- wrap terminal generation for a single function
-(defn gen_term_colors [terminal]
-      "Function for Neovim interaction, determines what terminal is being run
+(defn gen_term_colors [terminal] "Function for Neovim interaction, determines what terminal is being run
 @terminal -- string of terminal used"
       (if (= (is-colorscheme?) true)
           (match (tostring terminal)
@@ -184,7 +179,7 @@ Outputs a message on vim.notify"
 ;; create user command for terminal color generation
 (if (do-viml has :nvim-0.7)
     (cre-command :KatGenTermTheme
-              (fn [args]
-                (gen_term_colors args.args)) {:nargs 1})
+                 (fn [args]
+                   (gen_term_colors args.args)) {:nargs 1})
     (command*-vim :KatGenTermTheme {:nargs 1}
                   "lua require('katdotnvim.utils.export.init').gen_term_colors(<args>)"))
