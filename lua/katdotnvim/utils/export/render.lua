@@ -42,7 +42,7 @@ local function render_file()
   main["contrast-mut"][1] = old_contrast
   return nil
 end
-_2amodule_locals_2a["render-file"] = render_file
+_2amodule_2a["render-file"] = render_file
 local function render_color(args, mutations)
   main["background-mut"][1] = mutations[1]
   main["contrast-mut"][1] = mutations[2]
@@ -148,12 +148,12 @@ end
 _2amodule_2a["override_all"] = override_all
 local function init()
   if (vim.g.kat_nvim_max_version == "0.6") then
-    return vim.api.nvim_command("command! -nargs=0 KatNvimRender lua require('katdotnvim.utils.export.render').render-file()")
-  else
     local function _17_()
       return render_file()
     end
     return vim.api.nvim_create_user_command("KatNvimRender", _17_, {desc = "Render kat.nvim colorscheme to file"})
+  else
+    return vim.api.nvim_command("command! -nargs=0 KatNvimRender lua require('katdotnvim.utils.export.render')[\"render-file\"]()")
   end
 end
 _2amodule_2a["init"] = init
