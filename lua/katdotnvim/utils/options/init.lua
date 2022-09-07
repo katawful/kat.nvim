@@ -25,6 +25,8 @@ local function default_2a()
   return nil
 end
 _2amodule_2a["default*"] = default_2a
+local deprecation_check = {messaged = false}
+_2amodule_2a["deprecation-check"] = deprecation_check
 local function default()
   local _1_
   do
@@ -36,115 +38,149 @@ local function default()
     end
   end
   if _1_ then
-    local function mess()
-      return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_commentStyle"))
+    print("NEIO")
+    print(deprecation_check.messaged)
+    if (deprecation_check.messaged == false) then
+      local function mess()
+        return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_commentStyle"))
+      end
+      vim.defer_fn(mess, 1000)
+    else
     end
-    vim.defer_fn(mess, 1000)
   else
-    vim.g["kat_nvim_commentStyle"] = "italic"
+    if (deprecation_check.messaged == false) then
+      vim.g["kat_nvim_commentStyle"] = "italic"
+    else
+    end
   end
-  local _5_
+  local _7_
   do
     local result_2_auto = vim.fn.exists("kat_nvim_compile_enable")
     if (result_2_auto == 0) then
-      _5_ = false
+      _7_ = false
     else
-      _5_ = true
+      _7_ = true
     end
   end
-  if _5_ then
-    local function mess()
-      return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_compile_enable"))
+  if _7_ then
+    if (deprecation_check.messaged == false) then
+      local function mess()
+        return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_compile_enable"))
+      end
+      vim.defer_fn(mess, 1000)
+    else
     end
-    vim.defer_fn(mess, 1000)
   else
-    vim.g["kat_nvim_compile_enable"] = false
   end
-  local _9_
+  local _12_
   do
     local result_2_auto = vim.fn.exists("kat_nvim_integrations")
     if (result_2_auto == 0) then
-      _9_ = false
+      _12_ = false
     else
-      _9_ = true
+      _12_ = true
     end
   end
-  if not _9_ then
+  if not _12_ then
     vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "gitsigns", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
   else
   end
-  local _13_
+  local _16_
   do
     local result_2_auto = vim.fn.exists("kat_nvim_max_version")
     if (result_2_auto == 0) then
-      _13_ = false
+      _16_ = false
     else
-      _13_ = true
+      _16_ = true
     end
   end
-  if not _13_ then
-    local _16_
-    local _17_
+  if not _16_ then
+    local _19_
     do
-      local result_2_auto = vim.fn.has("nvim-0.7")
-      if (result_2_auto == 0) then
-        _17_ = false
+      local _20_
+      do
+        local result_2_auto = vim.fn.has("nvim-0.7")
+        if (result_2_auto == 0) then
+          _20_ = false
+        else
+          _20_ = true
+        end
+      end
+      if _20_ then
       else
-        _17_ = true
+      end
+      local function _24_()
+        local result_2_auto = vim.fn.has("nvim-0.8")
+        if (result_2_auto == 0) then
+          return false
+        else
+          return true
+        end
+      end
+      local function _26_()
+        local result_2_auto = vim.fn.has("nvim-0.7")
+        if (result_2_auto == 0) then
+          return false
+        else
+          return true
+        end
+      end
+      if (_24_() and _26_()) then
+        _19_ = "0.8"
+      else
+        _19_ = "0.7"
       end
     end
-    if _17_ then
-      _16_ = "0.7"
-    else
-      _16_ = "0.6"
-    end
-    vim.g["kat_nvim_max_version"] = _16_
-  else
-  end
-  local _22_
-  do
-    local result_2_auto = vim.fn.exists("kat_nvim_filetype")
-    if (result_2_auto == 0) then
-      _22_ = false
-    else
-      _22_ = true
-    end
-  end
-  if not _22_ then
-    vim.g["kat_nvim_filetype"] = {"vim", "vimwiki", "markdown"}
-  else
-  end
-  local _26_
-  do
-    local result_2_auto = vim.fn.exists("kat_nvim_stupidFeatures")
-    if (result_2_auto == 0) then
-      _26_ = false
-    else
-      _26_ = true
-    end
-  end
-  if not _26_ then
-    vim.g["kat_nvim_stupidFeatures"] = false
+    vim.g["kat_nvim_max_version"] = _19_
   else
   end
   local _30_
   do
-    local result_2_auto = vim.fn.exists("kat_nvim_dontRender")
+    local result_2_auto = vim.fn.exists("kat_nvim_filetype")
     if (result_2_auto == 0) then
       _30_ = false
     else
       _30_ = true
     end
   end
-  if _30_ then
-    local function mess()
-      return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_dontRender"))
-    end
-    return vim.defer_fn(mess, 1000)
+  if not _30_ then
+    vim.g["kat_nvim_filetype"] = {"vim", "vimwiki", "markdown"}
   else
-    vim.g["kat_nvim_dontRender"] = false
-    return nil
   end
+  local _34_
+  do
+    local result_2_auto = vim.fn.exists("kat_nvim_stupidFeatures")
+    if (result_2_auto == 0) then
+      _34_ = false
+    else
+      _34_ = true
+    end
+  end
+  if not _34_ then
+    vim.g["kat_nvim_stupidFeatures"] = false
+  else
+  end
+  local _38_
+  do
+    local result_2_auto = vim.fn.exists("kat_nvim_dontRender")
+    if (result_2_auto == 0) then
+      _38_ = false
+    else
+      _38_ = true
+    end
+  end
+  if _38_ then
+    if (deprecation_check.messaged == false) then
+      local function mess()
+        return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_dontRender"))
+      end
+      vim.defer_fn(mess, 1000)
+    else
+    end
+  else
+  end
+  deprecation_check["messaged"] = true
+  return nil
 end
 _2amodule_2a["default"] = default
 return _2amodule_2a
