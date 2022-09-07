@@ -187,5 +187,5 @@ highlighting for Neovim 0.7 and newer users
 (defn highlight$ [opts] "Generate a highlight using term and GUI colors
 @opts -- highlight table"
       (if (do-viml has :nvim-0.7)
-          (highlight$<-vimscript opts)
-          (highlight$<-api opts)))
+          (highlight$<-api opts)
+          (highlight$<-vimscript opts)))

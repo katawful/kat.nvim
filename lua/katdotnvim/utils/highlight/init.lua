@@ -299,9 +299,9 @@ local function highlight_24(opts)
     end
   end
   if _43_ then
-    return highlight_24_3c_vimscript(opts)
-  else
     return highlight_24_3c_api(opts)
+  else
+    return highlight_24_3c_vimscript(opts)
   end
 end
 _2amodule_2a["highlight$"] = highlight_24
