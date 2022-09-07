@@ -148,12 +148,12 @@ end
 _2amodule_2a["override_all"] = override_all
 local function init()
   if (vim.g.kat_nvim_max_version == "0.6") then
+    return vim.api.nvim_command("command! -nargs=0 KatNvimRender lua require('katdotnvim.utils.export.render')[\"render-file\"]()")
+  else
     local function _17_()
       return render_file()
     end
     return vim.api.nvim_create_user_command("KatNvimRender", _17_, {desc = "Render kat.nvim colorscheme to file"})
-  else
-    return vim.api.nvim_command("command! -nargs=0 KatNvimRender lua require('katdotnvim.utils.export.render')[\"render-file\"]()")
   end
 end
 _2amodule_2a["init"] = init

@@ -55,7 +55,7 @@
                  :fugitive]))
       (if (not (do-viml exists :kat_nvim_max_version))
           (set-var g :kat_nvim_max_version
-                (if (do-viml has :nvim-0.7) :0.6 :0.7)))
+                (if (do-viml has :nvim-0.7) :0.7 :0.6)))
       (if (not (do-viml exists :kat_nvim_filetype))
           (set-var g :kat_nvim_filetype [:vim :vimwiki :markdown]))
       (if (not (do-viml exists :kat_nvim_stupidFeatures))

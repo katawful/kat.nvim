@@ -94,9 +94,9 @@ local function default()
       end
     end
     if _17_ then
-      _16_ = "0.6"
-    else
       _16_ = "0.7"
+    else
+      _16_ = "0.6"
     end
     vim.g["kat_nvim_max_version"] = _16_
   else

@@ -115,10 +115,10 @@ of kat.nvim"
 (defn init []
       (if (= vim.g.kat_nvim_max_version :0.6)
           (do
+            (command*-vim :KatNvimRender {:nargs 0}
+                          "lua require('katdotnvim.utils.export.render')[\"render-file\"]()"))
+          (do
             (cre-command :KatNvimRender
                          (fn []
                            (render-file))
-                         "Render kat.nvim colorscheme to file"))
-          (do
-            (command*-vim :KatNvimRender {:nargs 0}
-                          "lua require('katdotnvim.utils.export.render')[\"render-file\"]()"))))
+                         "Render kat.nvim colorscheme to file"))))
