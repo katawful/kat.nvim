@@ -12,13 +12,16 @@
 (defn highlight$<-table [high-table]
       "Highlight Neovim from a higlight table
 Handles evaluating functions and nested tables"
-      (each [_ value (pairs high-table)] 
-        ; in some cases we have a function to handle different kinds of ; highlighting of some groups ; make sure that function does not return incase its not relevant
+      (each [_ value (pairs high-table)]
+        ;; in some cases we have a function to handle different kinds of 
+        ;; highlighting of some groups
+        ;; make sure that function does not return incase its not relevant
         (if (and (= (type value) :function) (not= (value) nil))
             (do
               (each [_ nest (pairs [(value)])]
                 (apply.highlight$ nest)))
-            ; everything else should just be a table, but still make sure that ; the nil returning function doesn't go through
+            ;; everything else should just be a table, but still make sure that 
+            ;; the nil returning function doesn't go through
             (or (= (type value) :table) (not= (value) nil))
             (do
               ; just check if we have a nested table or not
