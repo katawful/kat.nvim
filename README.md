@@ -1,11 +1,10 @@
 ![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/colors-new-2022.png)
 
 # kat.nvim
-A NeoVim theme with warm blue tones.
-This is a Fennel remake of my [kat.vim](https://github.com/katawful/kat.vim) colorscheme, using Aniseed.
-Lua is provided, along with an embedded Aniseed environment.
+A NeoVim theme with warm blue tones written in Fennel with Aniseed.
+Lua files are embedded, no external dependencies are required.
 
-Built with Lua, this them is dynamic with only a few predefined colors.
+This theme is dynamic with only a few predefined colors.
 Almost everything is generated dynamically.
 Syntax is built off of groups, all statements inherent the colors of its parent color.
 
@@ -22,7 +21,7 @@ Plug 'katawful/kat.nvim'
 ![16-color](https://raw.githubusercontent.com/katawful/RandomAssets/main/16-color-preview.png)
 
 # Usage
-There are only 2 colorscheme files provided: `kat.nvim` and `kat.nwim`.
+There are only 2 colorscheme provided: `kat.nvim` and `kat.nwim`.
 The former is a harder contrast, the latter is a softer contrast (the name being shortened from kat.nvim-owo).
 To set between dark and light schemes, the `:set background` method is used.
 Simply set the contrast to whichever you prefer, and set your background in your NeoVim configs.
@@ -31,11 +30,13 @@ See the examples above for the differences.
 
 # Rendering
 Colors for this colorscheme can be rendered to system-local JSON files for much faster startup time.
-These will render to your Neovim `std data`, for example on Linux:
+These will render to your Neovim `stdpath('data')`.
+For example on Linux:
+
 `/home/user/.local/share/nvim/kat/kat.nvim/json`.
 
 To render all of the base colorscheme files, use the user-command `KatNvimRender`.
-This will render out all of the colors, synchronously, to said data path.
+This will render out all of the colors for both colorschemes and each background, synchronously, to said data path.
 
 ## Overrides
 
@@ -59,31 +60,31 @@ local my_overrides = function ()
     render.override ({
         source = "kat",
         light_hard = {
-            {group = "Normal", fg = color, default = true},
+            {group = "Normal", fg = color(), default = true},
             {group = "Visual", fg = "#ff0000", default = true}}})
     render.override ({
         source = "kat",
         light_soft = {
-            {group = "Normal", fg = color, default = true},
+            {group = "Normal", fg = color(), default = true},
             {group = "Visual", fg = "#ff0000", default = true}}})
     render.override ({
         source = "kat",
         dark_hard = {
-            {group = "Normal", fg = color, default = true},
+            {group = "Normal", fg = color(), default = true},
             {group = "Visual", fg = "#ff0000", default = true}}})
     render.override ({
         source = "kat",
         dark_soft = {
-            {group = "Normal", fg = color, default = true},
+            {group = "Normal", fg = color(), default = true},
             {group = "Visual", fg = "#ff0000", default = true}}})
 end
 vim.api.nvim_create_user_command("MyOverrides", my_overrides, {})
 ```
 
-Overrides can be defined, which will be loaded with the same method.
+Overrides can be defined, which will be loaded with the same method as system colors.
 There are 2 override functions:
 
-- `override`: Define an override for a variation of kat.nvim
+- `override`: Define an override for a single variation of kat.nvim
 - `override_all`: Define an override for all variations of kat.nvim
 
 `override_all` cannot change values for the group based upon values like `vim.o.background` or kat.nvim's current contrast.
@@ -101,6 +102,7 @@ For `override`, the second key must be one of the following:
 It is recommended to define all 4, but it is not required.
 
 kat.nvim will use all rendered files it finds.
+However, for example if you only use 'light_hard' in `override`, if you set your background to `dark` or use the colorscheme `kat.nwim`, your overrides will not display.
 
 Neovim version support also works with this feature, though remember to delete and regenerate if you update to a new version with a breaking change.
 
@@ -118,6 +120,7 @@ It is mostly based on the opts table for `nvim_set_hl`, but with added keys:
     sp = "gui hl for special highlights, any valid color",
     attr = "one of the possible attributes, true",
     default = "only overwrite values found in this table, true. different from the built in default key",
+    link = "hl group to link to, a string",
 }
 ```
 
