@@ -13,8 +13,15 @@ Install with your plugin manager of choice.
 Example for vim-plug:
 ```vim
 " kat.nvim
-Plug 'katawful/kat.nvim'
+Plug 'katawful/kat.nvim', { 'tag': '1.0' }
 ```
+
+Current release: `1.0` - 'Rotund Donskoy'
+
+It is recommended to stick with the current tagged release.
+`main` branch is mostly tested, but this is generally the latest release and breakages can occur outside of your tag.
+`dev` branch is untested and not for end use.
+Usage is and will always be considered broken.
 
 # Example:
 ![gui-color](https://raw.githubusercontent.com/katawful/RandomAssets/main/gui-2022-example.png)
@@ -288,6 +295,30 @@ local pink = require("katdotnvim.color").kat.pink
 vim.api.nvim_set_hl(0, "Normal", {guifg = pink.base.color})
 ```
 Colors are very simple to use. You can either import just `kat` to get all the colors you need at once, or the sub tables like `kat.pink`. It is entirely up to you.
+
+# Changelog
+Versioning: `x.ya adjective cat-breed`
+
+`x` releases are breaking changes. Something is expect to not work when updating.
+`y` are feature updates. New features are added, but compatibility with existing usage is kept.
+Pure bug fixes that affect functionality add a letter to the end of the tag, starting at 'a'.
+
+Changes to `x` demands a new adjective and cat-breed for the version name, a change to `y` only changes the adjective.
+
+Examples
+
+- 1.0 Large Sphinx
+- 1.0a Large Sphinx
+- 1.1 Fluffy Sphinx
+- 2.0 Observant Tabby
+
+##### 1.0 Rotund Donskoy
+
+- First major release
+- Supports Neovim 0.6.1 through 0.8
+- Adds JSON color rendering
+- Adds easy override support
+- Terminal color exporting
 
 # Contributing
 I am always open to expanding this colorscheme.
