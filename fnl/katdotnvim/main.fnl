@@ -6,8 +6,8 @@
                    run katdotnvim.utils.highlight.run
                    json katdotnvim.utils.json.init
                    read katdotnvim.utils.json.read}
-         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros
-                         katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katcros-fnl.macros.nvim.api.options.macros
+                         katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; Main plugin interface
 

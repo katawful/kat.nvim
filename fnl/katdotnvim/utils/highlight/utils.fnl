@@ -4,7 +4,7 @@
                    get katdotnvim.utils.highlight.get
                    a aniseed.core
                    s aniseed.string}
-         require-macros [katdotnvim.katcros-fnl.macros.lispism.macros]})
+         require-macros [katcros-fnl.macros.lispism.macros]})
 
 ;;; Utilities for color management
 
