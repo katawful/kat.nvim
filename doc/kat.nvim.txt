@@ -1,11 +1,13 @@
 *kat.nvim.txt*                     Functionality for the kat.nvim colorscheme
 
 
-		 `    __         __               _`
-		 `   / /______ _/ /_  ____ _   __(_)___ ___`
-		 `  / //_/ __  / __/ / __ \ | / / / __  __ \`
-		 ` / ,< / /_/ / /__ / / / / |/ / / / / / / /`
-		 `/_/|_|\__,_/\__(_)_/ /_/|___/_/_/ /_/ /_/`
+>
+		     __         __               _
+		    / /______ _/ /_  ____ _   __(_)___ ___
+		   / //_/ __  / __/ / __ \ | / / / __  __ \
+		  / ,< / /_/ / /__ / / / / |/ / / / / / / /
+		 /_/|_|\__,_/\__(_)_/ /_/|___/_/_/ /_/ /_/
+<
 
 This is a warm blue theme with 4 variations. It is written in Fennel with
 Aniseed, and is generated dynamically. This help file goes over the main
@@ -43,7 +45,7 @@ Section 1b: Vim global variables                    *kat.nvim-options.variables*
 These `g` variables control internal colorscheme options.
 
 *g:kat_nvim_commentStyle*
-Controls comment style. Takes any valid |gui| string. Defaults to `'italic'`.
+Deprecated option. Use a |kat.nvim-overrides| instead.
 
 *g:kat_nvim_integrations*
 An unordered list of strings that determines what plugins support is loaded.
@@ -68,6 +70,8 @@ Default:
 Note that these use the |filetype| name.
 
 *g:kat_nvim_stupidFeatures*
+Considered unstable and subject to changes.
+
 A boolean that enables the pointless features I have added to this plugin.
 Currently it only supports fading |hl-Function| highlight group. It works
 fairly well, but I cannot guarantee its use nor performance.
@@ -77,16 +81,13 @@ A string that denotes the max supported Neovim version for using this plugin.
 Sets to the current supported Neovim version by default.
 
 *g:kat_nvim_dont_render*
-A boolean to not use rendered color files, and instead generate all colors
-programmatically.
+Deprecated
 
 *g:kat_nvim_compile_enable*
-A developer setting, allows for the complation of color files when inside this
-repo when using `:KatNvimRenderFiles`. Should be set to default unless you're
-about to compile files.
+Deprecated
 
 ==============================================================================
-Section 2: Terminal Support                 *kat.nvim-terminal* *:KatGenTermTheme*
+Section 2: Terminal Support               *kat.nvim-terminal* *:KatGenTermTheme*
 Terminal colors can be generated for the following GUI aware terminals with
 the command `:KatGenTermTheme terminal`, which generates an appropriate
 config file for the desired terminal:
@@ -133,16 +134,17 @@ This is the list of filetypes that match this colorscheme.
 			     Vimwiki : 'vimwiki'
 
 ==============================================================================
-Section 5: Rendering to File                                  *kat.nvim-render*
+Section 5: Rendering to File                                   *kat.nvim-render*
 All the colors for this colorscheme can be rendered. A user-command is
 provided: `KatNvimRender`. This will render JSON files to `stdpath(data)` in
 the folder `kat/kat.nvim/json`. For example on Linux:
+
 `/home/user/.local/share/nvim/kat/kat.nvim/json/`
 
 kat.nvim will use these files first before resorting to the dynamic method.
 
 ------------------------------------------------------------------------------
-Section 5a: Overrides                                      *kat.nvim-overrides*
+Section 5a: Overrides                                       *kat.nvim-overrides*
 Overrides for groups can be defined, which will be loaded with the same method
 for rendered files.
 
@@ -166,22 +168,22 @@ for rendered files.
       render.override ({
 	  source = "kat",
 	  light_hard = {
-	      {group = "Normal", fg = color, default = true},
+	      {group = "Normal", fg = color(), default = true},
 	      {group = "Visual", fg = "#ff0000", default = true}}})
       render.override ({
 	  source = "kat",
 	  light_soft = {
-	      {group = "Normal", fg = color, default = true},
+	      {group = "Normal", fg = color(), default = true},
 	      {group = "Visual", fg = "#ff0000", default = true}}})
       render.override ({
 	  source = "kat",
 	  dark_hard = {
-	      {group = "Normal", fg = color, default = true},
+	      {group = "Normal", fg = color(), default = true},
 	      {group = "Visual", fg = "#ff0000", default = true}}})
       render.override ({
 	  source = "kat",
 	  dark_soft = {
-	      {group = "Normal", fg = color, default = true},
+	      {group = "Normal", fg = color(), default = true},
 	      {group = "Visual", fg = "#ff0000", default = true}}})
   end
   vim.api.nvim_create_user_command("MyOverrides", my_overrides, {})
@@ -211,7 +213,7 @@ For `override_all`, the second key is a unnamed table of highlight groups. For
 It is recommended to define all 4, but it is not required.
 
 ------------------------------------------------------------------------------
-Section 5b: Highlight Table                                *kat.nvim-hl-table*
+Section 5b: Highlight Table                                  *kat.nvim-hl-table*
 This colorscheme uses a custom highlight table to consolidate everything. It
 is mostly based on the opts table for `nvim_set_hl`, but with added keys:
 
@@ -233,11 +235,42 @@ the value to empty.
 
 See |attr-list| for the list of attribute keys possible.
 
+>
+    -- Example highlight table
+    {
+	group = "Normal",
+	fg = "#000000",
+	bg = "#ffffff",
+	ctermfg = 7,
+	ctermbg = 0,
+	bold = true,
+	italic = true,
+	undercurl = true,
+	sp = "#ff0000",
+    }
+
+    -- Just link a group
+    {
+	group = "TSVariable",
+	link = "Variable",
+	-- the rest are ignored because of 'link' key
+	fg = "#ffffff",
+	-- ...
+    }
+
+    -- Only update a group
+    {
+	group = "Visual",
+	default = true,
+	bold = true,
+    }
+<
+
 ==============================================================================
-Section 6: Using in Other Plugins                            *kat.nvim-develop*
+Section 6: Using in Other Plugins                             *kat.nvim-develop*
 The Lua module `katdotnvim.color` provides all the colors used for this
 colorscheme within the table `kat`. There are 10 sub-tables within `kat`:
-                                                      *kat.nvim-develop-colors*
+                                                       *kat.nvim-develop-colors*
 
                            'pink'
 			   'red'
@@ -260,27 +293,31 @@ keys: 'desc' and 'color'.
 ------------------------------------------------------------------------------
 Section 6a: Example                                   *kat.nvim-develop.example*
 
-`local pink = require("katdotnvim.color").kat.pink`
-`vim.api.nvim_set_hl(0, "Normal", {guifg = pink.base.color})`
+>
+    local pink = require("katdotnvim.color").kat.pink
+    vim.api.nvim_set_hl(0, "Normal", {guifg = pink.base.color})
+<
 
 ------------------------------------------------------------------------------
-Section 6b: Printing Color Table Descriptions        *kat.nvim-develop-snippet*
+Section 6b: Printing Color Table Descriptions         *kat.nvim-develop-snippet*
 
-`vim.api.nvim_create_user_command("KatColor",`
-`    function(args)`
-`        local output = {}`
-`        for _, color in pairs(args.fargs) do`
-`            local col_table = require("katdotnvim.color").kat[color]`
-`            if col_table then`
-`                output[color] = {}`
-`                for key, value in pairs(col_table) do`
-`                    output[color][key] = value.desc`
-`                end`
-`            end`
-`        end`
-`        table.sort(output)`
-`        print(vim.inspect(output))`
-`    end, {nargs = "+"})`
+>
+    vim.api.nvim_create_user_command("KatColor",
+	function(args)
+	    local output = {}
+	    for _, color in pairs(args.fargs) do
+		local col_table = require("katdotnvim.color").kat[color]
+		if col_table then
+		    output[color] = {}
+		    for key, value in pairs(col_table) do
+			output[color][key] = value.desc
+		    end
+		end
+	    end
+	    table.sort(output)
+	    print(vim.inspect(output))
+	end, {nargs = "+"})
+<
 
 This prints just the description of each of |kat.nvim-develop.colors| passed
 as arguments to the user-command. Simply execute this somewhere and use at
@@ -337,24 +374,19 @@ the root directory of this repository. It is not provided. It is currently
 used to build the files in `/colors`.
 
 ------------------------------------------------------------------------------
-Section 7d: Rendering Color Files              *kat.nvim-contributing.rendering*
-Set `let g:kat_nvim_compile_enable = v:true`, then when inside this repo use
-the user command `:KatNvimRenderFiles`. You should then format with fnlfmt.
-
-------------------------------------------------------------------------------
-Section 7e: fnlfmt                                *kat.nvim-contributing.fnlfmt*
+Section 7d: fnlfmt                                *kat.nvim-contributing.fnlfmt*
 fnlfmt, assuming it is in your `$PATH`, can be used with `make format` to
 format all files. Make sure to check anything you add for ideal formatting and
 add a skip header if needed
 
 ------------------------------------------------------------------------------
-Section 7f: Structure                          *kat.nvim-contributing.structure*
+Section 7e: Structure                          *kat.nvim-contributing.structure*
 Put the files in the right spot, filetypes go in
 `katdotnvim.highlights.filetype`. Plugins go in
 `katdotnvim.highlights.integrations`.
 
 ------------------------------------------------------------------------------
-Section 7g: Adding Options                       *kat.nvim-contributing.options*
+Section 7f: Adding Options                       *kat.nvim-contributing.options*
 If you add a filetype or plugin integration, or add a new global variable,
 make sure to add the defaults into the set defaults function in
 `katdotnvim.utils.error`.

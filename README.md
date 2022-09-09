@@ -119,8 +119,8 @@ It is mostly based on the opts table for `nvim_set_hl`, but with added keys:
     ctermbg = "cterm-bg, a number 0-255",
     sp = "gui hl for special highlights, any valid color",
     attr = "one of the possible attributes, true",
-    default = "only overwrite values found in this table, true. different from the built in default key",
-    link = "hl group to link to, a string",
+    default = "only overwrite values found in this table, true. different from the built in default key. 2nd priority",
+    link = "hl group to link to, a string. highest priority",
 }
 ```
 
@@ -129,11 +129,44 @@ While it isn't generally needed for overrides (as you have the 'default' key), a
 
 See [attr-list](https://neovim.io/doc/user/syntax.html#attr-list) for the list of attribute keys possible.
 
+```lua
+-- Example highlight table
+{
+    group = "Normal",
+    fg = "#000000",
+    bg = "#ffffff",
+    ctermfg = 7,
+    ctermbg = 0,
+    bold = true,
+    italic = true,
+    undercurl = true,
+    sp = "#ff0000",
+}
+
+-- Just link a group
+{
+    group = "TSVariable",
+    link = "Variable",
+    -- the rest are ignored because of 'link' key
+    fg = "#ffffff",
+    -- ...
+}
+
+-- Only update a group
+{
+    group = "Visual",
+    default = true,
+    bold = true,
+}
+```
+
 # 0.6 Deprecation Warning
 As of 2022-08-24, Neovim 0.6 support is now considered deprecated.
 Any use of 0.6 features will print warnings, and for the first official release will be removed entirely.
-This is expected sometime within September 2022.
+This will be achieved with version 2.0 Exuberant Cornish Rex in October 2022.
+
 Please upgrade.
+
 For Ubuntu users, the [Neovim PPA](https://launchpad.net/~neovim-ppa/+archive/ubuntu/stable) is on 0.7.2 as of this commit.
 Fedora and Arch are on 0.7.2 as well.
 Debian and other distro users that do not have access to 0.7.2 in their package manager will have to find a way to use the current release.
@@ -158,13 +191,13 @@ This will generate "kitty-kat.nvim-dark.conf" at the current working directory w
 
 | Variable | Function | Options | Default |
 |---|---|---|---|
-| `g:kat_nvim_commentStyle` | affects how comments are styled | any valid `gui` string |  `'italic'` |
-| `g:kat_nvim_integrations`| what plugins colors are loaded | a list of strings, see below for current integrations | all are enabled |
-| `g:kat_nvim_filetype` | what filetype colors are loaded | a list of strings, see below for current filetypes | all are enabled |
-| `g:kat_nvim_stupidFeatures` | features that work but probably shouldn't be used | boolean | `v:false` |
+| `g:kat_nvim_integrations`| What plugins colors are loaded | a list of strings, see below for current integrations | all are enabled |
+| `g:kat_nvim_filetype` | What filetype colors are loaded | a list of strings, see below for current filetypes | all are enabled |
+| `g:kat_nvim_stupidFeatures` | **Unstable**. Features that work but probably shouldn't be used | boolean | `v:false` |
 | `g:kat_nvim_max_version` | A string of the max supported nvim version | e.g. "0.7" | Sets to max version needed for plugin to work |
-| `g:kat_nvim_dont_render` | Don't use prerender color files | boolean | `v:false` |
-| `g:kat_nvim_compile_enable` | Developer setting, allows compilation of color files when inside this repo | boolean | `v:false` |
+| `g:kat_nvim_commentStyle` | **Deprecated**. Use an [override](README.md/#overrides) instead | any valid `gui` string |  `'italic'` |
+| `g:kat_nvim_dont_render` | **Deprecated**. Remains unused | boolean | `v:false` |
+| `g:kat_nvim_compile_enable` | **Deprecated**. Remains unused | boolean | `v:false` |
 
 # Integrations
 | Plugin | Option Name |
@@ -191,6 +224,9 @@ This will generate "kitty-kat.nvim-dark.conf" at the current working directory w
 |Vimwiki| 'vimwiki' |
 
 # Stupid Features
+Note that this feature is subject to changes and is considered unstable.
+Please don't expect stability with version releases.
+
 Due to the magic speed of Lua, in addition to the wonderful NeoVim API, I was given the ability to add in features unheard of for VimL based colorschemes.
 Currently the only feature is color fading for the `Function` highlight group. See the following image for an example. More features will be added in the future as I think of them.
 
@@ -284,10 +320,6 @@ You need a local build of [fennel](https://github.com/bakpakin/Fennel/blob/main/
 This is to compile the fennel files in `colors/`.
 These files are what Vim will use to let us change the colorscheme between it's various types.
 Thus running make will fail if you try to compile this repo without the local fennel script.
-
-## Render Color Files
-Set `vim.g.kat_nvim_compile_enable = true`, then when inside this repo use the user command "KatNvimRenderFiles".
-You should then format with fnlfmt.
 
 ## fnlfmt
 `make format` will format all files with `fnlfmt`. It assumes that is in your $PATH.
