@@ -13,10 +13,10 @@ Install with your plugin manager of choice.
 Example for vim-plug:
 ```vim
 " kat.nvim
-Plug 'katawful/kat.nvim', { 'tag': '1.0' }
+Plug 'katawful/kat.nvim', { 'tag': '1.0a' }
 ```
 
-Current release: `1.0` - 'Rotund Donskoy'
+Current release: `1.0a` - 'Rotund Donskoy' bug release 1
 
 It is recommended to stick with the current tagged release.
 `main` branch is mostly tested, but this is generally the latest release and breakages can occur outside of your tag.
