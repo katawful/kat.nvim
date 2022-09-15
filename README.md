@@ -320,6 +320,10 @@ Examples
 - Adds easy override support
 - Terminal color exporting
 
+##### 1.0a Rotund Donskoy
+
+- Fixes contrast settings not working
+
 # Contributing
 I am always open to expanding this colorscheme.
 This plugin was written in Fennel with Aniseed.
