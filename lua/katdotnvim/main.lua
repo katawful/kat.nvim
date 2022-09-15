@@ -60,7 +60,7 @@ local function init(in_contrast)
   _2amodule_2a["contrast"] = contrast
   local background = vim.o.background
   _2amodule_2a["background"] = background
-  local contrast_mut = {__fnl_global__in_2dconstrast}
+  local contrast_mut = {in_contrast}
   _2amodule_2a["contrast-mut"] = contrast_mut
   local background_mut = {vim.o.background}
   _2amodule_2a["background-mut"] = background_mut

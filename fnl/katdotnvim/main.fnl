@@ -29,7 +29,7 @@
       ;; Define variations for kat.nvim
       (def contrast in-contrast)
       (def background vim.o.background)
-      (def contrast-mut [in-constrast])
+      (def contrast-mut [in-contrast])
       (def background-mut [vim.o.background])
       (color.update)
       (if (= contrast :hard)
