@@ -22,8 +22,6 @@
                     :background (. (groups.mainBG) 1)
                     :selection_foreground (. (groups.selectionFG) 1)
                     :selection_background (. (groups.selectionBG) 1)
-                    :contrast (. main.contrast-mut 1)
-                    :shade (. main.background-mut 1)
                     :cursor (. (. (groups.mainFG) 1) 1)
                     :cursor_text_color :background
                     :color0 (. (groups.mainBG) 1)
