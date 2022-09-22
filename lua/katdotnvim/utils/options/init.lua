@@ -95,27 +95,26 @@ local function default()
   if not _16_ then
     local _19_
     do
-      local _20_
-      do
-        local result_2_auto = vim.fn.has("nvim-0.7")
+      local function _20_()
+        local result_2_auto = vim.fn.has("nvim-0.8")
         if (result_2_auto == 0) then
-          _20_ = false
+          return false
         else
-          _20_ = true
+          return true
         end
       end
-      if not _20_ then
-        _19_ = "0.6"
-      else
-        local function _23_()
-          local result_2_auto = vim.fn.has("nvim-0.8")
-          if (result_2_auto == 0) then
-            return false
-          else
-            return true
-          end
+      local function _22_()
+        local result_2_auto = vim.fn.has("nvim-0.7")
+        if (result_2_auto == 0) then
+          return false
+        else
+          return true
         end
-        local function _25_()
+      end
+      if (_20_() and _22_()) then
+        _19_ = "0.8"
+      else
+        local function _24_()
           local result_2_auto = vim.fn.has("nvim-0.7")
           if (result_2_auto == 0) then
             return false
@@ -123,81 +122,69 @@ local function default()
             return true
           end
         end
-        if (_23_() and _25_()) then
-          _19_ = "0.8"
-        else
-          local function _27_()
-            local result_2_auto = vim.fn.has("nvim-0.7")
-            if (result_2_auto == 0) then
-              return false
-            else
-              return true
-            end
-          end
-          local function _29_()
-            local result_2_auto = vim.fn.has("nvim-0.6")
-            if (result_2_auto == 0) then
-              return false
-            else
-              return true
-            end
-          end
-          local _31_
-          do
-            local result_2_auto = vim.fn.has("nvim-0.8")
-            if (result_2_auto == 0) then
-              _31_ = false
-            else
-              _31_ = true
-            end
-          end
-          if (_27_() and _29_() and not _31_) then
-            _19_ = "0.7"
+        local function _26_()
+          local result_2_auto = vim.fn.has("nvim-0.6")
+          if (result_2_auto == 0) then
+            return false
           else
-            _19_ = nil
+            return true
           end
+        end
+        local _28_
+        do
+          local result_2_auto = vim.fn.has("nvim-0.8")
+          if (result_2_auto == 0) then
+            _28_ = false
+          else
+            _28_ = true
+          end
+        end
+        if (_24_() and _26_() and not _28_) then
+          _19_ = "0.7"
+        else
+          _19_ = nil
         end
       end
     end
     vim.g["kat_nvim_max_version"] = _19_
   else
   end
-  local _36_
+  local _33_
   do
     local result_2_auto = vim.fn.exists("kat_nvim_filetype")
     if (result_2_auto == 0) then
-      _36_ = false
+      _33_ = false
     else
-      _36_ = true
+      _33_ = true
     end
   end
-  if not _36_ then
+  if not _33_ then
     vim.g["kat_nvim_filetype"] = {"vim", "vimwiki", "markdown"}
   else
   end
-  local _40_
+  local _37_
   do
     local result_2_auto = vim.fn.exists("kat_nvim_stupidFeatures")
     if (result_2_auto == 0) then
-      _40_ = false
+      _37_ = false
     else
-      _40_ = true
+      _37_ = true
     end
   end
-  if not _40_ then
+  if not _37_ then
     vim.g["kat_nvim_stupidFeatures"] = false
   else
   end
-  local _44_
+  local _41_
   do
     local result_2_auto = vim.fn.exists("kat_nvim_dontRender")
     if (result_2_auto == 0) then
-      _44_ = false
+      _41_ = false
     else
-      _44_ = true
+      _41_ = true
     end
   end
-  if _44_ then
+  if _41_ then
     if (deprecation_check.messaged == false) then
       local function mess()
         return message["warn$"](string.format(message["<-table"]("utils.options.init", "option-deprecation"), "vim.g.kat_nvim_dontRender"))

@@ -61,10 +61,8 @@
       (if (not (do-viml exists :kat_nvim_max_version))
           (set-var g :kat_nvim_max_version
                    (do
-                     ;; don't have 0.7 == 0.6
-                     (if (not (do-viml has :nvim-0.7)) :0.6
-                         ;; have 0.8 and 0.7 == 0.8
-                         (and (do-viml has :nvim-0.8) (do-viml has :nvim-0.7))
+                     ;; have 0.8 and 0.7 == 0.8
+                     (if (and (do-viml has :nvim-0.8) (do-viml has :nvim-0.7))
                          :0.8
                          ;; have 0.7 and 0.6 and not 0.8 == 0.7
                          (and (do-viml has :nvim-0.7) (do-viml has :nvim-0.6)

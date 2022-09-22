@@ -20,15 +20,13 @@
                     [:dark :soft :kat.nwim]
                     [:dark :hard :kat.nvim]]
             old-contrast (. main.contrast-mut 1)
-            old-background (. main.background-mut 1)
-            old-version vim.g.kat_nvim_max_version]
+            old-background (. main.background-mut 1)]
         (each [_ v (ipairs colors)]
           (tset main.background-mut 1 (. v 1))
           (tset main.contrast-mut 1 (. v 2))
           (color-table.update)
           (each [_ file (ipairs json.files)]
             (write.file! file (json.encode (json.file-parse file)) (. v 3))))
-        (set-vars g {:kat_nvim_max_version old-version})
         (tset main.background-mut 1 old-background)
         (tset main.contrast-mut 1 old-contrast)))
 
@@ -74,7 +72,6 @@ The second key contains a table of highlight tables.
 It is best to make an override for each possible 2nd key"
       (let [old-contrast (. main.contrast-mut 1)
             old-background (. main.background-mut 1)
-            old-version vim.g.kat_nvim_max_version
             assertion []]
         (each [k _ (pairs args)]
           (table.insert assertion true))
@@ -89,7 +86,6 @@ It is best to make an override for each possible 2nd key"
             (render-color [args.source args.dark_hard :kat.nvim] [:dark :hard]))
         (if (?. args :dark_soft)
             (render-color [args.source args.dark_soft :kat.nwim] [:dark :soft]))
-        (set-vars g {:kat_nvim_max_version old-version})
         (tset main.background-mut 1 old-background)
         (tset main.contrast-mut 1 old-contrast)))
 
@@ -102,23 +98,15 @@ This is generally recommended if your override doesn't have to change for the va
 of kat.nvim"
       (let [old-contrast (. main.contrast-mut 1)
             old-background (. main.background-mut 1)
-            old-version vim.g.kat_nvim_max_version
             assertion []]
         (each [k _ (pairs args)]
           (table.insert assertion true))
         (assert (= (length assertion) 2) "only 2 arguments allowed")
         (render-color* [args.source (. args 1)])
-        (set-vars g {:kat_nvim_max_version old-version})
         (tset main.background-mut 1 old-background)
         (tset main.contrast-mut 1 old-contrast)))
 
-(defn init []
-      (if (= vim.g.kat_nvim_max_version :0.6)
-          (do
-            (command*-vim :KatNvimRender {:nargs 0}
-                          "lua require('katdotnvim.utils.export.render')[\"render-file\"]()"))
-          (do
-            (cre-command :KatNvimRender
-                         (fn []
-                           (render-file))
-                         "Render kat.nvim colorscheme to file"))))
+(defn init [] (cre-command :KatNvimRender
+                           (fn []
+                             (render-file))
+                           "Render kat.nvim colorscheme to file"))

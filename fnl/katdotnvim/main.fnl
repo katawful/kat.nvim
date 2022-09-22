@@ -16,11 +16,6 @@
       (options.default) ; define some defaults
 
       ;; Setup colorscheme
-      (when (not (do-viml has :nvim-0.7))
-        (do
-          (fn mess [] (message.warn$ (message.<-table :utils.highlight.init
-                                                      :0.6-deprecation)))
-          (vim.defer_fn mess 1000)))
       (when vim.g.colors_name
         (do-ex highlight "clear"))
       (when (do-viml exists :syntax_on)

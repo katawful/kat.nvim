@@ -37,11 +37,7 @@
                                         :message "'%s' is not a valid argument for :KatGenTermTheme, check supported terminals or enclose in quotes if nvim-0.7 is not available"}
                           :term-theme-generated {:number 1
                                                  :type :info
-                                                 :message "%s color file generated at cwd using %s colorscheme with %s background"}}
-      :utils.highlight.init {
-                             :0.6-deprecation {:number 2
-                                               :type :warn
-                                               :message "Neovim 0.6 is deprecated, please upgrade to the latest version"}}})
+                                                 :message "%s color file generated at cwd using %s colorscheme with %s background"}}})
 
 ;; FN -- wraps vim.notify for messaging needs
 ;; @log-level -- string of the log level desired

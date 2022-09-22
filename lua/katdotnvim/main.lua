@@ -23,36 +23,20 @@ _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0
 local function init(in_contrast)
   options.default()
-  local _1_
-  do
-    local result_2_auto = vim.fn.has("nvim-0.7")
-    if (result_2_auto == 0) then
-      _1_ = false
-    else
-      _1_ = true
-    end
-  end
-  if not _1_ then
-    local function mess()
-      return message["warn$"](message["<-table"]("utils.highlight.init", "0.6-deprecation"))
-    end
-    vim.defer_fn(mess, 1000)
-  else
-  end
   if vim.g.colors_name then
     vim.api.nvim_exec("highlight  clear", true)
   else
   end
-  local _6_
+  local _2_
   do
     local result_2_auto = vim.fn.exists("syntax_on")
     if (result_2_auto == 0) then
-      _6_ = false
+      _2_ = false
     else
-      _6_ = true
+      _2_ = true
     end
   end
-  if _6_ then
+  if _2_ then
     vim.api.nvim_exec("syntax  reset", true)
   else
   end
