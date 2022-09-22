@@ -177,9 +177,6 @@ Outputs a message on vim.notify"
                                                terminal))))))
 
 ;; create user command for terminal color generation
-(if (do-viml has :nvim-0.7)
-    (cre-command :KatGenTermTheme
-                 (fn [args]
-                   (gen_term_colors args.args)) {:nargs 1})
-    (command*-vim :KatGenTermTheme {:nargs 1}
-                  "lua require('katdotnvim.utils.export.init').gen_term_colors(<args>)"))
+(cre-command :KatGenTermTheme
+             (fn [args]
+               (gen_term_colors args.args)) {:nargs 1})

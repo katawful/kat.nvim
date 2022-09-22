@@ -134,21 +134,8 @@ local function gen_term_colors(terminal)
   end
 end
 _2amodule_2a["gen_term_colors"] = gen_term_colors
-local _11_
-do
-  local result_2_auto = vim.fn.has("nvim-0.7")
-  if (result_2_auto == 0) then
-    _11_ = false
-  else
-    _11_ = true
-  end
+local function _11_(args)
+  return gen_term_colors(args.args)
 end
-if _11_ then
-  local function _14_(args)
-    return gen_term_colors(args.args)
-  end
-  vim.api.nvim_create_user_command("KatGenTermTheme", _14_, {nargs = 1})
-else
-  vim.api.nvim_command("command! -nargs=1 KatGenTermTheme lua require('katdotnvim.utils.export.init').gen_term_colors(<args>)")
-end
+vim.api.nvim_create_user_command("KatGenTermTheme", _11_, {nargs = 1})
 return _2amodule_2a
