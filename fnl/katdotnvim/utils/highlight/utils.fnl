@@ -18,8 +18,9 @@ Returns hex color"
       (let [source-color (hsl.hex_to_rgb source-color)
             mix-color (hsl.hex_to_rgb mix-color)
             ;; Uses macros, puts arg 3 into for loop over i up to 3 and outputs it as a table
-            return-color (value->table i 3 (+ (* alpha (. source-color i))
-                                              (* (- 1 alpha) (. mix-color i))))]
+            return-color (value->table i 3
+                                       (+ (* alpha (. source-color i))
+                                          (* (- 1 alpha) (. mix-color i))))]
         (tostring (hsl.rgb_to_hex return-color))))
 
 ;; FN -- brighten a hex color

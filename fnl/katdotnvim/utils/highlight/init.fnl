@@ -55,41 +55,41 @@
 (defn highlight$ [opts] "Nested highlight function that uses nvim api function to handle
 highlighting for Neovim 0.7 and newer users
 @opts -- highlight table"
-       ;; for now assume that a group that has a link will simply be empty otherwise
-       (if (get.link opts)
-           (let [group (get.group opts)
-                 link (get.link opts)
-                 args {: link}]
-             (vim.api.nvim_set_hl 0 group args))
-           (get.default opts)
-           (let [group (get.group opts)
-                 args (overwrite opts)]
-             (vim.api.nvim_set_hl 0 group args))
-           (let [group (get.group opts)
-                 gui-fore (if (and (not= (get.gui-fg opts) nil)
-                                   (not= opts.fg :NONE) (not= opts.fg :SKIP))
-                              opts.fg
-                              nil)
-                 gui-back (if (and (not= (get.gui-bg opts) nil)
-                                   (not= opts.bg :NONE) (not= opts.bg :SKIP))
-                              opts.bg
-                              nil)
-                 c-fore (if (and (not= (get.term-fg opts) nil)
-                                 (not= opts.ctermfg :NONE)
-                                 (not= opts.ctermfg :SKIP))
-                            opts.ctermfg
-                            nil)
-                 c-back (if (and (not= (get.term-bg opts) nil)
-                                 (not= opts.ctermbg :NONE)
-                                 (not= opts.ctermbg :SKIP))
-                            opts.ctermbg
-                            nil)
-                 args {:fg gui-fore
-                       :bg gui-back
-                       :ctermfg c-fore
-                       :ctermbg c-back
-                       :special (get.special opts)
-                       :blend (get.blend opts)}]
-             (each [k v (pairs (get.all-attr->table opts))]
-               (tset args k v))
-             (vim.api.nvim_set_hl 0 group args))))
+      ;; for now assume that a group that has a link will simply be empty otherwise
+      (if (get.link opts)
+          (let [group (get.group opts)
+                link (get.link opts)
+                args {: link}]
+            (vim.api.nvim_set_hl 0 group args))
+          (get.default opts)
+          (let [group (get.group opts)
+                args (overwrite opts)]
+            (vim.api.nvim_set_hl 0 group args))
+          (let [group (get.group opts)
+                gui-fore (if (and (not= (get.gui-fg opts) nil)
+                                  (not= opts.fg :NONE) (not= opts.fg :SKIP))
+                             opts.fg
+                             nil)
+                gui-back (if (and (not= (get.gui-bg opts) nil)
+                                  (not= opts.bg :NONE) (not= opts.bg :SKIP))
+                             opts.bg
+                             nil)
+                c-fore (if (and (not= (get.term-fg opts) nil)
+                                (not= opts.ctermfg :NONE)
+                                (not= opts.ctermfg :SKIP))
+                           opts.ctermfg
+                           nil)
+                c-back (if (and (not= (get.term-bg opts) nil)
+                                (not= opts.ctermbg :NONE)
+                                (not= opts.ctermbg :SKIP))
+                           opts.ctermbg
+                           nil)
+                args {:fg gui-fore
+                      :bg gui-back
+                      :ctermfg c-fore
+                      :ctermbg c-back
+                      :special (get.special opts)
+                      :blend (get.blend opts)}]
+            (each [k v (pairs (get.all-attr->table opts))]
+              (tset args k v))
+            (vim.api.nvim_set_hl 0 group args))))

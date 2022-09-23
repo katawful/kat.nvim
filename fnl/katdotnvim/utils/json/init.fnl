@@ -30,8 +30,7 @@ This function evaluates all possible values"
       (let [encodee []]
         (each [k value (pairs tbl)]
           ;; check for function
-          (if (= (type value) :function)
-              ;; if table and isn't empty
+          (if (= (type value) :function) ;; if table and isn't empty
               (if (and (= (type (value)) :table) (?. (value) 1))
                   (each [_ nest (pairs (value))]
                     (if (= (type nest) :function)
@@ -43,9 +42,8 @@ This function evaluates all possible values"
                   (when (value)
                     (table.insert encodee (value))))
               ;; if just table
-              (= (type (?. value 1)) :table)
-              (each [_ nest (pairs value)]
-                (table.insert encodee nest))
+              (= (type (?. value 1)) :table) (each [_ nest (pairs value)]
+                                               (table.insert encodee nest))
               (table.insert encodee value)))
         (vim.json.encode encodee)))
 

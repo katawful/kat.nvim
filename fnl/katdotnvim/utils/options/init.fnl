@@ -63,8 +63,7 @@
                    (do
                      ;; have 0.8 and 0.7 == 0.8
                      (if (and (do-viml has :nvim-0.8) (do-viml has :nvim-0.7))
-                         :0.8
-                         ;; have 0.7 and 0.6 and not 0.8 == 0.7
+                         :0.8 ;; have 0.7 and 0.6 and not 0.8 == 0.7
                          (and (do-viml has :nvim-0.7) (do-viml has :nvim-0.6)
                               (not (do-viml has :nvim-0.8)))
                          :0.7))))
