@@ -11,10 +11,8 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, apply, ucolors = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.utils.highlight.init"), autoload("katdotnvim.utils.highlight.utils")
-do end (_2amodule_locals_2a)["a"] = a
-_2amodule_locals_2a["apply"] = apply
-_2amodule_locals_2a["ucolors"] = ucolors
+local apply = autoload("katdotnvim.utils.highlight.init")
+do end (_2amodule_locals_2a)["apply"] = apply
 local function highlight_24_3c_table(high_table)
   for _, value in pairs(high_table) do
     if ((type(value) == "function") and (value() ~= nil)) then

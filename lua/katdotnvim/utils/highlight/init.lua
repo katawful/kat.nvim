@@ -11,14 +11,8 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, colors, get, hsl, s, _, _0 = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.highlight.get"), autoload("externals.hsluv"), autoload("katdotnvim.aniseed.string"), nil, nil
-_2amodule_locals_2a["a"] = a
-_2amodule_locals_2a["colors"] = colors
-_2amodule_locals_2a["get"] = get
-_2amodule_locals_2a["hsl"] = hsl
-_2amodule_locals_2a["s"] = s
-_2amodule_locals_2a["_"] = _0
-_2amodule_locals_2a["_"] = _0
+local get = autoload("katdotnvim.utils.highlight.get")
+do end (_2amodule_locals_2a)["get"] = get
 local function get_existing(group)
   local gui = vim.api.nvim_get_hl_by_name(group, true)
   local fg = gui.foreground

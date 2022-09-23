@@ -6,6 +6,7 @@
 (defonce std-data (let [path (do-viml stdpath :data)]
                     (.. path :/kat)))
 
+;; TODO: move this somewhere better
 (defonce files [:main
                 :syntax
                 :integrations.cmp
@@ -31,11 +32,14 @@ This function evaluates all possible values"
         (each [_ value (pairs source)]
           ;; check for function
           (if (and (= (type value) :function) (not= (value) nil))
+              ;; if table and isn't empty
               (if (and (= (type (value)) :table) (?. (value) 1))
                   (each [_ nest (pairs (value))]
                     (if (= (type nest) :function)
+                        ;; Execute if function
                         (table.insert encodee (nest))
                         (table.insert encodee nest)))
+                  ;; else is function
                   (table.insert encodee (value)))
               (or (= (type value) :table) (not= (value) nil))
               ;; if just table

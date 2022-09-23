@@ -11,15 +11,12 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, color_table, groups, json, main, message, read, view, write, _, _0 = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.utils.json.init"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.aniseed.view"), autoload("katdotnvim.utils.json.write"), nil, nil
-_2amodule_locals_2a["a"] = a
+local color_table, json, main, message, read, write, _, _0 = autoload("katdotnvim.color"), autoload("katdotnvim.utils.json.init"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.json.read"), autoload("katdotnvim.utils.json.write"), nil, nil
 _2amodule_locals_2a["color-table"] = color_table
-_2amodule_locals_2a["groups"] = groups
 _2amodule_locals_2a["json"] = json
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["read"] = read
-_2amodule_locals_2a["view"] = view
 _2amodule_locals_2a["write"] = write
 _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0

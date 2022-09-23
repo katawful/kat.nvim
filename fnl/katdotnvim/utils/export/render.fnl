@@ -1,10 +1,7 @@
 (module katdotnvim.utils.export.render
-        {autoload {groups katdotnvim.highlights.main
-                   a aniseed.core
-                   color-table katdotnvim.color
+        {autoload {color-table katdotnvim.color
                    main katdotnvim.main
                    json katdotnvim.utils.json.init
-                   view aniseed.view
                    read katdotnvim.utils.json.read
                    write katdotnvim.utils.json.write
                    message katdotnvim.utils.message.init}

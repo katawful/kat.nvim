@@ -11,12 +11,8 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, colors, get, hsl, s, _ = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.highlight.get"), autoload("externals.hsluv"), autoload("katdotnvim.aniseed.string"), nil
-_2amodule_locals_2a["a"] = a
-_2amodule_locals_2a["colors"] = colors
-_2amodule_locals_2a["get"] = get
+local hsl, _ = autoload("externals.hsluv"), nil
 _2amodule_locals_2a["hsl"] = hsl
-_2amodule_locals_2a["s"] = s
 _2amodule_locals_2a["_"] = _
 local function blend(source_color, mix_color, alpha)
   local source_color0 = hsl.hex_to_rgb(source_color)
@@ -25,17 +21,12 @@ local function blend(source_color, mix_color, alpha)
   do
     local in_table_1_auto = {}
     for i = 1, 3 do
-      local value_from_in_2_auto
-      do
-        local current_color = ((alpha * (source_color0)[i]) + ((1 - alpha) * (mix_color0)[i]))
-        value_from_in_2_auto = current_color
-      end
-      in_table_1_auto[i] = value_from_in_2_auto
+      local value_from_in_2_auto = ((alpha * (source_color0)[i]) + ((1 - alpha) * (mix_color0)[i]))
+      do end (in_table_1_auto)[i] = value_from_in_2_auto
     end
     return_color = in_table_1_auto
   end
-  local output = tostring(hsl.rgb_to_hex(return_color))
-  return output
+  return tostring(hsl.rgb_to_hex(return_color))
 end
 _2amodule_2a["blend"] = blend
 local function brighten(color, percent)
@@ -51,8 +42,7 @@ local function brighten(color, percent)
     end
   end
   hsl_color[3] = input_luminance
-  local output = hsl.hsluv_to_hex(hsl_color)
-  return output
+  return hsl.hsluv_to_hex(hsl_color)
 end
 _2amodule_2a["brighten"] = brighten
 local function hsluv_brighten(tuple, percent)
@@ -68,8 +58,7 @@ local function hsluv_brighten(tuple, percent)
     end
   end
   hsl_color[3] = input_luminance
-  local output = hsl.hsluv_to_hex(hsl_color)
-  return output
+  return hsl.hsluv_to_hex(hsl_color)
 end
 _2amodule_2a["hsluv-brighten"] = hsluv_brighten
 local function darken(color, percent)
@@ -85,8 +74,7 @@ local function darken(color, percent)
     end
   end
   hsl_color[3] = input_luminance
-  local output = hsl.hsluv_to_hex(hsl_color)
-  return output
+  return hsl.hsluv_to_hex(hsl_color)
 end
 _2amodule_2a["darken"] = darken
 local function saturation(color, percent)
@@ -104,8 +92,7 @@ local function saturation(color, percent)
     end
   end
   hsl_color[2] = input_saturation
-  local output = hsl.hsluv_to_hex(hsl_color)
-  return output
+  return hsl.hsluv_to_hex(hsl_color)
 end
 _2amodule_2a["saturation"] = saturation
 return _2amodule_2a

@@ -1,11 +1,5 @@
 (module katdotnvim.utils.highlight.init
-        {autoload {hsl externals.hsluv
-                   colors katdotnvim.color
-                   get katdotnvim.utils.highlight.get
-                   a aniseed.core
-                   s aniseed.string}
-         require-macros [katcros-fnl.macros.lispism.macros
-                         katcros-fnl.macros.nvim.api.utils.macros]})
+        {autoload {get katdotnvim.utils.highlight.get}})
 
 ;;; Functions for highlighting
 

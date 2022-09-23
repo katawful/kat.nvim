@@ -1,12 +1,9 @@
 (module katdotnvim.utils.export.rxvt
-        {autoload {hsl externals.hsluv
-                   ucolors katdotnvim.utils.highlight.utils
+        {autoload {ucolors katdotnvim.utils.highlight.utils
                    colors katdotnvim.color
                    groups katdotnvim.highlights.main
                    main katdotnvim.main
-                   export katdotnvim.utils.export.init
-                   errors katdotnvim.utils.errors
-                   a aniseed.core}})
+                   export katdotnvim.utils.export.init}})
 
 ;;; Exports 16 colors for rxvt-unicode
 

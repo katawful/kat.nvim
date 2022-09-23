@@ -11,13 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local a, colors, errors, export, groups, hsl, main, ucolors = autoload("katdotnvim.aniseed.core"), autoload("katdotnvim.color"), autoload("katdotnvim.utils.errors"), autoload("katdotnvim.utils.export.init"), autoload("katdotnvim.highlights.main"), autoload("externals.hsluv"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.highlight.utils")
-do end (_2amodule_locals_2a)["a"] = a
-_2amodule_locals_2a["colors"] = colors
-_2amodule_locals_2a["errors"] = errors
+local colors, export, groups, main, ucolors = autoload("katdotnvim.color"), autoload("katdotnvim.utils.export.init"), autoload("katdotnvim.highlights.main"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.highlight.utils")
+do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["export"] = export
 _2amodule_locals_2a["groups"] = groups
-_2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local loop = vim.loop

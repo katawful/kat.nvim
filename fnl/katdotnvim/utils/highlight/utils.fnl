@@ -1,9 +1,5 @@
 (module katdotnvim.utils.highlight.utils
-        {autoload {hsl externals.hsluv
-                   colors katdotnvim.color
-                   get katdotnvim.utils.highlight.get
-                   a aniseed.core
-                   s aniseed.string}
+        {autoload {hsl externals.hsluv}
          require-macros [katcros-fnl.macros.lispism.macros]})
 
 ;;; Utilities for color management
@@ -21,15 +17,10 @@
 Returns hex color"
       (let [source-color (hsl.hex_to_rgb source-color)
             mix-color (hsl.hex_to_rgb mix-color)
-            return-color (value->table i 3
-                                       (let [current-color (+ (* alpha
-                                                                 (. source-color
-                                                                    i))
-                                                              (* (- 1 alpha)
-                                                                 (. mix-color i)))]
-                                         current-color))
-            output (tostring (hsl.rgb_to_hex return-color))]
-        output))
+            ;; Uses macros, puts arg 3 into for loop over i up to 3 and outputs it as a table
+            return-color (value->table i 3 (+ (* alpha (. source-color i))
+                                              (* (- 1 alpha) (. mix-color i))))]
+        (tostring (hsl.rgb_to_hex return-color))))
 
 ;; FN -- brighten a hex color
 ;; @color -- input hex color
@@ -45,8 +36,7 @@ Returns hex color"
                                                    (* luminance percent))]
                               (if (>= mid-luminance 100) 99.99 mid-luminance))]
         (tset hsl-color 3 input-luminance)
-        (let [output (hsl.hsluv_to_hex hsl-color)]
-          output)))
+        (hsl.hsluv_to_hex hsl-color)))
 
 ;; FN -- brighten a hsluv color table
 ;; @tuple -- input color as a 3 value sequential table
@@ -60,10 +50,11 @@ Returns hex color"
             luminance (- 100 (. hsl-color 3))
             input-luminance (let [mid-luminance (* (. hsl-color 3)
                                                    (+ 1 percent))]
+                              ;; Don't let luminance go at or above 100
+                              ;; Doing so makes math behave strangely
                               (if (>= mid-luminance 100) 99.99 mid-luminance))]
         (tset hsl-color 3 input-luminance)
-        (let [output (hsl.hsluv_to_hex hsl-color)]
-          output)))
+        (hsl.hsluv_to_hex hsl-color)))
 
 ;; FN -- darken a hex color
 ;; @color -- input hex color
@@ -77,10 +68,11 @@ Returns hex color"
             luminance (- 100 (. hsl-color 3))
             input-luminance (let [mid-luminance (* (. hsl-color 3)
                                                    (- 1 percent))]
+                              ;; Don't let luminance go at or above 100
+                              ;; Doing so makes math behave strangely
                               (if (>= mid-luminance 100) 99.99 mid-luminance))]
         (tset hsl-color 3 input-luminance)
-        (let [output (hsl.hsluv_to_hex hsl-color)]
-          output)))
+        (hsl.hsluv_to_hex hsl-color)))
 
 ;; FN -- change the saturation of a hex color
 ;; @color -- input hex color
@@ -94,9 +86,10 @@ Returns hex color"
             saturation (. hsl-color 2)
             input-saturation (let [mid-saturation (+ (. hsl-color 2)
                                                      (* saturation percent))]
+                               ;; Don't let saturation to go beyond 0 and 100
+                               ;; Math breaks outside these bounds
                                (if (>= mid-saturation 100) 99.99
                                    (<= mid-saturation 0) 0.01
                                    mid-saturation))]
         (tset hsl-color 2 input-saturation)
-        (let [output (hsl.hsluv_to_hex hsl-color)]
-          output)))
+        (hsl.hsluv_to_hex hsl-color)))

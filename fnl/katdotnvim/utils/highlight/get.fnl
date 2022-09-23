@@ -38,6 +38,7 @@
 
 (defn all-attr->table [table#] (let [output {}]
                                  (each [k v (pairs table#)]
+                                   ;; specifically look for non-nil values
                                    (if (or (= v true) (= v false))
                                        (tset output k v)))
                                  output))
@@ -47,5 +48,6 @@
 that is compatible with Vimscript's highlight function"
       (let [attr-table (attr->table table)]
         (if (a.empty? attr-table)
+            ;; set to nil so that we erroneously set a key when desired
             nil
             (s.join "," (attr->table table)))))
