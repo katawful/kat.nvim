@@ -13,7 +13,8 @@
 
 ;; fnlfmt: skip
 (defn init [in-contrast] "Main plugin interface"
-      (options.default) ; define some defaults
+      ;; Set defaults
+      (options.default)
 
       ;; Setup colorscheme
       (when vim.g.colors_name
@@ -22,12 +23,15 @@
         (do-ex syntax "reset"))
 
       ;; Define variations for kat.nvim
+      ;; For mutability reasons, I use a 1 key seq table for contrast and background.
+      ;; This may or may not change in name, but won't change in principle as I really
+      ;; -prefer 'def' for modules
       (def contrast in-contrast)
       (def background vim.o.background)
       (def contrast-mut [in-contrast])
       (def background-mut [vim.o.background])
-      (color.update)
-      (if (= contrast :hard)
+      (color.update) ; absolutely needed to set all the colors properly
+      (if (= (. contrast-mut 1) :hard)
           (set-var g :colors_name :kat.nvim)
           (set-var g :colors_name :kat.nwim))
 
@@ -40,8 +44,10 @@
                            (each [_ v (pairs vim.g.kat_nvim_filetype)]
                              (tset output (.. "filetype." v) true))
                            output)]
-        ;; This path is if we had found the files in stdpath('data')
-        ;; It is not the cleanest or most thorough, a backup system is planned for later
+        ;; This path is if we had found the files in stdpath('data').
+        ;; TODO rewrite json loading to go through iteratively.
+        ;; This will allow functional colors so *always* be loaded if the json file
+        ;; -isn't found.
         (if has-render
           (do
             (run.highlight$<-table (read.file! :main))
@@ -51,11 +57,14 @@
                 (each [key _ (pairs integrations)]
                   (when (string.find file key 1 true)
                     (run.highlight$<-table (read.full-file! file))))))
+            ;; From here to there doesn't need to be done until after any other loading
+            ;; from here
             ((. (require :katdotnvim.highlights.terminal) :init))
             (if (= vim.g.kat_nvim_stupidFeatures true)
               ((. (require :katdotnvim.stupid) :stupidFunction)))
             (require :katdotnvim.utils.export.init)
             ((. (require :katdotnvim.utils.export.render) :init))
+            ;; to there
             ;; Load in overrides from end user
             (let [has-overrides (override.files)]
               (when has-overrides

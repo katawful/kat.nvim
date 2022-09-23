@@ -49,7 +49,7 @@ local function init(in_contrast)
   local background_mut = {vim.o.background}
   _2amodule_2a["background-mut"] = background_mut
   color.update()
-  if (contrast == "hard") then
+  if (contrast_mut[1] == "hard") then
     vim.g["colors_name"] = "kat.nvim"
   else
     vim.g["colors_name"] = "kat.nwim"
