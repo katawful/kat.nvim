@@ -137,114 +137,7 @@ local function overwrite(opts)
   return output
 end
 _2amodule_2a["overwrite"] = overwrite
-local function highlight_24_3c_vimscript(opts)
-  if get.link(opts) then
-    local group = get.group(opts)
-    local link = get.link(opts)
-    return vim.cmd(string.format("hi def link %s %s", group, link))
-  elseif get.default(opts) then
-    local group = get.group(opts)
-    local args = overwrite(opts)
-    local gui_fore
-    if ((get["gui-fg"](args) ~= nil) and (args.fg ~= "SKIP")) then
-      gui_fore = string.format(" guifg=%s", args.fg)
-    else
-      gui_fore = ""
-    end
-    local gui_back
-    if ((get["gui-bg"](args) ~= nil) and (args.bg ~= "SKIP")) then
-      gui_back = string.format(" guibg=%s", args.bg)
-    else
-      gui_back = ""
-    end
-    local c_fore
-    if ((get["term-fg"](args) ~= nil) and (args.ctermfg ~= "SKIP")) then
-      c_fore = string.format(" ctermfg=%s", args.ctermfg)
-    else
-      c_fore = ""
-    end
-    local c_back
-    if ((get["term-bg"](args) ~= nil) and (args.ctermbg ~= "SKIP")) then
-      c_back = string.format(" ctermbg=%s", args.ctermbg)
-    else
-      c_back = ""
-    end
-    local special
-    if (get.special(args) ~= nil) then
-      special = string.format(" guisp=%s", get.special(args))
-    else
-      special = ""
-    end
-    local blend
-    if (get.blend(args) ~= nil) then
-      blend = string.format(" blend=%s", get.blend(args))
-    else
-      blend = ""
-    end
-    local attr
-    do
-      local attr_string = get["attr->string"](args)
-      if (attr_string ~= nil) then
-        attr = string.format(" gui=%s cterm=%s", attr_string, attr_string)
-      else
-        attr = ""
-      end
-    end
-    local highlight = ("highlight " .. group .. gui_fore .. gui_back .. c_fore .. c_back .. attr .. special .. blend)
-    return vim.cmd(tostring(highlight))
-  else
-    local group = get.group(opts)
-    local gui_fore
-    if ((get["gui-fg"](opts) ~= nil) and (opts.fg ~= "SKIP")) then
-      gui_fore = string.format(" guifg=%s", opts.fg)
-    else
-      gui_fore = ""
-    end
-    local gui_back
-    if ((get["gui-bg"](opts) ~= nil) and (opts.bg ~= "SKIP")) then
-      gui_back = string.format(" guibg=%s", opts.bg)
-    else
-      gui_back = ""
-    end
-    local c_fore
-    if ((get["term-fg"](opts) ~= nil) and (opts.ctermfg ~= "SKIP")) then
-      c_fore = string.format(" ctermfg=%s", opts.ctermfg)
-    else
-      c_fore = ""
-    end
-    local c_back
-    if ((get["term-bg"](opts) ~= nil) and (opts.ctermbg ~= "SKIP")) then
-      c_back = string.format(" ctermbg=%s", opts.ctermbg)
-    else
-      c_back = ""
-    end
-    local special
-    if (get.special(opts) ~= nil) then
-      special = string.format(" guisp=%s", get.special(opts))
-    else
-      special = ""
-    end
-    local blend
-    if (get.blend(opts) ~= nil) then
-      blend = string.format(" blend=%s", get.blend(opts))
-    else
-      blend = ""
-    end
-    local attr
-    do
-      local attr_string = get["attr->string"](opts)
-      if (attr_string ~= nil) then
-        attr = string.format(" gui=%s cterm=%s", attr_string, attr_string)
-      else
-        attr = ""
-      end
-    end
-    local highlight = ("highlight " .. group .. gui_fore .. gui_back .. c_fore .. c_back .. attr .. special .. blend)
-    return vim.cmd(tostring(highlight))
-  end
-end
-_2amodule_locals_2a["highlight$<-vimscript"] = highlight_24_3c_vimscript
-local function highlight_24_3c_api(opts)
+local function highlight_24(opts)
   if get.link(opts) then
     local group = get.group(opts)
     local link = get.link(opts)
@@ -285,23 +178,6 @@ local function highlight_24_3c_api(opts)
       args[k] = v
     end
     return vim.api.nvim_set_hl(0, group, args)
-  end
-end
-_2amodule_locals_2a["highlight$<-api"] = highlight_24_3c_api
-local function highlight_24(opts)
-  local _43_
-  do
-    local result_2_auto = vim.fn.has("nvim-0.7")
-    if (result_2_auto == 0) then
-      _43_ = false
-    else
-      _43_ = true
-    end
-  end
-  if _43_ then
-    return highlight_24_3c_api(opts)
-  else
-    return highlight_24_3c_vimscript(opts)
   end
 end
 _2amodule_2a["highlight$"] = highlight_24
