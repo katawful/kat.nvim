@@ -313,6 +313,11 @@ Examples
 
 - Fixes contrast settings not working
 
+##### 2.0 Exuberant Cornish Rex - *In Progress*
+
+- Neovim 0.6 removal
+- Improve handling of color tables in json and functional format
+
 # Contributing
 I am always open to expanding this colorscheme.
 This plugin was written in Fennel with Aniseed.
