@@ -27,11 +27,10 @@
 (defn encode [tbl] "Encode lua table as a json
 @tbl -- a valid Lua table
 This function evaluates all possible values"
-      (let [encodee []
-            source tbl]
-        (each [_ value (pairs source)]
+      (let [encodee []]
+        (each [k value (pairs tbl)]
           ;; check for function
-          (if (and (= (type value) :function) (not= (value) nil))
+          (if (= (type value) :function)
               ;; if table and isn't empty
               (if (and (= (type (value)) :table) (?. (value) 1))
                   (each [_ nest (pairs (value))]
@@ -40,13 +39,14 @@ This function evaluates all possible values"
                         (table.insert encodee (nest))
                         (table.insert encodee nest)))
                   ;; else is function
-                  (table.insert encodee (value)))
-              (or (= (type value) :table) (not= (value) nil))
+                  ;; Don't pass nil
+                  (when (value)
+                    (table.insert encodee (value))))
               ;; if just table
-              (if (= (type (?. value 1)) :table)
-                  (each [_ nest (pairs value)]
-                    (table.insert encodee nest))
-                  (table.insert encodee value))))
+              (= (type (?. value 1)) :table)
+              (each [_ nest (pairs value)]
+                (table.insert encodee nest))
+              (table.insert encodee value)))
         (vim.json.encode encodee)))
 
 ;; fnlfmt: skip

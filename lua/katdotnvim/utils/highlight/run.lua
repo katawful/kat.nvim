@@ -15,7 +15,7 @@ local apply = autoload("katdotnvim.utils.highlight.init")
 do end (_2amodule_locals_2a)["apply"] = apply
 local function highlight_24_3c_table(high_table)
   for _, value in pairs(high_table) do
-    if ((type(value) == "function") and (value() ~= nil)) then
+    if (type(value) == "function") then
       local function _1_()
         local t_2_ = value()
         if (nil ~= t_2_) then
@@ -33,25 +33,27 @@ local function highlight_24_3c_table(high_table)
           end
         end
       else
-        apply["highlight$"](value())
-      end
-    elseif ((type(value) == "table") or (value() ~= nil)) then
-      local function _7_()
-        local t_6_ = value
-        if (nil ~= t_6_) then
-          t_6_ = (t_6_)[1]
+        if value() then
+          apply["highlight$"](value())
         else
         end
-        return t_6_
       end
-      if (type(_7_()) == "table") then
+    else
+      local function _8_()
+        local t_7_ = value
+        if (nil ~= t_7_) then
+          t_7_ = (t_7_)[1]
+        else
+        end
+        return t_7_
+      end
+      if (type(_8_()) == "table") then
         for _0, nest in pairs(value) do
           apply["highlight$"](nest)
         end
       else
         apply["highlight$"](value)
       end
-    else
     end
   end
   return nil

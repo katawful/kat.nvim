@@ -14,19 +14,19 @@ Handles evaluating functions and nested tables"
         ;; In some cases we have a function to handle different kinds of
         ;; -highlighting of some groups.
         ;; Make sure that function does not return incase its not relevant.
-        (if (and (= (type value) :function) (not= (value) nil))
+        (if (= (type value) :function)
             (if (and (= (type (value)) :table) (?. (value) 1))
               (each [_ nest (pairs (value))]
                 (if (= (type nest) :function)
                   (apply.highlight$ (nest))
                   (apply.highlight$ nest)))
-              (apply.highlight$ (value)))
+              ;; Don't pass nil
+              (when (value)
+                (apply.highlight$ (value))))
             ;; Everything else should just be a table, but still make sure that
             ;; -the nil returning function doesn't go through.
-            (or (= (type value) :table) (not= (value) nil))
-            (do
-              ;; just check if we have a nested table or not
-              (if (= (type (?. value 1)) :table)
-                  (each [_ nest (pairs value)]
-                    (apply.highlight$ nest))
-                  (apply.highlight$ value))))))
+            ;; just check if we have a nested table or not
+            (= (type (?. value 1)) :table)
+            (each [_ nest (pairs value)]
+              (apply.highlight$ nest))
+            (apply.highlight$ value))))

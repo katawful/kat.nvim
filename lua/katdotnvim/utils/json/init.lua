@@ -25,9 +25,8 @@ local path = ((_2amodule_2a).path or (std_data .. "/kat.nvim/json/"))
 do end (_2amodule_2a)["path"] = path
 local function encode(tbl)
   local encodee = {}
-  local source = tbl
-  for _0, value in pairs(source) do
-    if ((type(value) == "function") and (value() ~= nil)) then
+  for k, value in pairs(tbl) do
+    if (type(value) == "function") then
       local function _2_()
         local t_3_ = value()
         if (nil ~= t_3_) then
@@ -37,7 +36,7 @@ local function encode(tbl)
         return t_3_
       end
       if ((type(value()) == "table") and _2_()) then
-        for _1, nest in pairs(value()) do
+        for _0, nest in pairs(value()) do
           if (type(nest) == "function") then
             table.insert(encodee, nest())
           else
@@ -45,25 +44,27 @@ local function encode(tbl)
           end
         end
       else
-        table.insert(encodee, value())
-      end
-    elseif ((type(value) == "table") or (value() ~= nil)) then
-      local function _8_()
-        local t_7_ = value
-        if (nil ~= t_7_) then
-          t_7_ = (t_7_)[1]
+        if value() then
+          table.insert(encodee, value())
         else
         end
-        return t_7_
       end
-      if (type(_8_()) == "table") then
-        for _1, nest in pairs(value) do
+    else
+      local function _9_()
+        local t_8_ = value
+        if (nil ~= t_8_) then
+          t_8_ = (t_8_)[1]
+        else
+        end
+        return t_8_
+      end
+      if (type(_9_()) == "table") then
+        for _0, nest in pairs(value) do
           table.insert(encodee, nest)
         end
       else
         table.insert(encodee, value)
       end
-    else
     end
   end
   return vim.json.encode(encodee)
