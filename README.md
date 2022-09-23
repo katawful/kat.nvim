@@ -3,6 +3,7 @@
 # kat.nvim
 A NeoVim theme with warm blue tones written in Fennel with Aniseed.
 Lua files are embedded, no external dependencies are required.
+Supports Neovim from version 0.7 and newer.
 
 This theme is dynamic with only a few predefined colors.
 Almost everything is generated dynamically.
@@ -166,18 +167,6 @@ See [attr-list](https://neovim.io/doc/user/syntax.html#attr-list) for the list o
     bold = true,
 }
 ```
-
-# 0.6 Deprecation Warning
-As of 2022-08-24, Neovim 0.6 support is now considered deprecated.
-Any use of 0.6 features will print warnings, and for the first official release will be removed entirely.
-This will be achieved with version 2.0 Exuberant Cornish Rex in October 2022.
-
-Please upgrade.
-
-For Ubuntu users, the [Neovim PPA](https://launchpad.net/~neovim-ppa/+archive/ubuntu/stable) is on 0.7.2 as of this commit.
-Fedora and Arch are on 0.7.2 as well.
-Debian and other distro users that do not have access to 0.7.2 in their package manager will have to find a way to use the current release.
-
 # Terminal Colors Support
 The following terminals can have a 16 color config file generated based on the current in use kat.nvim theme:
 
