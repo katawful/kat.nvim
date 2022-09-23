@@ -5,7 +5,7 @@
                    run katdotnvim.utils.highlight.run
                    groups katdotnvim.highlights.main}})
 
-; This handles coc.nvim colors
+;;; This handles coc.nvim colors
 
 (defn high-colors [] [{:group :CocErrorSign
                        :fg (. (groups.errorBG) 1)

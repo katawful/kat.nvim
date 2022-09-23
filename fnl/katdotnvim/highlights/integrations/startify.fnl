@@ -5,7 +5,7 @@
                    run katdotnvim.utils.highlight.run
                    groups katdotnvim.highlights.main}})
 
-; This handles Startify
+;;; This handles Startify
 
 (defn high-colors [] [{:group :StartifyBracket
                        :fg (ucolors.blend (. (groups.selectionBG) 1)

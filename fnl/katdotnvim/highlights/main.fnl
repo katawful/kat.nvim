@@ -5,8 +5,10 @@
                    main katdotnvim.main}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
-; define variables to use for generic uses
-; each variable is actually a function that gets called so that they always update and work with Aniseed modules
+;;; Define variables to use for generic uses.
+;;; Each variable is actually a function that gets called so that they always
+;;; -update and work with Aniseed modules.
+;;; TODO: replace with just color export table
 (defn mainFG [] (var output {})
       (if (and (= (. main.background-mut 1) :dark)
                (= (. main.contrast-mut 1) :soft))
@@ -75,8 +77,6 @@
 
 (defn auxBG [] (local output [(groupFunction) 2 10]) output)
 
-; this covers the main highlight groups
-
 (defn high-colors []
       [{:group :Normal
         :fg (. (mainFG) 1)
@@ -98,7 +98,7 @@
         :bg (. (mainBG) 1)
         :ctermfg (. (umbraFG) 2)
         :ctermbg (. (mainBG) 2)}
-       ; TODO set match paren to TS rainbow?
+       ;; TODO set match paren to TS rainbow?
        {:group :MatchParen
         :fg :SKIP
         :bg (. (shadowBG) 1)
@@ -134,7 +134,7 @@
         :bg :NONE
         :ctermfg (. (umbraBG) 2)
         :ctermbg :NONE}
-       ; Spelling
+       ;; Spelling
        {:group :SpellBad
         :fg :SKIP
         :bg :SKIP
@@ -163,7 +163,7 @@
         :ctermbg :NONE
         :undercurl true
         :sp (. (fillBG) 1)}
-       ; Statusline
+       ;; Statusline
        {:group :StatusLine
         :fg (. (colors.background) 5)
         :bg (ucolors.blend (. (highlightBG) 1) (. (mainBG) 1) 0.7)
@@ -176,46 +176,44 @@
         :ctermfg (. (umbraBG) 2)
         :ctermbg (. (highlightBG) 3)
         :bold true}
-       ; Tabline
-       ; we need to make the dark soft font brighter to match dark hard tabline
-       ; looks bad otherwise imo
-       (if (and (= (. main.background-mut 1) :dark)
-                (= (. main.contrast-mut 1) :soft))
-           (do
-             (var color (ucolors.brighten (. (highlightFG) 1) 0))
-             {:group :TabLine
-              :fg color
-              :bg (. (highlightBG) 1)
-              :ctermfg (. (highlightFG) 2)
-              :ctermbg (. (highlightBG) 2)}
-             {:group :TabLineFill
-              :fg (. (fillBG) 1)
-              :bg (. (fillBG) 1)
-              :ctermfg (. (fillBG) 2)
-              :ctermbg (. (fillBG) 2)}
-             {:group :TabLineSel
-              :fg color
-              :bg (. (selectionBG) 1)
-              :ctermfg (. (selectionFG) 2)
-              :ctermbg (. (selectionBG) 2)
-              :bold true})
-           (do
-             {:group :TabLine
-              :fg (. (highlightFG) 1)
-              :bg (. (highlightBG) 1)
-              :ctermfg (. (highlightFG) 2)
-              :ctermbg (. (highlightBG) 2)}
-             {:group :TabLineFill
-              :fg (. (fillBG) 1)
-              :bg (. (fillBG) 1)
-              :ctermfg (. (fillBG) 2)
-              :ctermbg (. (fillBG) 2)}
-             {:group :TabLineSel
-              :fg (. (selectionFG) 1)
-              :bg (. (selectionBG) 1)
-              :ctermfg (. (selectionFG) 2)
-              :ctermbg (. (selectionBG) 2)
-              :bold true}))
+       ;; Tabline
+       ;; Need to make the dark soft font brighter to match dark hard tabline
+       (fn []
+         (var color (ucolors.brighten (. (highlightFG) 1) 0))
+         (if (and (= (. main.background-mut 1) :dark)
+                  (= (. main.contrast-mut 1) :soft))
+             [{:group :TabLine
+               :fg color
+               :bg (. (highlightBG) 1)
+               :ctermfg (. (highlightFG) 2)
+               :ctermbg (. (highlightBG) 2)}
+              {:group :TabLineFill
+               :fg (. (fillBG) 1)
+               :bg (. (fillBG) 1)
+               :ctermfg (. (fillBG) 2)
+               :ctermbg (. (fillBG) 2)}
+              {:group :TabLineSel
+               :fg color
+               :bg (. (selectionBG) 1)
+               :ctermfg (. (selectionFG) 2)
+               :ctermbg (. (selectionBG) 2)
+               :bold true}]
+             [{:group :TabLine
+               :fg (. (highlightFG) 1)
+               :bg (. (highlightBG) 1)
+               :ctermfg (. (highlightFG) 2)
+               :ctermbg (. (highlightBG) 2)}
+              {:group :TabLineFill
+               :fg (. (fillBG) 1)
+               :bg (. (fillBG) 1)
+               :ctermfg (. (fillBG) 2)
+               :ctermbg (. (fillBG) 2)}
+              {:group :TabLineSel
+               :fg (. (selectionFG) 1)
+               :bg (. (selectionBG) 1)
+               :ctermfg (. (selectionFG) 2)
+               :ctermbg (. (selectionBG) 2)
+               :bold true}]))
        {:group :Title
         :fg (. (auxBG) 1)
         :bg :NONE
@@ -232,7 +230,7 @@
         :bg (ucolors.blend (. (selectionBG) 1) (. (mainFG) 1) 0.5)
         :ctermfg :SKIP
         :ctermbg (. (warningBG) 2)}
-       ; Pmenu
+       ;; Pmenu
        {:group :Pmenu
         :fg (. (fillFG) 1)
         :bg (. (fillBG) 1)
@@ -271,7 +269,7 @@
         :bg (. (selectionBG) 1)
         :ctermfg :SKIP
         :ctermbg (. (selectionBG) 2)}
-       ; Cursor
+       ;; Cursor
        {:group :Cursor
         :fg :SKIP
         :bg (. (mainFG) 1)
@@ -410,22 +408,23 @@
         :bg (ucolors.blend (. (errorBG) 1) (. (mainFG) 1) 0.6)
         :ctermfg :SKIP
         :ctermbg (. (warningBG) 2)}
-       (if (do-viml has :gui)
-           (do
-             {:group :Menu
-              :fg (. (mainFG) 1)
-              :bg (. (mainBG) 1)
-              :ctermfg (. (mainFG) 2)
-              :ctermbg (. (mainBG) 2)}
-             {:group :Tooltip
-              :fg (. (fillFG) 1)
-              :bg (. (fillBG) 1)
-              :ctermfg (. (fillFG) 2)
-              :ctermbg (. (fillBG) 2)}
-             {:group :Scrollbar
-              :fg (. (highlightFG) 1)
-              :bg (. (highlightBG) 1)
-              :ctermfg (. (highlightFG) 2)
-              :ctermbg (. (highlightBG) 2)}))])
+       (fn []
+         (if (do-viml has :gui)
+             (do
+               {:group :Menu
+                :fg (. (mainFG) 1)
+                :bg (. (mainBG) 1)
+                :ctermfg (. (mainFG) 2)
+                :ctermbg (. (mainBG) 2)}
+               {:group :Tooltip
+                :fg (. (fillFG) 1)
+                :bg (. (fillBG) 1)
+                :ctermfg (. (fillFG) 2)
+                :ctermbg (. (fillBG) 2)}
+               {:group :Scrollbar
+                :fg (. (highlightFG) 1)
+                :bg (. (highlightBG) 1)
+                :ctermfg (. (highlightFG) 2)
+                :ctermbg (. (highlightBG) 2)})))])
 
 (defn init [] (run.highlight$<-table (high-colors)))

@@ -5,7 +5,7 @@
                    run katdotnvim.utils.highlight.run
                    groups katdotnvim.highlights.main}})
 
-; This file handles ts-rainbow colors
+;;; This file handles ts-rainbow colors
 
 (defn high-colors [] [{:group :rainbowcol1
                        :fg (ucolors.blend (. (colors.init :normalColors) :red)

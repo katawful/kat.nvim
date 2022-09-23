@@ -5,7 +5,7 @@
                    run katdotnvim.utils.highlight.run
                    groups katdotnvim.highlights.main}})
 
-; This handles nvim-cmp
+;;; This handles nvim-cmp
 
 (defn high-colors [] [{:group :CmpItemKind
                        :fg (. (groups.selectionBG) 1)

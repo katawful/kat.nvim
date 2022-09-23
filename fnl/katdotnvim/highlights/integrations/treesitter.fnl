@@ -6,7 +6,7 @@
                    main katdotnvim.main
                    syntax katdotnvim.highlights.syntax}})
 
-; this handles all tree-sitter highlight groups
+;;; this handles all tree-sitter highlight groups
 
 (def stringColor (. (groups.auxBG) 1))
 
