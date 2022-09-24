@@ -13,7 +13,7 @@
 (defn blend [source-color mix-color alpha] "Blend two hex colors by some alpha
 @source-color -- left color
 @mix-color -- right color
-@alpha -- decimal number. 0 blends in only left color, 1 blends in only right color
+@alpha -- decimal number. 0 blends in only right color, 1 blends in only left color
 Returns hex color"
       (let [source-color (hsl.hex_to_rgb source-color)
             mix-color (hsl.hex_to_rgb mix-color)
