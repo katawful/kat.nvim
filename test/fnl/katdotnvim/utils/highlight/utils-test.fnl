@@ -56,3 +56,13 @@
        "Brigthen a hsluv color by 80%")
   (t.= "#ffffff" (ucolor.hsluv-brighten [100 50 50] 1.0)
        "Brigthen a hsluv color by 100%"))
+
+(deftest decimal-rgb->hex
+  (t.= "#f42400" (ucolor.decimal-rgb->hex 16000000)
+       "Convert decimal rgb color to hex, higher bound")
+  (t.= "#000010" (ucolor.decimal-rgb->hex 16)
+       "Convert decimal rgb color to hex, lower bound")
+  (t.= "#ffffff" (ucolor.decimal-rgb->hex 16777215)
+       "Convert decimal rgb color to hex, highest bound")
+  (t.= "#000000" (ucolor.decimal-rgb->hex 0)
+       "Convert decimal rgb color to hex, lowest bound"))
