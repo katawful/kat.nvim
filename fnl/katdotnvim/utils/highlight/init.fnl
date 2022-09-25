@@ -1,18 +1,19 @@
 (module katdotnvim.utils.highlight.init
-        {autoload {get katdotnvim.utils.highlight.get}})
+        {autoload {get katdotnvim.utils.highlight.get
+                   utils katdotnvim.utils.highlight.utils}})
 
 ;;; Functions for highlighting
 
 (defn get-existing [group] "Get existing highlights for a highlight group
 @group -- group name"
       (let [gui (vim.api.nvim_get_hl_by_name group true)
-            fg gui.foreground
-            bg gui.background
+            fg (utils.decimal-rgb->hex gui.foreground)
+            bg (utils.decimal-rgb->hex gui.background)
             cterm (vim.api.nvim_get_hl_by_name group false)
             ctermfg cterm.foreground
             ctermbg cterm.background
             bold (?. gui :bold)
-            underline (?. gui :undlerline)
+            underline (?. gui :underline)
             underlineline (?. gui :underlineline)
             undercurl (?. gui :undercurl)
             underdot (?. gui :underdot)
@@ -21,8 +22,11 @@
             italic (?. gui :italic)
             standout (?. gui :standout)
             nocombine (?. gui :nocombine)
-            strikethrough (?. gui :strikethrough)]
-        {: fg
+            strikethrough (?. gui :strikethrough)
+            blend (?. gui :blend)
+            special (utils.decimal-rgb->hex (?. gui :special))]
+        {: group
+         : fg
          : bg
          : ctermbg
          : ctermfg
@@ -36,7 +40,9 @@
          : italic
          : nocombine
          : standout
-         : strikethrough}))
+         : strikethrough
+         : blend
+         : special}))
 
 (defn overwrite [opts] "Overwrite the values found for a group without clearing them out
 @opts -- highlight table"

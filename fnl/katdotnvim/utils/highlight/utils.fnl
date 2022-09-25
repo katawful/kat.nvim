@@ -39,6 +39,10 @@ Returns hex color"
         (tset hsl-color 3 input-luminance)
         (hsl.hsluv_to_hex hsl-color)))
 
+(defn decimal-rgb->hex [rgb] "Converts single number decimal rgb number to hex
+@rgb -- single number decimal"
+      (string.format "#%x" rgb))
+
 ;; FN -- brighten a hsluv color table
 ;; @tuple -- input color as a 3 value sequential table
 ;; @percent -- amount to adjust as a decimal percent

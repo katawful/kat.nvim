@@ -11,12 +11,13 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local get = autoload("katdotnvim.utils.highlight.get")
+local get, utils = autoload("katdotnvim.utils.highlight.get"), autoload("katdotnvim.utils.highlight.utils")
 do end (_2amodule_locals_2a)["get"] = get
+_2amodule_locals_2a["utils"] = utils
 local function get_existing(group)
   local gui = vim.api.nvim_get_hl_by_name(group, true)
-  local fg = gui.foreground
-  local bg = gui.background
+  local fg = utils["decimal-rgb->hex"](gui.foreground)
+  local bg = utils["decimal-rgb->hex"](gui.background)
   local cterm = vim.api.nvim_get_hl_by_name(group, false)
   local ctermfg = cterm.foreground
   local ctermbg = cterm.background
@@ -33,7 +34,7 @@ local function get_existing(group)
   do
     local t_3_ = gui
     if (nil ~= t_3_) then
-      t_3_ = (t_3_).undlerline
+      t_3_ = (t_3_).underline
     else
     end
     underline = t_3_
@@ -119,7 +120,26 @@ local function get_existing(group)
     end
     strikethrough = t_21_
   end
-  return {fg = fg, bg = bg, ctermbg = ctermbg, ctermfg = ctermfg, bold = bold, underline = underline, underlineline = underlineline, undercurl = undercurl, underdot = underdot, underdash = underdash, inverse = inverse, italic = italic, nocombine = nocombine, standout = standout, strikethrough = strikethrough}
+  local blend
+  do
+    local t_23_ = gui
+    if (nil ~= t_23_) then
+      t_23_ = (t_23_).blend
+    else
+    end
+    blend = t_23_
+  end
+  local special
+  local function _26_()
+    local t_25_ = gui
+    if (nil ~= t_25_) then
+      t_25_ = (t_25_).special
+    else
+    end
+    return t_25_
+  end
+  special = utils["decimal-rgb->hex"](_26_())
+  return {group = group, fg = fg, bg = bg, ctermbg = ctermbg, ctermfg = ctermfg, bold = bold, underline = underline, underlineline = underlineline, undercurl = undercurl, underdot = underdot, underdash = underdash, inverse = inverse, italic = italic, nocombine = nocombine, standout = standout, strikethrough = strikethrough, blend = blend, special = special}
 end
 _2amodule_2a["get-existing"] = get_existing
 local function overwrite(opts)

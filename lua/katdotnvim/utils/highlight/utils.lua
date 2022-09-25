@@ -45,6 +45,10 @@ local function brighten(color, percent)
   return hsl.hsluv_to_hex(hsl_color)
 end
 _2amodule_2a["brighten"] = brighten
+local function decimal_rgb__3ehex(rgb)
+  return string.format("#%x", rgb)
+end
+_2amodule_2a["decimal-rgb->hex"] = decimal_rgb__3ehex
 local function hsluv_brighten(tuple, percent)
   local hsl_color = tuple
   local luminance = (100 - hsl_color[3])
