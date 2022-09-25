@@ -31,5 +31,6 @@
                   :undercurl true
                   :special "#444444"
                   :blend 3}]
-    (t.ok? (vim.deep_equal expected (apply.get-existing group-name)))
+    (t.ok? (vim.deep_equal expected (apply.get-existing group-name))
+           "Get's all of the existing hl attributes for a hl-group")
     (do-ex highlight "clear" group-name)))

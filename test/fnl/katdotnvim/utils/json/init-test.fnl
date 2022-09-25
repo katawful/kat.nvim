@@ -14,4 +14,5 @@
                 "Takes an arbitrary nested Lua table and returns a proper JSON"))
 
 (deftest decode
-         (t.ok? (vim.deep_equal (json.decode json-object) (json.expand-table lua-table))))
+         (t.ok? (vim.deep_equal (json.decode json-object) (json.expand-table lua-table))
+                "Converts json object to lua table"))
