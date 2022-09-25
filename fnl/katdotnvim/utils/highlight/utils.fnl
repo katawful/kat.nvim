@@ -41,7 +41,7 @@ Returns hex color"
 
 (defn decimal-rgb->hex [rgb] "Converts single number decimal rgb number to hex
 @rgb -- single number decimal"
-      (string.format "#%x" rgb))
+      (string.format "#%06x" rgb))
 
 ;; FN -- brighten a hsluv color table
 ;; @tuple -- input color as a 3 value sequential table

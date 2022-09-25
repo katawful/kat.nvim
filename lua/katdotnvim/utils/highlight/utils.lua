@@ -46,7 +46,7 @@ local function brighten(color, percent)
 end
 _2amodule_2a["brighten"] = brighten
 local function decimal_rgb__3ehex(rgb)
-  return string.format("#%x", rgb)
+  return string.format("#%06x", rgb)
 end
 _2amodule_2a["decimal-rgb->hex"] = decimal_rgb__3ehex
 local function hsluv_brighten(tuple, percent)
