@@ -23,8 +23,8 @@ local files = ((_2amodule_2a).files or {"main", "syntax", "integrations.cmp", "i
 do end (_2amodule_2a)["files"] = files
 local path = ((_2amodule_2a).path or (std_data .. "/kat.nvim/json/"))
 do end (_2amodule_2a)["path"] = path
-local function encode(tbl)
-  local encodee = {}
+local function expand_table(tbl)
+  local output = {}
   for k, value in pairs(tbl) do
     if (type(value) == "function") then
       local function _2_()
@@ -38,14 +38,14 @@ local function encode(tbl)
       if ((type(value()) == "table") and _2_()) then
         for _0, nest in pairs(value()) do
           if (type(nest) == "function") then
-            table.insert(encodee, nest())
+            table.insert(output, nest())
           else
-            table.insert(encodee, nest)
+            table.insert(output, nest)
           end
         end
       else
         if value() then
-          table.insert(encodee, value())
+          table.insert(output, value())
         else
         end
       end
@@ -60,14 +60,18 @@ local function encode(tbl)
       end
       if (type(_9_()) == "table") then
         for _0, nest in pairs(value) do
-          table.insert(encodee, nest)
+          table.insert(output, nest)
         end
       else
-        table.insert(encodee, value)
+        table.insert(output, value)
       end
     end
   end
-  return vim.json.encode(encodee)
+  return output
+end
+_2amodule_2a["expand-table"] = expand_table
+local function encode(tbl)
+  return vim.json.encode(expand_table(tbl))
 end
 _2amodule_2a["encode"] = encode
 local function decode(json)

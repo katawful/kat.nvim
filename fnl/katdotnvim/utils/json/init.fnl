@@ -24,10 +24,11 @@
 
 (defonce path (.. std-data :/kat.nvim/json/))
 
-(defn encode [tbl] "Encode lua table as a json
-@tbl -- a valid Lua table
-This function evaluates all possible values"
-      (let [encodee []]
+;; TODO: move this somewhere better
+(defn expand-table [tbl] "Expands a table so that no functions remain
+@tbl -- lua table
+Returns a lua table"
+      (let [output []]
         (each [k value (pairs tbl)]
           ;; check for function
           (if (= (type value) :function) ;; if table and isn't empty
@@ -35,17 +36,23 @@ This function evaluates all possible values"
                   (each [_ nest (pairs (value))]
                     (if (= (type nest) :function)
                         ;; Execute if function
-                        (table.insert encodee (nest))
-                        (table.insert encodee nest)))
+                        (table.insert output (nest))
+                        (table.insert output nest)))
                   ;; else is function
                   ;; Don't pass nil
                   (when (value)
-                    (table.insert encodee (value))))
+                    (table.insert output (value))))
               ;; if just table
               (= (type (?. value 1)) :table) (each [_ nest (pairs value)]
-                                               (table.insert encodee nest))
-              (table.insert encodee value)))
-        (vim.json.encode encodee)))
+                                               (table.insert output nest))
+              (table.insert output value)))
+        output))
+
+(defn encode [tbl] "Encode lua table as a json
+@tbl -- a valid Lua table"
+      (-> tbl
+          (expand-table)
+          (vim.json.encode)))
 
 ;; fnlfmt: skip
 (defn decode [json]
