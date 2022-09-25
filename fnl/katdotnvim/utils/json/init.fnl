@@ -48,8 +48,7 @@ Returns a lua table"
               (table.insert output value)))
         output))
 
-(defn encode [tbl] "Encode lua table as a json
-@tbl -- a valid Lua table"
+(defn encode [tbl] "Encode lua table as a json\n@tbl -- a valid Lua table"
       (-> tbl
           (expand-table)
           (vim.json.encode)))
