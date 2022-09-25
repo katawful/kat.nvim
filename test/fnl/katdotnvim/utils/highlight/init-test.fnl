@@ -4,19 +4,19 @@
                    utils katdotnvim.utils.highlight.utils}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
-(defonce- group-name "KatNvimTestHLGroup")
+(defonce group-name "KatNvimTestHLGroup") ; test would complain if this was private
 
-(def- high-table {:group group-name
-                  :fg "#111111"
-                  :bg "#eeeeee"
-                  :ctermfg 7
-                  :ctermbg 0
-                  :bold true
-                  :italic true
-                  :underline true
-                  :undercurl true
-                  :sp "#444444"
-                  :blend 3})
+(defonce- high-table {:group group-name
+                      :fg "#111111"
+                      :bg "#eeeeee"
+                      :ctermfg 7
+                      :ctermbg 0
+                      :bold true
+                      :italic true
+                      :underline true
+                      :undercurl true
+                      :sp "#444444"
+                      :blend 3})
 
 (deftest get-existing
   (apply.highlight$ high-table)
