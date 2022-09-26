@@ -21,6 +21,7 @@
                       :blend 3})
 
 (deftest get-existing (apply.highlight$ high-table)
+         (print (vim.inspect (apply.get-existing group-name)))
          (let [expected {:group group-name
                          :fg "#111111"
                          :bg "#eeeeee"
@@ -34,4 +35,4 @@
                          :blend 3}]
            (t.ok? (vim.deep_equal expected (apply.get-existing group-name))
                   "Get's all of the existing hl attributes for a hl-group")
-           (do-ex highlight :clear group-name)))
+           (do-ex "silent! highlight clear" group-name)))

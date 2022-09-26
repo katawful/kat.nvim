@@ -39,16 +39,16 @@ nil Generated using %s colorscheme with background set to %s\n
 color\nkey1 value1\nkey2\nkey3 value3\nkey4 value4\n"
                                     vim.g.colors_name
                                     (. main.background-mut 1))
-                                  "\n")
-           (local result
-             (s.split (export.table->one-line-color {:color {:key1 :value1
-                                                             :key2 {:key3 :value3}
-                                                             :key4 :value4}}
-                                                    :alacritty) "\n"))
-           (table.sort expected) 
-           (table.sort result)
-           (t.ok? (vim.deep_equal expected result)
-                  "Take a nested table of colors and return a one line string of colors")))
+                                  "\n"))
+         (local result
+           (s.split (export.table->one-line-color {:color {:key1 :value1
+                                                           :key2 {:key3 :value3}
+                                                           :key4 :value4}}
+                                                  :alacritty) "\n"))
+         (table.sort expected) 
+         (table.sort result)
+         (t.ok? (vim.deep_equal expected result)
+                "Take a nested table of colors and return a one line string of colors"))
 
 (deftest color-nest->one-line-color% 
          (local expected (s.split 
