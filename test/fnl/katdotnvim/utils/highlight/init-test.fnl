@@ -21,7 +21,6 @@
                       :blend 3})
 
 (deftest get-existing (apply.highlight$ high-table)
-         (print (vim.inspect (apply.get-existing group-name)))
          (let [expected {:group group-name
                          :fg "#111111"
                          :bg "#eeeeee"
