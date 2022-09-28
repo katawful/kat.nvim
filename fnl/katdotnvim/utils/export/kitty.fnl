@@ -19,8 +19,30 @@
                     :background (. (groups.mainBG) 1)
                     :selection_foreground (. (groups.selectionFG) 1)
                     :selection_background (. (groups.selectionBG) 1)
-                    :cursor (. (. (groups.mainFG) 1) 1)
-                    :cursor_text_color :background
+                    :cursor (. (groups.mainFG) 1)
+                    :cursor_text_color (. (groups.mainBG) 1)
+                    :url_color (. (groups.infoBG) 1)
+                    :active_border_color (. (groups.selectionBG) 1)
+                    :inactive_border_color (. (groups.meldBG) 1)
+                    :bell_border_color (. (groups.auxBG) 1)
+                    ;; Tabs
+                    :active_tab_foreground (. (groups.selectionFG) 1)
+                    :active_tab_background (. (groups.selectionBG) 1)
+                    :inactive_tab_foreground (. (groups.mainFG) 1)
+                    :inactive_tab_background (ucolors.blend
+                                               (. (groups.highlightBG) 1)
+                                               (. (groups.meldBG) 1)
+                                               0.5)
+                    :tab_bar_background (. (groups.fillBG) 1)
+                    :tab_bar_margin_color (. (groups.infoBG) 1)
+                    ;; Marks
+                    :mark1_foreground (. (groups.mainBG) 1)
+                    :mark1_background (. (groups.errorBG) 1)
+                    :mark2_foreground (. (groups.mainBG) 1)
+                    :mark2_background (. (groups.selectionBG) 1)
+                    :mark3_foreground (. (groups.mainBG) 1)
+                    :mark3_background (. (groups.auxBG) 1)
+                    ;; Colors
                     :color0 (. (groups.mainBG) 1)
                     :color1 (. (colors.normal-colors) :red)
                     :color2 (. (colors.normal-colors) :green)
