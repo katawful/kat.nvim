@@ -25,113 +25,129 @@
                  (.. "'" (. (colors.background) 1) "'")))
       (local cyan
              (.. "'" (ucolors.brighten (. (groups.selectionBG) 1) 0.3) "'"))
-      (let [output
+      (let [char "'"
+            output
             {"colors:"
              {" primary:"
-              {"  background:" (.. "'" (. (groups.mainBG) 1) "'")
-               "  foreground:" (.. "'" (. (groups.mainFG) 1) "'")
-               "  dim_foreground:" (.. "'" (. (groups.umbraFG) 1) "'")
-               "  bright_foreground:" (.. "'" (. (groups.meldFG) 1) "'")
-               "  dim_background:" (.. "'" (. (groups.umbraBG) 1) "'")
-               "  bright_background:" (.. "'" (. (groups.meldBG) 1) "'")}
-              " cursor:" {"  text:" (.. "'" (. (groups.mainBG) 1) "'")
-                          "  cursor:" (.. "'" (. (groups.mainFG) 1) "'")}
+              {"  background:" (.. char (. (groups.mainBG) 1) char)
+               "  foreground:" (.. char (. (groups.mainFG) 1) char)
+               "  dim_foreground:" (.. char (. (groups.umbraFG) 1) char)
+               "  bright_foreground:" (.. char (. (groups.meldFG) 1) char)
+               "  dim_background:" (.. char (. (groups.umbraBG) 1) char)
+               "  bright_background:" (.. char (. (groups.meldBG) 1) char)}
+              " cursor:" {"  text:" (.. char (. (groups.mainBG) 1) char)
+                          "  cursor:" (.. char (. (groups.mainFG) 1) char)}
+              " search:" {"  matches:" {"   foreground:" (.. char (. (groups.infoFG) 1) char)
+                                        "   background:" (.. char (ucolors.blend (. (groups.infoBG) 1)
+                                                                              (. (groups.mainBG 1) 1) 0.7) char)}
+                          "  focused_match:" {"   foreground:" (.. char (. (groups.infoFG) 1) char)
+                                              "   background:" (.. char (. (groups.infoBG) 1) char)}}
+              " hints:" {"  start:" {"   foreground:" (.. char (. (groups.mainFG) 1) char)
+                                     "   background:" (.. char (ucolors.blend (. (groups.meldBG) 1)
+                                                                           (. (groups.auxBG) 1) 0.2) char)}
+                         "  end:" {"   foreground:" (.. char (. (groups.mainFG) 1) char)
+                                   "   background:" (.. char (. (groups.auxBG) 1) char)}}
+              " line_indicator:" {"   foreground:" :None
+                                  "   background:" :None}
+              " footer_bar:" {"   foreground:" (.. char (. (groups.fillFG) 1) char)
+                              "   background:" (.. char (. (groups.fillBG) 1) char)}
               " normal:" {"  black:" black
-                          "  red:" (.. "'" (. (colors.normal-colors) :red) "'")
-                          "  blue:" (.. "'" (. (colors.normal-colors) :blue) "'")
-                          "  green:" (.. "'" (. (colors.normal-colors) :green) "'")
-                          "  yellow:" (.. "'" (. (colors.normal-colors) :orange) "'")
-                          "  cyan:" (.. "'" (. (colors.normal-colors) :purple) "'")
-                          "  magenta:" (.. "'" (. (colors.normal-colors) :pink) "'")
+                          "  red:" (.. char (. (colors.normal-colors) :red) char)
+                          "  blue:" (.. char (. (colors.normal-colors) :blue) char)
+                          "  green:" (.. char (. (colors.normal-colors) :green) char)
+                          "  yellow:" (.. char (. (colors.normal-colors) :orange) char)
+                          "  cyan:" (.. char (. (colors.normal-colors) :purple) char)
+                          "  magenta:" (.. char (. (colors.normal-colors) :pink) char)
                           "  white:" white}
               " bright:" (if (= (. main.background-mut 1) :light)
                              (do
-                               {"  black:" (.. "'" (. (groups.umbraFG) 1) "'")
-                                "  red:" (.. "'"
+                               {"  black:" (.. char (. (groups.umbraFG) 1) char)
+                                "  red:" (.. char
                                              (ucolors.darken (. (colors.normal-colors) :red) 0.2)
-                                             "'")
-                                "  green:" (.. "'"
+                                             char)
+                                "  green:" (.. char
                                                (ucolors.darken (. (colors.normal-colors) :green) 0.2)
-                                               "'")
-                                "  yellow:" (.. "'"
+                                               char)
+                                "  yellow:" (.. char
                                                 (ucolors.darken (. (colors.normal-colors) :orange) 0.2)
-                                                "'")
-                                "  blue:" (.. "'"
+                                                char)
+                                "  blue:" (.. char
                                               (ucolors.darken (. (colors.normal-colors) :blue) 0.2)
-                                              "'")
-                                "  magenta:" (.. "'"
+                                              char)
+                                "  magenta:" (.. char
                                                  (ucolors.darken (. (colors.normal-colors) :pink) 0.2)
-                                                 "'")
-                                "  cyan:" (.. "'"
+                                                 char)
+                                "  cyan:" (.. char
                                               (ucolors.darken (. (colors.normal-colors) :purple) 0.2)
-                                              "'")
-                                "  white:" (.. "'" (. (groups.umbraBG) 1) "'")})
+                                              char)
+                                "  white:" (.. char (. (groups.umbraBG) 1) char)})
                              (do
-                               {"  black:" (.. "'" (. (groups.umbraBG) 1) "'")
-                                "  red:" (.. "'"
+                               {"  black:" (.. char (. (groups.umbraBG) 1) char)
+                                "  red:" (.. char
                                              (ucolors.brighten (. (colors.normal-colors) :red) 0.2)
-                                             "'")
-                                "  green:" (.. "'"
+                                             char)
+                                "  green:" (.. char
                                                (ucolors.brighten (. (colors.normal-colors) :green) 0.2)
-                                               "'")
-                                "  yellow:" (.. "'"
+                                               char)
+                                "  yellow:" (.. char
                                                 (ucolors.brighten (. (colors.normal-colors) :orange) 0.2)
-                                                "'")
-                                "  blue:" (.. "'"
+                                                char)
+                                "  blue:" (.. char
                                               (ucolors.brighten (. (colors.normal-colors) :blue) 0.2)
-                                              "'")
-                                "  magenta:" (.. "'"
+                                              char)
+                                "  magenta:" (.. char
                                                  (ucolors.brighten (. (colors.normal-colors) :pink) 0.2)
-                                                 "'")
-                                "  cyan:" (.. "'"
+                                                 char)
+                                "  cyan:" (.. char
                                               (ucolors.brighten (. (colors.normal-colors) :purple) 0.2)
-                                              "'")
-                                "  white:" (.. "'" (. (groups.umbraFG) 1) "'")}))
+                                              char)
+                                "  white:" (.. char (. (groups.umbraFG) 1) char)}))
               " dim:" (if (= (. main.background-mut 1) :dark)
                           (do
-                            {"  black:" (.. "'" (. (groups.meldFG) 1) "'")
-                             "  red:" (.. "'"
+                            {"  black:" (.. char (. (groups.meldFG) 1) char)
+                             "  red:" (.. char
                                           (ucolors.darken (. (colors.normal-colors) :red) 0.2)
-                                          "'")
-                             "  green:" (.. "'"
+                                          char)
+                             "  green:" (.. char
                                             (ucolors.darken (. (colors.normal-colors) :green) 0.2)
-                                            "'")
-                             "  yellow:" (.. "'"
+                                            char)
+                             "  yellow:" (.. char
                                              (ucolors.darken (. (colors.normal-colors) :orange) 0.2)
-                                             "'")
-                             "  blue:" (.. "'"
+                                             char)
+                             "  blue:" (.. char
                                            (ucolors.darken (. (colors.normal-colors) :blue) 0.2)
-                                           "'")
-                             "  magenta:" (.. "'"
+                                           char)
+                             "  magenta:" (.. char
                                               (ucolors.darken (. (colors.normal-colors) :pink) 0.2)
-                                              "'")
-                             "  cyan:" (.. "'"
+                                              char)
+                             "  cyan:" (.. char
                                            (ucolors.darken (. (colors.normal-colors) :purple) 0.2)
-                                           "'")
-                             "  white:" (.. "'" (. (groups.meldBG) 1) "'")})
+                                           char)
+                             "  white:" (.. char (. (groups.meldBG) 1) char)})
                           (do
-                            {"  black:" (.. "'" (. (groups.meldBG) 1) "'")
-                             "  red:" (.. "'"
+                            {"  black:" (.. char (. (groups.meldBG) 1) char)
+                             "  red:" (.. char
                                           (ucolors.brighten (. (colors.normal-colors) :red) 0.2)
-                                          "'")
-                             "  green:" (.. "'"
+                                          char)
+                             "  green:" (.. char
                                             (ucolors.brighten (. (colors.normal-colors) :green) 0.2)
-                                            "'")
-                             "  yellow:" (.. "'"
+                                            char)
+                             "  yellow:" (.. char
                                              (ucolors.brighten (. (colors.normal-colors) :orange) 0.2)
-                                             "'")
-                             "  blue:" (.. "'"
+                                             char)
+                             "  blue:" (.. char
                                            (ucolors.brighten (. (colors.normal-colors) :blue) 0.2)
-                                           "'")
-                             "  magenta:" (.. "'"
+                                           char)
+                             "  magenta:" (.. char
                                               (ucolors.brighten (. (colors.normal-colors) :pink) 0.2)
-                                              "'")
-                             "  cyan:" (.. "'"
+                                              char)
+                             "  cyan:" (.. char
                                            (ucolors.brighten (. (colors.normal-colors) :purple) 0.2)
-                                           "'")
-                             "  white:" (.. "'" (.. "'" (. (groups.meldFG) 1) "'"))}))
+                                           char)
+                             "  white:" (.. char (.. char (. (groups.meldFG) 1) char))}))
               " selection:" {"  text:" :CellBackground
-                             "  background:" (.. "'" (. (groups.selectionBG) 1) "'")}}}]
+                             "  background:" (.. char (. (groups.selectionBG) 1) char)}}
+             "bell:" {" color:" (.. char (. (groups.selectionBG) 1) char)}}]
         output))
 
 ;; FN -- output alacritty string to a file at the current working directory
