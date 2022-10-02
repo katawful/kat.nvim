@@ -14,8 +14,14 @@
 ;; FN -- generates a table of colors for rxvt
 ;; $output -- table of colors where the key is the string for the rxvt group
 (defn gen-colors [] "Exports a table of strings for Urxvt"
-      (let [output {"URxvt*foreground:" (. (groups.mainFG) 1)
-                    "URxvt*background:" (. (groups.mainBG) 1)
+      (let [output {"*foreground:" (. (groups.mainFG) 1)
+                    "*background:" (. (groups.mainBG) 1)
+                    "*cursorColor:" (. (groups.mainFG) 1)
+                    "*fadeColor:" (. (groups.meldBG) 1)
+                    "*pointerColorForeground:" (. (groups.mainFG) 1)
+                    "*pointerColorBackground:" (. (groups.mainBG) 1)
+                    "Urxvt*foreground:" (. (groups.mainFG) 1)
+                    "Urxvt*background:" (. (groups.mainBG) 1)
                     ; :selection_foreground (. (groups.selectionFG) 1)
                     ; :selection_background (. (groups.selectionBG) 1)
                     ; :contrast (. main.contrast-mut 1)
