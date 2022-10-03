@@ -105,6 +105,10 @@ Generates:
 when generating with kat.nvim with a dark background. These files can be used
 for importing in supported terminal configs.
 
+To generate all 4 variations at once in the same directory, use `all` as the
+second argument:
+                       `KatGenTermTheme kitty all`
+
 ==============================================================================
 Section 3: Supported Plugins                                  *kat.nvim-plugins*
 This is the list of plugins that match this colorscheme.

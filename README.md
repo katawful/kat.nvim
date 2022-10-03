@@ -183,6 +183,11 @@ Generate the color file like so:
 ```
 This will generate "kitty-kat.nvim-dark.conf" at the current working directory when kat.nvim with a dark background is used.
 
+You can also generate all 4 variations at once at your cwd by passing `all` for the second argument:
+```vim
+:KatGenTermTheme kitty all
+```
+
 # Options
 
 | Variable | Function | Options | Default |
