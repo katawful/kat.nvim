@@ -181,22 +181,27 @@ Outputs a message on vim.notify"
 (defn gen_term_colors [terminal all?] "Function for Neovim interaction, determines what terminal is being run
 @terminal -- string of terminal used"
       (if all?
-        (let [colors [[:light :soft :kat.nwim]
-                      [:light :hard :kat.nvim]
-                      [:dark :soft :kat.nwim]
-                      [:dark :hard :kat.nvim]]
-              old-contrast (. main.contrast-mut 1)
-              old-background (. main.background-mut 1)
-              old-colors-name (. main.colors-name-mut 1)]
-          (each [_ v (ipairs colors)]
-            (tset main.background-mut 1 (. v 1))
-            (tset main.contrast-mut 1 (. v 2))
-            (tset main.colors-name-mut 1 (. v 3))
-            (color-table.update)
-            (generate-term-colors terminal))
-          (tset main.background-mut 1 old-background)
-          (tset main.contrast-mut 1 old-contrast)
-          (tset main.colors-name-mut 1 old-colors-name))
+        (match all?
+          :all (let [colors [[:light :soft :kat.nwim]
+                             [:light :hard :kat.nvim]
+                             [:dark :soft :kat.nwim]
+                             [:dark :hard :kat.nvim]]
+                     old-contrast (. main.contrast-mut 1)
+                     old-background (. main.background-mut 1)
+                     old-colors-name (. main.colors-name-mut 1)]
+                (each [_ v (ipairs colors)]
+                  (tset main.background-mut 1 (. v 1))
+                  (tset main.contrast-mut 1 (. v 2))
+                  (tset main.colors-name-mut 1 (. v 3))
+                  (color-table.update)
+                  (generate-term-colors terminal))
+                (tset main.background-mut 1 old-background)
+                (tset main.contrast-mut 1 old-contrast)
+                (tset main.colors-name-mut 1 old-colors-name))
+         _ (do
+             (message.error$ (string.format (message.<-table :utils.export.init
+                                                             :invalid-arg)
+                                            all?))))
         (generate-term-colors terminal)))
 
 (defn command-completion [_ cmd-line]

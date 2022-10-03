@@ -138,21 +138,29 @@ end
 _2amodule_2a["generate-term-colors"] = generate_term_colors
 local function gen_term_colors(terminal, all_3f)
   if all_3f then
-    local colors = {{"light", "soft", "kat.nwim"}, {"light", "hard", "kat.nvim"}, {"dark", "soft", "kat.nwim"}, {"dark", "hard", "kat.nvim"}}
-    local old_contrast = (main["contrast-mut"])[1]
-    local old_background = (main["background-mut"])[1]
-    local old_colors_name = (main["colors-name-mut"])[1]
-    for _0, v in ipairs(colors) do
-      main["background-mut"][1] = v[1]
-      main["contrast-mut"][1] = v[2]
-      main["colors-name-mut"][1] = v[3]
-      color_table.update()
-      generate_term_colors(terminal)
+    local _11_ = all_3f
+    if (_11_ == "all") then
+      local colors = {{"light", "soft", "kat.nwim"}, {"light", "hard", "kat.nvim"}, {"dark", "soft", "kat.nwim"}, {"dark", "hard", "kat.nvim"}}
+      local old_contrast = (main["contrast-mut"])[1]
+      local old_background = (main["background-mut"])[1]
+      local old_colors_name = (main["colors-name-mut"])[1]
+      for _0, v in ipairs(colors) do
+        main["background-mut"][1] = v[1]
+        main["contrast-mut"][1] = v[2]
+        main["colors-name-mut"][1] = v[3]
+        color_table.update()
+        generate_term_colors(terminal)
+      end
+      main["background-mut"][1] = old_background
+      main["contrast-mut"][1] = old_contrast
+      main["colors-name-mut"][1] = old_colors_name
+      return nil
+    elseif true then
+      local _0 = _11_
+      return message["error$"](string.format(message["<-table"]("utils.export.init", "invalid-arg"), all_3f))
+    else
+      return nil
     end
-    main["background-mut"][1] = old_background
-    main["contrast-mut"][1] = old_contrast
-    main["colors-name-mut"][1] = old_colors_name
-    return nil
   else
     return generate_term_colors(terminal)
   end
@@ -178,8 +186,8 @@ local function command_completion(_0, cmd_line)
   return output
 end
 _2amodule_2a["command-completion"] = command_completion
-local function _14_(args)
+local function _16_(args)
   return gen_term_colors(args.fargs[1], args.fargs[2])
 end
-vim.api.nvim_create_user_command("KatGenTermTheme", _14_, {nargs = "+", complete = command_completion})
+vim.api.nvim_create_user_command("KatGenTermTheme", _16_, {nargs = "+", complete = command_completion})
 return _2amodule_2a
