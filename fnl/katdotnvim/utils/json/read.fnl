@@ -10,7 +10,7 @@
       "Reads a json file
 @file -- pathless, extensionless file name"
       (json.decode (json.<-file (string.format "%s%s-%s-%s.json" header file
-                                               vim.g.colors_name
+                                               (. main.colors-name-mut 1)
                                                (. main.background-mut 1)))))
 
 (defn full-file! [full-file] "Reads from a full file path

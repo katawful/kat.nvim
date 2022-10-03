@@ -82,7 +82,7 @@ Returns a new colorstring" (var color-string input-color)
 Returns a color string"
       (var color-string
            (string.format file-header (. comment-type 1) terminal
-                          (. comment-type 1) (tostring vim.g.colors_name)
+                          (. comment-type 1) (tostring (. main.colors-name-mut 1))
                           (tostring (. main.background-mut 1))))
       (each [key value (pairs colors)]
         (set color-string (string.format "%s%s\n" color-string key))
@@ -124,7 +124,7 @@ Returns a color string"
                                                                 terminal
                                                                 (. comment-type
                                                                    1)
-                                                                (tostring vim.g.colors_name)
+                                                                (tostring (. main.colors-name-mut 1))
                                                                 (tostring (. main.background-mut
                                                                              1))))
                                    (each [key val (pairs colors)]
@@ -140,13 +140,13 @@ Returns a color string"
 Outputs a message on vim.notify"
       (message.info$ (string.format (message.<-table :utils.export.init
                                                      :term-theme-generated)
-                                    terminal vim.g.colors_name
+                                    terminal (. main.colors-name-mut 1)
                                     (. main.background-mut 1))))
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? [] "Returns true when we are using a kat.nvim theme"
-      (if (and (not= vim.g.colors_name :kat.nvim)
-               (not= vim.g.colors_name :kat.nwim))
+      (if (and (not= (. main.colors-name-mut 1) :kat.nvim)
+               (not= (. main.colors-name-mut 1) :kat.nwim))
           (do
             (message.error$ (message.<-table :utils.export.init
                                              :not-colorscheme))
@@ -209,17 +209,23 @@ Outputs a message on vim.notify"
       (let [command (cmd-line:gsub "^%w*" "")
             split-cmd (s.split command " ")
             output []]
-        ;; First arg will always be preceded by space
-        ;; If second character of arg is a word
-        (if (string.match (command:sub 2 2) "%w")
-          ;; Add matching completions to output
-          (let [completion (command:sub 2 -1)]
+        ;; (. split-cmd 1) is empty, start with 2
+        (when (?. split-cmd 2)
+          ;; First arg will always be preceded by space
+          ;; If second character of arg is a word
+          (if (string.match (command:sub 2 2) "%w")
+            ;; Add matching completions to output
+            (let [completion (command:sub 2 -1)]
+              (each [_ terminal (ipairs terminals)]
+                (if (string.match terminal (.. "^" completion))
+                  (table.insert output terminal))))
+            ;; Else output all completions available
             (each [_ terminal (ipairs terminals)]
-              (if (string.match terminal (.. "^" completion))
-                (table.insert output terminal))))
-          ;; Else output all completions available
-          (each [_ terminal (ipairs terminals)]
-            (table.insert output terminal)))
+              (table.insert output terminal))))
+        ;; This only ever contains 'all' as an arg
+        (when (?. split-cmd 3)
+          (do
+            (table.insert output "all")))
         output))
 
 ;; create user command for terminal color generation

@@ -60,7 +60,7 @@ local function color_nest__3eone_line_color_25(key, value, input_color)
 end
 _2amodule_2a["color-nest->one-line-color%"] = color_nest__3eone_line_color_25
 local function table__3eone_line_color(colors, terminal)
-  local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring((main["background-mut"])[1]))
+  local color_string = string.format(file_header, comment_type[1], terminal, comment_type[1], tostring((main["colors-name-mut"])[1]), tostring((main["background-mut"])[1]))
   for key, value in pairs(colors) do
     color_string = string.format("%s%s\n", color_string, key)
     color_string = color_nest__3eone_line_color_25(key, value, color_string)
@@ -85,7 +85,7 @@ local function string__3eone_line_color(colors, terminal)
   local color_string
   local function _6_()
     local tbl = {}
-    table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring(vim.g.colors_name), tostring((main["background-mut"])[1])))
+    table.insert(tbl, string.format(file_header, comment_type[1], terminal, comment_type[1], tostring((main["colors-name-mut"])[1]), tostring((main["background-mut"])[1])))
     for key, val in pairs(colors) do
       table.insert(tbl, string.format("%s %s\n", key, val))
     end
@@ -96,11 +96,11 @@ local function string__3eone_line_color(colors, terminal)
 end
 _2amodule_2a["string->one-line-color"] = string__3eone_line_color
 local function notify_24(terminal)
-  return message["info$"](string.format(message["<-table"]("utils.export.init", "term-theme-generated"), terminal, vim.g.colors_name, (main["background-mut"])[1]))
+  return message["info$"](string.format(message["<-table"]("utils.export.init", "term-theme-generated"), terminal, (main["colors-name-mut"])[1], (main["background-mut"])[1]))
 end
 _2amodule_2a["notify$"] = notify_24
 local function is_colorscheme_3f()
-  if ((vim.g.colors_name ~= "kat.nvim") and (vim.g.colors_name ~= "kat.nwim")) then
+  if (((main["colors-name-mut"])[1] ~= "kat.nvim") and ((main["colors-name-mut"])[1] ~= "kat.nwim")) then
     message["error$"](message["<-table"]("utils.export.init", "not-colorscheme"))
     return false
   else
@@ -170,24 +170,49 @@ local function command_completion(_0, cmd_line)
   local command = cmd_line:gsub("^%w*", "")
   local split_cmd = s.split(command, " ")
   local output = {}
-  if string.match(command:sub(2, 2), "%w") then
-    local completion = command:sub(2, -1)
-    for _1, terminal in ipairs(terminals) do
-      if string.match(terminal, ("^" .. completion)) then
+  local _15_
+  do
+    local t_14_ = split_cmd
+    if (nil ~= t_14_) then
+      t_14_ = (t_14_)[2]
+    else
+    end
+    _15_ = t_14_
+  end
+  if _15_ then
+    if string.match(command:sub(2, 2), "%w") then
+      local completion = command:sub(2, -1)
+      for _1, terminal in ipairs(terminals) do
+        if string.match(terminal, ("^" .. completion)) then
+          table.insert(output, terminal)
+        else
+        end
+      end
+    else
+      for _1, terminal in ipairs(terminals) do
         table.insert(output, terminal)
-      else
       end
     end
   else
-    for _1, terminal in ipairs(terminals) do
-      table.insert(output, terminal)
+  end
+  local _21_
+  do
+    local t_20_ = split_cmd
+    if (nil ~= t_20_) then
+      t_20_ = (t_20_)[3]
+    else
     end
+    _21_ = t_20_
+  end
+  if _21_ then
+    table.insert(output, "all")
+  else
   end
   return output
 end
 _2amodule_2a["command-completion"] = command_completion
-local function _16_(args)
+local function _24_(args)
   return gen_term_colors(args.fargs[1], args.fargs[2])
 end
-vim.api.nvim_create_user_command("KatGenTermTheme", _16_, {nargs = "+", complete = command_completion})
+vim.api.nvim_create_user_command("KatGenTermTheme", _24_, {nargs = "+", complete = command_completion})
 return _2amodule_2a
