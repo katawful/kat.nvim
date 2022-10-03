@@ -12,6 +12,7 @@
 
 ;; FN -- generates a table of colors for konsole
 ;; $output -- a table of colors where the key is the string for the konsole group
+;; fnlfmt: skip
 (defn gen-colors [] "Export a table of strings for konsole"
       (let [output {"[Background]" (.. :Color= (export.hex->rgb-string (. (groups.mainBG) 1)))
                     "[BackgroundFaint]" (.. :Color= (export.hex->rgb-string (. (groups.meldBG) 1)))

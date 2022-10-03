@@ -13,6 +13,7 @@
 
 ;; FN -- generates a table of colors for kitty colors
 ;; $output -- table of colors where the key is the string for the alacritty group
+
 ;; fnlfmt: skip
 (defn gen-colors [] "Exports a nested table of strings for alacritty"
       (local white
@@ -152,7 +153,8 @@
 
 ;; FN -- output alacritty string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "alacritty-%s-%s.yml"
-                                                (tostring (. main.colors-name-mut 1))
+                                                (tostring (. main.colors-name-mut
+                                                             1))
                                                 (tostring (. main.background-mut
                                                              1)))
                        fd (assert (loop.fs_open file-name :w 0))]

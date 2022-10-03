@@ -69,7 +69,8 @@
 
 ;; FN -- output rxvt string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "Urxvt-%s-%s.Xresources"
-                                                (tostring (. main.colors-name-mut 1))
+                                                (tostring (. main.colors-name-mut
+                                                             1))
                                                 (tostring (. main.background-mut
                                                              1)))
                        fd (assert (loop.fs_open file-name :w 0))]

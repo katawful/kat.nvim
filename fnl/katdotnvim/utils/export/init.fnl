@@ -18,8 +18,8 @@
 %s Generated using %s colorscheme with background set to %s
 
 ")
-(def terminals [:kitty :alacritty :konsole :urxvt
-                    :rxvt-unicode])
+
+(def terminals [:kitty :alacritty :konsole :urxvt :rxvt-unicode])
 
 ;; FN converts an RGB table to a comma delimited string
 ;; @rgb -- input rgb
@@ -82,7 +82,8 @@ Returns a new colorstring" (var color-string input-color)
 Returns a color string"
       (var color-string
            (string.format file-header (. comment-type 1) terminal
-                          (. comment-type 1) (tostring (. main.colors-name-mut 1))
+                          (. comment-type 1)
+                          (tostring (. main.colors-name-mut 1))
                           (tostring (. main.background-mut 1))))
       (each [key value (pairs colors)]
         (set color-string (string.format "%s%s\n" color-string key))
@@ -124,7 +125,8 @@ Returns a color string"
                                                                 terminal
                                                                 (. comment-type
                                                                    1)
-                                                                (tostring (. main.colors-name-mut 1))
+                                                                (tostring (. main.colors-name-mut
+                                                                             1))
                                                                 (tostring (. main.background-mut
                                                                              1))))
                                    (each [key val (pairs colors)]
@@ -181,31 +183,30 @@ Outputs a message on vim.notify"
 (defn gen_term_colors [terminal all?] "Function for Neovim interaction, determines what terminal is being run
 @terminal -- string of terminal used"
       (if all?
-        (match all?
-          :all (let [colors [[:light :soft :kat.nwim]
-                             [:light :hard :kat.nvim]
-                             [:dark :soft :kat.nwim]
-                             [:dark :hard :kat.nvim]]
-                     old-contrast (. main.contrast-mut 1)
-                     old-background (. main.background-mut 1)
-                     old-colors-name (. main.colors-name-mut 1)]
-                (each [_ v (ipairs colors)]
-                  (tset main.background-mut 1 (. v 1))
-                  (tset main.contrast-mut 1 (. v 2))
-                  (tset main.colors-name-mut 1 (. v 3))
-                  (color-table.update)
-                  (generate-term-colors terminal))
-                (tset main.background-mut 1 old-background)
-                (tset main.contrast-mut 1 old-contrast)
-                (tset main.colors-name-mut 1 old-colors-name))
-         _ (do
-             (message.error$ (string.format (message.<-table :utils.export.init
-                                                             :invalid-arg)
-                                            all?))))
-        (generate-term-colors terminal)))
+          (match all?
+            :all (let [colors [[:light :soft :kat.nwim]
+                               [:light :hard :kat.nvim]
+                               [:dark :soft :kat.nwim]
+                               [:dark :hard :kat.nvim]]
+                       old-contrast (. main.contrast-mut 1)
+                       old-background (. main.background-mut 1)
+                       old-colors-name (. main.colors-name-mut 1)]
+                   (each [_ v (ipairs colors)]
+                     (tset main.background-mut 1 (. v 1))
+                     (tset main.contrast-mut 1 (. v 2))
+                     (tset main.colors-name-mut 1 (. v 3))
+                     (color-table.update)
+                     (generate-term-colors terminal))
+                   (tset main.background-mut 1 old-background)
+                   (tset main.contrast-mut 1 old-contrast)
+                   (tset main.colors-name-mut 1 old-colors-name))
+            _ (do
+                (message.error$ (string.format (message.<-table :utils.export.init
+                                                                :invalid-arg)
+                                               all?))))
+          (generate-term-colors terminal)))
 
-(defn command-completion [_ cmd-line]
-      "Completion for ':KatGenTermTheme'"
+(defn command-completion [_ cmd-line] "Completion for ':KatGenTermTheme'"
       (let [command (cmd-line:gsub "^%w*" "")
             split-cmd (s.split command " ")
             output []]
@@ -214,24 +215,22 @@ Outputs a message on vim.notify"
           ;; First arg will always be preceded by space
           ;; If second character of arg is a word
           (if (string.match (command:sub 2 2) "%w")
-            ;; Add matching completions to output
-            (let [completion (command:sub 2 -1)]
+              ;; Add matching completions to output
+              (let [completion (command:sub 2 -1)]
+                (each [_ terminal (ipairs terminals)]
+                  (if (string.match terminal (.. "^" completion))
+                      (table.insert output terminal))))
+              ;; Else output all completions available
               (each [_ terminal (ipairs terminals)]
-                (if (string.match terminal (.. "^" completion))
-                  (table.insert output terminal))))
-            ;; Else output all completions available
-            (each [_ terminal (ipairs terminals)]
-              (table.insert output terminal))))
+                (table.insert output terminal))))
         ;; This only ever contains 'all' as an arg
         (when (?. split-cmd 3)
           (do
-            (table.insert output "all")))
+            (table.insert output :all)))
         output))
 
 ;; create user command for terminal color generation
 (cre-command :KatGenTermTheme
              (fn [args]
                (gen_term_colors (. args.fargs 1) (. args.fargs 2)))
-             {:nargs :+
-              :complete
-              command-completion})
+             {:nargs "+" :complete command-completion})

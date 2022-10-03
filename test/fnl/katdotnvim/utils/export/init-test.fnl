@@ -52,6 +52,7 @@ color\nkey1 value1\nkey2\nkey3 value3\nkey4 value4\n"
          (t.ok? (vim.deep_equal expected result)
                 "Take a nested table of colors and return a one line string of colors"))
 
+;; fnlfmt: skip
 (deftest color-nest->one-line-color%
          (local expected (s.split
                            (string.format "color1\nkey1 value1\nkey2\nkey3 value3\nkey4 value4\n")

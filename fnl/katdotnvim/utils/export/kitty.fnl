@@ -29,10 +29,11 @@
                     :active_tab_foreground (. (groups.selectionFG) 1)
                     :active_tab_background (. (groups.selectionBG) 1)
                     :inactive_tab_foreground (. (groups.mainFG) 1)
-                    :inactive_tab_background (ucolors.blend
-                                               (. (groups.highlightBG) 1)
-                                               (. (groups.meldBG) 1)
-                                               0.5)
+                    :inactive_tab_background (ucolors.blend (. (groups.highlightBG)
+                                                               1)
+                                                            (. (groups.meldBG)
+                                                               1)
+                                                            0.5)
                     :tab_bar_background (. (groups.fillBG) 1)
                     :tab_bar_margin_color (. (groups.infoBG) 1)
                     ;; Marks
@@ -84,7 +85,8 @@
 
 ;; FN -- output kitty string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "kitty-%s-%s.conf"
-                                                (tostring (. main.colors-name-mut 1))
+                                                (tostring (. main.colors-name-mut
+                                                             1))
                                                 (tostring (. main.background-mut
                                                              1)))
                        fd (assert (loop.fs_open file-name :w 0))]
