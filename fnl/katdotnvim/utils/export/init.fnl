@@ -182,11 +182,15 @@ Outputs a message on vim.notify"
       (let [command (cmd-line:gsub "^%w*" "")
             split-cmd (s.split command " ")
             output []]
+        ;; First arg will always be preceded by space
+        ;; If second character of arg is a word
         (if (string.match (command:sub 2 2) "%w")
+          ;; Add matching completions to output
           (let [completion (command:sub 2 -1)]
             (each [_ terminal (ipairs terminals)]
               (if (string.match terminal (.. "^" completion))
                 (table.insert output terminal))))
+          ;; Else output all completions available
           (each [_ terminal (ipairs terminals)]
             (table.insert output terminal)))
         output))
