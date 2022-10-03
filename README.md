@@ -322,6 +322,9 @@ Examples
 
 - Neovim 0.6 removal
 - Improve handling of color tables in json and functional format
+- `:KatGenTermTheme` accepts `all` as second argument, generating all 4 variations for said terminal
+- `:KatGenTermTheme` now has completion
+- Terminal generation for supported terminals has been given a second pass, new color groups have been added where appropriate
 
 # Contributing
 I am always open to expanding this colorscheme.
