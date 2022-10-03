@@ -17,6 +17,8 @@
 %s Generated using %s colorscheme with background set to %s
 
 ")
+(def terminals [:kitty :alacritty :konsole :urxvt
+                    :rxvt-unicode])
 
 ;; FN converts an RGB table to a comma delimited string
 ;; @rgb -- input rgb
@@ -175,7 +177,22 @@ Outputs a message on vim.notify"
                                                                 :invalid-arg)
                                                terminal))))))
 
+(defn command-completion [_ cmd-line]
+      "Completion for ':KatGenTermTheme'"
+      (let [command (cmd-line:gsub "^%w*" "")
+            split-cmd (s.split command " ")
+            output []]
+        (if (string.match (command:sub 2 2) "%w")
+          (let [completion (command:sub 2 -1)]
+            (each [_ terminal (ipairs terminals)]
+              (if (string.match terminal (.. "^" completion))
+                (table.insert output terminal))))
+          (each [_ terminal (ipairs terminals)]
+            (table.insert output terminal)))
+        output))
+
 ;; create user command for terminal color generation
 (cre-command :KatGenTermTheme
              (fn [args]
-               (gen_term_colors args.args)) {:nargs 1})
+               (gen_term_colors args.args)) {:nargs 1
+                                             :complete command-completion})
