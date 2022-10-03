@@ -84,7 +84,7 @@
 
 ;; FN -- output kitty string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "kitty-%s-%s.conf"
-                                                (tostring vim.g.colors_name)
+                                                (tostring (. main.colors-name-mut 1))
                                                 (tostring (. main.background-mut
                                                              1)))
                        fd (assert (loop.fs_open file-name :w 0))]

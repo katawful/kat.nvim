@@ -11,8 +11,9 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("katdotnvim.aniseed.autoload")).autoload
-local alacritty, hsl, kitty, konsole, main, message, rxvt, s, _ = autoload("katdotnvim.utils.export.alacritty"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.export.rxvt"), autoload("katdotnvim.aniseed.string"), nil
+local alacritty, color_table, hsl, kitty, konsole, main, message, rxvt, s, _ = autoload("katdotnvim.utils.export.alacritty"), autoload("katdotnvim.color"), autoload("externals.hsluv"), autoload("katdotnvim.utils.export.kitty"), autoload("katdotnvim.utils.export.konsole"), autoload("katdotnvim.main"), autoload("katdotnvim.utils.message.init"), autoload("katdotnvim.utils.export.rxvt"), autoload("katdotnvim.aniseed.string"), nil
 _2amodule_locals_2a["alacritty"] = alacritty
+_2amodule_locals_2a["color-table"] = color_table
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["kitty"] = kitty
 _2amodule_locals_2a["konsole"] = konsole
@@ -107,7 +108,7 @@ local function is_colorscheme_3f()
   end
 end
 _2amodule_2a["is-colorscheme?"] = is_colorscheme_3f
-local function gen_term_colors(terminal)
+local function generate_term_colors(terminal)
   if (is_colorscheme_3f() == true) then
     local _8_ = tostring(terminal)
     if (_8_ == "kitty") then
@@ -134,6 +135,28 @@ local function gen_term_colors(terminal)
     return nil
   end
 end
+_2amodule_2a["generate-term-colors"] = generate_term_colors
+local function gen_term_colors(terminal, all_3f)
+  if all_3f then
+    local colors = {{"light", "soft", "kat.nwim"}, {"light", "hard", "kat.nvim"}, {"dark", "soft", "kat.nwim"}, {"dark", "hard", "kat.nvim"}}
+    local old_contrast = (main["contrast-mut"])[1]
+    local old_background = (main["background-mut"])[1]
+    local old_colors_name = (main["colors-name-mut"])[1]
+    for _0, v in ipairs(colors) do
+      main["background-mut"][1] = v[1]
+      main["contrast-mut"][1] = v[2]
+      main["colors-name-mut"][1] = v[3]
+      color_table.update()
+      generate_term_colors(terminal)
+    end
+    main["background-mut"][1] = old_background
+    main["contrast-mut"][1] = old_contrast
+    main["colors-name-mut"][1] = old_colors_name
+    return nil
+  else
+    return generate_term_colors(terminal)
+  end
+end
 _2amodule_2a["gen_term_colors"] = gen_term_colors
 local function command_completion(_0, cmd_line)
   local command = cmd_line:gsub("^%w*", "")
@@ -155,8 +178,8 @@ local function command_completion(_0, cmd_line)
   return output
 end
 _2amodule_2a["command-completion"] = command_completion
-local function _13_(args)
-  return gen_term_colors(args.args)
+local function _14_(args)
+  return gen_term_colors(args.fargs[1], args.fargs[2])
 end
-vim.api.nvim_create_user_command("KatGenTermTheme", _13_, {nargs = 1, complete = command_completion})
+vim.api.nvim_create_user_command("KatGenTermTheme", _14_, {nargs = "+", complete = command_completion})
 return _2amodule_2a

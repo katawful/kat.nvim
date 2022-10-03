@@ -42,7 +42,7 @@ local function gen_colors()
 end
 _2amodule_2a["gen-colors"] = gen_colors
 local function output_21()
-  local file_name = string.format("Urxvt-%s-%s.Xresources", tostring(vim.g.colors_name), tostring((main["background-mut"])[1]))
+  local file_name = string.format("Urxvt-%s-%s.Xresources", tostring((main["colors-name-mut"])[1]), tostring((main["background-mut"])[1]))
   local fd = assert(loop.fs_open(file_name, "w", 0))
   assert(loop.fs_chmod(file_name, 420))
   assert(loop.fs_write(fd, export["string->one-line-color"](gen_colors(), "rxvt-unicode"), 0))

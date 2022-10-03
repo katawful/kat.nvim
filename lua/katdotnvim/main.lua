@@ -54,6 +54,8 @@ local function init(in_contrast)
   else
     vim.g["colors_name"] = "kat.nwim"
   end
+  local colors_name_mut = {vim.g.colors_name}
+  _2amodule_2a["colors-name-mut"] = colors_name_mut
   local has_render = override["main-files"]()
   local matcher = string.format("%s-%s.json", vim.g.colors_name, background)
   local integrations

@@ -1,5 +1,6 @@
 (module katdotnvim.utils.export.init
         {autoload {hsl externals.hsluv
+                   color-table katdotnvim.color
                    s aniseed.string
                    message katdotnvim.utils.message.init
                    main katdotnvim.main
@@ -153,9 +154,8 @@ Outputs a message on vim.notify"
           (do
             true)))
 
-;; FN -- wrap terminal generation for a single function
-(defn gen_term_colors [terminal] "Function for Neovim interaction, determines what terminal is being run
-@terminal -- string of terminal used"
+(defn generate-term-colors [terminal] "Runs terminal colorscheme generation
+@terminal -- string of terminal"
       (if (= (is-colorscheme?) true)
           (match (tostring terminal)
             :kitty (do
@@ -176,6 +176,28 @@ Outputs a message on vim.notify"
                 (message.error$ (string.format (message.<-table :utils.export.init
                                                                 :invalid-arg)
                                                terminal))))))
+
+;; FN -- wrap terminal generation for a single function
+(defn gen_term_colors [terminal all?] "Function for Neovim interaction, determines what terminal is being run
+@terminal -- string of terminal used"
+      (if all?
+        (let [colors [[:light :soft :kat.nwim]
+                      [:light :hard :kat.nvim]
+                      [:dark :soft :kat.nwim]
+                      [:dark :hard :kat.nvim]]
+              old-contrast (. main.contrast-mut 1)
+              old-background (. main.background-mut 1)
+              old-colors-name (. main.colors-name-mut 1)]
+          (each [_ v (ipairs colors)]
+            (tset main.background-mut 1 (. v 1))
+            (tset main.contrast-mut 1 (. v 2))
+            (tset main.colors-name-mut 1 (. v 3))
+            (color-table.update)
+            (generate-term-colors terminal))
+          (tset main.background-mut 1 old-background)
+          (tset main.contrast-mut 1 old-contrast)
+          (tset main.colors-name-mut 1 old-colors-name))
+        (generate-term-colors terminal)))
 
 (defn command-completion [_ cmd-line]
       "Completion for ':KatGenTermTheme'"
@@ -198,5 +220,7 @@ Outputs a message on vim.notify"
 ;; create user command for terminal color generation
 (cre-command :KatGenTermTheme
              (fn [args]
-               (gen_term_colors args.args)) {:nargs 1
-                                             :complete command-completion})
+               (gen_term_colors (. args.fargs 1) (. args.fargs 2)))
+             {:nargs :+
+              :complete
+              command-completion})

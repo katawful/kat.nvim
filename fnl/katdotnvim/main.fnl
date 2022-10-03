@@ -34,6 +34,7 @@
       (if (= (. contrast-mut 1) :hard)
           (set-var g :colors_name :kat.nvim)
           (set-var g :colors_name :kat.nwim))
+      (def colors-name-mut [vim.g.colors_name])
 
       ;; Load colors
       (let [has-render (override.main-files)
