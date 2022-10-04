@@ -9,6 +9,7 @@
                   :bold true
                   :italic true
                   :underline true
+                  :underlineline true
                   :sp "#444444"
                   :blend 3})
 
@@ -38,20 +39,3 @@
 (deftest blend (t.= 3 (get.blend high-table)
                     "Get the blend of a highlight group"))
 
-(deftest attr->table
-         (let [test [:bold :italic :underline]
-               expected (get.attr->table high-table)]
-           (table.sort test)
-           (table.sort expected)
-           (t.ok? (vim.deep_equal test expected)
-                  "Get the boolean attributes of a highlight group as a table")))
-
-(deftest attr->string (let [test "bold,italic,underline"
-                            expected (get.attr->string high-table)
-                            split-test (s.split test ",")
-                            split-expected (s.split expected ",")]
-                        (table.sort split-test)
-                        (table.sort split-expected)
-                        (t.ok? (vim.deep_equal split-test split-expected)
-                               "Get the boolean attributes of a highlight group as a string
-that is compatible with Vimscript's highlight function")))

@@ -95,35 +95,31 @@ local function default(table)
   return t_17_
 end
 _2amodule_2a["default"] = default
-local function attr__3etable(table_23)
-  local output = {}
-  for k, v in pairs(table_23) do
-    if (v == true) then
-      table.insert(output, k)
-    else
-    end
-  end
-  return output
-end
-_2amodule_2a["attr->table"] = attr__3etable
 local function all_attr__3etable(table_23)
   local output = {}
   for k, v in pairs(table_23) do
     if ((v == true) or (v == false)) then
-      output[k] = v
+      if (vim.g.kat_nvim_max_version == "0.8") then
+        local _19_ = k
+        if (_19_ == "underlineline") then
+          output["underdouble"] = v
+        elseif (_19_ == "underdot") then
+          output["underdotted"] = v
+        elseif (_19_ == "underdash") then
+          output["underdashed"] = v
+        elseif true then
+          local _ = _19_
+          print(k)
+          do end (output)[k] = v
+        else
+        end
+      else
+        output[k] = v
+      end
     else
     end
   end
   return output
 end
 _2amodule_2a["all-attr->table"] = all_attr__3etable
-local function attr__3estring(table)
-  local attr_table = attr__3etable(table)
-  if a["empty?"](attr_table) then
-    return nil
-  else
-    return s.join(",", attr__3etable(table))
-  end
-end
-_2amodule_2a["attr->string"] = attr__3estring
 return _2amodule_2a
