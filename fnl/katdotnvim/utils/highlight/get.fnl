@@ -40,7 +40,7 @@
                       :underlineline (tset output :underdouble v)
                       :underdot (tset output :underdotted v)
                       :underdash (tset output :underdashed v)
-                      _ (do (print k) (tset output k v)))
+                      _ (tset output k v))
                     (do
                       (tset output k v))))))
         output))

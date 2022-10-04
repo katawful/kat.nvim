@@ -109,8 +109,7 @@ local function all_attr__3etable(table_23)
           output["underdashed"] = v
         elseif true then
           local _ = _19_
-          print(k)
-          do end (output)[k] = v
+          output[k] = v
         else
         end
       else
