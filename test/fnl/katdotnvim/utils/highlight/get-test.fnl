@@ -1,5 +1,7 @@
 (module katdotnvim.utils.highlight.get-test
-        {autoload {get katdotnvim.utils.highlight.get s aniseed.string}})
+        {autoload {get katdotnvim.utils.highlight.get
+                   s aniseed.string
+                   a aniseed.core}})
 
 (def- high-table {:group :Test
                   :fg "#111111"
@@ -39,3 +41,23 @@
 (deftest blend (t.= 3 (get.blend high-table)
                     "Get the blend of a highlight group"))
 
+; (deftest all-attr->table)
+
+(deftest all-attr->table (let [test-08 "bold,italic,underline,underdouble"
+                               test-07 "bold,italic,underline,underlineline"
+                               old-version vim.g.kat_nvim_max_version
+                               expected-08 (do (set vim.g.kat_nvim_max_version :0.8)
+                                               (a.keys (get.all-attr->table high-table)))
+                               expected-07 (do (set vim.g.kat_nvim_max_version :0.7)
+                                               (a.keys (get.all-attr->table high-table)))
+                               split-test-08 (s.split test-08 ",")
+                               split-test-07 (s.split test-07 ",")]
+                           (set vim.g.kat_nvim_max_version old-version)
+                           (table.sort split-test-08)
+                           (table.sort split-test-07)
+                           (table.sort expected-08)
+                           (table.sort expected-07)
+                           (t.ok? (vim.deep_equal split-test-08 expected-08)
+                                  "Use 0.8 attribute names to add all to table")
+                           (t.ok? (vim.deep_equal split-test-07 expected-07)
+                                  "Use 0.7 attribute names to add all to table")))
