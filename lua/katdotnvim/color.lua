@@ -114,8 +114,8 @@ local function update()
   local color_2a
   do
     local normal_colors0 = def_normal_colors()
-    local foreground0 = def_back_colors()
-    local background0 = def_fore_colors()
+    local foreground0 = def_fore_colors()
+    local background0 = def_back_colors()
     local output = {}
     for k, v in pairs(normal_colors0) do
       output[k] = v

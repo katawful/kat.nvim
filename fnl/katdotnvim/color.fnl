@@ -180,8 +180,8 @@
       ;; red, blue, green, pink, orange, purple, pink
       ;; f1-f6, b1-b6
       (var color* (let [normal-colors (def-normal-colors)
-                        foreground (def-back-colors)
-                        background (def-fore-colors)
+                        foreground (def-fore-colors)
+                        background (def-back-colors)
                         output {}]
                     (each [k v (pairs normal-colors)]
                       (tset output k v))
