@@ -16,13 +16,13 @@
         :bold true
         :italic true}
        {:group :vimBracket
-        :fg (ucolors.blend (. (colors.init :normalColors) :pink)
+        :fg (ucolors.blend colors.kat.pink.base.color
                            colors.kat.fg.auto.color 0.7)
         :bg :SKIP
         :ctermfg (. (groups.fillBG) 2)
         :ctermbg :SKIP}
        {:group :vimMapModKey
-        :fg (ucolors.blend (. (colors.init :normalColors) :pink)
+        :fg (ucolors.blend colors.kat.pink.base.color
                            colors.kat.fg.auto.color 0.8)
         :bg :SKIP
         :ctermfg (. (groups.fillBG) 2)

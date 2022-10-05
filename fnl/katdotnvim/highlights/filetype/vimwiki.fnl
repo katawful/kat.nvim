@@ -8,7 +8,7 @@
 ; this handles vimwiki
 
 (defn high-colors [] [{:group :VimwikiMarkers
-                       :fg (. (colors.init :background) 5)
+                       :fg colors.kat.bg.fifth.color
                        :bg :SKIP
                        :ctermfg (. (groups.mainFG) 2)
                        :ctermbg :SKIP}
@@ -50,14 +50,14 @@
                        :ctermfg (. (groups.umbraFG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :VimwikiHeader1
-                       :fg (ucolors.darken (. (colors.init :normalColors) :blue)
+                       :fg (ucolors.darken colors.kat.blue.base.color
                                            0.0)
                        :bg :SKIP
                        :ctermfg 4
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader2
-                       :fg (ucolors.darken (. (colors.init :normalColors) :blue)
+                       :fg (ucolors.darken colors.kat.blue.base.color
                                            0.3)
                        :bg :SKIP
                        :ctermfg 12
@@ -80,14 +80,14 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader5
-                       :fg (ucolors.darken (. (colors.init :normalColors) :pink)
+                       :fg (ucolors.darken colors.kat.pink.base.color
                                            0.0)
                        :bg :SKIP
                        :ctermfg 5
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader6
-                       :fg (ucolors.darken (. (colors.init :normalColors) :pink)
+                       :fg (ucolors.darken colors.kat.pink.base.color
                                            0.3)
                        :bg :SKIP
                        :ctermfg 13

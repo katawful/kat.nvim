@@ -8,16 +8,16 @@
 
 (defn init []
       (set-vars g
-                {:terminal_color_0 (. (colors.init :background) 1)
-                 :terminal_color_1 (. (colors.init :normalColors) :red)
-                 :terminal_color_2 (. (colors.init :normalColors) :green)
-                 :terminal_color_3 (. (colors.init :normalColors) :orange)
-                 :terminal_color_4 (. (colors.init :normalColors) :blue)
-                 :terminal_color_5 (. (colors.init :normalColors) :pink)
-                 :terminal_color_6 (. (colors.init :normalColors) :purple)
-                 :terminal_color_7 (. (colors.init :foreground) 1)
-                 :terminal_color_8 (. (colors.init :background) 2)
-                 :terminal_color_15 (. (colors.init :foreground) 2)})
+                {:terminal_color_0 colors.kat.bg.base.color
+                 :terminal_color_1 colors.kat.red.base.color
+                 :terminal_color_2 colors.kat.green.base.color
+                 :terminal_color_3 colors.kat.orange.base.color
+                 :terminal_color_4 colors.kat.blue.base.color
+                 :terminal_color_5 colors.kat.pink.base.color
+                 :terminal_color_6 colors.kat.purple.base.color
+                 :terminal_color_7 colors.kat.fg.base.color
+                 :terminal_color_8 colors.kat.bg.umbra.color
+                 :terminal_color_15 colors.kat.fg.umbra.color})
       (if (= (. main.background-mut 1) :light)
           (set-vars g
                     {:terminal_color_9 (ucolors.darken (. (colors.init :normalColors)

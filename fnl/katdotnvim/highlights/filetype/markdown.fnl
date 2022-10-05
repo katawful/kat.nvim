@@ -26,37 +26,37 @@
         :bold true
         :italic true}
        {:group :markdownH1
-        :fg (ucolors.darken (. (colors.init :normalColors) :blue) 0.0)
+        :fg (ucolors.darken colors.kat.blue.base.color 0.0)
         :bg :SKIP
         :ctermfg 4
         :ctermbg :SKIP
         :bold true}
        {:group :markdownH2
-        :fg (ucolors.darken (. (colors.init :normalColors) :blue) 0.3)
+        :fg (ucolors.darken colors.kat.blue.base.color 0.3)
         :bg :SKIP
         :ctermfg 12
         :ctermbg :SKIP
         :bold true}
        {:group :markdownH3
-        :fg (ucolors.darken (. (colors.init :normalColors) :orange) 0.0)
+        :fg (ucolors.darken colors.kat.orange.base.color 0.0)
         :bg :SKIP
         :ctermfg 3
         :ctermbg :SKIP
         :bold true}
        {:group :markdownH4
-        :fg (ucolors.darken (. (colors.init :normalColors) :orange) 0.3)
+        :fg (ucolors.darken colors.kat.orange.base.color 0.3)
         :bg :SKIP
         :ctermfg 11
         :ctermbg :SKIP
         :bold true}
        {:group :markdownH5
-        :fg (ucolors.darken (. (colors.init :normalColors) :pink) 0.0)
+        :fg (ucolors.darken colors.kat.pink.base.color 0.0)
         :bg :SKIP
         :ctermfg 5
         :ctermbg :SKIP
         :bold true}
        {:group :markdownH6
-        :fg (ucolors.darken (. (colors.init :normalColors) :pink) 0.3)
+        :fg (ucolors.darken colors.kat.pink.base.color 0.3)
         :bg :SKIP
         :ctermfg 13
         :ctermbg :SKIP
@@ -140,13 +140,13 @@
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP
         :underline true
-        :sp (. (colors.init :foreground) 3)}
+        :sp colors.kat.fg.shadow.color}
        {:group :markdownIdDeclaration
         :fg colors.kat.fg.shadow.color
         :bg :SKIP
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP
         :underline true
-        :sp (. (colors.init :foreground) 3)}])
+        :sp colors.kat.fg.shadow.color}])
 
 (defn init [] (run.highlight$<-table (high-colors)))
