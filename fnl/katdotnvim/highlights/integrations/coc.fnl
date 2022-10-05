@@ -8,66 +8,66 @@
 ;;; This handles coc.nvim colors
 
 (defn high-colors [] [{:group :CocErrorSign
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kat.red.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocWarningSign
-                       :fg (. (groups.warningBG) 1)
+                       :fg colors.kat.red.match_bg.color
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocInfoSign
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kat.orange.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocHintSign
-                       :fg (. (groups.auxBG) 1)
+                       :fg colors.kat.green.auto.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocErrorFloat
-                       :fg (. (groups.errorBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.red.base.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :CocWarningFloat
-                       :fg (. (groups.warningBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.red.match_bg.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :CocInfoFloat
-                       :fg (. (groups.infoBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.orange.base.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :CocHintFloat
-                       :fg (. (groups.auxBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.green.auto.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :CocDiagnosticsError
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kat.red.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsWarning
-                       :fg (. (groups.warningBG) 1)
+                       :fg colors.kat.red.match_bg.color
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsInfo
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kat.orange.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsHint
-                       :fg (. (groups.auxBG) 1)
+                       :fg colors.kat.green.auto.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg :SKIP}
@@ -77,28 +77,28 @@
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.errorBG) 1)}
+                       :sp colors.kat.red.base.color}
                       {:group :CocWarningHighlight
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.warningBG) 1)}
+                       :sp colors.kat.red.match_bg.color}
                       {:group :CocInfoHighlight
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.infoBG) 1)}
+                       :sp colors.kat.orange.base.color}
                       {:group :CocHintHighlight
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.auxBG) 1)}
+                       :sp colors.kat.green.auto.color}
                       {:group :CocSelectedText
                        :fg :SKIP
                        :bg (ucolors.darken (. (colors.init :normalColors) :red)
@@ -106,7 +106,7 @@
                        :ctermfg :SKIP
                        :ctermbg (. (groups.warningBG) 2)}
                       {:group :CocCodeLens
-                       :fg (. (groups.meldBG) 1)
+                       :fg colors.kat.bg.meld.color
                        :bg :SKIP
                        :ctermfg (. (groups.umbraFG) 2)
                        :ctermbg :SKIP}])

@@ -6,25 +6,25 @@
                    groups katdotnvim.highlights.main}})
 
 (defn high-colors [] [{:group :IndentBlanklineChar
-                       :fg (. (groups.shadowBG) 1)
+                       :fg colors.kat.bg.shadow.color
                        :bg :SKIP
                        :ctermfg (. (groups.umbraBG) 2)
                        :ctermbg :SKIP
                        :nocombine true}
                       {:group :IndentBlanklineSpaceChar
-                       :fg (. (groups.shadowBG) 1)
+                       :fg colors.kat.bg.shadow.color
                        :bg :SKIP
                        :ctermfg (. (groups.umbraBG) 2)
                        :ctermbg :SKIP
                        :nocombine true}
                       {:group :IndentBlanklineSpaceChar
-                       :fg (. (groups.shadowBG) 1)
+                       :fg colors.kat.bg.shadow.color
                        :bg :SKIP
                        :ctermfg (. (groups.umbraBG) 2)
                        :ctermbg :SKIP
                        :nocombine true}
                       {:group :IndentBlanklineContextChar
-                       :fg (. (groups.selectionBG) 1)
+                       :fg colors.kat.blue.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP

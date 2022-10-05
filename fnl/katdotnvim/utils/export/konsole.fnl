@@ -14,22 +14,22 @@
 ;; $output -- a table of colors where the key is the string for the konsole group
 ;; fnlfmt: skip
 (defn gen-colors [] "Export a table of strings for konsole"
-      (let [output {"[Background]" (.. :Color= (export.hex->rgb-string (. (groups.mainBG) 1)))
-                    "[BackgroundFaint]" (.. :Color= (export.hex->rgb-string (. (groups.meldBG) 1)))
-                    "[BackgroundIntense]" (.. :Color= (export.hex->rgb-string (. (groups.umbraBG) 1)))
-                    "[Foreground]" (.. :Color= (export.hex->rgb-string (. (groups.mainFG) 1)))
-                    "[ForegroundFaint]" (.. :Color= (export.hex->rgb-string (. (groups.meldFG) 1)))
-                    "[ForegroundIntense]" (.. :Color= (export.hex->rgb-string (. (groups.umbraFG) 1)))
-                    "[Color0]" (.. :Color= (export.hex->rgb-string (. (colors.background) 1)))
-                    "[Color1]" (.. :Color= (export.hex->rgb-string (. (colors.normal-colors) :red)))
-                    "[Color2]" (.. :Color= (export.hex->rgb-string (. (colors.normal-colors) :green)))
-                    "[Color3]" (.. :Color= (export.hex->rgb-string (. (colors.normal-colors) :orange)))
-                    "[Color4]" (.. :Color= (export.hex->rgb-string (. (colors.normal-colors) :blue)))
-                    "[Color5]" (.. :Color= (export.hex->rgb-string (. (colors.normal-colors) :pink)))
-                    "[Color6]" (.. :Color= (export.hex->rgb-string (. (colors.normal-colors) :purple)))
-                    "[Color7]" (.. :Color= (export.hex->rgb-string (. (groups.mainFG) 1)))
-                    "[Color8]" (.. :Color= (export.hex->rgb-string (. (colors.background) 2)))
-                    "[Color15]" (.. :Color= (export.hex->rgb-string (. (colors.foreground) 2)))
+      (let [output {"[Background]" (.. :Color= (export.hex->rgb-string colors.kat.bg.base.color))
+                    "[BackgroundFaint]" (.. :Color= (export.hex->rgb-string colors.kat.bg.meld.color))
+                    "[BackgroundIntense]" (.. :Color= (export.hex->rgb-string colors.kat.bg.umbra.color))
+                    "[Foreground]" (.. :Color= (export.hex->rgb-string colors.kat.fg.auto.color))
+                    "[ForegroundFaint]" (.. :Color= (export.hex->rgb-string colors.kat.fg.meld.color))
+                    "[ForegroundIntense]" (.. :Color= (export.hex->rgb-string colors.kat.fg.umbra.color))
+                    "[Color0]" (.. :Color= (export.hex->rgb-string colors.kat.bg.base.color))
+                    "[Color1]" (.. :Color= (export.hex->rgb-string colors.kat.red.base.color))
+                    "[Color2]" (.. :Color= (export.hex->rgb-string colors.kat.green.base.color))
+                    "[Color3]" (.. :Color= (export.hex->rgb-string colors.kat.orange.base.color))
+                    "[Color4]" (.. :Color= (export.hex->rgb-string colors.kat.blue.base.color))
+                    "[Color5]" (.. :Color= (export.hex->rgb-string colors.kat.pink.base.color))
+                    "[Color6]" (.. :Color= (export.hex->rgb-string colors.kat.purple.base.color))
+                    "[Color7]" (.. :Color= (export.hex->rgb-string colors.kat.fg.auto.color))
+                    "[Color8]" (.. :Color= (export.hex->rgb-string colors.kat.bg.umbra.color))
+                    "[Color15]" (.. :Color= (export.hex->rgb-string colors.kat.fg.umbra.color))
                     "[General]" (string.format "Blur=false
 ColorRandomization=false
 Description=%s
@@ -41,158 +41,158 @@ Wallpaper="
         (if (= (. main.background-mut 1) :light)
             (do
               (tset output "[Color0Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.background) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.bg.base.color 0.2))))
               (tset output "[Color1Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.red.base.color 0.2))))
               (tset output "[Color2Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.green.base.color 0.2))))
               (tset output "[Color3Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.orange.base.color 0.2))))
               (tset output "[Color4Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.blue.base.color 0.2))))
               (tset output "[Color5Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.pink.base.color 0.2))))
               (tset output "[Color6Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.purple.base.color 0.2))))
               (tset output "[Color7Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.foreground) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.fg.base.color 0.2))))
               (tset output "[Color8Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.background) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.bg.umbra.color 0.2))))
               (tset output "[Color9Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.red.base.color 0.2))))
               (tset output "[Color10Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.green.base.color 0.2))))
               (tset output "[Color11Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.orange.base.color 0.2))))
               (tset output "[Color12Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.blue.base.color 0.2))))
               (tset output "[Color13Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.pink.base.color 0.2))))
               (tset output "[Color14Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.purple.base.color 0.2))))
               (tset output "[Color15Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.foreground) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.fg.umbra.color 0.2))))
               (tset output "[Color0Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.background) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.bg.base.color 0.2))))
               (tset output "[Color1Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.red.base.color 0.2))))
               (tset output "[Color2Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.green.base.color 0.2))))
               (tset output "[Color3Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.orange.base.color 0.2))))
               (tset output "[Color4Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.blue.base.color 0.2))))
               (tset output "[Color5Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.pink.base.color 0.2))))
               (tset output "[Color6Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.purple.base.color 0.2))))
               (tset output "[Color7Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.foreground) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.fg.base.color 0.2))))
               (tset output "[Color8Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.background) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.bg.umbra.color 0.2))))
               (tset output "[Color9Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.red.base.color 0.2))))
               (tset output "[Color10Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.green.base.color 0.2))))
               (tset output "[Color11Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.orange.base.color 0.2))))
               (tset output "[Color12Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.blue.base.color 0.2))))
               (tset output "[Color13Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.pink.base.color 0.2))))
               (tset output "[Color14Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.purple.base.color 0.2))))
               (tset output "[Color15Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.foreground) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.fg.umbra.color 0.2))))
               (tset output "[Color9]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.red.base.color 0.2))))
               (tset output "[Color10]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.green.base.color 0.2))))
               (tset output "[Color11]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.orange.base.color 0.2))))
               (tset output "[Color12]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.blue.base.color 0.2))))
               (tset output "[Color13]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.pink.base.color 0.2))))
               (tset output "[Color14]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :purple) 0.2)))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.purple.base.color 0.2)))))
             (do
               (tset output "[Color0Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.background) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.bg.base.color 0.2))))
               (tset output "[Color1Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.red.base.color 0.2))))
               (tset output "[Color2Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.green.base.color 0.2))))
               (tset output "[Color3Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.orange.base.color 0.2))))
               (tset output "[Color4Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.blue.base.color 0.2))))
               (tset output "[Color5Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.pink.base.color 0.2))))
               (tset output "[Color6Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.purple.base.color 0.2))))
               (tset output "[Color7Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.foreground) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.fg.base.color 0.2))))
               (tset output "[Color8Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.background) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.bg.umbra.color 0.2))))
               (tset output "[Color9Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.red.base.color 0.2))))
               (tset output "[Color10Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.green.base.color 0.2))))
               (tset output "[Color11Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.orange.base.color 0.2))))
               (tset output "[Color12Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.blue.base.color 0.2))))
               (tset output "[Color13Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.pink.base.color 0.2))))
               (tset output "[Color14Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.purple.base.color 0.2))))
               (tset output "[Color15Faint]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.foreground) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.fg.umbra.color 0.2))))
               (tset output "[Color0Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.background) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.bg.base.color 0.2))))
               (tset output "[Color1Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.red.base.color 0.2))))
               (tset output "[Color2Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.green.base.color 0.2))))
               (tset output "[Color3Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.orange.base.color 0.2))))
               (tset output "[Color4Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.blue.base.color 0.2))))
               (tset output "[Color5Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.pink.base.color 0.2))))
               (tset output "[Color6Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.purple.base.color 0.2))))
               (tset output "[Color7Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.foreground) 1) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.fg.base.color 0.2))))
               (tset output "[Color8Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.darken (. (colors.background) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.darken colors.kat.bg.umbra.color 0.2))))
               (tset output "[Color9Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.red.base.color 0.2))))
               (tset output "[Color10Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.green.base.color 0.2))))
               (tset output "[Color11Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.orange.base.color 0.2))))
               (tset output "[Color12Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.blue.base.color 0.2))))
               (tset output "[Color13Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.pink.base.color 0.2))))
               (tset output "[Color14Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :purple) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.purple.base.color 0.2))))
               (tset output "[Color15Intense]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.foreground) 2) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.fg.umbra.color 0.2))))
               (tset output "[Color9]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :red) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.red.base.color 0.2))))
               (tset output "[Color10]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :green) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.green.base.color 0.2))))
               (tset output "[Color11]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :orange) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.orange.base.color 0.2))))
               (tset output "[Color12]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :blue) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.blue.base.color 0.2))))
               (tset output "[Color13]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :pink) 0.2))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.pink.base.color 0.2))))
               (tset output "[Color14]"
-                    (.. :Color= (export.hex->rgb-string (ucolors.brighten (. (colors.normal-colors) :purple) 0.2))))))
+                    (.. :Color= (export.hex->rgb-string (ucolors.brighten colors.kat.purple.base.color 0.2))))))
         output))
 
 ;; FN -- output konsole string to a file at the current working directory

@@ -22,21 +22,21 @@ _2amodule_locals_2a["loop"] = loop
 local comment_type = "!"
 _2amodule_2a["comment-type"] = comment_type
 local function gen_colors()
-  local output = {["*foreground:"] = groups.mainFG()[1], ["*background:"] = groups.mainBG()[1], ["*cursorColor:"] = groups.mainFG()[1], ["*fadeColor:"] = groups.meldBG()[1], ["*pointerColorForeground:"] = groups.mainFG()[1], ["*pointerColorBackground:"] = groups.mainBG()[1], ["Urxvt*foreground:"] = groups.mainFG()[1], ["Urxvt*background:"] = groups.mainBG()[1], ["URxvt*color0:"] = groups.mainBG()[1], ["URxvt*color1:"] = (colors["normal-colors"]()).red, ["URxvt*color2:"] = (colors["normal-colors"]()).green, ["URxvt*color3:"] = (colors["normal-colors"]()).orange, ["URxvt*color4:"] = (colors["normal-colors"]()).blue, ["URxvt*color5:"] = (colors["normal-colors"]()).pink, ["URxvt*color6:"] = (colors["normal-colors"]()).purple, ["URxvt*color7:"] = groups.mainFG()[1], ["URxvt*color8:"] = groups.umbraBG()[1], ["URxvt*color15:"] = groups.umbraFG()[1]}
+  local output = {["*foreground:"] = colors.kat.fg.auto.color, ["*background:"] = colors.kat.bg.base.color, ["*cursorColor:"] = colors.kat.fg.auto.color, ["*fadeColor:"] = colors.kat.bg.meld.color, ["*pointerColorForeground:"] = colors.kat.fg.auto.color, ["*pointerColorBackground:"] = colors.kat.bg.base.color, ["Urxvt*foreground:"] = colors.kat.fg.auto.color, ["Urxvt*background:"] = colors.kat.bg.base.color, ["URxvt*color0:"] = colors.kat.bg.base.color, ["URxvt*color1:"] = colors.kat.red.base.color, ["URxvt*color2:"] = colors.kat.green.base.color, ["URxvt*color3:"] = colors.kat.orange.base.color, ["URxvt*color4:"] = colors.kat.blue.base.color, ["URxvt*color5:"] = colors.kat.pink.base.color, ["URxvt*color6:"] = colors.kat.purple.base.color, ["URxvt*color7:"] = colors.kat.fg.auto.color, ["URxvt*color8:"] = colors.kat.bg.umbra.color, ["URxvt*color15:"] = colors.kat.fg.umbra.color}
   if ((main["background-mut"])[1] == "light") then
-    output["URxvt*color9:"] = ucolors.darken((colors["normal-colors"]()).red, 0.2)
-    do end (output)["URxvt*color10:"] = ucolors.darken((colors["normal-colors"]()).green, 0.2)
-    do end (output)["URxvt*color11:"] = ucolors.darken((colors["normal-colors"]()).orange, 0.2)
-    do end (output)["URxvt*color12:"] = ucolors.darken((colors["normal-colors"]()).blue, 0.2)
-    do end (output)["URxvt*color13:"] = ucolors.darken((colors["normal-colors"]()).pink, 0.2)
-    do end (output)["URxvt*color14:"] = ucolors.darken((colors["normal-colors"]()).purple, 0.2)
+    output["URxvt*color9:"] = ucolors.darken(colors.kat.red.base.color, 0.2)
+    do end (output)["URxvt*color10:"] = ucolors.darken(colors.kat.green.base.color, 0.2)
+    do end (output)["URxvt*color11:"] = ucolors.darken(colors.kat.orange.base.color, 0.2)
+    do end (output)["URxvt*color12:"] = ucolors.darken(colors.kat.blue.base.color, 0.2)
+    do end (output)["URxvt*color13:"] = ucolors.darken(colors.kat.pink.base.color, 0.2)
+    do end (output)["URxvt*color14:"] = ucolors.darken(colors.kat.purple.base.color, 0.2)
   else
-    output["URxvt*color9:"] = ucolors.brighten((colors["normal-colors"]()).red, 0.2)
-    do end (output)["URxvt*color10:"] = ucolors.brighten((colors["normal-colors"]()).green, 0.2)
-    do end (output)["URxvt*color11:"] = ucolors.brighten((colors["normal-colors"]()).orange, 0.2)
-    do end (output)["URxvt*color12:"] = ucolors.brighten((colors["normal-colors"]()).blue, 0.2)
-    do end (output)["URxvt*color13:"] = ucolors.brighten((colors["normal-colors"]()).pink, 0.2)
-    do end (output)["URxvt*color14:"] = ucolors.brighten((colors["normal-colors"]()).purple, 0.2)
+    output["URxvt*color9:"] = ucolors.brighten(colors.kat.red.base.color, 0.2)
+    do end (output)["URxvt*color10:"] = ucolors.brighten(colors.kat.green.base.color, 0.2)
+    do end (output)["URxvt*color11:"] = ucolors.brighten(colors.kat.orange.base.color, 0.2)
+    do end (output)["URxvt*color12:"] = ucolors.brighten(colors.kat.blue.base.color, 0.2)
+    do end (output)["URxvt*color13:"] = ucolors.brighten(colors.kat.pink.base.color, 0.2)
+    do end (output)["URxvt*color14:"] = ucolors.brighten(colors.kat.purple.base.color, 0.2)
   end
   return output
 end

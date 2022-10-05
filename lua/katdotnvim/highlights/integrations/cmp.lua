@@ -18,7 +18,7 @@ _2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function high_colors()
-  return {{group = "CmpItemKind", fg = groups.selectionBG()[1], bg = ucolors.brighten(groups.fillBG()[1], 0.1), ctermfg = groups.selectionBG()[2], ctermbg = groups.fillBG()[2]}}
+  return {{group = "CmpItemKind", fg = colors.kat.blue.base.color, bg = ucolors.brighten(colors.kat.pink.base.color, 0.1), ctermfg = groups.selectionBG()[2], ctermbg = groups.fillBG()[2]}}
 end
 _2amodule_2a["high-colors"] = high_colors
 local function init()

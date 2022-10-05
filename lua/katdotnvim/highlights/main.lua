@@ -20,109 +20,109 @@ _2amodule_locals_2a["_"] = _
 local function mainFG()
   local output = {}
   if (((main["background-mut"])[1] == "dark") and ((main["contrast-mut"])[1] == "soft")) then
-    output[1] = ucolors.brighten(colors.foreground()[1], 0.8)
+    output[1] = ucolors.brighten(colors.kat.fg.base.color, 0.8)
     do end (output)[2] = 7
   else
-    output[1] = colors.foreground()[1]
+    output[1] = colors.kat.fg.base.color
     output[2] = 7
   end
   return output
 end
 _2amodule_2a["mainFG"] = mainFG
 local function mainBG()
-  return {colors.background()[1], 0}
+  return {colors.kat.bg.base.color, 0}
 end
 _2amodule_2a["mainBG"] = mainBG
 local function umbraFG()
-  return {colors.foreground()[2], 15}
+  return {colors.kat.fg.umbra.color, 15}
 end
 _2amodule_2a["umbraFG"] = umbraFG
 local function umbraBG()
-  return {colors.background()[2], 8}
+  return {colors.kat.bg.umbra.color, 8}
 end
 _2amodule_2a["umbraBG"] = umbraBG
 local function shadowFG()
-  return {colors.foreground()[3], 16}
+  return {colors.kat.fg.shadow.color, 16}
 end
 _2amodule_2a["shadowFG"] = shadowFG
 local function shadowBG()
-  return {colors.background()[3], 16}
+  return {colors.kat.bg.shadow.color, 16}
 end
 _2amodule_2a["shadowBG"] = shadowBG
 local function meldFG()
-  return {colors.foreground()[4], 16}
+  return {colors.kat.fg.meld.color, 16}
 end
 _2amodule_2a["meldFG"] = meldFG
 local function meldBG()
-  return {colors.background()[4], 16}
+  return {colors.kat.bg.meld.color, 16}
 end
 _2amodule_2a["meldBG"] = meldBG
 local function selectionFG()
-  local output = {mainFG()[1], 7}
+  local output = {colors.kat.fg.auto.color, 7}
   return output
 end
 _2amodule_2a["selectionFG"] = selectionFG
 local function selectionBG()
-  return {(colors["normal-colors"]()).blue, 4, 12}
+  return {colors.kat.blue.base.color, 4, 12}
 end
 _2amodule_2a["selectionBG"] = selectionBG
 local function fillFG()
-  local output = {mainFG()[1], 7}
+  local output = {colors.kat.fg.auto.color, 7}
   return output
 end
 _2amodule_2a["fillFG"] = fillFG
 local function fillBG()
-  return {(colors["normal-colors"]()).pink, 5, 13}
+  return {colors.kat.pink.base.color, 5, 13}
 end
 _2amodule_2a["fillBG"] = fillBG
 local function highlightFG()
-  local output = {mainFG()[1], 7}
+  local output = {colors.kat.fg.auto.color, 7}
   return output
 end
 _2amodule_2a["highlightFG"] = highlightFG
 local function highlightBG()
-  return {(colors["normal-colors"]()).purple, 6, 14}
+  return {colors.kat.purple.base.color, 6, 14}
 end
 _2amodule_2a["highlightBG"] = highlightBG
 local function errorFG()
-  local output = {mainFG()[1], 7}
+  local output = {colors.kat.fg.auto.color, 7}
   return output
 end
 _2amodule_2a["errorFG"] = errorFG
 local function errorBG()
-  return {(colors["normal-colors"]()).red, 1}
+  return {colors.kat.red.base.color, 1}
 end
 _2amodule_2a["errorBG"] = errorBG
 local function warningFG()
-  local output = {mainFG()[1], 7}
+  local output = {colors.kat.fg.auto.color, 7}
   return output
 end
 _2amodule_2a["warningFG"] = warningFG
 local function warningBG()
-  local output = {ucolors.blend((colors["normal-colors"]()).red, mainBG()[1], 0.7), 9}
+  local output = {ucolors.blend(colors.kat.red.base.color, colors.kat.bg.base.color, 0.7), 9}
   return output
 end
 _2amodule_2a["warningBG"] = warningBG
 local function infoFG()
-  local output = {mainBG()[1], 0}
+  local output = {colors.kat.bg.base.color, 0}
   return output
 end
 _2amodule_2a["infoFG"] = infoFG
 local function infoBG()
-  return {(colors["normal-colors"]()).orange, 3, 11}
+  return {colors.kat.orange.base.color, 3, 11}
 end
 _2amodule_2a["infoBG"] = infoBG
 local function auxFG()
-  local output = mainFG()[1]
+  local output = colors.kat.fg.auto.color
   return output
 end
 _2amodule_2a["auxFG"] = auxFG
 local function groupFunction()
   local output = ""
   if ((main["background-mut"])[1] == "light") then
-    output = ucolors.saturation(ucolors.darken((colors["normal-colors"]()).green, 0.5), 0.4)
+    output = ucolors.saturation(ucolors.darken(colors.kat.green.base.color, 0.5), 0.4)
   else
-    output = ucolors.saturation(ucolors.brighten((colors["normal-colors"]()).green, 0.5), -0.2)
+    output = ucolors.saturation(ucolors.brighten(colors.kat.green.base.color, 0.5), -0.2)
   end
   return output
 end
@@ -134,11 +134,11 @@ end
 _2amodule_2a["auxBG"] = auxBG
 local function high_colors()
   local function _3_()
-    local color = ucolors.brighten(highlightFG()[1], 0)
+    local color = ucolors.brighten(colors.kat.fg.auto.color, 0)
     if (((main["background-mut"])[1] == "dark") and ((main["contrast-mut"])[1] == "soft")) then
-      return {{group = "TabLine", fg = color, bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}, {group = "TabLineFill", fg = fillBG()[1], bg = fillBG()[1], ctermfg = fillBG()[2], ctermbg = fillBG()[2]}, {group = "TabLineSel", fg = color, bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2], bold = true}}
+      return {{group = "TabLine", fg = color, bg = colors.kat.purple.base.color, ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}, {group = "TabLineFill", fg = colors.kat.pink.base.color, bg = colors.kat.pink.base.color, ctermfg = fillBG()[2], ctermbg = fillBG()[2]}, {group = "TabLineSel", fg = color, bg = colors.kat.blue.base.color, ctermfg = selectionFG()[2], ctermbg = selectionBG()[2], bold = true}}
     else
-      return {{group = "TabLine", fg = highlightFG()[1], bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}, {group = "TabLineFill", fg = fillBG()[1], bg = fillBG()[1], ctermfg = fillBG()[2], ctermbg = fillBG()[2]}, {group = "TabLineSel", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2], bold = true}}
+      return {{group = "TabLine", fg = colors.kat.fg.auto.color, bg = colors.kat.purple.base.color, ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}, {group = "TabLineFill", fg = colors.kat.pink.base.color, bg = colors.kat.pink.base.color, ctermfg = fillBG()[2], ctermbg = fillBG()[2]}, {group = "TabLineSel", fg = colors.kat.fg.auto.color, bg = colors.kat.blue.base.color, ctermfg = selectionFG()[2], ctermbg = selectionBG()[2], bold = true}}
     end
   end
   local function _5_()
@@ -152,14 +152,14 @@ local function high_colors()
       end
     end
     if _6_ then
-      do local _ = {group = "Menu", fg = mainFG()[1], bg = mainBG()[1], ctermfg = mainFG()[2], ctermbg = mainBG()[2]} end
-      do local _ = {group = "Tooltip", fg = fillFG()[1], bg = fillBG()[1], ctermfg = fillFG()[2], ctermbg = fillBG()[2]} end
-      return {group = "Scrollbar", fg = highlightFG()[1], bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}
+      do local _ = {group = "Menu", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.base.color, ctermfg = mainFG()[2], ctermbg = mainBG()[2]} end
+      do local _ = {group = "Tooltip", fg = colors.kat.fg.auto.color, bg = colors.kat.pink.base.color, ctermfg = fillFG()[2], ctermbg = fillBG()[2]} end
+      return {group = "Scrollbar", fg = colors.kat.fg.auto.color, bg = colors.kat.purple.base.color, ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}
     else
       return nil
     end
   end
-  return {{group = "Normal", fg = mainFG()[1], bg = mainBG()[1], ctermfg = mainFG()[2], ctermbg = mainBG()[2]}, {group = "NormalNC", fg = mainFG()[1], bg = mainBG()[1], ctermfg = mainFG()[2], ctermbg = mainBG()[2]}, {group = "NormalFloat", fg = mainFG()[1], bg = shadowBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "NonText", fg = shadowFG()[1], bg = mainBG()[1], ctermfg = umbraFG()[2], ctermbg = mainBG()[2]}, {group = "MatchParen", fg = "SKIP", bg = shadowBG()[1], ctermfg = "SKIP", ctermbg = umbraBG()[2], bold = true}, {group = "SpecialKey", fg = ucolors.blend(errorBG()[1], mainBG()[1], 0.6), bg = "NONE", ctermfg = warningBG()[2], ctermbg = "NONE", italic = true}, {group = "Whitespace", fg = colors.foreground()[5], bg = "SKIP", ctermfg = umbraFG()[2], ctermbg = "SKIP"}, {group = "EndOfBuffer", fg = umbraFG()[1], bg = "SKIP", ctermfg = umbraFG()[2], ctermbg = "SKIP", bold = true}, {group = "Directory", fg = ucolors.blend(ucolors.blend(infoBG()[1], mainFG()[1], 0.1), selectionBG()[1], 0.2), bg = "SKIP", ctermfg = selectionBG()[2], ctermbg = "SKIP"}, {group = "Conceal", fg = shadowBG()[1], bg = "NONE", ctermfg = umbraBG()[2], ctermbg = "NONE"}, {group = "SpellBad", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = errorBG()[1]}, {group = "SpellCap", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = selectionBG()[1]}, {group = "SpellLocal", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = auxBG()[1]}, {group = "SpellRare", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = fillBG()[1]}, {group = "StatusLine", fg = colors.background()[5], bg = ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), ctermfg = umbraBG()[2], ctermbg = highlightBG()[3], bold = true}, {group = "StatusLineNC", fg = ucolors.blend(highlightBG()[1], mainBG()[1], 0.7), bg = colors.background()[5], ctermfg = umbraBG()[2], ctermbg = highlightBG()[3], bold = true}, _3_, {group = "Title", fg = auxBG()[1], bg = "NONE", ctermfg = auxBG()[2], ctermbg = "NONE", bold = true}, {group = "Visual", fg = "SKIP", bg = ucolors.darken(selectionBG()[1], 0.2), ctermfg = "SKIP", ctermbg = warningBG()[2]}, {group = "VisualNOS", fg = "SKIP", bg = ucolors.blend(selectionBG()[1], mainFG()[1], 0.5), ctermfg = "SKIP", ctermbg = warningBG()[2]}, {group = "Pmenu", fg = fillFG()[1], bg = fillBG()[1], ctermfg = fillFG()[2], ctermbg = fillBG()[2]}, {group = "PmenuSel", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "PmenuSbar", fg = highlightFG()[1], bg = highlightBG()[1], ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}, {group = "PmenuThumb", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "WildMenu", fg = selectionFG()[1], bg = selectionBG()[1], ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "Question", fg = ucolors.blend(auxBG()[1], mainFG()[1], 0.7), bg = "SKIP", ctermfg = auxBG()[3], ctermbg = "SKIP", bold = true, underline = true, sp = auxBG()[1]}, {group = "QuickFixLine", fg = "SKIP", bg = selectionBG()[1], ctermfg = "SKIP", ctermbg = selectionBG()[2]}, {group = "Cursor", fg = "SKIP", bg = mainFG()[1], ctermfg = "SKIP", ctermbg = mainFG()[2], reverse = true}, {group = "CursorIM", fg = "SKIP", bg = umbraFG()[1], ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "lCursor", fg = "SKIP", bg = shadowFG()[1], ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "CursorColumn", fg = "SKIP", bg = shadowBG()[1], ctermfg = "SKIP", ctermbg = umbraBG()[2]}, {group = "CursorLine", fg = "SKIP", bg = shadowBG()[1], ctermfg = "SKIP", ctermbg = umbraBG()[2]}, {group = "ColorColumn", fg = "NONE", bg = ucolors.blend(selectionBG()[1], mainFG()[1], 0.8), ctermfg = "NONE", ctermbg = selectionBG()[3], bold = true}, {group = "TermCursor", fg = "SKIP", bg = mainFG()[1], ctermfg = "SKIP", ctermbg = mainFG()[2], reverse = true}, {group = "TermCursorNC", fg = "SKIP", bg = umbraFG()[1], ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "ErrorMsg", fg = errorFG()[1], bg = errorBG()[1], ctermfg = errorFG()[2], ctermbg = errorBG()[2], bold = true}, {group = "WarningMsg", fg = warningFG()[1], bg = warningBG()[1], ctermfg = warningFG()[2], ctermbg = warningBG()[2]}, {group = "VertSplit", fg = shadowBG()[1], bg = shadowFG()[1], ctermfg = umbraBG()[2], ctermbg = umbraFG()[2]}, {group = "Folded", fg = selectionFG()[1], bg = shadowBG()[1], ctermfg = selectionFG()[2], ctermbg = umbraBG()[2], bold = true}, {group = "FoldColumn", fg = selectionBG()[1], bg = "NONE", ctermfg = selectionBG()[2], ctermbg = "NONE", bold = true}, {group = "SignColumn", fg = "NONE", bg = "NONE", ctermfg = "NONE", ctermbg = "NONE", bold = true}, {group = "IncSearch", fg = mainFG()[1], bg = infoBG()[1], ctermfg = mainFG()[2], ctermbg = infoBG()[2], reverse = false}, {group = "Substitute", fg = infoFG()[1], bg = ucolors.blend(infoBG()[1], mainFG()[1], 0.7), ctermfg = infoFG()[2], ctermbg = infoBG()[3]}, {group = "Search", fg = infoFG()[1], bg = ucolors.blend(infoBG()[1], mainBG()[1], 0.7), ctermfg = infoFG()[2], ctermbg = infoBG()[2]}, {group = "LineNr", fg = fillBG()[1], bg = "SKIP", ctermfg = fillBG()[2], ctermbg = "SKIP"}, {group = "CursorLineNr", fg = ucolors.blend(fillBG()[1], mainFG()[1], 0.6), bg = "SKIP", ctermfg = fillBG()[3], ctermbg = "SKIP", bold = true}, {group = "ModeMsg", fg = mainFG()[1], bg = shadowBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2], bold = true}, {group = "MsgArea", fg = mainFG()[1], bg = umbraBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "MsgSeparator", fg = mainFG()[1], bg = umbraBG()[1], ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "MoreMsg", fg = auxBG()[1], bg = "SKIP", ctermfg = auxBG()[2], ctermbg = "SKIP"}, {group = "debugPC", fg = "SKIP", bg = ucolors.blend(selectionBG()[1], mainFG()[1], 0.6), ctermfg = "SKIP", ctermbg = selectionBG()[3]}, {group = "debugBreakpoint", fg = "SKIP", bg = ucolors.blend(errorBG()[1], mainFG()[1], 0.6), ctermfg = "SKIP", ctermbg = warningBG()[2]}, _5_}
+  return {{group = "Normal", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.base.color, ctermfg = mainFG()[2], ctermbg = mainBG()[2]}, {group = "NormalNC", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.base.color, ctermfg = mainFG()[2], ctermbg = mainBG()[2]}, {group = "NormalFloat", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.shadow.color, ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "NonText", fg = colors.kat.fg.shadow.color, bg = colors.kat.bg.base.color, ctermfg = umbraFG()[2], ctermbg = mainBG()[2]}, {group = "MatchParen", fg = "SKIP", bg = colors.kat.bg.shadow.color, ctermfg = "SKIP", ctermbg = umbraBG()[2], bold = true}, {group = "SpecialKey", fg = ucolors.blend(colors.kat.red.base.color, colors.kat.bg.base.color, 0.6), bg = "NONE", ctermfg = warningBG()[2], ctermbg = "NONE", italic = true}, {group = "Whitespace", fg = colors.kat.fg.fifth.color, bg = "SKIP", ctermfg = umbraFG()[2], ctermbg = "SKIP"}, {group = "EndOfBuffer", fg = colors.kat.fg.umbra.color, bg = "SKIP", ctermfg = umbraFG()[2], ctermbg = "SKIP", bold = true}, {group = "Directory", fg = ucolors.blend(ucolors.blend(colors.kat.orange.base.color, colors.kat.fg.auto.color, 0.1), colors.kat.blue.base.color, 0.2), bg = "SKIP", ctermfg = selectionBG()[2], ctermbg = "SKIP"}, {group = "Conceal", fg = colors.kat.bg.shadow.color, bg = "NONE", ctermfg = umbraBG()[2], ctermbg = "NONE"}, {group = "SpellBad", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = colors.kat.red.base.color}, {group = "SpellCap", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = colors.kat.blue.base.color}, {group = "SpellLocal", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = colors.kat.green.auto.color}, {group = "SpellRare", fg = "SKIP", bg = "SKIP", ctermfg = "SKIP", ctermbg = "NONE", undercurl = true, sp = colors.kat.pink.base.color}, {group = "StatusLine", fg = colors.kat.bg.fifth.color, bg = ucolors.blend(colors.kat.purple.base.color, colors.kat.bg.base.color, 0.7), ctermfg = umbraBG()[2], ctermbg = highlightBG()[3], bold = true}, {group = "StatusLineNC", fg = ucolors.blend(colors.kat.purple.base.color, colors.kat.bg.base.color, 0.7), bg = colors.kat.bg.fifth.color, ctermfg = umbraBG()[2], ctermbg = highlightBG()[3], bold = true}, _3_, {group = "Title", fg = colors.kat.green.auto.color, bg = "NONE", ctermfg = auxBG()[2], ctermbg = "NONE", bold = true}, {group = "Visual", fg = "SKIP", bg = ucolors.darken(colors.kat.blue.base.color, 0.2), ctermfg = "SKIP", ctermbg = warningBG()[2]}, {group = "VisualNOS", fg = "SKIP", bg = ucolors.blend(colors.kat.blue.base.color, colors.kat.fg.auto.color, 0.5), ctermfg = "SKIP", ctermbg = warningBG()[2]}, {group = "Pmenu", fg = colors.kat.fg.auto.color, bg = colors.kat.pink.base.color, ctermfg = fillFG()[2], ctermbg = fillBG()[2]}, {group = "PmenuSel", fg = colors.kat.fg.auto.color, bg = colors.kat.blue.base.color, ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "PmenuSbar", fg = colors.kat.fg.auto.color, bg = colors.kat.purple.base.color, ctermfg = highlightFG()[2], ctermbg = highlightBG()[2]}, {group = "PmenuThumb", fg = colors.kat.fg.auto.color, bg = colors.kat.blue.base.color, ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "WildMenu", fg = colors.kat.fg.auto.color, bg = colors.kat.blue.base.color, ctermfg = selectionFG()[2], ctermbg = selectionBG()[2]}, {group = "Question", fg = ucolors.blend(colors.kat.green.auto.color, colors.kat.fg.auto.color, 0.7), bg = "SKIP", ctermfg = auxBG()[3], ctermbg = "SKIP", bold = true, underline = true, sp = colors.kat.green.auto.color}, {group = "QuickFixLine", fg = "SKIP", bg = colors.kat.blue.base.color, ctermfg = "SKIP", ctermbg = selectionBG()[2]}, {group = "Cursor", fg = "SKIP", bg = colors.kat.fg.auto.color, ctermfg = "SKIP", ctermbg = mainFG()[2], reverse = true}, {group = "CursorIM", fg = "SKIP", bg = colors.kat.fg.umbra.color, ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "lCursor", fg = "SKIP", bg = colors.kat.fg.shadow.color, ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "CursorColumn", fg = "SKIP", bg = colors.kat.bg.shadow.color, ctermfg = "SKIP", ctermbg = umbraBG()[2]}, {group = "CursorLine", fg = "SKIP", bg = colors.kat.bg.shadow.color, ctermfg = "SKIP", ctermbg = umbraBG()[2]}, {group = "ColorColumn", fg = "NONE", bg = ucolors.blend(colors.kat.blue.base.color, colors.kat.fg.auto.color, 0.8), ctermfg = "NONE", ctermbg = selectionBG()[3], bold = true}, {group = "TermCursor", fg = "SKIP", bg = colors.kat.fg.auto.color, ctermfg = "SKIP", ctermbg = mainFG()[2], reverse = true}, {group = "TermCursorNC", fg = "SKIP", bg = colors.kat.fg.umbra.color, ctermfg = "SKIP", ctermbg = umbraFG()[2], reverse = true}, {group = "ErrorMsg", fg = colors.kat.fg.auto.color, bg = colors.kat.red.base.color, ctermfg = errorFG()[2], ctermbg = errorBG()[2], bold = true}, {group = "WarningMsg", fg = colors.kat.fg.auto.color, bg = colors.kat.red.match_bg.color, ctermfg = warningFG()[2], ctermbg = warningBG()[2]}, {group = "VertSplit", fg = colors.kat.bg.shadow.color, bg = colors.kat.fg.shadow.color, ctermfg = umbraBG()[2], ctermbg = umbraFG()[2]}, {group = "Folded", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.shadow.color, ctermfg = selectionFG()[2], ctermbg = umbraBG()[2], bold = true}, {group = "FoldColumn", fg = colors.kat.blue.base.color, bg = "NONE", ctermfg = selectionBG()[2], ctermbg = "NONE", bold = true}, {group = "SignColumn", fg = "NONE", bg = "NONE", ctermfg = "NONE", ctermbg = "NONE", bold = true}, {group = "IncSearch", fg = colors.kat.fg.auto.color, bg = colors.kat.orange.base.color, ctermfg = mainFG()[2], ctermbg = infoBG()[2], reverse = false}, {group = "Substitute", fg = colors.kat.bg.base.color, bg = ucolors.blend(colors.kat.orange.base.color, colors.kat.fg.auto.color, 0.7), ctermfg = infoFG()[2], ctermbg = infoBG()[3]}, {group = "Search", fg = colors.kat.bg.base.color, bg = ucolors.blend(colors.kat.orange.base.color, colors.kat.bg.base.color, 0.7), ctermfg = infoFG()[2], ctermbg = infoBG()[2]}, {group = "LineNr", fg = colors.kat.pink.base.color, bg = "SKIP", ctermfg = fillBG()[2], ctermbg = "SKIP"}, {group = "CursorLineNr", fg = ucolors.blend(colors.kat.pink.base.color, colors.kat.fg.auto.color, 0.6), bg = "SKIP", ctermfg = fillBG()[3], ctermbg = "SKIP", bold = true}, {group = "ModeMsg", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.shadow.color, ctermfg = mainFG()[2], ctermbg = umbraBG()[2], bold = true}, {group = "MsgArea", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.umbra.color, ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "MsgSeparator", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.umbra.color, ctermfg = mainFG()[2], ctermbg = umbraBG()[2]}, {group = "MoreMsg", fg = colors.kat.green.auto.color, bg = "SKIP", ctermfg = auxBG()[2], ctermbg = "SKIP"}, {group = "debugPC", fg = "SKIP", bg = ucolors.blend(colors.kat.blue.base.color, colors.kat.fg.auto.color, 0.6), ctermfg = "SKIP", ctermbg = selectionBG()[3]}, {group = "debugBreakpoint", fg = "SKIP", bg = ucolors.blend(colors.kat.red.base.color, colors.kat.fg.auto.color, 0.6), ctermfg = "SKIP", ctermbg = warningBG()[2]}, _5_}
 end
 _2amodule_2a["high-colors"] = high_colors
 local function init()

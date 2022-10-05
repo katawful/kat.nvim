@@ -9,9 +9,9 @@
       (if (and (= (. main.background-mut 1) :dark)
                (= (. main.contrast-mut 1) :soft))
           (do
-            (set output (ucolors.brighten (. (groups.mainFG) 1) 0.8)))
+            (set output (ucolors.brighten colors.kat.fg.auto.color 0.8)))
           (do
-            (set output (. (groups.mainFG) 1)))) output)
+            (set output colors.kat.fg.auto.color))) output)
 
 (defn init []
       ((. (require :bufferline) :setup) {:highlights {:fill {:guifg (. (groups.fillBG)

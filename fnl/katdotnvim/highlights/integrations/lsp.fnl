@@ -9,109 +9,109 @@
 
 (defn high-colors [] [{:group :LspReferenceText
                        :fg :SKIP
-                       :bg (. (groups.fillBG) 1)
+                       :bg colors.kat.pink.base.color
                        :ctermfg :SKIP
                        :ctermbg (. (groups.fillBG) 2)}
                       {:group :LspReferenceRead
                        :fg :SKIP
-                       :bg (. (groups.fillBG) 1)
+                       :bg colors.kat.pink.base.color
                        :ctermfg :SKIP
                        :ctermbg (. (groups.fillBG) 2)}
                       {:group :LspReferenceWrite
                        :fg :SKIP
-                       :bg (. (groups.fillBG) 1)
+                       :bg colors.kat.pink.base.color
                        :ctermfg :SKIP
                        :ctermbg (. (groups.fillBG) 2)}
                       {:group :LspCodeLens
-                       :fg (. (groups.meldBG) 1)
+                       :fg colors.kat.bg.meld.color
                        :bg :SKIP
                        :ctermfg (. (groups.umbraBG) 2)
                        :ctermbg :SKIP}
                       {:group :LspSignatureActiveParameter
-                       :fg (. (groups.selectionBG) 1)
+                       :fg colors.kat.blue.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP}
                       {:group :DiagnosticError
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kat.red.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP}
                       {:group :DiagnosticWarn
-                       :fg (. (groups.warningBG) 1)
+                       :fg colors.kat.red.match_bg.color
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP}
                       {:group :DiagnosticInfo
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kat.orange.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP}
                       {:group :DiagnosticHint
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kat.orange.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP}
                       {:group :DiagnosticVirtualTextError
-                       :fg (. (groups.errorBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.red.base.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticVirtualTextWarn
-                       :fg (. (groups.warningBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.red.match_bg.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticVirtualTextInfo
-                       :fg (. (groups.infoBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.orange.base.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticVirtualTextHint
-                       :fg (. (groups.auxBG) 1)
-                       :bg (. (groups.umbraBG) 1)
+                       :fg colors.kat.green.auto.color
+                       :bg colors.kat.bg.umbra.color
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticFloatingError
-                       :fg (. (groups.errorBG) 1)
-                       :bg (. (groups.shadowBG) 1)
+                       :fg colors.kat.red.base.color
+                       :bg colors.kat.bg.shadow.color
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticFloatingWarn
-                       :fg (. (groups.warningBG) 1)
-                       :bg (. (groups.shadowBG) 1)
+                       :fg colors.kat.red.match_bg.color
+                       :bg colors.kat.bg.shadow.color
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticFloatingInfo
-                       :fg (. (groups.infoBG) 1)
-                       :bg (. (groups.shadowBG) 1)
+                       :fg colors.kat.orange.base.color
+                       :bg colors.kat.bg.shadow.color
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticFloatingHint
-                       :fg (. (groups.auxBG) 1)
-                       :bg (. (groups.shadowBG) 1)
+                       :fg colors.kat.green.auto.color
+                       :bg colors.kat.bg.shadow.color
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :DiagnosticSignError
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kat.red.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :DiagnosticSignWarn
-                       :fg (. (groups.warningBG) 1)
+                       :fg colors.kat.red.match_bg.color
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :DiagnosticSignInfo
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kat.orange.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :DiagnosticSignHint
-                       :fg (. (groups.auxBG) 1)
+                       :fg colors.kat.green.auto.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg :SKIP
@@ -122,27 +122,27 @@
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :underline true
-                       :sp (. (groups.errorBG) 1)}
+                       :sp colors.kat.red.base.color}
                       {:group :DiagnosticUnderlineWarn
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :underline true
-                       :sp (. (groups.warningBG) 1)}
+                       :sp colors.kat.red.match_bg.color}
                       {:group :DiagnosticUnderlineInfo
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :underline true
-                       :sp (. (groups.infoBG) 1)}
+                       :sp colors.kat.orange.base.color}
                       {:group :DiagnosticUnderlineHint
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :underline true
-                       :sp (. (groups.auxBG) 1)}])
+                       :sp colors.kat.green.auto.color}])
 
 (defn init [] (run.highlight$<-table (high-colors)))

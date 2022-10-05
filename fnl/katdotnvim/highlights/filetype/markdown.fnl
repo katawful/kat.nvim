@@ -62,87 +62,87 @@
         :ctermbg :SKIP
         :bold true}
        {:group :markdownCode
-        :fg (. (groups.meldFG) 1)
-        :bg (. (groups.shadowBG) 1)
+        :fg colors.kat.fg.meld.color
+        :bg colors.kat.bg.shadow.color
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg (. (groups.umbraBG) 2)}
        {:group :markdownCodeDelimiter
-        :fg (. (groups.shadowBG) 1)
+        :fg colors.kat.bg.shadow.color
         :bg :SKIP
         :ctermfg (. (groups.umbraBG) 2)
         :ctermbg :SKIP}
        {:group :markdownBlockqutoe
-        :fg (. (groups.umbraFG) 1)
+        :fg colors.kat.fg.umbra.color
         :bg :SKIP
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownListMarker
-        :fg (. (groups.fillBG) 1)
+        :fg colors.kat.pink.base.color
         :bg :SKIP
         :ctermfg (. (groups.fillBG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownOrderedListMarker
-        :fg (. (groups.fillBG) 1)
+        :fg colors.kat.pink.base.color
         :bg :SKIP
         :ctermfg (. (groups.fillBG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownRule
-        :fg (. (groups.errorBG) 1)
+        :fg colors.kat.red.base.color
         :bg :SKIP
         :ctermfg (. (groups.errorBG) 2)
         :ctermbg :SKIP}
        {:group :markdownHeadingRule
-        :fg (. (groups.errorBG) 1)
+        :fg colors.kat.red.base.color
         :bg :SKIP
         :ctermfg (. (groups.errorBG) 2)
         :ctermbg :SKIP}
        {:group :markdownUrlDelimiter
-        :fg (. (groups.meldBG) 1)
+        :fg colors.kat.bg.meld.color
         :bg :SKIP
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownLinkDelimiter
-        :fg (. (groups.meldBG) 1)
+        :fg colors.kat.bg.meld.color
         :bg :SKIP
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownLinkTextDelimiter
-        :fg (. (groups.meldBG) 1)
+        :fg colors.kat.bg.meld.color
         :bg :SKIP
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownHeadingDelimiter
-        :fg (. (groups.infoBG) 1)
+        :fg colors.kat.orange.base.color
         :bg :SKIP
         :ctermfg (. (groups.infoBG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownUrl
-        :fg (. (groups.highlightBG) 1)
+        :fg colors.kat.purple.base.color
         :bg :SKIP
         :ctermfg (. (groups.highlightBG) 2)
         :ctermbg :SKIP}
        {:group :markdownUrlTitleDelimiter
-        :fg (. (groups.auxBG) 1)
+        :fg colors.kat.green.auto.color
         :bg :SKIP
         :ctermfg (. (groups.auxBG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :markdownLinkText
-        :fg (. (groups.shadowFG) 1)
+        :fg colors.kat.fg.shadow.color
         :bg :SKIP
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP
         :underline true
         :sp (. (colors.init :foreground) 3)}
        {:group :markdownIdDeclaration
-        :fg (. (groups.shadowFG) 1)
+        :fg colors.kat.fg.shadow.color
         :bg :SKIP
         :ctermfg (. (groups.umbraFG) 2)
         :ctermbg :SKIP

@@ -18,7 +18,7 @@ _2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function high_colors()
-  return {{group = "fugitiveHunk", fg = "SKIP", bg = groups.shadowBG()[1], ctermfg = "SKIP", ctermbg = groups.umbraBG()[2], nocombine = true}, {group = "gitDiff", fg = "SKIP", bg = groups.shadowBG()[1], ctermfg = "SKIP", ctermbg = groups.umbraBG()[2], nocombine = true}}
+  return {{group = "fugitiveHunk", fg = "SKIP", bg = colors.kat.bg.shadow.color, ctermfg = "SKIP", ctermbg = groups.umbraBG()[2], nocombine = true}, {group = "gitDiff", fg = "SKIP", bg = colors.kat.bg.shadow.color, ctermfg = "SKIP", ctermbg = groups.umbraBG()[2], nocombine = true}}
 end
 _2amodule_2a["high-colors"] = high_colors
 local function init()

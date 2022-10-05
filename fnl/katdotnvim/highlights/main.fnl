@@ -13,65 +13,65 @@
       (if (and (= (. main.background-mut 1) :dark)
                (= (. main.contrast-mut 1) :soft))
           (do
-            (tset output 1 (ucolors.brighten (. (colors.foreground) 1) 0.8))
+            (tset output 1 (ucolors.brighten colors.kat.fg.base.color 0.8))
             (tset output 2 7))
           (do
-            (tset output 1 (. (colors.foreground) 1))
+            (tset output 1 colors.kat.fg.base.color)
             (tset output 2 7))) output)
 
-(defn mainBG [] [(. (colors.background) 1) 0])
+(defn mainBG [] [colors.kat.bg.base.color 0])
 
-(defn umbraFG [] [(. (colors.foreground) 2) 15])
+(defn umbraFG [] [colors.kat.fg.umbra.color 15])
 
-(defn umbraBG [] [(. (colors.background) 2) 8])
+(defn umbraBG [] [colors.kat.bg.umbra.color 8])
 
-(defn shadowFG [] [(. (colors.foreground) 3) 16])
+(defn shadowFG [] [colors.kat.fg.shadow.color 16])
 
-(defn shadowBG [] [(. (colors.background) 3) 16])
+(defn shadowBG [] [colors.kat.bg.shadow.color 16])
 
-(defn meldFG [] [(. (colors.foreground) 4) 16])
+(defn meldFG [] [colors.kat.fg.meld.color 16])
 
-(defn meldBG [] [(. (colors.background) 4) 16])
+(defn meldBG [] [colors.kat.bg.meld.color 16])
 
 ; pink/purple/blue are structural
-(defn selectionFG [] (local output [(. (mainFG) 1) 7]) output)
+(defn selectionFG [] (local output [colors.kat.fg.auto.color 7]) output)
 
-(defn selectionBG [] [(. (colors.normal-colors) :blue) 4 12])
+(defn selectionBG [] [colors.kat.blue.base.color 4 12])
 
-(defn fillFG [] (local output [(. (mainFG) 1) 7]) output)
+(defn fillFG [] (local output [colors.kat.fg.auto.color 7]) output)
 
-(defn fillBG [] [(. (colors.normal-colors) :pink) 5 13])
+(defn fillBG [] [colors.kat.pink.base.color 5 13])
 
-(defn highlightFG [] (local output [(. (mainFG) 1) 7]) output)
+(defn highlightFG [] (local output [colors.kat.fg.auto.color 7]) output)
 
-(defn highlightBG [] [(. (colors.normal-colors) :purple) 6 14])
+(defn highlightBG [] [colors.kat.purple.base.color 6 14])
 
 ; red and orange are information
-(defn errorFG [] (local output [(. (mainFG) 1) 7]) output)
+(defn errorFG [] (local output [colors.kat.fg.auto.color 7]) output)
 
-(defn errorBG [] [(. (colors.normal-colors) :red) 1])
+(defn errorBG [] [colors.kat.red.base.color 1])
 
-(defn warningFG [] (local output [(. (mainFG) 1) 7]) output)
+(defn warningFG [] (local output [colors.kat.fg.auto.color 7]) output)
 
-(defn warningBG [] (local output [(ucolors.blend (. (colors.normal-colors) :red)
-                                                 (. (mainBG) 1) 0.7)
+(defn warningBG [] (local output [(ucolors.blend colors.kat.red.base.color
+                                                 colors.kat.bg.base.color 0.7)
                                   9]) output)
 
-(defn infoFG [] (local output [(. (mainBG) 1) 0]) output)
+(defn infoFG [] (local output [colors.kat.bg.base.color 0]) output)
 
-(defn infoBG [] [(. (colors.normal-colors) :orange) 3 11])
+(defn infoBG [] [colors.kat.orange.base.color 3 11])
 
 ; green and others are auxiliary
-(defn auxFG [] (local output (. (mainFG) 1)) output)
+(defn auxFG [] (local output colors.kat.fg.auto.color) output)
 
 (defn groupFunction [] (var output "")
       (if (= (. main.background-mut 1) :light)
           (do
-            (set output (-> (. (colors.normal-colors) :green)
+            (set output (-> colors.kat.green.base.color
                             (ucolors.darken 0.5)
                             (ucolors.saturation 0.4))))
           (do
-            (set output (-> (. (colors.normal-colors) :green)
+            (set output (-> colors.kat.green.base.color
                             (ucolors.brighten 0.5)
                             (ucolors.saturation -0.2))))) output)
 
@@ -79,58 +79,58 @@
 
 (defn high-colors []
       [{:group :Normal
-        :fg (. (mainFG) 1)
-        :bg (. (mainBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.bg.base.color
         :ctermfg (. (mainFG) 2)
         :ctermbg (. (mainBG) 2)}
        {:group :NormalNC
-        :fg (. (mainFG) 1)
-        :bg (. (mainBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.bg.base.color
         :ctermfg (. (mainFG) 2)
         :ctermbg (. (mainBG) 2)}
        {:group :NormalFloat
-        :fg (. (mainFG) 1)
-        :bg (. (shadowBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.bg.shadow.color
         :ctermfg (. (mainFG) 2)
         :ctermbg (. (umbraBG) 2)}
        {:group :NonText
-        :fg (. (shadowFG) 1)
-        :bg (. (mainBG) 1)
+        :fg colors.kat.fg.shadow.color
+        :bg colors.kat.bg.base.color
         :ctermfg (. (umbraFG) 2)
         :ctermbg (. (mainBG) 2)}
        ;; TODO set match paren to TS rainbow?
        {:group :MatchParen
         :fg :SKIP
-        :bg (. (shadowBG) 1)
+        :bg colors.kat.bg.shadow.color
         :ctermfg :SKIP
         :ctermbg (. (umbraBG) 2)
         :bold true}
        {:group :SpecialKey
-        :fg (ucolors.blend (. (errorBG) 1) (. (mainBG) 1) 0.6)
+        :fg (ucolors.blend colors.kat.red.base.color colors.kat.bg.base.color 0.6)
         :bg :NONE
         :ctermfg (. (warningBG) 2)
         :ctermbg :NONE
         :italic true}
        {:group :Whitespace
-        :fg (. (colors.foreground) 5)
+        :fg colors.kat.fg.fifth.color
         :bg :SKIP
         :ctermfg (. (umbraFG) 2)
         :ctermbg :SKIP}
        {:group :EndOfBuffer
-        :fg (. (umbraFG) 1)
+        :fg colors.kat.fg.umbra.color
         :bg :SKIP
         :ctermfg (. (umbraFG) 2)
         :ctermbg :SKIP
         :bold true}
        {:group :Directory
-        :fg (-> (. (infoBG) 1)
-                (ucolors.blend (. (mainFG) 1) 0.1)
-                (ucolors.blend (. (selectionBG) 1) 0.2))
+        :fg (-> colors.kat.orange.base.color
+                (ucolors.blend colors.kat.fg.auto.color 0.1)
+                (ucolors.blend colors.kat.blue.base.color 0.2))
         :bg :SKIP
         :ctermfg (. (selectionBG) 2)
         :ctermbg :SKIP}
        {:group :Conceal
-        :fg (. (shadowBG) 1)
+        :fg colors.kat.bg.shadow.color
         :bg :NONE
         :ctermfg (. (umbraBG) 2)
         :ctermbg :NONE}
@@ -141,205 +141,205 @@
         :ctermfg :SKIP
         :ctermbg :NONE
         :undercurl true
-        :sp (. (errorBG) 1)}
+        :sp colors.kat.red.base.color}
        {:group :SpellCap
         :fg :SKIP
         :bg :SKIP
         :ctermfg :SKIP
         :ctermbg :NONE
         :undercurl true
-        :sp (. (selectionBG) 1)}
+        :sp colors.kat.blue.base.color}
        {:group :SpellLocal
         :fg :SKIP
         :bg :SKIP
         :ctermfg :SKIP
         :ctermbg :NONE
         :undercurl true
-        :sp (. (auxBG) 1)}
+        :sp colors.kat.green.auto.color}
        {:group :SpellRare
         :fg :SKIP
         :bg :SKIP
         :ctermfg :SKIP
         :ctermbg :NONE
         :undercurl true
-        :sp (. (fillBG) 1)}
+        :sp colors.kat.pink.base.color}
        ;; Statusline
        {:group :StatusLine
-        :fg (. (colors.background) 5)
-        :bg (ucolors.blend (. (highlightBG) 1) (. (mainBG) 1) 0.7)
+        :fg colors.kat.bg.fifth.color
+        :bg (ucolors.blend colors.kat.purple.base.color colors.kat.bg.base.color 0.7)
         :ctermfg (. (umbraBG) 2)
         :ctermbg (. (highlightBG) 3)
         :bold true}
        {:group :StatusLineNC
-        :fg (ucolors.blend (. (highlightBG) 1) (. (mainBG) 1) 0.7)
-        :bg (. (colors.background) 5)
+        :fg (ucolors.blend colors.kat.purple.base.color colors.kat.bg.base.color 0.7)
+        :bg colors.kat.bg.fifth.color
         :ctermfg (. (umbraBG) 2)
         :ctermbg (. (highlightBG) 3)
         :bold true}
        ;; Tabline
        ;; Need to make the dark soft font brighter to match dark hard tabline
        (fn []
-         (var color (ucolors.brighten (. (highlightFG) 1) 0))
+         (var color (ucolors.brighten colors.kat.fg.auto.color 0))
          (if (and (= (. main.background-mut 1) :dark)
                   (= (. main.contrast-mut 1) :soft))
              [{:group :TabLine
                :fg color
-               :bg (. (highlightBG) 1)
+               :bg colors.kat.purple.base.color
                :ctermfg (. (highlightFG) 2)
                :ctermbg (. (highlightBG) 2)}
               {:group :TabLineFill
-               :fg (. (fillBG) 1)
-               :bg (. (fillBG) 1)
+               :fg colors.kat.pink.base.color
+               :bg colors.kat.pink.base.color
                :ctermfg (. (fillBG) 2)
                :ctermbg (. (fillBG) 2)}
               {:group :TabLineSel
                :fg color
-               :bg (. (selectionBG) 1)
+               :bg colors.kat.blue.base.color
                :ctermfg (. (selectionFG) 2)
                :ctermbg (. (selectionBG) 2)
                :bold true}]
              [{:group :TabLine
-               :fg (. (highlightFG) 1)
-               :bg (. (highlightBG) 1)
+               :fg colors.kat.fg.auto.color
+               :bg colors.kat.purple.base.color
                :ctermfg (. (highlightFG) 2)
                :ctermbg (. (highlightBG) 2)}
               {:group :TabLineFill
-               :fg (. (fillBG) 1)
-               :bg (. (fillBG) 1)
+               :fg colors.kat.pink.base.color
+               :bg colors.kat.pink.base.color
                :ctermfg (. (fillBG) 2)
                :ctermbg (. (fillBG) 2)}
               {:group :TabLineSel
-               :fg (. (selectionFG) 1)
-               :bg (. (selectionBG) 1)
+               :fg colors.kat.fg.auto.color
+               :bg colors.kat.blue.base.color
                :ctermfg (. (selectionFG) 2)
                :ctermbg (. (selectionBG) 2)
                :bold true}]))
        {:group :Title
-        :fg (. (auxBG) 1)
+        :fg colors.kat.green.auto.color
         :bg :NONE
         :ctermfg (. (auxBG) 2)
         :ctermbg :NONE
         :bold true}
        {:group :Visual
         :fg :SKIP
-        :bg (ucolors.darken (. (selectionBG) 1) 0.2)
+        :bg (ucolors.darken colors.kat.blue.base.color 0.2)
         :ctermfg :SKIP
         :ctermbg (. (warningBG) 2)}
        {:group :VisualNOS
         :fg :SKIP
-        :bg (ucolors.blend (. (selectionBG) 1) (. (mainFG) 1) 0.5)
+        :bg (ucolors.blend colors.kat.blue.base.color colors.kat.fg.auto.color 0.5)
         :ctermfg :SKIP
         :ctermbg (. (warningBG) 2)}
        ;; Pmenu
        {:group :Pmenu
-        :fg (. (fillFG) 1)
-        :bg (. (fillBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.pink.base.color
         :ctermfg (. (fillFG) 2)
         :ctermbg (. (fillBG) 2)}
        {:group :PmenuSel
-        :fg (. (selectionFG) 1)
-        :bg (. (selectionBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.blue.base.color
         :ctermfg (. (selectionFG) 2)
         :ctermbg (. (selectionBG) 2)}
        {:group :PmenuSbar
-        :fg (. (highlightFG) 1)
-        :bg (. (highlightBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.purple.base.color
         :ctermfg (. (highlightFG) 2)
         :ctermbg (. (highlightBG) 2)}
        {:group :PmenuThumb
-        :fg (. (selectionFG) 1)
-        :bg (. (selectionBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.blue.base.color
         :ctermfg (. (selectionFG) 2)
         :ctermbg (. (selectionBG) 2)}
        {:group :WildMenu
-        :fg (. (selectionFG) 1)
-        :bg (. (selectionBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.blue.base.color
         :ctermfg (. (selectionFG) 2)
         :ctermbg (. (selectionBG) 2)}
        {:group :Question
-        :fg (ucolors.blend (. (auxBG) 1) (. (mainFG) 1) 0.7)
+        :fg (ucolors.blend colors.kat.green.auto.color colors.kat.fg.auto.color 0.7)
         :bg :SKIP
         :ctermfg (. (auxBG) 3)
         :ctermbg :SKIP
         :bold true
         :underline true
-        :sp (. (auxBG) 1)}
+        :sp colors.kat.green.auto.color}
        {:group :QuickFixLine
         :fg :SKIP
-        :bg (. (selectionBG) 1)
+        :bg colors.kat.blue.base.color
         :ctermfg :SKIP
         :ctermbg (. (selectionBG) 2)}
        ;; Cursor
        {:group :Cursor
         :fg :SKIP
-        :bg (. (mainFG) 1)
+        :bg colors.kat.fg.auto.color
         :ctermfg :SKIP
         :ctermbg (. (mainFG) 2)
         :reverse true}
        {:group :CursorIM
         :fg :SKIP
-        :bg (. (umbraFG) 1)
+        :bg colors.kat.fg.umbra.color
         :ctermfg :SKIP
         :ctermbg (. (umbraFG) 2)
         :reverse true}
        {:group :lCursor
         :fg :SKIP
-        :bg (. (shadowFG) 1)
+        :bg colors.kat.fg.shadow.color
         :ctermfg :SKIP
         :ctermbg (. (umbraFG) 2)
         :reverse true}
        {:group :CursorColumn
         :fg :SKIP
-        :bg (. (shadowBG) 1)
+        :bg colors.kat.bg.shadow.color
         :ctermfg :SKIP
         :ctermbg (. (umbraBG) 2)}
        {:group :CursorLine
         :fg :SKIP
-        :bg (. (shadowBG) 1)
+        :bg colors.kat.bg.shadow.color
         :ctermfg :SKIP
         :ctermbg (. (umbraBG) 2)}
        {:group :ColorColumn
         :fg :NONE
-        :bg (ucolors.blend (. (selectionBG) 1) (. (mainFG) 1) 0.8)
+        :bg (ucolors.blend colors.kat.blue.base.color colors.kat.fg.auto.color 0.8)
         :ctermfg :NONE
         :ctermbg (. (selectionBG) 3)
         :bold true}
        {:group :TermCursor
         :fg :SKIP
-        :bg (. (mainFG) 1)
+        :bg colors.kat.fg.auto.color
         :ctermfg :SKIP
         :ctermbg (. (mainFG) 2)
         :reverse true}
        {:group :TermCursorNC
         :fg :SKIP
-        :bg (. (umbraFG) 1)
+        :bg colors.kat.fg.umbra.color
         :ctermfg :SKIP
         :ctermbg (. (umbraFG) 2)
         :reverse true}
        {:group :ErrorMsg
-        :fg (. (errorFG) 1)
-        :bg (. (errorBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.red.base.color
         :ctermfg (. (errorFG) 2)
         :ctermbg (. (errorBG) 2)
         :bold true}
        {:group :WarningMsg
-        :fg (. (warningFG) 1)
-        :bg (. (warningBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.red.match_bg.color
         :ctermfg (. (warningFG) 2)
         :ctermbg (. (warningBG) 2)}
        {:group :VertSplit
-        :fg (. (shadowBG) 1)
-        :bg (. (shadowFG) 1)
+        :fg colors.kat.bg.shadow.color
+        :bg colors.kat.fg.shadow.color
         :ctermfg (. (umbraBG) 2)
         :ctermbg (. (umbraFG) 2)}
        {:group :Folded
-        :fg (. (selectionFG) 1)
-        :bg (. (shadowBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.bg.shadow.color
         :ctermfg (. (selectionFG) 2)
         :ctermbg (. (umbraBG) 2)
         :bold true}
        {:group :FoldColumn
-        :fg (. (selectionBG) 1)
+        :fg colors.kat.blue.base.color
         :bg :NONE
         :ctermfg (. (selectionBG) 2)
         :ctermbg :NONE
@@ -351,79 +351,79 @@
         :ctermbg :NONE
         :bold true}
        {:group :IncSearch
-        :fg (. (mainFG) 1)
-        :bg (. (infoBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.orange.base.color
         :ctermfg (. (mainFG) 2)
         :ctermbg (. (infoBG) 2)
         :reverse false}
        {:group :Substitute
-        :fg (. (infoFG) 1)
-        :bg (ucolors.blend (. (infoBG) 1) (. (mainFG) 1) 0.7)
+        :fg colors.kat.bg.base.color
+        :bg (ucolors.blend colors.kat.orange.base.color colors.kat.fg.auto.color 0.7)
         :ctermfg (. (infoFG) 2)
         :ctermbg (. (infoBG) 3)}
        {:group :Search
-        :fg (. (infoFG) 1)
-        :bg (ucolors.blend (. (infoBG) 1) (. (mainBG) 1) 0.7)
+        :fg colors.kat.bg.base.color
+        :bg (ucolors.blend colors.kat.orange.base.color colors.kat.bg.base.color 0.7)
         :ctermfg (. (infoFG) 2)
         :ctermbg (. (infoBG) 2)}
        {:group :LineNr
-        :fg (. (fillBG) 1)
+        :fg colors.kat.pink.base.color
         :bg :SKIP
         :ctermfg (. (fillBG) 2)
         :ctermbg :SKIP}
        {:group :CursorLineNr
-        :fg (ucolors.blend (. (fillBG) 1) (. (mainFG) 1) 0.6)
+        :fg (ucolors.blend colors.kat.pink.base.color colors.kat.fg.auto.color 0.6)
         :bg :SKIP
         :ctermfg (. (fillBG) 3)
         :ctermbg :SKIP
         :bold true}
        {:group :ModeMsg
-        :fg (. (mainFG) 1)
-        :bg (. (shadowBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.bg.shadow.color
         :ctermfg (. (mainFG) 2)
         :ctermbg (. (umbraBG) 2)
         :bold true}
        {:group :MsgArea
-        :fg (. (mainFG) 1)
-        :bg (. (umbraBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.bg.umbra.color
         :ctermfg (. (mainFG) 2)
         :ctermbg (. (umbraBG) 2)}
        {:group :MsgSeparator
-        :fg (. (mainFG) 1)
-        :bg (. (umbraBG) 1)
+        :fg colors.kat.fg.auto.color
+        :bg colors.kat.bg.umbra.color
         :ctermfg (. (mainFG) 2)
         :ctermbg (. (umbraBG) 2)}
        {:group :MoreMsg
-        :fg (. (auxBG) 1)
+        :fg colors.kat.green.auto.color
         :bg :SKIP
         :ctermfg (. (auxBG) 2)
         :ctermbg :SKIP}
        {:group :debugPC
         :fg :SKIP
-        :bg (ucolors.blend (. (selectionBG) 1) (. (mainFG) 1) 0.6)
+        :bg (ucolors.blend colors.kat.blue.base.color colors.kat.fg.auto.color 0.6)
         :ctermfg :SKIP
         :ctermbg (. (selectionBG) 3)}
        {:group :debugBreakpoint
         :fg :SKIP
-        :bg (ucolors.blend (. (errorBG) 1) (. (mainFG) 1) 0.6)
+        :bg (ucolors.blend colors.kat.red.base.color colors.kat.fg.auto.color 0.6)
         :ctermfg :SKIP
         :ctermbg (. (warningBG) 2)}
        (fn []
          (if (do-viml has :gui)
              (do
                {:group :Menu
-                :fg (. (mainFG) 1)
-                :bg (. (mainBG) 1)
+                :fg colors.kat.fg.auto.color
+                :bg colors.kat.bg.base.color
                 :ctermfg (. (mainFG) 2)
                 :ctermbg (. (mainBG) 2)}
                {:group :Tooltip
-                :fg (. (fillFG) 1)
-                :bg (. (fillBG) 1)
+                :fg colors.kat.fg.auto.color
+                :bg colors.kat.pink.base.color
                 :ctermfg (. (fillFG) 2)
                 :ctermbg (. (fillBG) 2)}
                {:group :Scrollbar
-                :fg (. (highlightFG) 1)
-                :bg (. (highlightBG) 1)
+                :fg colors.kat.fg.auto.color
+                :bg colors.kat.purple.base.color
                 :ctermfg (. (highlightFG) 2)
                 :ctermbg (. (highlightBG) 2)})))])
 

@@ -7,13 +7,13 @@
 
 (defn high-colors [] [{:group :fugitiveHunk
                        :fg :SKIP
-                       :bg (. (groups.shadowBG) 1)
+                       :bg colors.kat.bg.shadow.color
                        :ctermfg :SKIP
                        :ctermbg (. (groups.umbraBG) 2)
                        :nocombine true}
                       {:group :gitDiff
                        :fg :SKIP
-                       :bg (. (groups.shadowBG) 1)
+                       :bg colors.kat.bg.shadow.color
                        :ctermfg :SKIP
                        :ctermbg (. (groups.umbraBG) 2)
                        :nocombine true}])

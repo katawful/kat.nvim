@@ -13,40 +13,40 @@
                        :ctermfg (. (groups.mainFG) 2)
                        :ctermbg :SKIP}
                       {:group :VimwikiLink
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kat.orange.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP
                        :bold true
                        :underline true
-                       :sp (. (groups.infoBG) 1)}
+                       :sp colors.kat.orange.base.color}
                       {:group :VimwikiList
-                       :fg (. (groups.selectionBG) 1)
+                       :fg colors.kat.blue.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiCheckBoxDone
-                       :fg (. (groups.auxBG) 1)
+                       :fg colors.kat.green.auto.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiTag
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kat.red.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiDelText
-                       :fg (. (groups.fillBG) 1)
+                       :fg colors.kat.pink.base.color
                        :bg :SKIP
                        :ctermfg (. (groups.fillBG) 2)
                        :ctermbg :SKIP
                        :strikethrough true}
                       {:group :VimwikiCode
-                       :fg (. (groups.meldFG) 1)
-                       :bg (. (groups.shadowBG) 1)
+                       :fg colors.kat.fg.meld.color
+                       :bg colors.kat.bg.shadow.color
                        :ctermfg (. (groups.umbraFG) 2)
                        :ctermbg (. (groups.umbraBG) 2)}
                       {:group :VimwikiHeader1
