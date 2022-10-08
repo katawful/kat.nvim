@@ -161,6 +161,7 @@ local function update()
   kat.green.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.green, color_2a.f0, 0.5)}
   kat.green.auto_match_fg = {desc = "Matches to base fg color based on auto matching green", color = ucolors.blend(kat.green.auto.color, color_2a.f0, 0.5)}
   kat.green.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.green, color_2a.b0, 0.5)}
+  kat.green.match_bg_less = {desc = "Matches to base bg color less", color = ucolors.blend(color_2a.green, color_2a.b0, 0.7)}
   kat.green.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.green, color_2a.blue, 0.5)}
   kat.green.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.green, color_2a.red, 0.2)}
   kat.green.mix_purple = {desc = "Mixes in purple", color = ucolors.saturation(ucolors.blend(color_2a.green, color_2a.purple, 0.3), 0.8)}
@@ -171,6 +172,7 @@ local function update()
   kat.blue.match_fg_less = {desc = "Matches to base fg color, uses more of the blue", color = ucolors.blend(color_2a.blue, color_2a.f0, 0.7)}
   kat.blue.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.blue, color_2a.b0, 0.5)}
   kat.blue.mix_shadow_bg = {desc = "Mixes in shadow bg color", color = ucolors.blend(color_2a.blue, color_2a.b2, 0.8)}
+  kat.blue.mix_shadow_bg_more = {desc = "Mixes in shadow bg color more", color = ucolors.blend(color_2a.blue, color_2a.b2, 0.4)}
   kat.blue.mix_meld_bg = {desc = "Mixes in meld bg color", color = ucolors.blend(color_2a.blue, color_2a.b3, 0.8)}
   do
     local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
@@ -254,6 +256,7 @@ local function update()
   kat.pink.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.pink, color_2a.f0, 0.6)}
   kat.pink.match_fg_less = {desc = "Matches to base fg color less", color = ucolors.blend(color_2a.pink, color_2a.f0, 0.7)}
   kat.pink.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.pink, color_2a.b0, 0.6)}
+  kat.pink.match_bg_less = {desc = "Matches to base bg color less", color = ucolors.blend(color_2a.pink, color_2a.b0, 0.8)}
   kat.pink.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.pink, color_2a.red, 0.2)}
   kat.pink.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.pink, color_2a.blue, 0.2)}
   kat.pink.mix_purple = {desc = "Mixes in purple", color = ucolors.blend(color_2a.pink, color_2a.purple, 0.2)}

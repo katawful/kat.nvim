@@ -258,6 +258,9 @@
       (set kat.green.match_bg
            {:desc "Matches to base bg color"
             :color (ucolors.blend color*.green color*.b0 0.5)})
+      (set kat.green.match_bg_less
+           {:desc "Matches to base bg color less"
+            :color (ucolors.blend color*.green color*.b0 0.7)})
       ;; Green mix blue
       (set kat.green.mix_blue
            {:desc "Mixes in blue"
@@ -299,6 +302,9 @@
       (set kat.blue.mix_shadow_bg
            {:desc "Mixes in shadow bg color"
             :color (ucolors.blend color*.blue color*.b2 0.8)})
+      (set kat.blue.mix_shadow_bg_more
+           {:desc "Mixes in shadow bg color more"
+            :color (ucolors.blend color*.blue color*.b2 0.4)})
       (set kat.blue.mix_meld_bg
            {:desc "Mixes in meld bg color"
             :color (ucolors.blend color*.blue color*.b3 0.8)})
@@ -513,6 +519,9 @@
       (set kat.pink.match_bg
            {:desc "Matches to base bg color"
             :color (ucolors.blend color*.pink color*.b0 0.6)})
+      (set kat.pink.match_bg_less
+           {:desc "Matches to base bg color less"
+            :color (ucolors.blend color*.pink color*.b0 0.8)})
       ;; Pink mix red
       (set kat.pink.mix_red
            {:desc "Mixes in red"
