@@ -14,10 +14,10 @@ Install with your plugin manager of choice.
 Example for vim-plug:
 ```vim
 " kat.nvim
-Plug 'katawful/kat.nvim', { 'tag': '1.0a' }
+Plug 'katawful/kat.nvim', { 'tag': '2.0' }
 ```
 
-Current release: `1.0a` - 'Rotund Donskoy' bug release 1
+Current release: `2.0` - 'Exuberant Cornish Rex'
 
 It is recommended to stick with the current tagged release.
 `main` branch is mostly tested, but this is generally the latest release and breakages can occur outside of your tag.
@@ -318,7 +318,7 @@ Examples
 
 - Fixes contrast settings not working
 
-##### 2.0 Exuberant Cornish Rex - *In Progress*
+##### 2.0 Exuberant Cornish Rex
 
 - Neovim 0.6 removal
 - Improve handling of color tables in json and functional format
