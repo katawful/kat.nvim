@@ -101,7 +101,7 @@
                        :ctermfg (. (groups.fillBG) 3)
                        :ctermbg :SKIP}
                       {:group :TSKeywordFunction
-                       :fg (-> colors.kat.teal.base.color
+                       :fg (-> colors.kat.red.base.color
                                (ucolors.blend colors.kat.green.base.color
                                               0.2)
                                (ucolors.brighten 0.1))
@@ -111,7 +111,7 @@
                        :bold true
                        :italic true}
                       {:group :TSKeywordReturn
-                       :fg (-> colors.kat.teal.base.color
+                       :fg (-> colors.kat.red.base.color
                                (ucolors.blend colors.kat.blue.base.color
                                               0.1)
                                (ucolors.brighten 0.2))
@@ -121,7 +121,7 @@
                        :bold true
                        :italic true}
                       {:group :TSKeywordOperator
-                       :fg (-> colors.kat.teal.base.color
+                       :fg (-> colors.kat.red.base.color
                                (ucolors.blend colors.kat.fg.meld.color 0.1)
                                (ucolors.brighten 0.2))
                        :bg :SKIP

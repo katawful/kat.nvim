@@ -40,7 +40,7 @@
                        :ctermfg (. (groups.auxBG) 3)
                        :ctermbg :SKIP}
                       {:group :Character
-                       :fg colors.kat.green.match_fg.color
+                       :fg colors.kat.green.auto_match_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 3)
                        :ctermbg :SKIP
@@ -145,7 +145,7 @@
                        :bold true
                        :italic true}
                       {:group :PreCondit
-                       :fg colors.kat.pink.mix_green.color
+                       :fg colors.kat.pink.auto_mix_green.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 3)
                        :ctermbg :SKIP
@@ -158,7 +158,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StorageClass
-                       :fg colors.kat.orange.mix_green.color
+                       :fg colors.kat.orange.auto_mix_green.color
                        :bg :SKIP
                        :ctermfg (. (typeDef) 2)
                        :ctermbg :SKIP
@@ -194,20 +194,20 @@
                        :bold true}
                       {:group :Delimiter
                        :fg (-> colors.kat.bg.sixth.color
-                               (ucolors.blend colors.kat.fg.auto.color 0.8)
-                               (ucolors.blend colors.kat.red.base.color 0.8))
+                               (ucolors.blend colors.kat.fg.base.color 0.8)
+                               (ucolors.blend colors.kat.plum.base.color 0.8))
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :SpecialComment
-                       :fg colors.kat.red.mix_meld_fg.color
+                       :fg colors.kat.plum.mix_meld_bg.color
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
                        (. vim.g.kat_nvim_commentStyle) true}
                       {:group :Debug
-                       :fg colors.kat.red.mix_green.color
+                       :fg colors.kat.plum.auto_mix_green.color
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
@@ -227,7 +227,7 @@
                        :bold true}
                       {:group :Todo
                        :fg colors.kat.bg.base.color
-                       :bg colors.kat.orange.match_fg.color
+                       :bg colors.kat.orange.match_fg_less.color
                        :ctermfg (. (groups.infoFG) 2)
                        :ctermbg (. (groups.infoBG) 2)}
                       {:group :Ignore

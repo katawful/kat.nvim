@@ -164,12 +164,12 @@
        ;; Statusline
        {:group :StatusLine
         :fg colors.kat.bg.fifth.color
-        :bg colors.kat.purple.match_fg.color
+        :bg colors.kat.purple.match_bg.color
         :ctermfg (. (umbraBG) 2)
         :ctermbg (. (highlightBG) 3)
         :bold true}
        {:group :StatusLineNC
-        :fg colors.kat.purple.match_fg.color
+        :fg colors.kat.purple.match_bg.color
         :bg colors.kat.bg.fifth.color
         :ctermfg (. (umbraBG) 2)
         :ctermbg (. (highlightBG) 3)
@@ -350,7 +350,7 @@
         :ctermfg (. (fillBG) 2)
         :ctermbg :SKIP}
        {:group :CursorLineNr
-        :fg colors.kat.pink.match_bg.color
+        :fg colors.kat.pink.match_fg.color
         :bg :SKIP
         :ctermfg (. (fillBG) 3)
         :ctermbg :SKIP

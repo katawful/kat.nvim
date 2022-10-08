@@ -159,6 +159,7 @@ local function update()
   end
   kat.green.auto = {desc = "Auto matching color, used to increase contrast depending on background", color = _11_}
   kat.green.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.green, color_2a.f0, 0.5)}
+  kat.green.auto_match_fg = {desc = "Matches to base fg color based on auto matching green", color = ucolors.blend(kat.green.auto.color, color_2a.f0, 0.5)}
   kat.green.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.green, color_2a.b0, 0.5)}
   kat.green.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.green, color_2a.blue, 0.5)}
   kat.green.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.green, color_2a.red, 0.2)}
@@ -240,10 +241,13 @@ local function update()
     kat.plum.mix_red = {desc = "Mixes in red", color = ucolors.blend(plum, color_2a.red, 0.2)}
     kat.plum.mix_meld_bg = {desc = "Mixes in meld bg", color = ucolors.blend(plum, color_2a.b3, 0.2)}
     kat.plum.mix_green = {desc = "Mixes in green", color = ucolors.blend(plum, color_2a.green, 0.2)}
+    kat.plum.auto_mix_green = {desc = "Mixes in green based on auto matching green", color = ucolors.blend(plum, kat.green.auto.color, 0.2)}
   end
   kat.orange.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.orange, color_2a.f0, 0.7)}
+  kat.orange.match_fg_less = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.orange, color_2a.f0, 0.9)}
   kat.orange.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.orange, color_2a.b0, 0.7)}
   kat.orange.mix_green = {desc = "Mixes in green", color = ucolors.blend(color_2a.orange, color_2a.green, 0.2)}
+  kat.orange.auto_mix_green = {desc = "Mixes in green based on auto matching green", color = ucolors.blend(color_2a.orange, kat.green.auto.color, 0.2)}
   kat.orange.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.orange, color_2a.blue, 0.2)}
   kat.orange.mix_sixth_bg = {desc = "Mixes in sixth bg", color = ucolors.saturation(ucolors.blend(color_2a.orange, color_2a.b5, 0.2), 1)}
   kat.orange.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.orange, color_2a.red, 0.4)}
@@ -254,6 +258,7 @@ local function update()
   kat.pink.mix_blue = {desc = "Mixes in blue", color = ucolors.blend(color_2a.pink, color_2a.blue, 0.2)}
   kat.pink.mix_purple = {desc = "Mixes in purple", color = ucolors.blend(color_2a.pink, color_2a.purple, 0.2)}
   kat.pink.mix_green = {desc = "Mixes in green", color = ucolors.blend(color_2a.pink, color_2a.green, 0.2)}
+  kat.pink.auto_mix_green = {desc = "Mixes in green based on auto matching green", color = ucolors.blend(color_2a.pink, kat.green.auto.color, 0.2)}
   do
     local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
     kat.pink.mix_teal = {desc = "Mixes in teal", color = ucolors.blend(color_2a.pink, teal, 0.2)}

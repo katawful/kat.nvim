@@ -251,6 +251,9 @@
       (set kat.green.match_fg
            {:desc "Matches to base fg color"
             :color (ucolors.blend color*.green color*.f0 0.5)})
+      (set kat.green.auto_match_fg
+           {:desc "Matches to base fg color based on auto matching green"
+            :color (ucolors.blend kat.green.auto.color color*.f0 0.5)})
       ;; Green match bg
       (set kat.green.match_bg
            {:desc "Matches to base bg color"
@@ -461,11 +464,19 @@
         ;; Plum mix green
         (set kat.plum.mix_green
              {:desc "Mixes in green"
-              :color (ucolors.blend plum color*.green 0.2)})) ;;; Orange
+              :color (ucolors.blend plum color*.green 0.2)}) ;;; Orange
+        ;; Plum mix green auto
+        (set kat.plum.auto_mix_green
+             {:desc "Mixes in green based on auto matching green"
+              :color (ucolors.blend plum kat.green.auto.color 0.2)})) ;;; Orange
       ;; Orange matched with fg
       (set kat.orange.match_fg
            {:desc "Matches to base bg color"
             :color (ucolors.blend color*.orange color*.f0 0.7)})
+      ;; Orange matched with fg less
+      (set kat.orange.match_fg_less
+           {:desc "Matches to base bg color"
+            :color (ucolors.blend color*.orange color*.f0 0.9)})
       ;; Orange matched with bg
       (set kat.orange.match_bg
            {:desc "Matches to base bg color"
@@ -474,6 +485,9 @@
       (set kat.orange.mix_green
            {:desc "Mixes in green"
             :color (ucolors.blend color*.orange color*.green 0.2)})
+      (set kat.orange.auto_mix_green
+           {:desc "Mixes in green based on auto matching green"
+            :color (ucolors.blend color*.orange kat.green.auto.color 0.2)})
       ;; Orange mix blue
       (set kat.orange.mix_blue
            {:desc "Mixes in blue"
@@ -515,6 +529,10 @@
       (set kat.pink.mix_green
            {:desc "Mixes in green"
             :color (ucolors.blend color*.pink color*.green 0.2)})
+      ;; Pink mix green auto
+      (set kat.pink.auto_mix_green
+           {:desc "Mixes in green based on auto matching green"
+            :color (ucolors.blend color*.pink kat.green.auto.color 0.2)})
       ;; Pink mix teal
       (let [teal (ucolors.blend color*.blue color*.b5 0.65)]
         (set kat.pink.mix_teal
