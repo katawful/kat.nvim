@@ -30,6 +30,7 @@
       (def background vim.o.background)
       (def contrast-mut [in-contrast])
       (def background-mut [vim.o.background])
+      ;; adds ~2.5ms
       (color.update) ; absolutely needed to set all the colors properly
       (if (= (. contrast-mut 1) :hard)
           (set-var g :colors_name :kat.nvim)
@@ -37,7 +38,12 @@
       (def colors-name-mut [vim.g.colors_name])
 
       ;; Load colors
-      (let [has-render (override.main-files)
+      ;; This falls back dynamically to functional colors if no JSON was found
+      ;; adds ~5ms in functional, 3ms in json
+      (let [rendered-length (do (var i 0)
+                              (each [k _ (pairs (override.main-files) :until (> i 0))]
+                                (set i (+ i 1)))
+                              i)
             matcher (string.format "%s-%s.json" vim.g.colors_name background)
             integrations (let [output {}]
                            (each [_ v (pairs vim.g.kat_nvim_integrations)]
@@ -45,52 +51,40 @@
                            (each [_ v (pairs vim.g.kat_nvim_filetype)]
                              (tset output (.. "filetype." v) true))
                            output)]
-        ;; This path is if we had found the files in stdpath('data').
-        ;; TODO rewrite json loading to go through iteratively.
-        ;; This will allow functional colors so *always* be loaded if the json file
-        ;; -isn't found.
-        (if has-render
-          (do
+        (if (json.exists? :main)
             (run.highlight$<-table (read.file! :main))
+            ((. (require :katdotnvim.highlights.main) :init)))
+        (if (json.exists? :syntax)
             (run.highlight$<-table (read.file! :syntax))
-            (each [file _ (pairs has-render)]
+            ((. (require :katdotnvim.highlights.syntax) :init)))
+        ;; Very large increase in startup time
+        ;; 1.5ms for json, 2-3ms for functional
+        (if (> rendered-length 0)
+          ;; If there's json files found:
+          ;; go through integrations and load the file if it was found
+            (each [key _ (pairs integrations)]
+              (if (json.exists? key)
+                (run.highlight$<-table (read.file! key))
+                ((. (require (.. :katdotnvim.highlights. key)) :init))))
+          ;; full fallback
+            (do
+              (each [key _ (pairs integrations)]
+                (print key)
+                ((. (require (.. :katdotnvim.highlights. key)) :init)))))
+        ;; From here to there doesn't need to be done until after any other loading
+        ;; TODO: fix loading so for somethings
+        ;; very small increase in startup time, maybe 0.2ms?
+        ;; doubt i need to worry
+        ;; from here
+        ((. (require :katdotnvim.highlights.terminal) :init))
+        (if (= vim.g.kat_nvim_stupidFeatures true)
+            ((. (require :katdotnvim.stupid) :stupidFunction)))
+        (require :katdotnvim.utils.export.init)
+        ((. (require :katdotnvim.utils.export.render) :init))
+        ;; to there
+        ;; Load in overrides from end user
+        (let [has-overrides (override.files)]
+          (when has-overrides
+            (each [file _ (pairs has-overrides)]
               (when (string.find file matcher 1 true)
-                (each [key _ (pairs integrations)]
-                  (when (string.find file key 1 true)
-                    (run.highlight$<-table (read.full-file! file))))))
-            ;; From here to there doesn't need to be done until after any other loading
-            ;; from here
-            ((. (require :katdotnvim.highlights.terminal) :init))
-            (if (= vim.g.kat_nvim_stupidFeatures true)
-              ((. (require :katdotnvim.stupid) :stupidFunction)))
-            (require :katdotnvim.utils.export.init)
-            ((. (require :katdotnvim.utils.export.render) :init))
-            ;; to there
-            ;; Load in overrides from end user
-            (let [has-overrides (override.files)]
-              (when has-overrides
-                (each [file _ (pairs has-overrides)]
-                  (when (string.find file matcher 1 true)
-                    (run.highlight$<-table (read.full-file! file)))))))
-          ;; Run dynamically generated colors
-          (do
-            ((. (require :katdotnvim.highlights.main) :init))
-            ((. (require :katdotnvim.highlights.syntax) :init))
-            ((. (require :katdotnvim.highlights.terminal) :init))
-            (if (= vim.g.kat_nvim_stupidFeatures true)
-              ((. (require :katdotnvim.stupid) :stupidFunction)))
-            (require :katdotnvim.utils.export.init)
-            ;; add integrations
-            ((. (require :katdotnvim.utils.export.render) :init))
-            (each [_ v (ipairs vim.g.kat_nvim_integrations)]
-              (local output (.. :katdotnvim.highlights.integrations. v))
-              ((. (require output) :init)))
-            (each [_ v (pairs vim.g.kat_nvim_filetype)]
-              (local output (.. :katdotnvim.highlights.filetype. v))
-              ((. (require output) :init)))
-            ;; Load in overrides from end user
-            (let [has-overrides (override.files)]
-              (when has-overrides
-                (each [file _ (pairs has-overrides)]
-                  (when (string.find file matcher 1 true)
-                    (run.highlight$<-table (read.full-file! file))))))))))
+                (run.highlight$<-table (read.full-file! file))))))))

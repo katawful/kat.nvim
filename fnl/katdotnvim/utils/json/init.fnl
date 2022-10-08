@@ -1,5 +1,6 @@
 (module katdotnvim.utils.json.init
-        {require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+        {autoload {main katdotnvim.main}
+         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; JSON manipulation
 
@@ -23,6 +24,8 @@
                 :filetype.vimwiki])
 
 (defonce path (.. std-data :/kat.nvim/json/))
+
+(defonce header (string.format "%s" path))
 
 ;; TODO: move this somewhere better
 (defn expand-table [tbl] "Expands a table so that no functions remain
@@ -65,6 +68,11 @@ Returns a lua table"
       (os.execute (.. "rm -f " file))
       (with-open [json-file (io.open file :w)]
         (json-file:write json)))
+
+(defn exists? [file] "See if json file exists"
+      (do-viml filereadable (string.format "%s%s-%s-%s.json" header file
+                                           (. main.colors-name-mut 1)
+                                           (. main.background-mut 1))))
 
 (defn <-file [file] "Read stored json
 @file -- a json file path

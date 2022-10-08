@@ -10,7 +10,9 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
-local _ = nil
+local autoload = (require("katdotnvim.aniseed.autoload")).autoload
+local main, _ = autoload("katdotnvim.main"), nil
+_2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["_"] = _
 local std_data
 local function _1_(...)
@@ -23,6 +25,8 @@ local files = ((_2amodule_2a).files or {"main", "syntax", "integrations.cmp", "i
 do end (_2amodule_2a)["files"] = files
 local path = ((_2amodule_2a).path or (std_data .. "/kat.nvim/json/"))
 do end (_2amodule_2a)["path"] = path
+local header = ((_2amodule_2a).header or string.format("%s", path))
+do end (_2amodule_2a)["header"] = header
 local function expand_table(tbl)
   local output = {}
   for k, value in pairs(tbl) do
@@ -95,6 +99,15 @@ local function __3efile_21(file, json)
   return close_handlers_8_auto(_G.xpcall(_13_, (package.loaded.fennel or debug).traceback))
 end
 _2amodule_2a["->file!"] = __3efile_21
+local function exists_3f(file)
+  local result_2_auto = vim.fn.filereadable(string.format("%s%s-%s-%s.json", header, file, (main["colors-name-mut"])[1], (main["background-mut"])[1]))
+  if (result_2_auto == 0) then
+    return false
+  else
+    return true
+  end
+end
+_2amodule_2a["exists?"] = exists_3f
 local function _3c_file(file)
   local json_file = io.open(file, "r")
   if json_file then

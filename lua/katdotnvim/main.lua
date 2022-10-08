@@ -56,7 +56,14 @@ local function init(in_contrast)
   end
   local colors_name_mut = {vim.g.colors_name}
   _2amodule_2a["colors-name-mut"] = colors_name_mut
-  local has_render = override["main-files"]()
+  local rendered_length
+  do
+    local i = 0
+    for k, _1 in pairs(override["main-files"](), "until", (i > 0)) do
+      i = (i + 1)
+    end
+    rendered_length = i
+  end
   local matcher = string.format("%s-%s.json", vim.g.colors_name, background)
   local integrations
   do
@@ -69,69 +76,48 @@ local function init(in_contrast)
     end
     integrations = output
   end
-  if has_render then
+  if json["exists?"]("main") then
     run["highlight$<-table"](read["file!"]("main"))
+  else
+    do end (require("katdotnvim.highlights.main")).init()
+  end
+  if json["exists?"]("syntax") then
     run["highlight$<-table"](read["file!"]("syntax"))
-    for file, _1 in pairs(has_render) do
+  else
+    do end (require("katdotnvim.highlights.syntax")).init()
+  end
+  if (rendered_length > 0) then
+    for key, _1 in pairs(integrations) do
+      if json["exists?"](key) then
+        run["highlight$<-table"](read["file!"](key))
+      else
+        do end (require(("katdotnvim.highlights." .. key))).init()
+      end
+    end
+  else
+    for key, _1 in pairs(integrations) do
+      print(key)
+      do end (require(("katdotnvim.highlights." .. key))).init()
+    end
+  end
+  do end (require("katdotnvim.highlights.terminal")).init()
+  if (vim.g.kat_nvim_stupidFeatures == true) then
+    do end (require("katdotnvim.stupid")).stupidFunction()
+  else
+  end
+  require("katdotnvim.utils.export.init")
+  do end (require("katdotnvim.utils.export.render")).init()
+  local has_overrides = override.files()
+  if has_overrides then
+    for file, _1 in pairs(has_overrides) do
       if string.find(file, matcher, 1, true) then
-        for key, _2 in pairs(integrations) do
-          if string.find(file, key, 1, true) then
-            run["highlight$<-table"](read["full-file!"](file))
-          else
-          end
-        end
+        run["highlight$<-table"](read["full-file!"](file))
       else
       end
     end
-    do end (require("katdotnvim.highlights.terminal")).init()
-    if (vim.g.kat_nvim_stupidFeatures == true) then
-      do end (require("katdotnvim.stupid")).stupidFunction()
-    else
-    end
-    require("katdotnvim.utils.export.init")
-    do end (require("katdotnvim.utils.export.render")).init()
-    local has_overrides = override.files()
-    if has_overrides then
-      for file, _1 in pairs(has_overrides) do
-        if string.find(file, matcher, 1, true) then
-          run["highlight$<-table"](read["full-file!"](file))
-        else
-        end
-      end
-      return nil
-    else
-      return nil
-    end
+    return nil
   else
-    do end (require("katdotnvim.highlights.main")).init()
-    do end (require("katdotnvim.highlights.syntax")).init()
-    do end (require("katdotnvim.highlights.terminal")).init()
-    if (vim.g.kat_nvim_stupidFeatures == true) then
-      do end (require("katdotnvim.stupid")).stupidFunction()
-    else
-    end
-    require("katdotnvim.utils.export.init")
-    do end (require("katdotnvim.utils.export.render")).init()
-    for _1, v in ipairs(vim.g.kat_nvim_integrations) do
-      local output = ("katdotnvim.highlights.integrations." .. v)
-      require(output).init()
-    end
-    for _1, v in pairs(vim.g.kat_nvim_filetype) do
-      local output = ("katdotnvim.highlights.filetype." .. v)
-      require(output).init()
-    end
-    local has_overrides = override.files()
-    if has_overrides then
-      for file, _1 in pairs(has_overrides) do
-        if string.find(file, matcher, 1, true) then
-          run["highlight$<-table"](read["full-file!"](file))
-        else
-        end
-      end
-      return nil
-    else
-      return nil
-    end
+    return nil
   end
 end
 _2amodule_2a["init"] = init

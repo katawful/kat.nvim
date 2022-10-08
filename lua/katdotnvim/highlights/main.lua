@@ -155,7 +155,10 @@ local function high_colors()
 end
 _2amodule_2a["high-colors"] = high_colors
 local function init()
-  return run["highlight$<-table"](high_colors())
+  local now = vim.loop.hrtime
+  local start = now()
+  run["highlight$<-table"](high_colors())
+  return print(((now() - start) / 1000000))
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a

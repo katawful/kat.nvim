@@ -26,7 +26,7 @@ local function main_files()
     vim.loop.fs_closedir(fd)
     return output
   else
-    return nil
+    return {}
   end
 end
 _2amodule_2a["main-files"] = main_files

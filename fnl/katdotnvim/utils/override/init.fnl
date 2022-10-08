@@ -14,7 +14,7 @@
               (vim.loop.fs_closedir fd)
               output)
             (do
-              nil))))
+              {}))))
 
 (defn get-dir [] "Get directories for override files to look through"
       (let [desc-num (+ 10 (* (length json.files) 4))
