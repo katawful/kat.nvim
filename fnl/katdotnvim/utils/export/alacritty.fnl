@@ -40,7 +40,7 @@
                           "  cursor:" (.. char colors.kat.fg.auto.color char)}
               " search:" {"  matches:" {"   foreground:" (.. char colors.kat.bg.base.color char)
                                         "   background:" (.. char (ucolors.blend colors.kat.orange.base.color
-                                                                              (. (groups.mainBG 1) 1) 0.7) char)}
+                                                                              colors.kat.bg.base.color 0.7) char)}
                           "  focused_match:" {"   foreground:" (.. char colors.kat.bg.base.color char)
                                               "   background:" (.. char colors.kat.orange.base.color char)}}
               " hints:" {"  start:" {"   foreground:" (.. char colors.kat.fg.auto.color char)
