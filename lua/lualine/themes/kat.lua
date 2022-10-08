@@ -1,30 +1,22 @@
 local _2afile_2a = "fnl/lualine/themes/kat.fnl"
 local ucolors = require("katdotnvim.utils.highlight.utils")
 local colors = require("katdotnvim.color")
-local syntax = require("katdotnvim.highlights.syntax")
-local groups = require("katdotnvim.highlights.main")
-local main = require("katdotnvim.main")
-local mainFG = groups.mainFG()[1]
-if (((main["background-mut"])[1] == "dark") and ((main["contrast-mut"])[1] == "soft")) then
-  mainFG = ucolors.brighten(groups.mainFG()[1], 0.8)
-else
-end
 local kat = {}
 if (vim.o.termguicolors == true) then
-  kat["normal"] = {a = {bg = groups.highlightBG()[1], fg = mainFG, gui = "bold"}, b = {bg = ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), fg = mainFG}, c = {bg = groups.fillBG()[1], fg = mainFG}}
-  kat["insert"] = {a = {bg = groups.selectionBG()[1], fg = mainFG, gui = "bold"}, b = {bg = ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), fg = mainFG}, c = {bg = ucolors.brighten(groups.selectionBG()[1], 0.2), fg = mainFG}}
-  kat["visual"] = {a = {bg = groups.errorBG()[1], fg = mainFG, gui = "bold"}, b = {bg = ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), fg = mainFG}, c = {bg = groups.highlightBG()[1], fg = mainFG}}
-  kat["replace"] = {a = {bg = groups.infoBG()[1], fg = mainFG, gui = "bold"}, b = {bg = ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), fg = mainFG}, c = {bg = ucolors.brighten(groups.selectionBG()[1], 0.2), fg = mainFG}}
-  kat["command"] = {a = {bg = ucolors.blend((colors["normal-colors"]()).green, groups.mainBG()[1], 0.5), fg = mainFG, gui = "bold"}, b = {bg = ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), fg = mainFG}, c = {bg = ucolors.blend((colors["normal-colors"]()).green, groups.mainBG()[1], 0.7), fg = mainFG}}
-  kat["terminal"] = {a = {bg = ucolors.blend(groups.fillBG()[1], groups.mainBG()[1], 0.8), fg = mainFG, gui = "bold"}, b = {bg = ucolors.blend(groups.selectionBG()[1], groups.shadowBG()[1], 0.4), fg = mainFG}, c = {bg = ucolors.blend(groups.errorBG()[1], groups.mainBG()[1], 0.8), fg = mainFG}}
-  kat["inactive"] = {a = {bg = colors.foreground()[6], fg = colors.background()[1]}, b = {bg = colors.foreground()[6], fg = colors.background()[1]}, c = {bg = colors.foreground()[3], fg = colors.background()[1]}}
+  kat["normal"] = {a = {bg = colors.kat.purple.base.color, fg = colors.kat.fg.auto.color, gui = "bold"}, b = {bg = colors.kat.blue.mix_shadow_bg_more.color, fg = colors.kat.fg.auto.color}, c = {bg = colors.kat.pink.base.color, fg = colors.kat.fg.auto.color}}
+  kat["insert"] = {a = {bg = colors.kat.blue.base.color, fg = colors.kat.fg.auto.color, gui = "bold"}, b = {bg = colors.kat.blue.mix_shadow_bg_more.color, fg = colors.kat.fg.auto.color}, c = {bg = colors.kat.blue.brighten.color, fg = colors.kat.fg.auto.color}}
+  kat["visual"] = {a = {bg = colors.kat.red.base.color, fg = colors.kat.fg.auto.color, gui = "bold"}, b = {bg = colors.kat.blue.mix_shadow_bg_more.color, fg = colors.kat.fg.auto.color}, c = {bg = colors.kat.purple.base.color, fg = colors.kat.fg.auto.color}}
+  kat["replace"] = {a = {bg = colors.kat.orange.base.color, fg = colors.kat.fg.auto.color, gui = "bold"}, b = {bg = colors.kat.blue.mix_shadow_bg_more.color, fg = colors.kat.fg.auto.color}, c = {bg = colors.kat.blue.brighten.color, fg = colors.kat.fg.auto.color}}
+  kat["command"] = {a = {bg = colors.kat.green.match_bg.color, fg = colors.kat.fg.auto.color, gui = "bold"}, b = {bg = colors.kat.blue.mix_shadow_bg_more.color, fg = colors.kat.fg.auto.color}, c = {bg = colors.kat.green.match_bg_less.color, fg = colors.kat.fg.auto.color}}
+  kat["terminal"] = {a = {bg = colors.kat.pink.match_bg_less.color, fg = colors.kat.fg.auto.color, gui = "bold"}, b = {bg = colors.kat.blue.mix_shadow_bg_more.color, fg = colors.kat.fg.auto.color}, c = {bg = colors.kat.red.match_bg.color, fg = colors.kat.fg.auto.color}}
+  kat["inactive"] = {a = {bg = colors.kat.fg.sixth.color, fg = colors.kat.bg.base.color}, b = {bg = colors.kat.fg.sixth.color, fg = colors.kat.bg.base.color}, c = {bg = colors.kat.fg.shadow.color, fg = colors.kat.bg.base.color}}
 else
-  kat["normal"] = {a = {bg = groups.highlightBG()[2], fg = mainFG, gui = "bold"}, b = {bg = groups.selectionBG()[3], fg = mainFG}, c = {bg = groups.fillBG()[2], fg = mainFG}}
-  kat["insert"] = {a = {bg = groups.selectionBG()[2], fg = mainFG, gui = "bold"}, b = {bg = groups.selectionBG()[3], fg = mainFG}, c = {bg = groups.selectionBG()[2], fg = mainFG}}
-  kat["visual"] = {a = {bg = groups.errorBG()[2], fg = mainFG, gui = "bold"}, b = {bg = groups.selectionBG()[3], fg = mainFG}, c = {bg = groups.highlightBG()[2], fg = mainFG}}
-  kat["replace"] = {a = {bg = groups.infoBG()[2], fg = mainFG, gui = "bold"}, b = {bg = groups.selectionBG()[2], fg = mainFG}, c = {bg = groups.selectionBG()[2], fg = mainFG}}
-  kat["command"] = {a = {bg = groups.auxBG()[2], fg = mainFG, gui = "bold"}, b = {bg = groups.selectionBG()[3], fg = mainFG}, c = {bg = groups.auxBG()[3], fg = mainFG}}
-  kat["terminal"] = {a = {bg = groups.fillBG()[3], fg = mainFG, gui = "bold"}, b = {bg = groups.selectionBG()[3], fg = mainFG}, c = {bg = groups.warningBG()[2], fg = mainFG}}
-  kat["inactive"] = {a = {bg = groups.umbraFG()[2], fg = groups.mainBG()[1]}, b = {bg = groups.umbraFG()[2], fg = groups.mainBG()[2]}, c = {bg = groups.umbraFG()[2], fg = groups.mainBG()[2]}}
+  kat["normal"] = {a = {bg = 6, fg = 7, gui = "bold"}, b = {bg = 12, fg = 7}, c = {bg = 5, fg = 7}}
+  kat["insert"] = {a = {bg = 4, fg = 7, gui = "bold"}, b = {bg = 12, fg = 7}, c = {bg = 4, fg = 7}}
+  kat["visual"] = {a = {bg = 1, fg = 7, gui = "bold"}, b = {bg = 12, fg = 7}, c = {bg = 6, fg = 7}}
+  kat["replace"] = {a = {bg = 3, fg = 7, gui = "bold"}, b = {bg = 4, fg = 7}, c = {bg = 4, fg = 7}}
+  kat["command"] = {a = {bg = 2, fg = 7, gui = "bold"}, b = {bg = 12, fg = 7}, c = {bg = 10, fg = 7}}
+  kat["terminal"] = {a = {bg = 13, fg = 7, gui = "bold"}, b = {bg = 12, fg = 7}, c = {bg = 9, fg = 7}}
+  kat["inactive"] = {a = {bg = 15, fg = 0}, b = {bg = 15, fg = 0}, c = {bg = 15, fg = 0}}
 end
 return kat
