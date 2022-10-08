@@ -115,8 +115,8 @@
 
 (fn terminalMode_c []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.blend colors.kat.red.base.color colors.kat.bg.base.color
-                                  0.8)
+                 2 (ucolors.blend colors.kat.red.base.color
+                                  colors.kat.bg.base.color 0.8)
                  3 7
                  4 9
                  5 ""})
@@ -132,8 +132,8 @@
 
 (fn terminalMode_a []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.blend colors.kat.pink.base.color colors.kat.bg.base.color
-                                  0.8)
+                 2 (ucolors.blend colors.kat.pink.base.color
+                                  colors.kat.bg.base.color 0.8)
                  3 7
                  4 5
                  5 :bold})
@@ -175,9 +175,5 @@
     :visual (do
               (set output {1 colors.kat.fg.auto.color 2 "" 3 7 4 "" 5 ""}))
     :inactive (do
-                (set output {1 colors.kat.bg.base.color
-                             2 ""
-                             3 0
-                             4 ""
-                             5 ""})))
+                (set output {1 colors.kat.bg.base.color 2 "" 3 0 4 "" 5 ""})))
   output)

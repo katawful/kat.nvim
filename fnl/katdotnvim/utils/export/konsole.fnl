@@ -12,6 +12,7 @@
 
 ;; FN -- generates a table of colors for konsole
 ;; $output -- a table of colors where the key is the string for the konsole group
+
 ;; fnlfmt: skip
 (defn gen-colors [] "Export a table of strings for konsole"
       (let [output {"[Background]" (.. :Color= (export.hex->rgb-string colors.kat.bg.base.color))
@@ -197,8 +198,10 @@ Wallpaper="
 
 ;; FN -- output konsole string to a file at the current working directory
 (defn output! [] (let [file-name (string.format "konsole-%s-%s.colorscheme"
-                                                (tostring (. main.colors-name-mut 1))
-                                                (tostring (. main.background-mut 1)))
+                                                (tostring (. main.colors-name-mut
+                                                             1))
+                                                (tostring (. main.background-mut
+                                                             1)))
                        fd (assert (loop.fs_open file-name :w 0))]
                    (assert (loop.fs_chmod file-name 420))
                    (assert (loop.fs_write fd

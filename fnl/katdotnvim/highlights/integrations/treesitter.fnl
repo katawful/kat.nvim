@@ -88,8 +88,7 @@
                        :bold true}
                       {:group :TSConstBuiltin
                        :fg (-> colors.kat.pink.base.color
-                               (ucolors.blend colors.kat.blue.base.color
-                                              0.8)
+                               (ucolors.blend colors.kat.blue.base.color 0.8)
                                (ucolors.darken 0.2))
                        :bg :SKIP
                        :ctermfg 12
@@ -102,8 +101,7 @@
                        :ctermbg :SKIP}
                       {:group :TSKeywordFunction
                        :fg (-> colors.kat.red.base.color
-                               (ucolors.blend colors.kat.green.base.color
-                                              0.2)
+                               (ucolors.blend colors.kat.green.base.color 0.2)
                                (ucolors.brighten 0.1))
                        :bg :SKIP
                        :ctermfg 2
@@ -112,8 +110,7 @@
                        :italic true}
                       {:group :TSKeywordReturn
                        :fg (-> colors.kat.red.base.color
-                               (ucolors.blend colors.kat.blue.base.color
-                                              0.1)
+                               (ucolors.blend colors.kat.blue.base.color 0.1)
                                (ucolors.brighten 0.2))
                        :bg :SKIP
                        :ctermfg 12
@@ -150,8 +147,7 @@
                        :bold true}
                       {:group :TSTagDelimiter
                        :fg (-> colors.kat.pink.base.color
-                               (ucolors.blend colors.kat.red.base.color
-                                              0.4)
+                               (ucolors.blend colors.kat.red.base.color 0.4)
                                (ucolors.darken 0.2))
                        :bg :SKIP
                        :ctermfg 9

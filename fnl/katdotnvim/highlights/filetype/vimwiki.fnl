@@ -50,43 +50,37 @@
                        :ctermfg 15
                        :ctermbg 8}
                       {:group :VimwikiHeader1
-                       :fg (ucolors.darken colors.kat.blue.base.color
-                                           0.0)
+                       :fg (ucolors.darken colors.kat.blue.base.color 0.0)
                        :bg :SKIP
                        :ctermfg 4
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader2
-                       :fg (ucolors.darken colors.kat.blue.base.color
-                                           0.3)
+                       :fg (ucolors.darken colors.kat.blue.base.color 0.3)
                        :bg :SKIP
                        :ctermfg 12
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader3
-                       :fg (ucolors.darken colors.kat.orange.base.color
-                                           0.0)
+                       :fg (ucolors.darken colors.kat.orange.base.color 0.0)
                        :bg :SKIP
                        :ctermfg 3
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader4
-                       :fg (ucolors.darken colors.kat.orange.base.color
-                                           0.3)
+                       :fg (ucolors.darken colors.kat.orange.base.color 0.3)
                        :bg :SKIP
                        :ctermfg 11
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader5
-                       :fg (ucolors.darken colors.kat.pink.base.color
-                                           0.0)
+                       :fg (ucolors.darken colors.kat.pink.base.color 0.0)
                        :bg :SKIP
                        :ctermfg 5
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader6
-                       :fg (ucolors.darken colors.kat.pink.base.color
-                                           0.3)
+                       :fg (ucolors.darken colors.kat.pink.base.color 0.3)
                        :bg :SKIP
                        :ctermfg 13
                        :ctermbg :SKIP

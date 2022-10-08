@@ -74,9 +74,10 @@ Returns a lua table"
         (json-file:write json)))
 
 (defn exists? [file] "See if json file exists"
-      (do-viml filereadable (string.format "%s%s-%s-%s.json" header file
-                                           (. main.colors-name-mut 1)
-                                           (. main.background-mut 1))))
+      (do-viml filereadable
+               (string.format "%s%s-%s-%s.json" header file
+                              (. main.colors-name-mut 1)
+                              (. main.background-mut 1))))
 
 (defn <-file [file] "Read stored json
 @file -- a json file path

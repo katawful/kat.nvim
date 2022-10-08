@@ -150,9 +150,9 @@
 
 (defn update [] "Update colors table"
       (let [fname (do-viml fnamemodify
-                    (. (vim.api.nvim_get_runtime_file
-                         "json/colors-kat.n*im-*.json" true) 1)
-                    ":h")]
+                           (. (vim.api.nvim_get_runtime_file :json/colors-kat.n*im-*.json
+                                                             true)
+                              1) ":h")]
         (set kat (read.colors fname))
         (tset _2amodule_2a :kat kat)))
 
@@ -300,8 +300,7 @@
             :color (ucolors.blend color*.blue color*.b2 0.4)})
       (set out.blue.mix_meld_bg
            {:desc "Mixes in meld bg color"
-            :color (ucolors.blend color*.blue color*.b3 0.8)})
-      ;;; Teal
+            :color (ucolors.blend color*.blue color*.b3 0.8)}) ;;; Teal
       (let [teal (ucolors.blend color*.blue color*.b5 0.65)]
         ;; Base color
         (set out.teal.base {:desc "Base color, is a mix of blue and sixth background"
@@ -408,27 +407,30 @@
                            (ucolors.brighten 0.5)))}) ;; Red mix blue
       (set out.red.mix_green
            {:desc "Mixes in the auto matching green, matches background"
-            :color (let [green (do (var output "")
+            :color (let [green (do
+                                 (var output "")
                                  (if (= (. main.background-mut 1) :light)
-                                   (set output (-> color*.green
-                                                   (ucolors.darken 0.5)
-                                                   (ucolors.saturation 0.4)))
-                                   (set output (-> color*.green
-                                                   (ucolors.brighten 0.5)
-                                                   (ucolors.saturation -0.2))))
+                                     (set output
+                                          (-> color*.green
+                                              (ucolors.darken 0.5)
+                                              (ucolors.saturation 0.4)))
+                                     (set output
+                                          (-> color*.green
+                                              (ucolors.brighten 0.5)
+                                              (ucolors.saturation -0.2))))
                                  output)]
-                        (if (= (. main.background-mut 1) :light)
-                           (-> color*.red
-                               (ucolors.blend green 0.2)
-                               (ucolors.darken 0.5))
-                           (-> color*.red
-                               (ucolors.blend green 0.2)
-                               (ucolors.brighten 0.5))))}) ;; Red mix blue
+                     (if (= (. main.background-mut 1) :light)
+                         (-> color*.red
+                             (ucolors.blend green 0.2)
+                             (ucolors.darken 0.5))
+                         (-> color*.red
+                             (ucolors.blend green 0.2)
+                             (ucolors.brighten 0.5))))}) ;; Red mix blue
       (set out.red.mix_blue
            {:desc "Mixes in blue"
             :color (-> color*.red
                        (ucolors.blend color*.blue 0.1)
-                       (ucolors.brighten 0.2))}) 
+                       (ucolors.brighten 0.2))})
       (set out.red.mix_purple
            {:desk "Mixes in purple"
             :color (-> color*.red
@@ -463,11 +465,13 @@
         ;; Plum mix green
         (set out.plum.mix_green
              {:desc "Mixes in green"
-              :color (ucolors.blend plum color*.green 0.2)}) ;;; Orange
+              :color (ucolors.blend plum color*.green 0.2)})
+        ;;; Orange
         ;; Plum mix green auto
         (set out.plum.auto_mix_green
              {:desc "Mixes in green based on auto matching green"
-              :color (ucolors.blend plum out.green.auto.color 0.2)})) ;;; Orange
+              :color (ucolors.blend plum out.green.auto.color 0.2)}))
+      ;;; Orange
       ;; Orange matched with fg
       (set out.orange.match_fg
            {:desc "Matches to base bg color"
@@ -551,5 +555,4 @@
       ;; Pink mix sixth bg
       (set out.pink.mix_sixth_bg
            {:desc "Mix sixth bg"
-            :color (ucolors.blend color*.pink color*.b5 0.2)})
-      out)
+            :color (ucolors.blend color*.pink color*.b5 0.2)}) out)

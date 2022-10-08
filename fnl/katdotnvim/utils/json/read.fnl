@@ -1,6 +1,5 @@
 (module katdotnvim.utils.json.read
-        {autoload {json katdotnvim.utils.json.init
-                   main katdotnvim.main}})
+        {autoload {json katdotnvim.utils.json.init main katdotnvim.main}})
 
 ;;; Handles reading json files
 
@@ -19,7 +18,6 @@
       (json.decode (json.<-file (string.format "%s%s" header full-file))))
 
 (defn colors [dir] "Read colors table from file for much faster startup"
-      (json.decode (json.<-file (string.format "%s/colors-%s-%s.json"
-                                               dir
+      (json.decode (json.<-file (string.format "%s/colors-%s-%s.json" dir
                                                (. main.colors-name-mut 1)
                                                (. main.background-mut 1)))))

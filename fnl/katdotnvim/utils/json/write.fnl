@@ -1,5 +1,5 @@
 (module katdotnvim.utils.json.write
-        {autoload {json katdotnvim.utils.json.init 
+        {autoload {json katdotnvim.utils.json.init
                    main katdotnvim.main
                    color-table katdotnvim.color}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
@@ -40,9 +40,7 @@
           (tset main.background-mut 1 (. v 1))
           (tset main.contrast-mut 1 (. v 2))
           (tset main.colors-name-mut 1 (. v 3))
-          (json.->file! (string.format "%s/colors-%s-%s.json" 
-                                       dir
-                                       (. v 3)
+          (json.->file! (string.format "%s/colors-%s-%s.json" dir (. v 3)
                                        (. v 1))
                         (json.encode-simple (color-table.output))))
         (tset main.background-mut 1 old-background)

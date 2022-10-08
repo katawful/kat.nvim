@@ -165,9 +165,5 @@
     :visual (do
               (set output {1 colors.kat.fg.auto.color 2 "" 3 7 4 "" 5 ""}))
     :inactive (do
-                (set output {1 colors.kat.bg.base.color
-                             2 ""
-                             3 0
-                             4 ""
-                             5 ""})))
+                (set output {1 colors.kat.bg.base.color 2 "" 3 0 4 "" 5 ""})))
   output)
