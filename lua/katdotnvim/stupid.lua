@@ -23,7 +23,7 @@ local function stupidFunction()
   local i = 0
   local increase = true
   local function _1_()
-    local opts = {group = "Function", bg = "SKIP", fg = ucolors.saturation(ucolors.brighten(ucolors.blend(syntax.identifier()[1], colors.kat.red.base.color, (i * 0.1)), 0.1), 0.5), bold = true}
+    local opts = {group = "Function", bg = "SKIP", fg = ucolors.saturation(ucolors.brighten(ucolors.blend(colors.kat.teal.base.color, colors.kat.red.base.color, (i * 0.1)), 0.1), 0.5), bold = true}
     apply["highlight$"](opts)
     if (increase == true) then
       i = (i + 1)

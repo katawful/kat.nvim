@@ -3,7 +3,7 @@
 (local syntax (require :katdotnvim.highlights.syntax))
 (local groups (require :katdotnvim.highlights.main))
 (local main (require :katdotnvim.main))
-(local mainFG colors.kat.fg.auto.color)
+(local mainFG ((. (require :katdotnvim.highlights.main) :mainFG)))
 
 (if (and (= (. main.background-mut 1) :dark) (= (. main.contrast-mut 1) :soft))
     (do
@@ -27,8 +27,7 @@
 
 (fn normalMode_b []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.blend colors.kat.blue.base.color
-                                  colors.kat.bg.shadow.color 0.4)
+                 2 colors.kat.blue.mix_shadow_bg.color
                  3 (. (mainFG) 2)
                  4 (. (groups.selectionBG) 3)
                  5 ""})
@@ -44,7 +43,7 @@
 
 (fn replaceMode_c []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.brighten colors.kat.blue.base.color 0.2)
+                 2 colors.kat.blue.brighten.color
                  3 (. (mainFG) 2)
                  4 (. (groups.selectionBG) 2)
                  5 ""})
@@ -52,8 +51,7 @@
 
 (fn replaceMode_b []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.blend colors.kat.blue.base.color
-                                  colors.kat.bg.shadow.color 0.4)
+                 2 colors.kat.blue.mix_shadow_bg.color
                  3 (. (mainFG) 2)
                  4 (. (groups.selectionBG) 3)
                  5 ""})
@@ -77,8 +75,7 @@
 
 (fn visualMode_b []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.blend colors.kat.blue.base.color
-                                  colors.kat.bg.shadow.color 0.4)
+                 2 colors.kat.blue.mix_shadow_bg.color
                  3 (. (mainFG) 2)
                  4 (. (groups.selectionBG) 3)
                  5 ""})
@@ -94,7 +91,7 @@
 
 (fn insertMode_c []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.brighten colors.kat.blue.base.color 0.2)
+                 2 colors.kat.blue.brighten.color
                  3 (. (mainFG) 2)
                  4 (. (groups.selectionBG) 2)
                  5 ""})
@@ -102,8 +99,7 @@
 
 (fn insertMode_b []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.blend colors.kat.blue.base.color
-                                  colors.kat.bg.shadow.color 0.4)
+                 2 colors.kat.blue.mix_shadow_bg.color
                  3 (. (mainFG) 2)
                  4 (. (groups.selectionBG) 3)
                  5 ""})
@@ -128,8 +124,7 @@
 
 (fn terminalMode_b []
   (local output {1 colors.kat.fg.auto.color
-                 2 (ucolors.blend colors.kat.blue.base.color
-                                  colors.kat.bg.shadow.color 0.4)
+                 2 colors.kat.blue.mix_shadow_bg.color
                  3 (. (mainFG) 2)
                  4 (. (groups.selectionBG) 3)
                  5 ""})

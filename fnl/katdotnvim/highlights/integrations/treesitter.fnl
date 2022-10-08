@@ -8,39 +8,28 @@
 
 ;;; this handles all tree-sitter highlight groups
 
-(def stringColor colors.kat.green.auto.color)
-
 (defn high-colors [] [{:group :TSField
-                       :fg (-> (. (syntax.identifier) 1)
-                               (ucolors.blend colors.kat.purple.base.color
-                                              0.2)
-                               (ucolors.brighten 0.2))
+                       :fg colors.kat.teal.mix_purple.color
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSProperty :link :TSField}
                       {:group :TSFuncBuiltin
-                       :fg (ucolors.blend (. (syntax.identifier) 1)
-                                          colors.kat.red.base.color 0.3)
+                       :fg colors.kat.teal.mix_red.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSFuncMacro
-                       :fg (ucolors.blend (. (syntax.preproc) 1)
-                                          (. (syntax.identifier) 1) 0.2)
+                       :fg colors.kat.pink.mix_teal.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
                        :bold true
                        :italic true}
                       {:group :TSMethod
-                       :fg (-> (. (syntax.identifier) 1)
-                               (ucolors.blend colors.kat.red.base.color
-                                              0.3)
-                               (ucolors.brighten 0.1)
-                               (ucolors.saturation 0.1))
+                       :fg colors.kat.teal.mix_red_brighten.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
@@ -48,46 +37,24 @@
                       {:group :TSVariable :link :Variable}
                       {:group :TSParameter :link :Variable}
                       {:group :TSVariableBuiltin
-                       :fg (-> (. (syntax.identifier) 1)
-                               (ucolors.blend colors.kat.fg.shadow.color 0.8)
-                               (ucolors.darken 0.2))
+                       :fg colors.kat.teal.mix_shadow_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP
                        :bold true}
-                      (fn []
-                        (if (= (. main.background-mut 1) :light)
-                            (do
-                              {:group :TSNamespace
-                               :fg (-> (. (syntax.identifier) 1)
-                                       (ucolors.blend (. (colors.normal-colors)
-                                                         :green)
-                                                      0.3)
-                                       (ucolors.darken 0.4))
-                               :bg :SKIP
-                               :ctermfg (. (groups.auxBG) 2)
-                               :ctermbg :SKIP})
-                            (do
-                              {:group :TSNamespace
-                               :fg (-> (. (syntax.identifier) 1)
-                                       (ucolors.blend (. (colors.normal-colors)
-                                                         :green)
-                                                      0.3)
-                                       (ucolors.brighten 0.2))
-                               :bg :SKIP
-                               :ctermfg (. (groups.auxBG) 2)
-                               :ctermbg :SKIP})))
+                      {:group :TSNamespace
+                       :fg colors.kat.teal.mix_green.color
+                       :bg :SKIP
+                       :ctermfg (. (groups.auxBG) 2)
+                       :ctermbg :SKIP}
                       {:group :TSParameterReference
-                       :fg (-> (. (syntax.identifier) 1)
-                               (ucolors.blend colors.kat.fg.shadow.color 0.8)
-                               (ucolors.brighten 0.2))
+                       :fg colors.kat.teal.mix_shadow_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.umbraBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSAnnotation
-                       :fg (ucolors.blend (. (syntax.preproc) 1)
-                                          colors.kat.fg.meld.color 0.2)
+                       :fg colors.kat.pink.mix_meld_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 3)
                        :ctermbg :SKIP
@@ -109,13 +76,12 @@
                        :ctermbg (. (groups.errorBG) 2)
                        :italic true}
                       {:group :TSConstructor
-                       :fg (ucolors.blend (. (syntax.typeDef) 1)
-                                          colors.kat.red.base.color 0.4)
+                       :fg colors.kat.orange.mix_red.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP}
                       {:group :TSTypeBuiltin
-                       :fg (ucolors.darken (. (syntax.typeDef) 1) 0.5)
+                       :fg (ucolors.darken colors.kat.orange.base.color 0.5)
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 3)
                        :ctermbg :SKIP
@@ -129,13 +95,13 @@
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP}
                       {:group :TSConstMacro
-                       :fg (ucolors.blend (. (syntax.preproc) 1)
+                       :fg (ucolors.blend colors.kat.pink.base.color
                                           colors.kat.bg.meld.color 0.2)
                        :bg :SKIP
                        :ctermfg (. (groups.fillBG) 3)
                        :ctermbg :SKIP}
                       {:group :TSKeywordFunction
-                       :fg (-> (. (syntax.statement) 1)
+                       :fg (-> colors.kat.teal.base.color
                                (ucolors.blend colors.kat.green.base.color
                                               0.2)
                                (ucolors.brighten 0.1))
@@ -145,7 +111,7 @@
                        :bold true
                        :italic true}
                       {:group :TSKeywordReturn
-                       :fg (-> (. (syntax.statement) 1)
+                       :fg (-> colors.kat.teal.base.color
                                (ucolors.blend colors.kat.blue.base.color
                                               0.1)
                                (ucolors.brighten 0.2))
@@ -155,35 +121,35 @@
                        :bold true
                        :italic true}
                       {:group :TSKeywordOperator
-                       :fg (-> (. (syntax.statement) 1)
+                       :fg (-> colors.kat.teal.base.color
                                (ucolors.blend colors.kat.fg.meld.color 0.1)
                                (ucolors.brighten 0.2))
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP}
                       {:group :TSPunctDelimiter
-                       :fg (ucolors.blend (. (syntax.preproc) 1)
+                       :fg (ucolors.blend colors.kat.pink.base.color
                                           colors.kat.purple.base.color 0.2)
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 3)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSPunctBracket
-                       :fg (ucolors.blend (. (syntax.preproc) 1)
+                       :fg (ucolors.blend colors.kat.pink.base.color
                                           colors.kat.bg.sixth.color 0.2)
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSPunctSpecial
-                       :fg (ucolors.blend (. (syntax.preproc) 1)
-                                          (. (syntax.special) 1) 0.4)
+                       :fg (ucolors.blend colors.kat.pink.base.color
+                                          colors.kat.plum.base.color 0.4)
                        :bg :SKIP
                        :ctermfg (. (groups.fillBG) 3)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSTagDelimiter
-                       :fg (-> (. (syntax.preproc) 1)
+                       :fg (-> colors.kat.pink.base.color
                                (ucolors.blend colors.kat.red.base.color
                                               0.4)
                                (ucolors.darken 0.2))
@@ -192,24 +158,19 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSStringRegex
-                       :fg (ucolors.blend stringColor
-                                          colors.kat.blue.base.color 0.5)
+                       :fg colors.kat.green.mix_blue.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSStringEscape
-                       :fg (ucolors.blend stringColor
-                                          colors.kat.red.base.color 0.2)
+                       :fg colors.kat.green.mix_red.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :TSSymbol
-                       :fg (-> stringColor
-                               (ucolors.blend colors.kat.purple.base.color
-                                              0.3)
-                               (ucolors.saturation 0.8))
+                       :fg colors.kat.green.mix_purple.color
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP}

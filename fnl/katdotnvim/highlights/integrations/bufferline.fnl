@@ -1,115 +1,59 @@
 (module katdotnvim.highlights.integrations.bufferline
         {autoload {ucolors katdotnvim.utils.highlight.utils
-                   colors katdotnvim.color
-                   syntax katdotnvim.highlights.syntax
-                   groups katdotnvim.highlights.main
-                   main katdotnvim.main}})
-
-(defn tabFG [] (var output "")
-      (if (and (= (. main.background-mut 1) :dark)
-               (= (. main.contrast-mut 1) :soft))
-          (do
-            (set output (ucolors.brighten colors.kat.fg.auto.color 0.8)))
-          (do
-            (set output colors.kat.fg.auto.color))) output)
+                   colors katdotnvim.color}})
 
 (defn init []
-      ((. (require :bufferline) :setup) {:highlights {:fill {:guifg (. (groups.fillBG)
-                                                                       1)
-                                                             :guibg (. (groups.fillBG)
-                                                                       1)}
-                                                      :tab {:guifg (tabFG)
-                                                            :guibg (. (groups.highlightBG)
-                                                                      1)}
-                                                      :tab_selected {:guifg (tabFG)
-                                                                     :guibg (. (groups.selectionBG)
-                                                                               1)}
-                                                      :tab_close {:guifg (tabFG)
-                                                                  :guibg (. (groups.highlightBG)
-                                                                            1)
-                                                                  :gui "bold,italic"}
-                                                      :info {:guifg (tabFG)
-                                                             :guibg (. (groups.selectionBG)
-                                                                       1)}
-                                                      :buffer_visible {:guifg (tabFG)
-                                                                       :guibg (ucolors.blend (. (groups.selectionBG)
-                                                                                                1)
-                                                                                             (. (groups.mainBG)
-                                                                                                1)
-                                                                                             0.8)}
-                                                      :buffer_selected {:guifg (tabFG)
-                                                                        :guibg (. (groups.selectionBG)
-                                                                                  1)
-                                                                        :gui "bold,italic"}
-                                                      :close_button {:guifg (tabFG)
-                                                                     :guibg (. (groups.highlightBG)
-                                                                               1)
-                                                                     :gui :bold}
-                                                      :close_button_visible {:guifg (tabFG)
-                                                                             :guibg (ucolors.blend (. (groups.selectionBG)
-                                                                                                      1)
-                                                                                                   (. (groups.mainBG)
-                                                                                                      1)
-                                                                                                   0.8)
-                                                                             :gui :bold}
-                                                      :close_button_selected {:guifg (tabFG)
-                                                                              :guibg (. (groups.selectionBG)
-                                                                                        1)
-                                                                              :gui :bold}
-                                                      :modified {:guifg (. (groups.warningBG)
-                                                                           1)
-                                                                 :guibg (. (groups.highlightBG)
-                                                                           1)}
-                                                      :modified_visible {:guifg (. (groups.warningBG)
-                                                                                   1)
-                                                                         :guibg (ucolors.blend (. (groups.selectionBG)
-                                                                                                  1)
-                                                                                               (. (groups.mainBG)
-                                                                                                  1)
-                                                                                               0.8)}
-                                                      :modified_selected {:guifg (. (groups.warningBG)
-                                                                                    1)
-                                                                          :guibg (. (groups.selectionBG)
-                                                                                    1)}
-                                                      :duplicate_selected {:guifg (tabFG)
-                                                                           :guibg (. (groups.selectionBG)
-                                                                                     1)}
-                                                      :duplicate_visible {:guifg (tabFG)
-                                                                          :guibg (ucolors.blend (. (groups.selectionBG)
-                                                                                                   1)
-                                                                                                (. (groups.mainBG)
-                                                                                                   1)
-                                                                                                0.8)}
-                                                      :duplicate {:guifg (tabFG)
-                                                                  :guibg (. (groups.highlightBG)
-                                                                            1)}
-                                                      :separator_selected {:guifg (. (groups.fillBG)
-                                                                                     1)
-                                                                           :guibg (. (groups.selectionBG)
-                                                                                     1)}
-                                                      :separator_visible {:guifg (. (groups.fillBG)
-                                                                                    1)
-                                                                          :guibg (ucolors.blend (. (groups.selectionBG)
-                                                                                                   1)
-                                                                                                (. (groups.mainBG)
-                                                                                                   1)
-                                                                                                0.8)}
-                                                      :separator {:guifg (. (groups.fillBG)
-                                                                            1)
-                                                                  :guibg (. (groups.highlightBG)
-                                                                            1)}
-                                                      :indicator_selected {:guifg (tabFG)
-                                                                           :guibg (. (groups.selectionBG)
-                                                                                     1)}
-                                                      :pick_selected {:guifg (tabFG)
-                                                                      :guibg (. (groups.selectionBG)
-                                                                                1)}
-                                                      :pick_visible {:guifg (tabFG)
-                                                                     :guibg (. (groups.selectionBG)
-                                                                               1)}
-                                                      :pick {:guifg (tabFG)
-                                                             :guibg (. (groups.selectionBG)
-                                                                       1)}
-                                                      :background {:guifg (tabFG)
-                                                                   :guibg (. (groups.highlightBG)
-                                                                             1)}}}))
+      ((. (require :bufferline) :setup) 
+       {:highlights {:fill {:guifg colors.kat.pink.base.color
+                            :guibg colors.kat.pink.base.color}
+                     :tab {:guifg colors.kat.fg.auto.color
+                           :guibg colors.kat.purple.base.color}
+                     :tab_selected {:guifg colors.kat.fg.auto.color
+                                    :guibg colors.kat.blue.base.color}
+                     :tab_close {:guifg colors.kat.fg.auto.color
+                                 :guibg colors.kat.purple.base.color
+                                 :gui "bold,italic"}
+                     :info {:guifg colors.kat.fg.auto.color
+                            :guibg colors.kat.blue.base.color}
+                     :buffer_visible {:guifg colors.kat.fg.auto.color
+                                      :guibg colors.kat.blue.match_bg.color}
+                     :buffer_selected {:guifg colors.kat.fg.auto.color
+                                       :guibg colors.kat.blue.base.color
+                                       :gui "bold,italic"}
+                     :close_button {:guifg colors.kat.fg.auto.color
+                                    :guibg colors.kat.purple.base.color
+                                    :gui :bold}
+                     :close_button_visible {:guifg colors.kat.fg.auto.color
+                                            :guibg colors.kat.blue.match_bg.color
+                                            :gui :bold}
+                     :close_button_selected {:guifg colors.kat.fg.auto.color
+                                             :guibg colors.kat.blue.base.color
+                                             :gui :bold}
+                     :modified {:guifg colors.kat.red.match_bg.color
+                                :guibg colors.kat.purple.base.color}
+                     :modified_visible {:guifg colors.kat.red.match_bg.color
+                                        :guibg colors.kat.blue.match_bg.color}
+                     :modified_selected {:guifg colors.kat.red.match_bg.color
+                                         :guibg colors.kat.blue.base.color}
+                     :duplicate_selected {:guifg colors.kat.fg.auto.color
+                                          :guibg colors.kat.blue.base.color}
+                     :duplicate_visible {:guifg colors.kat.fg.auto.color
+                                         :guibg colors.kat.blue.match_bg.color}
+                     :duplicate {:guifg colors.kat.fg.auto.color
+                                 :guibg colors.kat.purple.base.color}
+                     :separator_selected {:guifg colors.kat.pink.base.color
+                                          :guibg colors.kat.blue.base.color}
+                     :separator_visible {:guifg colors.kat.pink.base.color
+                                         :guibg colors.kat.blue.match_bg.color}
+                     :separator {:guifg colors.kat.pink.base.color
+                                 :guibg colors.kat.purple.base.color}
+                     :indicator_selected {:guifg colors.kat.fg.auto.color
+                                          :guibg colors.kat.blue.base.color}
+                     :pick_selected {:guifg colors.kat.fg.auto.color
+                                     :guibg colors.kat.blue.base.color}
+                     :pick_visible {:guifg colors.kat.fg.auto.color
+                                    :guibg colors.kat.blue.base.color}
+                     :pick {:guifg colors.kat.fg.auto.color
+                            :guibg colors.kat.blue.base.color}
+                     :background {:guifg colors.kat.fg.auto.color
+                                  :guibg colors.kat.purple.base.color}}}))

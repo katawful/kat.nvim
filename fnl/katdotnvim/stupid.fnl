@@ -21,7 +21,7 @@
                                :fg (ucolors.saturation
                                      (ucolors.brighten
                                        (ucolors.blend
-                                         (. (syntax.identifier) 1)
+                                         colors.kat.teal.base.color
                                          colors.kat.red.base.color
                                          (* i 0.1))
                                        0.1)

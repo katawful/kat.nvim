@@ -64,16 +64,14 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader3
-                       :fg (ucolors.darken (. (colors.init :normalColors)
-                                              :orange)
+                       :fg (ucolors.darken colors.kat.orange.base.color
                                            0.0)
                        :bg :SKIP
                        :ctermfg 3
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader4
-                       :fg (ucolors.darken (. (colors.init :normalColors)
-                                              :orange)
+                       :fg (ucolors.darken colors.kat.orange.base.color
                                            0.3)
                        :bg :SKIP
                        :ctermfg 11

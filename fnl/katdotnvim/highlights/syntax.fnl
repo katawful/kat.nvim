@@ -40,8 +40,7 @@
                        :ctermfg (. (groups.auxBG) 3)
                        :ctermbg :SKIP}
                       {:group :Character
-                       :fg (ucolors.blend colors.kat.green.auto.color
-                                          colors.kat.fg.auto.color 0.5)
+                       :fg colors.kat.green.match_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 3)
                        :ctermbg :SKIP
@@ -52,14 +51,12 @@
                        :ctermfg (. (groups.fillBG) 2)
                        :ctermbg :SKIP}
                       {:group :Float
-                       :fg (ucolors.blend colors.kat.pink.base.color
-                                          colors.kat.fg.auto.color 0.7)
+                       :fg colors.kat.pink.match_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.fillBG) 3)
                        :ctermbg :SKIP}
                       {:group :Boolean
-                       :fg (ucolors.blend colors.kat.blue.base.color
-                                          colors.kat.fg.auto.color 0.7)
+                       :fg colors.kat.blue.match_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP
@@ -70,129 +67,85 @@
                        :ctermfg (. (identifier) 2)
                        :ctermbg :SKIP}
                       {:group :Function
-                       :fg (-> (. (identifier) 1)
-                               (ucolors.blend colors.kat.red.base.color 0.3)
-                               (ucolors.brighten 0.1)
-                               (ucolors.saturation 0.5))
+                       :fg colors.kat.teal.mix_red_brighten.color
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP
                        :bold true}
-                      (fn []
-                        (if (= (. main.background-mut 1) :light)
-                            {:group :Variable
-                             :fg (-> (. (identifier) 1)
-                                     (ucolors.blend colors.kat.fg.sixth.color
-                                                    0.5)
-                                     (ucolors.darken 0.4))
-                             :bg :SKIP
-                             :ctermfg (. (groups.selectionBG) 2)
-                             :ctermbg :SKIP}
-                            {:group :Variable
-                             :fg (-> (. (identifier) 1)
-                                     (ucolors.blend colors.kat.fg.sixth.color
-                                                    0.5)
-                                     (ucolors.brighten 0.4))
-                             :bg :SKIP
-                             :ctermfg (. (groups.selectionBG) 2)
-                             :ctermbg :SKIP}))
+                      {:group :Variable
+                       :fg colors.kat.teal.auto.color
+                       :bg :SKIP
+                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermbg :SKIP}
                       {:group :Statement
-                       :fg (. (statement) 1)
+                       :fg colors.kat.red.base.color
                        :bg :SKIP
                        :ctermfg (. (statement) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Conditional
-                       :fg (-> (. (statement) 1)
-                               (ucolors.blend colors.kat.purple.base.color 0.2)
-                               (ucolors.brighten 0.1))
+                       :fg colors.kat.red.mix_purple.color
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP}
                       {:group :Repeat
-                       :fg (-> (. (statement) 1)
-                               (ucolors.blend colors.kat.orange.base.color 0.2)
-                               (ucolors.brighten 0.3)
-                               (ucolors.saturation 0.8))
+                       :fg colors.kat.red.mix_orange.color
                        :bg :SKIP
                        :ctermfg (. (groups.infoBG) 2)
                        :ctermbg :SKIP}
                       {:group :Label
-                       :fg (-> (. (statement) 1)
-                               (ucolors.blend colors.kat.pink.base.color 0.2)
-                               (ucolors.saturation 1))
+                       :fg colors.kat.red.mix_pink.color
                        :bg :SKIP
                        :ctermfg (. (groups.fillBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Operator
-                       :fg (ucolors.blend (. (statement) 1)
-                                          colors.kat.fg.meld.color 0.2)
+                       :fg colors.kat.red.mix_meld_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.mainFG) 2)
                        :ctermbg :SKIP
                        :bold true}
-                      (fn []
-                        (if (= (. main.background-mut 1) :light)
-                            (do
-                              {:group :Keyword
-                               :fg (-> (. (statement) 1)
-                                       (ucolors.blend colors.kat.green.auto.color 0.2)
-                                       (ucolors.darken 0.5))
-                               :bg :SKIP
-                               :ctermfg (. (groups.auxBG) 3)
-                               :ctermbg :SKIP
-                               :italic true})
-                            (do
-                              {:group :Keyword
-                               :fg (-> (. (statement) 1)
-                                       (ucolors.blend colors.kat.green.auto.color 0.2)
-                                       (ucolors.brighten 0.5))
-                               :bg :SKIP
-                               :ctermfg (. (groups.auxBG) 3)
-                               :ctermbg :SKIP
-                               :italic true})))
+                      {:group :Keyword
+                       :fg colors.kat.red.mix_green.color
+                       :bg :SKIP
+                       :ctermfg (. (groups.auxBG) 3)
+                       :ctermbg :SKIP
+                       :italic true}
                       {:group :Exception
-                       :fg (-> (. (statement) 1)
-                               (ucolors.blend colors.kat.blue.base.color 0.1)
-                               (ucolors.brighten 0.2))
+                       :fg colors.kat.red.mix_blue.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP}
                       {:group :PreProc
-                       :fg (. (preproc) 1)
+                       :fg colors.kat.pink.base.color
                        :bg :SKIP
                        :ctermfg (. (preproc) 2)
                        :ctermbg :SKIP
                        :bold true
                        :italic true}
                       {:group :Include
-                       :fg (ucolors.blend (. (preproc) 1)
-                                          colors.kat.red.base.color 0.2)
+                       :fg colors.kat.pink.mix_red.color
                        :bg :SKIP
                        :ctermfg (. (preproc) 2)
                        :ctermbg :SKIP
                        :bold true
                        :italic true}
                       {:group :Define
-                       :fg (ucolors.blend (. (preproc) 1)
-                                          colors.kat.purple.base.color 0.2)
+                       :fg colors.kat.pink.mix_purple.color
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 3)
                        :ctermbg :SKIP
                        :bold true
                        :italic true}
                       {:group :Macro
-                       :fg (ucolors.blend (. (preproc) 1)
-                                          colors.kat.blue.base.color 0.2)
+                       :fg colors.kat.red.mix_blue.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP
                        :bold true
                        :italic true}
                       {:group :PreCondit
-                       :fg (ucolors.blend (. (preproc) 1) colors.kat.green.auto.color
-                                          0.2)
+                       :fg colors.kat.pink.mix_green.color
                        :bg :SKIP
                        :ctermfg (. (groups.auxBG) 3)
                        :ctermbg :SKIP
@@ -205,23 +158,19 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StorageClass
-                       :fg (ucolors.blend (. (typeDef) 1) colors.kat.green.auto.color
-                                          0.2)
+                       :fg colors.kat.orange.mix_green.color
                        :bg :SKIP
                        :ctermfg (. (typeDef) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Structure
-                       :fg (ucolors.blend (. (typeDef) 1)
-                                          colors.kat.blue.base.color 0.2)
+                       :fg colors.kat.orange.mix_blue.color
                        :bg :SKIP
                        :ctermfg (. (typeDef) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Typedef
-                       :fg (-> (. (typeDef) 1)
-                               (ucolors.blend colors.kat.bg.sixth.color 0.2)
-                               (ucolors.saturation 1))
+                       :fg colors.kat.orange.mix_sixth_bg.color
                        :bg :SKIP
                        :ctermfg (. (typeDef) 2)
                        :ctermbg :SKIP
@@ -232,15 +181,13 @@
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP}
                       {:group :SpecialChar
-                       :fg (ucolors.blend (. (special) 1) colors.kat.fg.auto.color
-                                          0.8)
+                       :fg colors.kat.plum.match_fg.color
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Tag
-                       :fg (ucolors.blend (. (special) 1)
-                                          colors.kat.red.base.color 0.2)
+                       :fg colors.kat.plum.mix_red.color
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
@@ -254,15 +201,13 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :SpecialComment
-                       :fg (ucolors.blend (. (special) 1) colors.kat.bg.meld.color
-                                          0.2)
+                       :fg colors.kat.red.mix_meld_fg.color
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
                        (. vim.g.kat_nvim_commentStyle) true}
                       {:group :Debug
-                       :fg (ucolors.blend (. (special) 1) colors.kat.green.auto.color
-                                          0.2)
+                       :fg colors.kat.red.mix_green.color
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
@@ -282,8 +227,7 @@
                        :bold true}
                       {:group :Todo
                        :fg colors.kat.bg.base.color
-                       :bg (ucolors.blend colors.kat.orange.base.color
-                                          colors.kat.fg.auto.color 0.9)
+                       :bg colors.kat.orange.match_fg.color
                        :ctermfg (. (groups.infoFG) 2)
                        :ctermbg (. (groups.infoBG) 2)}
                       {:group :Ignore
@@ -293,7 +237,7 @@
                        :ctermbg :SKIP}
                       {:group :DiffDelete
                        :fg colors.kat.fg.auto.color
-                       :bg (ucolors.darken colors.kat.red.base.color 0.2)
+                       :bg colors.kat.red.darken.color
                        :ctermfg (. (groups.mainFG) 2)
                        :ctermbg (. (groups.errorBG) 2)
                        :bold true}

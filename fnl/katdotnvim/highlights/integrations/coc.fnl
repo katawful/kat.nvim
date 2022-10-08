@@ -101,8 +101,7 @@
                        :sp colors.kat.green.auto.color}
                       {:group :CocSelectedText
                        :fg :SKIP
-                       :bg (ucolors.darken colors.kat.red.base.color
-                                           0.2)
+                       :bg colors.kat.red.darken.color
                        :ctermfg :SKIP
                        :ctermbg (. (groups.warningBG) 2)}
                       {:group :CocCodeLens

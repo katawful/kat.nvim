@@ -4,7 +4,7 @@ local colors = require("katdotnvim.color")
 local syntax = require("katdotnvim.highlights.syntax")
 local groups = require("katdotnvim.highlights.main")
 local main = require("katdotnvim.main")
-local mainFG = colors.kat.fg.auto.color
+local mainFG = (require("katdotnvim.highlights.main")).mainFG()
 if (((main["background-mut"])[1] == "dark") and ((main["contrast-mut"])[1] == "soft")) then
   mainFG[1] = ucolors.brighten(colors.kat.fg.auto.color, 0.8)
 else
@@ -22,7 +22,7 @@ local function normalMode_c()
   return output
 end
 local function normalMode_b()
-  local output = {colors.kat.fg.auto.color, ucolors.blend(colors.kat.blue.base.color, colors.kat.bg.shadow.color, 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {colors.kat.fg.auto.color, colors.kat.blue.mix_shadow_bg.color, (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function normalMode_a()
@@ -30,11 +30,11 @@ local function normalMode_a()
   return output
 end
 local function replaceMode_c()
-  local output = {colors.kat.fg.auto.color, ucolors.brighten(colors.kat.blue.base.color, 0.2), (mainFG0())[2], groups.selectionBG()[2], ""}
+  local output = {colors.kat.fg.auto.color, colors.kat.blue.brighten.color, (mainFG0())[2], groups.selectionBG()[2], ""}
   return output
 end
 local function replaceMode_b()
-  local output = {colors.kat.fg.auto.color, ucolors.blend(colors.kat.blue.base.color, colors.kat.bg.shadow.color, 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {colors.kat.fg.auto.color, colors.kat.blue.mix_shadow_bg.color, (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function replaceMode_a()
@@ -46,7 +46,7 @@ local function visualMode_c()
   return output
 end
 local function visualMode_b()
-  local output = {colors.kat.fg.auto.color, ucolors.blend(colors.kat.blue.base.color, colors.kat.bg.shadow.color, 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {colors.kat.fg.auto.color, colors.kat.blue.mix_shadow_bg.color, (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function visualMode_a()
@@ -54,11 +54,11 @@ local function visualMode_a()
   return output
 end
 local function insertMode_c()
-  local output = {colors.kat.fg.auto.color, ucolors.brighten(colors.kat.blue.base.color, 0.2), (mainFG0())[2], groups.selectionBG()[2], ""}
+  local output = {colors.kat.fg.auto.color, colors.kat.blue.brighten.color, (mainFG0())[2], groups.selectionBG()[2], ""}
   return output
 end
 local function insertMode_b()
-  local output = {colors.kat.fg.auto.color, ucolors.blend(colors.kat.blue.base.color, colors.kat.bg.shadow.color, 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {colors.kat.fg.auto.color, colors.kat.blue.mix_shadow_bg.color, (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function insertMode_a()
@@ -70,7 +70,7 @@ local function terminalMode_c()
   return output
 end
 local function terminalMode_b()
-  local output = {colors.kat.fg.auto.color, ucolors.blend(colors.kat.blue.base.color, colors.kat.bg.shadow.color, 0.4), (mainFG0())[2], groups.selectionBG()[3], ""}
+  local output = {colors.kat.fg.auto.color, colors.kat.blue.mix_shadow_bg.color, (mainFG0())[2], groups.selectionBG()[3], ""}
   return output
 end
 local function terminalMode_a()

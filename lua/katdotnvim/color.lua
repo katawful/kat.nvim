@@ -164,9 +164,12 @@ local function update()
   kat.green.mix_red = {desc = "Mixes in red", color = ucolors.blend(color_2a.green, color_2a.red, 0.2)}
   kat.green.mix_purple = {desc = "Mixes in purple", color = ucolors.saturation(ucolors.blend(color_2a.green, color_2a.purple, 0.3), 0.8)}
   kat.blue.mix_orange_match_fg = {desc = "Mixes in orange, then matches to base fg color", color = ucolors.blend(ucolors.blend(color_2a.orange, color_2a.f0, 0.1), color_2a.blue, 0.2)}
-  kat.blue.darker = {desc = "Darkens color by 20%", color = ucolors.darken(color_2a.blue, 0.2)}
+  kat.blue.darken = {desc = "Darkens color by 20%", color = ucolors.darken(color_2a.blue, 0.2)}
+  kat.blue.brighten = {desc = "Brighten color by 20%", color = ucolors.brighten(color_2a.blue, 0.2)}
   kat.blue.match_fg = {desc = "Matches to base fg color", color = ucolors.blend(color_2a.blue, color_2a.f0, 0.5)}
   kat.blue.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.blue, color_2a.b0, 0.5)}
+  kat.blue.mix_shadow_bg = {desc = "Mixes in shadow bg color", color = ucolors.blend(color_2a.blue, color_2a.b2, 0.8)}
+  kat.blue.mix_meld_bg = {desc = "Mixes in meld bg color", color = ucolors.blend(color_2a.blue, color_2a.b3, 0.8)}
   do
     local teal = ucolors.blend(color_2a.blue, color_2a.b5, 0.65)
     kat.teal.base = {desc = "Base color, is a mix of blue and sixth background", color = teal}
@@ -183,16 +186,13 @@ local function update()
     kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
     kat.teal.mix_pink = {desc = "Mixes in pink", color = ucolors.blend(teal, color_2a.pink, 0.8)}
     kat.teal.mix_shadow_fg = {desc = "Mixes in shadow fg", color = ucolors.darken(ucolors.blend(teal, color_2a.f2, 0.8), 0.2)}
+    local _15_
     if ((main["background-mut"])[1] == "light") then
-      local _15_
-      if ((main["background-mut"])[1] == "light") then
-        _15_ = ucolors.darken(ucolors.blend(teal, color_2a.green, 0.3), 0.4)
-      else
-        _15_ = ucolors.brighten(ucolors.blend(teal, color_2a.green, 0.3), 0.2)
-      end
-      kat.teal.mix_green = {desc = "Mixes in green, matches background", color = _15_}
+      _15_ = ucolors.darken(ucolors.blend(teal, color_2a.green, 0.3), 0.4)
     else
+      _15_ = ucolors.brighten(ucolors.blend(teal, color_2a.green, 0.3), 0.2)
     end
+    kat.teal.mix_green = {desc = "Mixes in green, matches background", color = _15_}
   end
   kat.red.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.red, color_2a.b0, 0.7)}
   kat.red.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.red, color_2a.f0, 0.6)}
@@ -200,14 +200,15 @@ local function update()
   kat.red.mix_orange = {desc = "Mixes in orange", color = ucolors.saturation(ucolors.brighten(ucolors.blend(color_2a.red, color_2a.orange, 0.2), 0.3), 0.8)}
   kat.red.mix_pink = {desc = "Mixes in pink", color = ucolors.saturation(ucolors.blend(color_2a.red, color_2a.pink, 0.2), 1)}
   kat.red.mix_meld_fg = {desc = "Mixes in meld fg color", color = ucolors.blend(color_2a.red, color_2a.f3, 0.2)}
-  local _18_
+  local _17_
   if ((main["background-mut"])[1] == "light") then
-    _18_ = ucolors.darken(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
+    _17_ = ucolors.darken(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
   else
-    _18_ = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
+    _17_ = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.green, 0.2), 0.5)
   end
-  kat.red.mix_green = {desc = "Mixes in green, matches to background", color = _18_}
+  kat.red.mix_green = {desc = "Mixes in green, matches to background", color = _17_}
   kat.red.mix_blue = {desc = "Mixes in blue", color = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.blue, 0.1), 0.2)}
+  kat.red.mix_purple = {desk = "Mixes in purple", color = ucolors.brighten(ucolors.blend(color_2a.red, color_2a.purple, 0.2), 0.1)}
   kat.red.darken = {desc = "Darkens red", color = ucolors.darken(color_2a.red, 0.2)}
   kat.purple.match_bg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.purple, color_2a.b0, 0.7)}
   kat.purple.match_fg = {desc = "Matches to base bg color", color = ucolors.blend(color_2a.purple, color_2a.f0, 0.7)}

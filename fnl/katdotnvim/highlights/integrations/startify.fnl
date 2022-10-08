@@ -8,15 +8,13 @@
 ;;; This handles Startify
 
 (defn high-colors [] [{:group :StartifyBracket
-                       :fg (ucolors.blend colors.kat.blue.base.color
-                                          colors.kat.bg.meld.color 0.5)
+                       :fg colors.kat.blue.mix_meld_bg.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 2)
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StartifyFile
-                       :fg (ucolors.blend colors.kat.purple.base.color
-                                          colors.kat.fg.auto.color 0.8)
+                       :fg colors.kat.purple.match_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.highlightBG) 2)
                        :ctermbg :SKIP
@@ -38,8 +36,7 @@
                        :ctermfg (. (groups.mainFG) 2)
                        :ctermbg :SKIP}
                       {:group :StartifySection
-                       :fg (ucolors.blend colors.kat.red.base.color
-                                          colors.kat.fg.auto.color 0.8)
+                       :fg colors.kat.red.match_fg.color
                        :bg :SKIP
                        :ctermfg (. (groups.warningBG) 2)
                        :ctermbg :SKIP
