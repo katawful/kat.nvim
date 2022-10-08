@@ -43,7 +43,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Identifier
-                       :fg 12
+                       :fg colors.kat.teal.base.color
                        :bg :SKIP
                        :ctermfg 12
                        :ctermbg :SKIP}
@@ -133,7 +133,7 @@
                        :bold true
                        :italic true}
                       {:group :Type
-                       :fg 3
+                       :fg colors.kat.orange.base.color
                        :bg :SKIP
                        :ctermfg 3
                        :ctermbg :SKIP
