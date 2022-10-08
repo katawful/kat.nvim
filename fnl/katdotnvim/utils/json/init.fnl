@@ -56,6 +56,10 @@ Returns a lua table"
           (expand-table)
           (vim.json.encode)))
 
+(defn encode-simple [tbl] "Encode pure lua table as json
+@tbl -- lua table with no functions"
+      (vim.json.encode tbl))
+
 ;; fnlfmt: skip
 (defn decode [json]
       "Decode json into a lua table

@@ -24,4 +24,8 @@ local function full_file_21(full_file)
   return json.decode(json["<-file"](string.format("%s%s", header, full_file)))
 end
 _2amodule_2a["full-file!"] = full_file_21
+local function colors(dir)
+  return json.decode(json["<-file"](string.format("%s/colors-%s-%s.json", dir, (main["colors-name-mut"])[1], (main["background-mut"])[1])))
+end
+_2amodule_2a["colors"] = colors
 return _2amodule_2a

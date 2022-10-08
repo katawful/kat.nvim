@@ -78,6 +78,10 @@ local function encode(tbl)
   return vim.json.encode(expand_table(tbl))
 end
 _2amodule_2a["encode"] = encode
+local function encode_simple(tbl)
+  return vim.json.encode(tbl)
+end
+_2amodule_2a["encode-simple"] = encode_simple
 local function decode(json)
   return vim.json.decode(json)
 end
