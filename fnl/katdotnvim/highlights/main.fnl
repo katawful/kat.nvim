@@ -1,81 +1,8 @@
 (module katdotnvim.highlights.main
         {autoload {colors katdotnvim.color
                    ucolors katdotnvim.utils.highlight.utils
-                   run katdotnvim.utils.highlight.run
-                   main katdotnvim.main}
+                   run katdotnvim.utils.highlight.run}
          require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
-
-;;; Define variables to use for generic uses.
-;;; Each variable is actually a function that gets called so that they always
-;;; -update and work with Aniseed modules.
-;;; TODO: replace with just color export table
-(defn mainFG [] (var output {})
-      (if (and (= (. main.background-mut 1) :dark)
-               (= (. main.contrast-mut 1) :soft))
-          (do
-            (tset output 1 (ucolors.brighten colors.kat.fg.base.color 0.8))
-            (tset output 2 7))
-          (do
-            (tset output 1 colors.kat.fg.base.color)
-            (tset output 2 7))) output)
-
-(defn mainBG [] [colors.kat.bg.base.color 0])
-
-(defn umbraFG [] [colors.kat.fg.umbra.color 15])
-
-(defn umbraBG [] [colors.kat.bg.umbra.color 8])
-
-(defn shadowFG [] [colors.kat.fg.shadow.color 16])
-
-(defn shadowBG [] [colors.kat.bg.shadow.color 16])
-
-(defn meldFG [] [colors.kat.fg.meld.color 16])
-
-(defn meldBG [] [colors.kat.bg.meld.color 16])
-
-; pink/purple/blue are structural
-(defn selectionFG [] (local output [colors.kat.fg.auto.color 7]) output)
-
-(defn selectionBG [] [colors.kat.blue.base.color 4 12])
-
-(defn fillFG [] (local output [colors.kat.fg.auto.color 7]) output)
-
-(defn fillBG [] [colors.kat.pink.base.color 5 13])
-
-(defn highlightFG [] (local output [colors.kat.fg.auto.color 7]) output)
-
-(defn highlightBG [] [colors.kat.purple.base.color 6 14])
-
-; red and orange are information
-(defn errorFG [] (local output [colors.kat.fg.auto.color 7]) output)
-
-(defn errorBG [] [colors.kat.red.base.color 1])
-
-(defn warningFG [] (local output [colors.kat.fg.auto.color 7]) output)
-
-(defn warningBG [] (local output [(ucolors.blend colors.kat.red.base.color
-                                                 colors.kat.bg.base.color 0.7)
-                                  9]) output)
-
-(defn infoFG [] (local output [colors.kat.bg.base.color 0]) output)
-
-(defn infoBG [] [colors.kat.orange.base.color 3 11])
-
-; green and others are auxiliary
-(defn auxFG [] (local output colors.kat.fg.auto.color) output)
-
-(defn groupFunction [] (var output "")
-      (if (= (. main.background-mut 1) :light)
-          (do
-            (set output (-> colors.kat.green.base.color
-                            (ucolors.darken 0.5)
-                            (ucolors.saturation 0.4))))
-          (do
-            (set output (-> colors.kat.green.base.color
-                            (ucolors.brighten 0.5)
-                            (ucolors.saturation -0.2))))) output)
-
-(defn auxBG [] (local output [(groupFunction) 2 10]) output)
 
 (defn high-colors []
       [{:group :Normal

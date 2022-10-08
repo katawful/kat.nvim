@@ -1,27 +1,8 @@
 (module katdotnvim.highlights.syntax
         {autoload {colors katdotnvim.color
                    ucolors katdotnvim.utils.highlight.utils
-                   groups katdotnvim.highlights.main
                    run katdotnvim.utils.highlight.run
                    main katdotnvim.main}})
-
-; this function handles NeoVim syntax
-(defn identifier [] (local output [(ucolors.blend (. (colors.normal-colors)
-                                                     :blue)
-                                                  colors.kat.bg.sixth.color 0.65)
-                                   12]) output)
-
-(defn statement [] [colors.kat.red.base.color 1])
-
-(defn preproc [] [colors.kat.pink.base.color 5])
-
-(defn typeDef [] [colors.kat.orange.base.color 3])
-
-(defn special [] (local output [(ucolors.blend colors.kat.pink.base.color
-                                               (. (colors.normal-colors)
-                                                  :purple)
-                                               0.65)
-                                13]) output)
 
 (defn high-colors [] [{:group :Comment
                        :fg colors.kat.bg.meld.color
@@ -176,7 +157,7 @@
                        :ctermbg :SKIP
                        :bold true}
                       {:group :Special
-                       :fg (. (special) 1)
+                       :fg colors.kat.plum.base.color
                        :bg :SKIP
                        :ctermfg 13
                        :ctermbg :SKIP}
