@@ -325,6 +325,13 @@ Examples
 - `:KatGenTermTheme` accepts `all` as second argument, generating all 4 variations for said terminal
 - `:KatGenTermTheme` now has completion
 - Terminal generation for supported terminals has been given a second pass, new color groups have been added where appropriate
+- Significant performance improvements, 4 times faster in functional color mode and up to 50% faster in JSON mode
+  - Uses JSON to store all premade colors
+  - ~3ms vs ~6ms in JSON mode
+  - ~5ms vs ~20ms in functional mode
+- Cleaner codebase, much easier to contribute to
+- Smoother functional fallback for missing JSON files, no more missing colors
+- Further Neovim 0.8 compatibility
 
 # Contributing
 I am always open to expanding this colorscheme.
