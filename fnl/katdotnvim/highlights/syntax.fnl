@@ -195,7 +195,7 @@
                       {:group :Delimiter
                        :fg (-> colors.kat.bg.sixth.color
                                (ucolors.blend colors.kat.fg.auto.color 0.8)
-                               (ucolors.blend (. (special) 1) 0.8))
+                               (ucolors.blend colors.kat.red.base.color 0.8))
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
