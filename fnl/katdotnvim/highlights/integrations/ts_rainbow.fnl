@@ -20,8 +20,7 @@
                        :ctermfg 2
                        :ctermbg :SKIP}
                       {:group :rainbowcol3
-                       :fg (ucolors.blend (. (colors.init :normalColors)
-                                             :purple)
+                       :fg (ucolors.blend colors.kat.purple.base.color
                                           colors.kat.fg.meld.color 0.8)
                        :bg :SKIP
                        :ctermfg 3
@@ -39,8 +38,7 @@
                        :ctermfg 5
                        :ctermbg :SKIP}
                       {:group :rainbowcol6
-                       :fg (ucolors.blend (. (colors.init :normalColors)
-                                             :orange)
+                       :fg (ucolors.blend colors.kat.orange.base.color
                                           colors.kat.fg.meld.color 0.8)
                        :bg :SKIP
                        :ctermfg 6
