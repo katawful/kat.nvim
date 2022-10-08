@@ -29,10 +29,8 @@
                     :active_tab_foreground colors.kat.fg.auto.color
                     :active_tab_background colors.kat.blue.base.color
                     :inactive_tab_foreground colors.kat.fg.auto.color
-                    :inactive_tab_background (ucolors.blend (. (groups.highlightBG)
-                                                               1)
-                                                            (. (groups.meldBG)
-                                                               1)
+                    :inactive_tab_background (ucolors.blend colors.kat.purple.base.color
+                                                            colors.kat.bg.meld.color
                                                             0.5)
                     :tab_bar_background colors.kat.pink.base.color
                     :tab_bar_margin_color colors.kat.orange.base.color
