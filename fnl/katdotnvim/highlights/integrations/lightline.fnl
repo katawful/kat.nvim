@@ -20,71 +20,71 @@
 (fn normalMode_c []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.pink.base.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.fillBG) 2)
+                 3 7
+                 4 5
                  5 ""})
   output)
 
 (fn normalMode_b []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.mix_shadow_bg.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 3)
+                 3 7
+                 4 12
                  5 ""})
   output)
 
 (fn normalMode_a []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.purple.base.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.highlightBG) 2)
+                 3 7
+                 4 6
                  5 :bold})
   output)
 
 (fn replaceMode_c []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.brighten.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 2)
+                 3 7
+                 4 4
                  5 ""})
   output)
 
 (fn replaceMode_b []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.mix_shadow_bg.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 3)
+                 3 7
+                 4 12
                  5 ""})
   output)
 
 (fn replaceMode_a []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.orange.base.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.infoBG) 2)
+                 3 7
+                 4 3
                  5 :bold})
   output)
 
 (fn visualMode_c []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.purple.base.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.highlightBG) 2)
+                 3 7
+                 4 6
                  5 ""})
   output)
 
 (fn visualMode_b []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.mix_shadow_bg.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 3)
+                 3 7
+                 4 12
                  5 ""})
   output)
 
 (fn visualMode_a []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.red.base.color
-                 3 (. (mainFG) 2)
+                 3 7
                  4 colors.kat.red.base.color
                  5 :bold})
   output)
@@ -92,24 +92,24 @@
 (fn insertMode_c []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.brighten.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 2)
+                 3 7
+                 4 4
                  5 ""})
   output)
 
 (fn insertMode_b []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.mix_shadow_bg.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 3)
+                 3 7
+                 4 12
                  5 ""})
   output)
 
 (fn insertMode_a []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.base.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 2)
+                 3 7
+                 4 4
                  5 :bold})
   output)
 
@@ -117,16 +117,16 @@
   (local output {1 colors.kat.fg.auto.color
                  2 (ucolors.blend colors.kat.red.base.color colors.kat.bg.base.color
                                   0.8)
-                 3 (. (mainFG) 2)
-                 4 (. (groups.warningBG) 2)
+                 3 7
+                 4 9
                  5 ""})
   output)
 
 (fn terminalMode_b []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.blue.mix_shadow_bg.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.selectionBG) 3)
+                 3 7
+                 4 12
                  5 ""})
   output)
 
@@ -134,32 +134,32 @@
   (local output {1 colors.kat.fg.auto.color
                  2 (ucolors.blend colors.kat.pink.base.color colors.kat.bg.base.color
                                   0.8)
-                 3 (. (mainFG) 2)
-                 4 (. (groups.fillBG) 2)
+                 3 7
+                 4 5
                  5 :bold})
   output)
 
 (fn inactiveGroup []
   (local output {1 colors.kat.bg.base.color
                  2 colors.kat.fg.shadow.color
-                 3 (. (groups.mainBG) 2)
-                 4 (. (groups.umbraFG) 2)
+                 3 0
+                 4 15
                  5 ""})
   output)
 
 (fn warningGroup []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.red.match_bg.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.warningBG) 2)
+                 3 7
+                 4 9
                  5 ""})
   output)
 
 (fn errorGroup []
   (local output {1 colors.kat.fg.auto.color
                  2 colors.kat.red.base.color
-                 3 (. (mainFG) 2)
-                 4 (. (groups.errorBG) 2)
+                 3 7
+                 4 1
                  5 ""})
   output)
 
@@ -167,17 +167,17 @@
   (var output {})
   (match mode
     :normal (do
-              (set output {1 colors.kat.fg.auto.color 2 "" 3 (. (mainFG) 2) 4 "" 5 ""}))
+              (set output {1 colors.kat.fg.auto.color 2 "" 3 7 4 "" 5 ""}))
     :insert (do
-              (set output {1 colors.kat.fg.auto.color 2 "" 3 (. (mainFG) 2) 4 "" 5 ""}))
+              (set output {1 colors.kat.fg.auto.color 2 "" 3 7 4 "" 5 ""}))
     :replace (do
-               (set output {1 colors.kat.fg.auto.color 2 "" 3 (. (mainFG) 2) 4 "" 5 ""}))
+               (set output {1 colors.kat.fg.auto.color 2 "" 3 7 4 "" 5 ""}))
     :visual (do
-              (set output {1 colors.kat.fg.auto.color 2 "" 3 (. (mainFG) 2) 4 "" 5 ""}))
+              (set output {1 colors.kat.fg.auto.color 2 "" 3 7 4 "" 5 ""}))
     :inactive (do
                 (set output {1 colors.kat.bg.base.color
                              2 ""
-                             3 (. (groups.mainBG) 2)
+                             3 0
                              4 ""
                              5 ""})))
   output)

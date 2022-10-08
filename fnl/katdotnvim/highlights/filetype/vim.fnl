@@ -11,39 +11,39 @@
       [{:group :vimCommentTitle
         :fg colors.kat.bg.shadow.color
         :bg colors.kat.fg.shadow.color
-        :ctermfg (. (groups.umbraBG) 2)
-        :ctermbg (. (groups.umbraFG) 2)
+        :ctermfg 8
+        :ctermbg 15
         :bold true
         :italic true}
        {:group :vimBracket
         :fg colors.kat.pink.match_fg.color
         :bg :SKIP
-        :ctermfg (. (groups.fillBG) 2)
+        :ctermfg 5
         :ctermbg :SKIP}
        {:group :vimMapModKey
         :fg colors.kat.pink.match_fg.color
         :bg :SKIP
-        :ctermfg (. (groups.fillBG) 2)
+        :ctermfg 5
         :ctermbg :SKIP}
        {:group :vimFuncSID
         :fg colors.kat.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimSetSep
         :fg colors.kat.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimSep
         :fg colors.kat.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimContinue
         :fg colors.kat.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimOperParen :link :Variable}
        {:group :vimFunction :link :Function}

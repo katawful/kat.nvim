@@ -10,7 +10,7 @@
 (defn high-colors [] [{:group :CmpItemKind
                        :fg colors.kat.blue.base.color
                        :bg (ucolors.brighten colors.kat.pink.base.color 0.1)
-                       :ctermfg (. (groups.selectionBG) 2)
-                       :ctermbg (. (groups.fillBG) 2)}])
+                       :ctermfg 4
+                       :ctermbg 5}])
 
 (defn init [] (run.highlight$<-table (high-colors)))

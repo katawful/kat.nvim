@@ -10,66 +10,66 @@
 (defn high-colors [] [{:group :CocErrorSign
                        :fg colors.kat.red.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.errorBG) 2)
+                       :ctermfg 1
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocWarningSign
                        :fg colors.kat.red.match_bg.color
                        :bg :SKIP
-                       :ctermfg (. (groups.warningBG) 2)
+                       :ctermfg 9
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocInfoSign
                        :fg colors.kat.orange.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.infoBG) 2)
+                       :ctermfg 3
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocHintSign
                        :fg colors.kat.green.auto.color
                        :bg :SKIP
-                       :ctermfg (. (groups.auxBG) 2)
+                       :ctermfg 2
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocErrorFloat
                        :fg colors.kat.red.base.color
                        :bg colors.kat.bg.umbra.color
-                       :ctermfg (. (groups.errorBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :ctermfg 1
+                       :ctermbg 8}
                       {:group :CocWarningFloat
                        :fg colors.kat.red.match_bg.color
                        :bg colors.kat.bg.umbra.color
-                       :ctermfg (. (groups.warningBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :ctermfg 9
+                       :ctermbg 8}
                       {:group :CocInfoFloat
                        :fg colors.kat.orange.base.color
                        :bg colors.kat.bg.umbra.color
-                       :ctermfg (. (groups.infoBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :ctermfg 3
+                       :ctermbg 8}
                       {:group :CocHintFloat
                        :fg colors.kat.green.auto.color
                        :bg colors.kat.bg.umbra.color
-                       :ctermfg (. (groups.auxBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :ctermfg 2
+                       :ctermbg 8}
                       {:group :CocDiagnosticsError
                        :fg colors.kat.red.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.errorBG) 2)
+                       :ctermfg 1
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsWarning
                        :fg colors.kat.red.match_bg.color
                        :bg :SKIP
-                       :ctermfg (. (groups.warningBG) 2)
+                       :ctermfg 9
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsInfo
                        :fg colors.kat.orange.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.infoBG) 2)
+                       :ctermfg 3
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsHint
                        :fg colors.kat.green.auto.color
                        :bg :SKIP
-                       :ctermfg (. (groups.auxBG) 2)
+                       :ctermfg 2
                        :ctermbg :SKIP}
                       {:group :CocErrorHighlight
                        :fg :SKIP
@@ -103,11 +103,11 @@
                        :fg :SKIP
                        :bg colors.kat.red.darken.color
                        :ctermfg :SKIP
-                       :ctermbg (. (groups.warningBG) 2)}
+                       :ctermbg 9}
                       {:group :CocCodeLens
                        :fg colors.kat.bg.meld.color
                        :bg :SKIP
-                       :ctermfg (. (groups.umbraFG) 2)
+                       :ctermfg 15
                        :ctermbg :SKIP}])
 
 (defn init [] (run.highlight$<-table (high-colors)))

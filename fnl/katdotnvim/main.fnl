@@ -69,7 +69,6 @@
           ;; full fallback
             (do
               (each [key _ (pairs integrations)]
-                (print key)
                 ((. (require (.. :katdotnvim.highlights. key)) :init)))))
         ;; From here to there doesn't need to be done until after any other loading
         ;; TODO: fix loading so for somethings

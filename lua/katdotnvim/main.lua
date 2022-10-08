@@ -96,7 +96,6 @@ local function init(in_contrast)
     end
   else
     for key, _1 in pairs(integrations) do
-      print(key)
       do end (require(("katdotnvim.highlights." .. key))).init()
     end
   end
