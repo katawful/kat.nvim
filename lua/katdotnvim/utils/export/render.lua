@@ -52,6 +52,8 @@ local function render_color_2a(args)
     color_table.update()
     write["override-file!"](json.encode(args[2]), args[1], mutator[3])
   end
+  main["background-mut"][1] = __fnl_global__old_2dbackground
+  main["contrast-mut"][1] = __fnl_global__old_2dcontrast
   return nil
 end
 _2amodule_locals_2a["render-color*"] = render_color_2a

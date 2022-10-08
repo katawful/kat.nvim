@@ -53,7 +53,9 @@
            (tset main.contrast-mut 1 (. mutator 2))
            (color-table.update)
            (write.override-file! (json.encode (. args 2)) (. args 1)
-                                 (. mutator 3)))))
+                                 (. mutator 3)))
+         (tset main.background-mut 1 old-background)
+         (tset main.contrast-mut 1 old-contrast)))
 
 (defn override [args] "Override groups of colors
 Takes a single table, of which contains 2 keys
