@@ -51,12 +51,12 @@
                        :ctermfg (. (groups.fillBG) 2)
                        :ctermbg :SKIP}
                       {:group :Float
-                       :fg colors.kat.pink.match_fg.color
+                       :fg colors.kat.pink.match_fg_less.color
                        :bg :SKIP
                        :ctermfg (. (groups.fillBG) 3)
                        :ctermbg :SKIP}
                       {:group :Boolean
-                       :fg colors.kat.blue.match_fg.color
+                       :fg colors.kat.blue.match_fg_less.color
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP

@@ -29,7 +29,7 @@
                        :bold true
                        :italic true}
                       {:group :TSMethod
-                       :fg colors.kat.teal.mix_red_brighten.color
+                       :fg colors.kat.teal.mix_red_brighten_dull.color
                        :bg :SKIP
                        :ctermfg (. (groups.errorBG) 2)
                        :ctermbg :SKIP

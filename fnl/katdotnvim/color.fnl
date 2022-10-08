@@ -286,6 +286,9 @@
       (set kat.blue.match_fg
            {:desc "Matches to base fg color"
             :color (ucolors.blend color*.blue color*.f0 0.5)})
+      (set kat.blue.match_fg_less
+           {:desc "Matches to base fg color, uses more of the blue"
+            :color (ucolors.blend color*.blue color*.f0 0.7)})
       ;; Blue matched with bg
       (set kat.blue.match_bg
            {:desc "Matches to base bg color"
@@ -322,13 +325,20 @@
              {:desc "Mixes in red"
               :color (-> teal
                          (ucolors.blend color*.red 0.3))})
-        ;; Teal mix red, brighten
-        (set kat.teal.mix_red_brighten
-             {:desc "Mixes in red, brightens"
+        ;; Teal mix red, brighten, duller
+        (set kat.teal.mix_red_brighten_dull
+             {:desc "Mixes in red, brightens, not as bright"
               :color (-> teal
                          (ucolors.blend color*.red 0.3)
                          (ucolors.brighten 0.1)
                          (ucolors.saturation 0.1))})
+        ;; Teal mix red, brighten
+        (set kat.teal.mix_red_brighten
+             {:desc "Mixes in red, brightens, not as bright"
+              :color (-> teal
+                         (ucolors.blend color*.red 0.3)
+                         (ucolors.brighten 0.1)
+                         (ucolors.saturation 0.5))})
         ;; Teal mix pink
         (set kat.teal.mix_pink
              {:desc "Mixes in pink"
@@ -385,8 +395,8 @@
            {:desc "Mixes in meld fg color"
             :color (-> color*.red
                        (ucolors.blend color*.f3 0.2))}) ;; Red mix green
-      (set kat.red.mix_green
-           {:desc "Mixes in green, matches to background"
+      (set kat.red.mix_green_variant
+           {:desc "Mixes in green, matches to background, variation"
             :color (if (= (. main.background-mut 1) :light)
                        (-> color*.red
                            (ucolors.blend color*.green 0.2)
@@ -394,6 +404,24 @@
                        (-> color*.red
                            (ucolors.blend color*.green 0.2)
                            (ucolors.brighten 0.5)))}) ;; Red mix blue
+      (set kat.red.mix_green
+           {:desc "Mixes in the auto matching green, matches background"
+            :color (let [green (do (var output "")
+                                 (if (= (. main.background-mut 1) :light)
+                                   (set output (-> color*.green
+                                                   (ucolors.darken 0.5)
+                                                   (ucolors.saturation 0.4)))
+                                   (set output (-> color*.green
+                                                   (ucolors.brighten 0.5)
+                                                   (ucolors.saturation -0.2))))
+                                 output)]
+                        (if (= (. main.background-mut 1) :light)
+                           (-> color*.red
+                               (ucolors.blend green 0.2)
+                               (ucolors.darken 0.5))
+                           (-> color*.red
+                               (ucolors.blend green 0.2)
+                               (ucolors.brighten 0.5))))}) ;; Red mix blue
       (set kat.red.mix_blue
            {:desc "Mixes in blue"
             :color (-> color*.red
@@ -461,8 +489,12 @@
             :color (ucolors.blend color*.orange color*.red 0.4)}) ;;; Pink
       ;; Pink matched with fg
       (set kat.pink.match_fg
-           {:desc "Matches to base bg color"
+           {:desc "Matches to base fg color"
             :color (ucolors.blend color*.pink color*.f0 0.6)})
+      ;; Pink matched with fg less
+      (set kat.pink.match_fg_less
+           {:desc "Matches to base fg color less"
+            :color (ucolors.blend color*.pink color*.f0 0.7)})
       ;; Pink matched with bg
       (set kat.pink.match_bg
            {:desc "Matches to base bg color"
