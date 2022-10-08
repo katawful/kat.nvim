@@ -31,15 +31,14 @@
       (def contrast-mut [in-contrast])
       (def background-mut [vim.o.background])
       ;; adds ~2.5ms
-      (color.update) ; absolutely needed to set all the colors properly
       (if (= (. contrast-mut 1) :hard)
           (set-var g :colors_name :kat.nvim)
           (set-var g :colors_name :kat.nwim))
       (def colors-name-mut [vim.g.colors_name])
+      (color.update) ; absolutely needed to set all the colors properly
 
       ;; Load colors
       ;; This falls back dynamically to functional colors if no JSON was found
-      ;; adds ~5ms in functional, 3ms in json
       (let [rendered-length (do (var i 0)
                               (each [k _ (pairs (override.main-files) :until (> i 0))]
                                 (set i (+ i 1)))
@@ -58,7 +57,6 @@
             (run.highlight$<-table (read.file! :syntax))
             ((. (require :katdotnvim.highlights.syntax) :init)))
         ;; Very large increase in startup time
-        ;; 1.5ms for json, 2-3ms for functional
         (if (> rendered-length 0)
           ;; If there's json files found:
           ;; go through integrations and load the file if it was found
@@ -72,8 +70,6 @@
                 ((. (require (.. :katdotnvim.highlights. key)) :init)))))
         ;; From here to there doesn't need to be done until after any other loading
         ;; TODO: fix loading so for somethings
-        ;; very small increase in startup time, maybe 0.2ms?
-        ;; doubt i need to worry
         ;; from here
         ((. (require :katdotnvim.highlights.terminal) :init))
         (if (= vim.g.kat_nvim_stupidFeatures true)
