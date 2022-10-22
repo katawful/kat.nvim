@@ -333,6 +333,10 @@ Examples
 - Smoother functional fallback for missing JSON files, no more missing colors
 - Further Neovim 0.8 compatibility
 
+##### 3.0 Stupendous Burmese
+
+- Break 0.7.2 compatibility
+
 # Contributing
 I am always open to expanding this colorscheme.
 This plugin was written in Fennel with Aniseed.
