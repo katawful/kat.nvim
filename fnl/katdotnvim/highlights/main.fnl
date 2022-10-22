@@ -316,7 +316,7 @@
                        :ctermbg 9}
                       (fn []
                         (if (do-viml has :gui)
-                            (do
+                            (values
                               {:group :Menu
                                :fg colors.kat.fg.auto.color
                                :bg colors.kat.bg.base.color

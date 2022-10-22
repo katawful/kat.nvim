@@ -28,9 +28,7 @@ local function high_colors()
       end
     end
     if _2_ then
-      do local _ = {group = "Menu", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.base.color, ctermfg = 7, ctermbg = 0} end
-      do local _ = {group = "Tooltip", fg = colors.kat.fg.auto.color, bg = colors.kat.pink.base.color, ctermfg = 7, ctermbg = 5} end
-      return {group = "Scrollbar", fg = colors.kat.fg.auto.color, bg = colors.kat.purple.base.color, ctermfg = 7, ctermbg = 6}
+      return {group = "Menu", fg = colors.kat.fg.auto.color, bg = colors.kat.bg.base.color, ctermfg = 7, ctermbg = 0}, {group = "Tooltip", fg = colors.kat.fg.auto.color, bg = colors.kat.pink.base.color, ctermfg = 7, ctermbg = 5}, {group = "Scrollbar", fg = colors.kat.fg.auto.color, bg = colors.kat.purple.base.color, ctermfg = 7, ctermbg = 6}
     else
       return nil
     end
