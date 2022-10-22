@@ -14,10 +14,10 @@ Install with your plugin manager of choice.
 Example for vim-plug:
 ```vim
 " kat.nvim
-Plug 'katawful/kat.nvim', { 'tag': '2.0' }
+Plug 'katawful/kat.nvim', { 'tag': '3.0' }
 ```
 
-Current release: `2.0` - 'Exuberant Cornish Rex'
+Current release: `3.0` - 'Stupendous Burmese'
 
 It is recommended to stick with the current tagged release.
 `main` branch is mostly tested, but this is generally the latest release and breakages can occur outside of your tag.
