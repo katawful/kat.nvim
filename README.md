@@ -1,3 +1,5 @@
+# END OF LIFE
+
 ![image](https://raw.githubusercontent.com/katawful/RandomAssets/main/colors-new-2022.png)
 
 # kat.nvim
