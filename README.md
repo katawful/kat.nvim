@@ -14,10 +14,10 @@ Install with your plugin manager of choice.
 Example for vim-plug:
 ```vim
 " kat.nvim
-Plug 'katawful/kat.nvim', { 'tag': '3.0' }
+Plug 'katawful/kat.nvim', { 'tag': '3.1' }
 ```
 
-Current release: `3.0` - 'Stupendous Burmese'
+Current release: `3.1` - 'Fallacious Burmese'
 
 It is recommended to stick with the current tagged release.
 `main` branch is mostly tested, but this is generally the latest release and breakages can occur outside of your tag.
@@ -336,6 +336,11 @@ Examples
 ##### 3.0 Stupendous Burmese
 
 - Break 0.7.2 compatibility
+
+##### 3.1 Fallacious Burmese
+
+- Add missing Tree-sitter highlight groups
+- Update contribution guidelines
 
 # Contributing
 I am always open to expanding this colorscheme.
