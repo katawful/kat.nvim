@@ -28,19 +28,19 @@ local function init()
   vim.g["terminal_color_0"] = color_table.kat.bg.base.color
   do local _ = {nil, nil, nil, nil, nil, nil, nil, nil, nil, nil} end
   if ((main["background-mut"])[1] == "light") then
-    vim.g["terminal_color_13"] = ucolors.darken(color_table.kat.pink.base.color, 0.2)
+    vim.g["terminal_color_9"] = ucolors.darken(color_table.kat.red.base.color, 0.2)
+    do end (vim.g)["terminal_color_13"] = ucolors.darken(color_table.kat.pink.base.color, 0.2)
     do end (vim.g)["terminal_color_10"] = ucolors.darken(color_table.kat.green.base.color, 0.2)
-    do end (vim.g)["terminal_color_14"] = ucolors.darken(color_table.kat.purple.base.color, 0.2)
     do end (vim.g)["terminal_color_11"] = ucolors.darken(color_table.kat.orange.base.color, 0.2)
-    do end (vim.g)["terminal_color_9"] = ucolors.darken(color_table.kat.red.base.color, 0.2)
+    do end (vim.g)["terminal_color_14"] = ucolors.darken(color_table.kat.purple.base.color, 0.2)
     do end (vim.g)["terminal_color_12"] = ucolors.darken(color_table.kat.blue.base.color, 0.2)
     return {nil, nil, nil, nil, nil, nil}
   else
-    vim.g["terminal_color_13"] = ucolors.brighten(color_table.kat.pink.base.color, 0.2)
+    vim.g["terminal_color_9"] = ucolors.brighten(color_table.kat.red.base.color, 0.2)
+    do end (vim.g)["terminal_color_13"] = ucolors.brighten(color_table.kat.pink.base.color, 0.2)
     do end (vim.g)["terminal_color_10"] = ucolors.brighten(color_table.kat.green.base.color, 0.2)
-    do end (vim.g)["terminal_color_14"] = ucolors.brighten(color_table.kat.purple.base.color, 0.2)
     do end (vim.g)["terminal_color_11"] = ucolors.brighten(color_table.kat.orange.base.color, 0.2)
-    do end (vim.g)["terminal_color_9"] = ucolors.brighten(color_table.kat.red.base.color, 0.2)
+    do end (vim.g)["terminal_color_14"] = ucolors.brighten(color_table.kat.purple.base.color, 0.2)
     do end (vim.g)["terminal_color_12"] = ucolors.brighten(color_table.kat.blue.base.color, 0.2)
     return {nil, nil, nil, nil, nil, nil}
   end
