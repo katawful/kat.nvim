@@ -336,40 +336,8 @@ Aniseed. I won't accept Lua code or Aniseed-less Fennel code. Fennel isn't
 that hard to learn, and you can mostly just copy an equivalent file.
 
 ------------------------------------------------------------------------------
-Section 7a: Internal Variables                  *kat.nvim-contributing.internal*
-Internal variables are whatever variables that should not be exposed to the
-end user. If you need to expose a variable to the end user, use a
-|global-variable| through the |vim.g| namespace. Internal variables should
-keep camelCase, not snake_case, and must be defined through `def` for easy
-module exporting.
-
-If you are adding a color variable, first check if there's an equivalent color
-variable already made. Color variables meant for the structure of NeoVim (such
-as |hl-PMenu| will be found in `katdotnvim.highlights.main`. For syntax
-variables they are found in `katdotnvim.highlights.syntax`. You are fine
-defining them locally within your addition if they're only meant to be there.
-
-------------------------------------------------------------------------------
-Section 7b: Color Functions                        *kat.nvim-contributing.color*
-Color variables are not actually variables, they are functions that return a
-hex color string. This is to allow easy access to them without polluting
-global namespaces, while also allowing colorschemes to be changed during
-runtime. For this reason, you must define new color variables as functions
-using `defn`. You also can't use `def` for top level variables, you must use
-`var` instead. The following is an example of how these should be made:
-
-`(defn newColor [] (. (color.init :normalColors) :red))`
-   - A lookup returns a string
-
-`(defn newColor []`
-  `(def output (katdotnvim.utils.color.function ...))`
-  `output)`
-   - A util color function must be passed to a variable
-
-`(defn newColor []`
-  `(def output (plainColorFunction))`
-  `output)`
-   - A plain color function must be passed to a variable
+Section 7a: Color Table                  *kat.nvim-contributing.color-table*
+Prioritize the colors in |kat.nvim-develop|. 
 
 ------------------------------------------------------------------------------
 Section 7c: Compiling                          *kat.nvim-contributing.compiling*

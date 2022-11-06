@@ -347,26 +347,11 @@ I am always open to expanding this colorscheme.
 This plugin was written in Fennel with Aniseed.
 This means there are some peculiar requirements for making a PR, in addition for my design scope.
 
-## Internal Variables
-Due to how Aniseed works, and for ease of development, I require you to stick with using Aniseed's function/variable definition keywords.
-They get exported much more reliably from the module you write them in (assuming you don't make them private).
-If you are adding a new color variable for a module, first check `katdotnvim.colors`, `katdotnvim.highlights.main`, and `katdotnvim.highlights.syntax` for ones similar to it. If there isn't one, you have 2 options. If its local to an addition (say you need to blend a color for a statusline), it is ok to keep it within that module. If it's meant, at all, to do more, put it in `katdotnvim.highlights.main` or `katdotnvim.highlights.syntax` depending on if its a system color or a filetype color. Otherwise its best to not introduce new color variables
+## Color Table
+Prioritize using the color table found in `katdotnvim.color`.
+You don't need to add every possible color to this table if its for one-off colors, but if there's multiples to be added feel free to add it.
 
-### Color functions vs. Color variables
-Additionally, in order to keep runtime functionality of `:colorscheme`, you cannot use `def` to define color variables. You must use `defn` to define a function that returns a string. For color variables that just need get the value from another color function, you don't need to define a variable at all:
-```clojure
-(defn newColorVariable [] (. (colorFunctionWithLookup) :lookup))
-```
-
-For colors that use one of the `katdotnvim.utils.color` functions, you must define a variable to return. Otherwise the function will be passed to internal functions, breaking the colorscheme:
-```clojure
-(defn newColorVariable []
-  (def output (katdotnvim.utils.color.function ...))
-	output)
-(defn newColorVariable []
-  (def output (plainColorFunction))
-	output)
-```
+Don't hardcode colors.
 
 ## Compiling
 You need a local build of [fennel](https://github.com/bakpakin/Fennel/blob/main/setup.md#downloading-fennel) in the root directory of this repo.
