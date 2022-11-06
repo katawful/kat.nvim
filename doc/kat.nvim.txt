@@ -337,30 +337,34 @@ that hard to learn, and you can mostly just copy an equivalent file.
 
 ------------------------------------------------------------------------------
 Section 7a: Color Table                  *kat.nvim-contributing.color-table*
-Prioritize the colors in |kat.nvim-develop|. 
+Prioritize the colors in |kat.nvim-develop|. You don't need to add every
+possible color to this table if its for one-off colors, but if there's
+multiples to be added feel free to add it.
+
+Don't hardcode colors.
 
 ------------------------------------------------------------------------------
-Section 7c: Compiling                          *kat.nvim-contributing.compiling*
+Section 7b: Compiling                          *kat.nvim-contributing.compiling*
 In order to compile this with make, you must have a local build of fennel in
 the root directory of this repository. It is not provided. It is currently
 used to build the files in `/colors`.
 
 ------------------------------------------------------------------------------
-Section 7d: fnlfmt                                *kat.nvim-contributing.fnlfmt*
+Section 7c: fnlfmt                                *kat.nvim-contributing.fnlfmt*
 fnlfmt, assuming it is in your `$PATH`, can be used with `make format` to
 format all files. Make sure to check anything you add for ideal formatting and
 add a skip header if needed
 
 ------------------------------------------------------------------------------
-Section 7e: Structure                          *kat.nvim-contributing.structure*
+Section 7d: Structure                          *kat.nvim-contributing.structure*
 Put the files in the right spot, filetypes go in
 `katdotnvim.highlights.filetype`. Plugins go in
 `katdotnvim.highlights.integrations`.
 
 ------------------------------------------------------------------------------
-Section 7f: Adding Options                       *kat.nvim-contributing.options*
+Section 7e: Adding Options                       *kat.nvim-contributing.options*
 If you add a filetype or plugin integration, or add a new global variable,
 make sure to add the defaults into the set defaults function in
-`katdotnvim.utils.error`.
+`katdotnvim.utils.options.init`.
 
 vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
