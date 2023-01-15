@@ -6,14 +6,14 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
   local view = require("katdotnvim.aniseed.fennel.view")
   local unpack = (table.unpack or _G.unpack)
   local function default_read_chunk(parser_state)
-    local function _565_()
+    local function _620_()
       if (0 < parser_state["stack-size"]) then
         return ".."
       else
         return ">> "
       end
     end
-    io.write(_565_())
+    io.write(_620_())
     io.flush()
     local input = io.read()
     return (input and (input .. "\n"))
@@ -23,23 +23,23 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     return io.write("\n")
   end
   local function default_on_error(errtype, err, lua_source)
-    local function _567_()
-      local _566_ = errtype
-      if (_566_ == "Lua Compile") then
+    local function _622_()
+      local _621_ = errtype
+      if (_621_ == "Lua Compile") then
         return ("Bad code generated - likely a bug with the compiler:\n" .. "--- Generated Lua Start ---\n" .. lua_source .. "--- Generated Lua End ---\n")
-      elseif (_566_ == "Runtime") then
+      elseif (_621_ == "Runtime") then
         return (compiler.traceback(tostring(err), 4) .. "\n")
       elseif true then
-        local _ = _566_
+        local _ = _621_
         return ("%s error: %s\n"):format(errtype, tostring(err))
       else
         return nil
       end
     end
-    return io.write(_567_())
+    return io.write(_622_())
   end
-  local save_source = table.concat({"local ___i___ = 1", "while true do", " local name, value = debug.getlocal(1, ___i___)", " if(name and name ~= \"___i___\") then", " ___replLocals___[name] = value", " ___i___ = ___i___ + 1", " else break end end"}, "\n")
-  local function splice_save_locals(env, lua_source)
+  local save_source = " ___replLocals___['%s'] = %s"
+  local function splice_save_locals(env, lua_source, scope)
     local spliced_source = {}
     local bind = "local %s = ___replLocals___['%s']"
     for line in lua_source:gmatch("([^\n]+)\n?") do
@@ -49,7 +49,9 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
       table.insert(spliced_source, 1, bind:format(name, name))
     end
     if ((1 < #spliced_source) and (spliced_source[#spliced_source]):match("^ *return .*$")) then
-      table.insert(spliced_source, #spliced_source, save_source)
+      for _, name in pairs(scope.manglings) do
+        table.insert(spliced_source, #spliced_source, save_source:format(name, name))
+      end
     else
     end
     return table.concat(spliced_source, "\n")
@@ -64,14 +66,14 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
       local scope_first_3f = ((tbl == env) or (tbl == env.___replLocals___))
       local tbl_14_auto = matches
       local i_15_auto = #tbl_14_auto
-      local function _570_()
+      local function _625_()
         if scope_first_3f then
           return scope.manglings
         else
           return tbl
         end
       end
-      for k, is_mangled in utils.allpairs(_570_()) do
+      for k, is_mangled in utils.allpairs(_625_()) do
         if (max_items <= #matches) then break end
         local val_16_auto
         do
@@ -142,7 +144,7 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     return input:match("^%s*,")
   end
   local function command_docs()
-    local _579_
+    local _634_
     do
       local tbl_14_auto = {}
       local i_15_auto = #tbl_14_auto
@@ -154,18 +156,18 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
         else
         end
       end
-      _579_ = tbl_14_auto
+      _634_ = tbl_14_auto
     end
-    return table.concat(_579_, "\n")
+    return table.concat(_634_, "\n")
   end
   commands.help = function(_, _0, on_values)
     return on_values({("Welcome to Fennel.\nThis is the REPL where you can enter code to be evaluated.\nYou can also run these repl commands:\n\n" .. command_docs() .. "\n  ,exit - Leave the repl.\n\nUse ,doc something to see descriptions for individual macros and special forms.\n\nFor more information about the language, see https://fennel-lang.org/reference")})
   end
   do end (compiler.metadata):set(commands.help, "fnl/docstring", "Show this message.")
   local function reload(module_name, env, on_values, on_error)
-    local _581_, _582_ = pcall(specials["load-code"]("return require(...)", env), module_name)
-    if ((_581_ == true) and (nil ~= _582_)) then
-      local old = _582_
+    local _636_, _637_ = pcall(specials["load-code"]("return require(...)", env), module_name)
+    if ((_636_ == true) and (nil ~= _637_)) then
+      local old = _637_
       local _
       package.loaded[module_name] = nil
       _ = nil
@@ -192,38 +194,38 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
       else
       end
       return on_values({"ok"})
-    elseif ((_581_ == false) and (nil ~= _582_)) then
-      local msg = _582_
+    elseif ((_636_ == false) and (nil ~= _637_)) then
+      local msg = _637_
       if (specials["macro-loaded"])[module_name] then
         specials["macro-loaded"][module_name] = nil
         return nil
       else
-        local function _587_()
-          local _586_ = msg:gsub("\n.*", "")
-          return _586_
+        local function _642_()
+          local _641_ = msg:gsub("\n.*", "")
+          return _641_
         end
-        return on_error("Runtime", _587_())
+        return on_error("Runtime", _642_())
       end
     else
       return nil
     end
   end
   local function run_command(read, on_error, f)
-    local _590_, _591_, _592_ = pcall(read)
-    if ((_590_ == true) and (_591_ == true) and (nil ~= _592_)) then
-      local val = _592_
+    local _645_, _646_, _647_ = pcall(read)
+    if ((_645_ == true) and (_646_ == true) and (nil ~= _647_)) then
+      local val = _647_
       return f(val)
-    elseif (_590_ == false) then
+    elseif (_645_ == false) then
       return on_error("Parse", "Couldn't parse input.")
     else
       return nil
     end
   end
   commands.reload = function(env, read, on_values, on_error)
-    local function _594_(_241)
+    local function _649_(_241)
       return reload(tostring(_241), env, on_values, on_error)
     end
-    return run_command(read, on_error, _594_)
+    return run_command(read, on_error, _649_)
   end
   do end (compiler.metadata):set(commands.reload, "fnl/docstring", "Reload the specified module.")
   commands.reset = function(env, _, on_values)
@@ -232,30 +234,30 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
   end
   do end (compiler.metadata):set(commands.reset, "fnl/docstring", "Erase all repl-local scope.")
   commands.complete = function(env, read, on_values, on_error, scope, chars)
-    local function _595_()
+    local function _650_()
       return on_values(completer(env, scope, string.char(unpack(chars)):gsub(",complete +", ""):sub(1, -2)))
     end
-    return run_command(read, on_error, _595_)
+    return run_command(read, on_error, _650_)
   end
   do end (compiler.metadata):set(commands.complete, "fnl/docstring", "Print all possible completions for a given input symbol.")
   local function apropos_2a(pattern, tbl, prefix, seen, names)
     for name, subtbl in pairs(tbl) do
       if (("string" == type(name)) and (package ~= subtbl)) then
-        local _596_ = type(subtbl)
-        if (_596_ == "function") then
+        local _651_ = type(subtbl)
+        if (_651_ == "function") then
           if ((prefix .. name)):match(pattern) then
             table.insert(names, (prefix .. name))
           else
           end
-        elseif (_596_ == "table") then
+        elseif (_651_ == "table") then
           if not seen[subtbl] then
-            local _599_
+            local _654_
             do
-              local _598_ = seen
-              _598_[subtbl] = true
-              _599_ = _598_
+              local _653_ = seen
+              _653_[subtbl] = true
+              _654_ = _653_
             end
-            apropos_2a(pattern, subtbl, (prefix .. name:gsub("%.", "/") .. "."), _599_, names)
+            apropos_2a(pattern, subtbl, (prefix .. name:gsub("%.", "/") .. "."), _654_, names)
           else
           end
         else
@@ -280,10 +282,10 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     return tbl_14_auto
   end
   commands.apropos = function(_env, read, on_values, on_error, _scope)
-    local function _604_(_241)
+    local function _659_(_241)
       return on_values(apropos(tostring(_241)))
     end
-    return run_command(read, on_error, _604_)
+    return run_command(read, on_error, _659_)
   end
   do end (compiler.metadata):set(commands.apropos, "fnl/docstring", "Print all functions matching a pattern in all loaded modules.")
   local function apropos_follow_path(path)
@@ -304,39 +306,47 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     local tgt = package.loaded
     for _, path0 in ipairs(paths) do
       if (nil == tgt) then break end
-      local _607_
+      local _662_
       do
-        local _606_ = path0:gsub("%/", ".")
-        _607_ = _606_
+        local _661_ = path0:gsub("%/", ".")
+        _662_ = _661_
       end
-      tgt = tgt[_607_]
+      tgt = tgt[_662_]
     end
     return tgt
   end
   local function apropos_doc(pattern)
-    local names = {}
+    local tbl_14_auto = {}
+    local i_15_auto = #tbl_14_auto
     for _, path in ipairs(apropos(".*")) do
-      local tgt = apropos_follow_path(path)
-      if ("function" == type(tgt)) then
-        local _608_ = (compiler.metadata):get(tgt, "fnl/docstring")
-        if (nil ~= _608_) then
-          local docstr = _608_
-          if docstr:match(pattern) then
-            table.insert(names, path)
+      local val_16_auto
+      do
+        local tgt = apropos_follow_path(path)
+        if ("function" == type(tgt)) then
+          local _663_ = (compiler.metadata):get(tgt, "fnl/docstring")
+          if (nil ~= _663_) then
+            local docstr = _663_
+            val_16_auto = (docstr:match(pattern) and path)
           else
+            val_16_auto = nil
           end
         else
+          val_16_auto = nil
         end
+      end
+      if (nil ~= val_16_auto) then
+        i_15_auto = (i_15_auto + 1)
+        do end (tbl_14_auto)[i_15_auto] = val_16_auto
       else
       end
     end
-    return names
+    return tbl_14_auto
   end
   commands["apropos-doc"] = function(_env, read, on_values, on_error, _scope)
-    local function _612_(_241)
+    local function _667_(_241)
       return on_values(apropos_doc(tostring(_241)))
     end
-    return run_command(read, on_error, _612_)
+    return run_command(read, on_error, _667_)
   end
   do end (compiler.metadata):set(commands["apropos-doc"], "fnl/docstring", "Print all functions that match the pattern in their docs")
   local function apropos_show_docs(on_values, pattern)
@@ -351,112 +361,116 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     return nil
   end
   commands["apropos-show-docs"] = function(_env, read, on_values, on_error)
-    local function _614_(_241)
+    local function _669_(_241)
       return apropos_show_docs(on_values, tostring(_241))
     end
-    return run_command(read, on_error, _614_)
+    return run_command(read, on_error, _669_)
   end
   do end (compiler.metadata):set(commands["apropos-show-docs"], "fnl/docstring", "Print all documentations matching a pattern in function name")
-  local function resolve(identifier, _615_, scope)
-    local _arg_616_ = _615_
-    local ___replLocals___ = _arg_616_["___replLocals___"]
-    local env = _arg_616_
+  local function resolve(identifier, _670_, scope)
+    local _arg_671_ = _670_
+    local ___replLocals___ = _arg_671_["___replLocals___"]
+    local env = _arg_671_
     local e
-    local function _617_(_241, _242)
+    local function _672_(_241, _242)
       return (___replLocals___[_242] or env[_242])
     end
-    e = setmetatable({}, {__index = _617_})
-    local _618_, _619_ = pcall(compiler["compile-string"], tostring(identifier), {scope = scope})
-    if ((_618_ == true) and (nil ~= _619_)) then
-      local code = _619_
-      local _620_ = specials["load-code"](code, e)()
-      local function _621_()
-        local x = _620_
-        return (type(x) == "function")
-      end
-      if ((nil ~= _620_) and _621_()) then
-        local x = _620_
-        return x
-      else
-        return nil
-      end
+    e = setmetatable({}, {__index = _672_})
+    local _673_, _674_ = pcall(compiler["compile-string"], tostring(identifier), {scope = scope})
+    if ((_673_ == true) and (nil ~= _674_)) then
+      local code = _674_
+      return specials["load-code"](code, e)()
     else
       return nil
     end
   end
   commands.find = function(env, read, on_values, on_error, scope)
-    local function _624_(_241)
-      local _625_
+    local function _676_(_241)
+      local _677_
       do
-        local _626_ = utils["sym?"](_241)
-        if (nil ~= _626_) then
-          local _627_ = resolve(_626_, env, scope)
-          if (nil ~= _627_) then
-            _625_ = debug.getinfo(_627_)
+        local _678_ = utils["sym?"](_241)
+        if (nil ~= _678_) then
+          local _679_ = resolve(_678_, env, scope)
+          if (nil ~= _679_) then
+            _677_ = debug.getinfo(_679_)
           else
-            _625_ = _627_
+            _677_ = _679_
           end
         else
-          _625_ = _626_
+          _677_ = _678_
         end
       end
-      if ((_G.type(_625_) == "table") and (nil ~= (_625_).linedefined) and ((_625_).what == "Lua") and (nil ~= (_625_).short_src) and (nil ~= (_625_).source)) then
-        local line = (_625_).linedefined
-        local src = (_625_).short_src
-        local source = (_625_).source
+      if ((_G.type(_677_) == "table") and ((_677_).what == "Lua") and (nil ~= (_677_).source) and (nil ~= (_677_).linedefined) and (nil ~= (_677_).short_src)) then
+        local source = (_677_).source
+        local line = (_677_).linedefined
+        local src = (_677_).short_src
         local fnlsrc
         do
-          local t_630_ = compiler.sourcemap
-          if (nil ~= t_630_) then
-            t_630_ = (t_630_)[source]
+          local t_682_ = compiler.sourcemap
+          if (nil ~= t_682_) then
+            t_682_ = (t_682_)[source]
           else
           end
-          if (nil ~= t_630_) then
-            t_630_ = (t_630_)[line]
+          if (nil ~= t_682_) then
+            t_682_ = (t_682_)[line]
           else
           end
-          if (nil ~= t_630_) then
-            t_630_ = (t_630_)[2]
+          if (nil ~= t_682_) then
+            t_682_ = (t_682_)[2]
           else
           end
-          fnlsrc = t_630_
+          fnlsrc = t_682_
         end
         return on_values({string.format("%s:%s", src, (fnlsrc or line))})
-      elseif (_625_ == nil) then
+      elseif (_677_ == nil) then
         return on_error("Repl", "Unknown value")
       elseif true then
-        local _ = _625_
+        local _ = _677_
         return on_error("Repl", "No source info")
       else
         return nil
       end
     end
-    return run_command(read, on_error, _624_)
+    return run_command(read, on_error, _676_)
   end
   do end (compiler.metadata):set(commands.find, "fnl/docstring", "Print the filename and line number for a given function")
   commands.doc = function(env, read, on_values, on_error, scope)
-    local function _635_(_241)
+    local function _687_(_241)
       local name = tostring(_241)
-      local is_ok, target = nil, nil
-      local function _636_()
-        return (scope.specials[name] or scope.macros[name] or resolve(name, env, scope))
+      local path = (utils["multi-sym?"](name) or {name})
+      local ok_3f, target = nil, nil
+      local function _688_()
+        return (utils["get-in"](scope.specials, path) or utils["get-in"](scope.macros, path) or resolve(name, env, scope))
       end
-      is_ok, target = pcall(_636_)
-      if is_ok then
+      ok_3f, target = pcall(_688_)
+      if ok_3f then
         return on_values({specials.doc(target, name)})
       else
         return on_error("Repl", "Could not resolve value for docstring lookup")
       end
     end
-    return run_command(read, on_error, _635_)
+    return run_command(read, on_error, _687_)
   end
   do end (compiler.metadata):set(commands.doc, "fnl/docstring", "Print the docstring and arglist for a function, macro, or special form.")
+  commands.compile = function(env, read, on_values, on_error, scope)
+    local function _690_(_241)
+      local allowedGlobals = specials["current-global-names"](env)
+      local ok_3f, result = pcall(compiler.compile, _241, {env = env, scope = scope, allowedGlobals = allowedGlobals})
+      if ok_3f then
+        return on_values({result})
+      else
+        return on_error("Repl", ("Error compiling expression: " .. result))
+      end
+    end
+    return run_command(read, on_error, _690_)
+  end
+  do end (compiler.metadata):set(commands.compile, "fnl/docstring", "compiles the expression into lua and prints the result.")
   local function load_plugin_commands(plugins)
     for _, plugin in ipairs((plugins or {})) do
       for name, f in pairs(plugin) do
-        local _638_ = name:match("^repl%-command%-(.*)")
-        if (nil ~= _638_) then
-          local cmd_name = _638_
+        local _692_ = name:match("^repl%-command%-(.*)")
+        if (nil ~= _692_) then
+          local cmd_name = _692_
           commands[cmd_name] = (commands[cmd_name] or f)
         else
         end
@@ -467,12 +481,12 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
   local function run_command_loop(input, read, loop, env, on_values, on_error, scope, chars)
     local command_name = input:match(",([^%s/]+)")
     do
-      local _640_ = commands[command_name]
-      if (nil ~= _640_) then
-        local command = _640_
+      local _694_ = commands[command_name]
+      if (nil ~= _694_) then
+        local command = _694_
         command(env, read, on_values, on_error, scope, chars)
       elseif true then
-        local _ = _640_
+        local _ = _694_
         if ("exit" ~= command_name) then
           on_values({"Unknown command", command_name})
         else
@@ -492,7 +506,23 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
         readline.set_readline_name("fennel")
       else
       end
-      readline.set_options({keeplines = 1000, histfile = ""})
+      do
+        local rl_opts
+        do
+          local tbl_11_auto = {keeplines = 1000, histfile = ""}
+          for k, v in pairs(readline.set_options({})) do
+            local _699_, _700_ = k, v
+            if ((nil ~= _699_) and (nil ~= _700_)) then
+              local k_12_auto = _699_
+              local v_13_auto = _700_
+              tbl_11_auto[k_12_auto] = v_13_auto
+            else
+            end
+          end
+          rl_opts = tbl_11_auto
+        end
+        readline.set_options(rl_opts)
+      end
       opts.readChunk = function(parser_state)
         local prompt
         if (0 < parser_state["stack-size"]) then
@@ -534,7 +564,7 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     local opts = ((_3foptions and utils.copy(_3foptions)) or {})
     local readline = (should_use_readline_3f(opts) and try_readline_21(opts, pcall(require, "readline")))
     local env = specials["wrap-env"]((opts.env or rawget(_G, "_ENV") or _G))
-    local save_locals_3f = ((opts.saveLocals ~= false) and env.debug and env.debug.getlocal)
+    local save_locals_3f = (opts.saveLocals ~= false)
     local read_chunk = (opts.readChunk or default_read_chunk)
     local on_values = (opts.onValues or default_on_values)
     local on_error = (opts.onError or default_on_error)
@@ -542,12 +572,12 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     local byte_stream, clear_stream = parser.granulate(read_chunk)
     local chars = {}
     local read, reset = nil, nil
-    local function _649_(parser_state)
+    local function _706_(parser_state)
       local c = byte_stream(parser_state)
       table.insert(chars, c)
       return c
     end
-    read, reset = parser.parser(_649_)
+    read, reset = parser.parser(_706_)
     opts.env, opts.scope = env, compiler["make-scope"]()
     opts.useMetadata = (opts.useMetadata ~= false)
     if (opts.allowedGlobals == nil) then
@@ -555,15 +585,15 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
     else
     end
     if opts.registerCompleter then
-      local function _653_()
-        local _651_ = env
-        local _652_ = opts.scope
-        local function _654_(...)
-          return completer(_651_, _652_, ...)
+      local function _710_()
+        local _708_ = env
+        local _709_ = opts.scope
+        local function _711_(...)
+          return completer(_708_, _709_, ...)
         end
-        return _654_
+        return _711_
       end
-      opts.registerCompleter(_653_())
+      opts.registerCompleter(_710_())
     else
     end
     load_plugin_commands(opts.plugins)
@@ -595,7 +625,7 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
       local ok, not_eof_3f, x = pcall(read)
       local src_string = string.char(unpack(chars))
       if not ok then
-        on_error("Parse", __fnl_global__parse_2dok_3f)
+        on_error("Parse", not_eof_3f)
         clear_stream()
         return loop()
       elseif command_3f(src_string) then
@@ -603,43 +633,43 @@ package.preload["katdotnvim.aniseed.fennel.repl"] = package.preload["katdotnvim.
       else
         if not_eof_3f then
           do
-            local _658_, _659_ = nil, nil
-            local function _661_()
-              local _660_ = opts
-              _660_["source"] = src_string
-              return _660_
+            local _715_, _716_ = nil, nil
+            local function _718_()
+              local _717_ = opts
+              _717_["source"] = src_string
+              return _717_
             end
-            _658_, _659_ = pcall(compiler.compile, x, _661_())
-            if ((_658_ == false) and (nil ~= _659_)) then
-              local msg = _659_
+            _715_, _716_ = pcall(compiler.compile, x, _718_())
+            if ((_715_ == false) and (nil ~= _716_)) then
+              local msg = _716_
               clear_stream()
               on_error("Compile", msg)
-            elseif ((_658_ == true) and (nil ~= _659_)) then
-              local src = _659_
+            elseif ((_715_ == true) and (nil ~= _716_)) then
+              local src = _716_
               local src0
               if save_locals_3f then
                 src0 = splice_save_locals(env, src, opts.scope)
               else
                 src0 = src
               end
-              local _663_, _664_ = pcall(specials["load-code"], src0, env)
-              if ((_663_ == false) and (nil ~= _664_)) then
-                local msg = _664_
+              local _720_, _721_ = pcall(specials["load-code"], src0, env)
+              if ((_720_ == false) and (nil ~= _721_)) then
+                local msg = _721_
                 clear_stream()
                 on_error("Lua Compile", msg, src0)
-              elseif (true and (nil ~= _664_)) then
-                local _ = _663_
-                local chunk = _664_
-                local function _665_()
+              elseif (true and (nil ~= _721_)) then
+                local _ = _720_
+                local chunk = _721_
+                local function _722_()
                   return print_values(chunk())
                 end
-                local function _666_()
-                  local function _667_(...)
+                local function _723_()
+                  local function _724_(...)
                     return on_error("Runtime", ...)
                   end
-                  return _667_
+                  return _724_
                 end
-                xpcall(_665_, _666_())
+                xpcall(_722_, _723_())
               else
               end
             else
@@ -669,14 +699,14 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   local unpack = (table.unpack or _G.unpack)
   local SPECIALS = compiler.scopes.global.specials
   local function wrap_env(env)
-    local function _364_(_, key)
+    local function _415_(_, key)
       if utils["string?"](key) then
         return env[compiler["global-unmangling"](key)]
       else
         return env[key]
       end
     end
-    local function _366_(_, key, value)
+    local function _417_(_, key, value)
       if utils["string?"](key) then
         env[compiler["global-unmangling"](key)] = value
         return nil
@@ -685,38 +715,38 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
         return nil
       end
     end
-    local function _368_()
+    local function _419_()
       local function putenv(k, v)
-        local _369_
+        local _420_
         if utils["string?"](k) then
-          _369_ = compiler["global-unmangling"](k)
+          _420_ = compiler["global-unmangling"](k)
         else
-          _369_ = k
+          _420_ = k
         end
-        return _369_, v
+        return _420_, v
       end
       return next, utils.kvmap(env, putenv), nil
     end
-    return setmetatable({}, {__index = _364_, __newindex = _366_, __pairs = _368_})
+    return setmetatable({}, {__index = _415_, __newindex = _417_, __pairs = _419_})
   end
   local function current_global_names(_3fenv)
     local mt
     do
-      local _371_ = getmetatable(_3fenv)
-      if ((_G.type(_371_) == "table") and (nil ~= (_371_).__pairs)) then
-        local mtpairs = (_371_).__pairs
+      local _422_ = getmetatable(_3fenv)
+      if ((_G.type(_422_) == "table") and (nil ~= (_422_).__pairs)) then
+        local mtpairs = (_422_).__pairs
         local tbl_11_auto = {}
         for k, v in mtpairs(_3fenv) do
-          local _372_, _373_ = k, v
-          if ((nil ~= _372_) and (nil ~= _373_)) then
-            local k_12_auto = _372_
-            local v_13_auto = _373_
+          local _423_, _424_ = k, v
+          if ((nil ~= _423_) and (nil ~= _424_)) then
+            local k_12_auto = _423_
+            local v_13_auto = _424_
             tbl_11_auto[k_12_auto] = v_13_auto
           else
           end
         end
         mt = tbl_11_auto
-      elseif (_371_ == nil) then
+      elseif (_422_ == nil) then
         mt = (_3fenv or _G)
       else
         mt = nil
@@ -726,13 +756,19 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   local function load_code(code, _3fenv, _3ffilename)
     local env = (_3fenv or rawget(_G, "_ENV") or _G)
-    if (rawget(_G, "setfenv") and rawget(_G, "loadstring")) then
-      local f = assert(_G.loadstring(code, _3ffilename))
-      local _376_ = f
-      setfenv(_376_, env)
-      return _376_
-    else
+    local _427_, _428_ = rawget(_G, "setfenv"), rawget(_G, "loadstring")
+    if ((nil ~= _427_) and (nil ~= _428_)) then
+      local setfenv = _427_
+      local loadstring = _428_
+      local f = assert(loadstring(code, _3ffilename))
+      local _429_ = f
+      setfenv(_429_, env)
+      return _429_
+    elseif true then
+      local _ = _427_
       return assert(load(code, _3ffilename, "t", env))
+    else
+      return nil
     end
   end
   local function doc_2a(tgt, name)
@@ -743,13 +779,13 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
       local mt = getmetatable(tgt)
       if ((type(tgt) == "function") or ((type(mt) == "table") and (type(mt.__call) == "function"))) then
         local arglist = table.concat(((compiler.metadata):get(tgt, "fnl/arglist") or {"#<unknown-arguments>"}), " ")
-        local _378_
-        if (#arglist > 0) then
-          _378_ = " "
+        local _431_
+        if (0 < #arglist) then
+          _431_ = " "
         else
-          _378_ = ""
+          _431_ = ""
         end
-        return string.format("(%s%s%s)\n  %s", name, _378_, arglist, docstring)
+        return string.format("(%s%s%s)\n  %s", name, _431_, arglist, docstring)
       else
         return string.format("%s\n  %s", name, docstring)
       end
@@ -837,8 +873,8 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   doc_special("values", {"..."}, "Return multiple values from a function. Must be in tail position.")
   local function deep_tostring(x, key_3f)
-    if utils["sequence?"](x) then
-      local _387_
+    if utils["list?"](x) then
+      local _440_
       do
         local tbl_14_auto = {}
         local i_15_auto = #tbl_14_auto
@@ -850,15 +886,31 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
           else
           end
         end
-        _387_ = tbl_14_auto
+        _440_ = tbl_14_auto
       end
-      return ("[" .. table.concat(_387_, " ") .. "]")
-    elseif utils["table?"](x) then
-      local _389_
+      return ("(" .. table.concat(_440_, " ") .. ")")
+    elseif utils["sequence?"](x) then
+      local _442_
       do
         local tbl_14_auto = {}
         local i_15_auto = #tbl_14_auto
-        for k, v in pairs(x) do
+        for _, v in ipairs(x) do
+          local val_16_auto = deep_tostring(v)
+          if (nil ~= val_16_auto) then
+            i_15_auto = (i_15_auto + 1)
+            do end (tbl_14_auto)[i_15_auto] = val_16_auto
+          else
+          end
+        end
+        _442_ = tbl_14_auto
+      end
+      return ("[" .. table.concat(_442_, " ") .. "]")
+    elseif utils["table?"](x) then
+      local _444_
+      do
+        local tbl_14_auto = {}
+        local i_15_auto = #tbl_14_auto
+        for k, v in utils.stablepairs(x) do
           local val_16_auto = (deep_tostring(k, true) .. " " .. deep_tostring(v))
           if (nil ~= val_16_auto) then
             i_15_auto = (i_15_auto + 1)
@@ -866,9 +918,9 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
           else
           end
         end
-        _389_ = tbl_14_auto
+        _444_ = tbl_14_auto
       end
-      return ("{" .. table.concat(_389_, " ") .. "}")
+      return ("{" .. table.concat(_444_, " ") .. "}")
     elseif (key_3f and utils["string?"](x) and x:find("^[-%w?\\^_!$%&*+./@:|<=>]+$")) then
       return (":" .. x)
     elseif utils["string?"](x) then
@@ -880,10 +932,10 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   local function set_fn_metadata(arg_list, docstring, parent, fn_name)
     if utils.root.options.useMetadata then
       local args
-      local function _392_(_241)
+      local function _447_(_241)
         return ("\"%s\""):format(deep_tostring(_241))
       end
-      args = utils.map(arg_list, _392_)
+      args = utils.map(arg_list, _447_)
       local meta_fields = {"\"fnl/arglist\"", ("{" .. table.concat(args, ", ") .. "}")}
       if docstring then
         table.insert(meta_fields, "\"fnl/docstring\"")
@@ -898,13 +950,13 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   local function get_fn_name(ast, scope, fn_name, multi)
     if (fn_name and (fn_name[1] ~= "nil")) then
-      local _395_
+      local _450_
       if not multi then
-        _395_ = compiler["declare-local"](fn_name, {}, scope, ast)
+        _450_ = compiler["declare-local"](fn_name, {}, scope, ast)
       else
-        _395_ = (compiler["symbol-to-expression"](fn_name, scope))[1]
+        _450_ = (compiler["symbol-to-expression"](fn_name, scope))[1]
       end
-      return _395_, not multi, 3
+      return _450_, not multi, 3
     else
       return nil, true, 2
     end
@@ -913,13 +965,13 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     for i = (index + 1), #ast do
       compiler.compile1(ast[i], f_scope, f_chunk, {nval = (((i ~= #ast) and 0) or nil), tail = (i == #ast)})
     end
-    local _398_
+    local _453_
     if local_3f then
-      _398_ = "local function %s(%s)"
+      _453_ = "local function %s(%s)"
     else
-      _398_ = "%s = function(%s)"
+      _453_ = "%s = function(%s)"
     end
-    compiler.emit(parent, string.format(_398_, fn_name, table.concat(arg_name_list, ", ")), ast)
+    compiler.emit(parent, string.format(_453_, fn_name, table.concat(arg_name_list, ", ")), ast)
     compiler.emit(parent, f_chunk, ast)
     compiler.emit(parent, "end", ast)
     set_fn_metadata(f_metadata["fnl/arglist"], f_metadata["fnl/docstring"], parent, fn_name)
@@ -935,29 +987,29 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     local index_2a = (index + 1)
     local expr = ast[index_2a]
     if (utils["string?"](expr) and (index_2a < #ast)) then
-      local _401_
+      local _456_
       do
-        local _400_ = f_metadata
-        _400_["fnl/docstring"] = expr
-        _401_ = _400_
+        local _455_ = f_metadata
+        _455_["fnl/docstring"] = expr
+        _456_ = _455_
       end
-      return _401_, index_2a
+      return _456_, index_2a
     elseif (utils["table?"](expr) and (index_2a < #ast)) then
-      local _402_
+      local _457_
       do
         local tbl_11_auto = f_metadata
         for k, v in pairs(expr) do
-          local _403_, _404_ = k, v
-          if ((nil ~= _403_) and (nil ~= _404_)) then
-            local k_12_auto = _403_
-            local v_13_auto = _404_
+          local _458_, _459_ = k, v
+          if ((nil ~= _458_) and (nil ~= _459_)) then
+            local k_12_auto = _458_
+            local v_13_auto = _459_
             tbl_11_auto[k_12_auto] = v_13_auto
           else
           end
         end
-        _402_ = tbl_11_auto
+        _457_ = tbl_11_auto
       end
-      return _402_, index_2a
+      return _457_, index_2a
     else
       return f_metadata, index
     end
@@ -965,9 +1017,9 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   SPECIALS.fn = function(ast, scope, parent)
     local f_scope
     do
-      local _407_ = compiler["make-scope"](scope)
-      do end (_407_)["vararg"] = false
-      f_scope = _407_
+      local _462_ = compiler["make-scope"](scope)
+      do end (_462_)["vararg"] = false
+      f_scope = _462_
     end
     local f_chunk = {}
     local fn_sym = utils["sym?"](ast[2])
@@ -1002,29 +1054,29 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   doc_special("fn", {"name?", "args", "docstring?", "..."}, "Function syntax. May optionally include a name and docstring or a metadata table.\nIf a name is provided, the function will be bound in the current scope.\nWhen called with the wrong number of args, excess args will be discarded\nand lacking args will be nil, use lambda for arity-checked functions.", true)
   SPECIALS.lua = function(ast, _, parent)
     compiler.assert(((#ast == 2) or (#ast == 3)), "expected 1 or 2 arguments", ast)
-    local _411_
+    local _466_
     do
-      local _410_ = utils["sym?"](ast[2])
-      if (nil ~= _410_) then
-        _411_ = tostring(_410_)
+      local _465_ = utils["sym?"](ast[2])
+      if (nil ~= _465_) then
+        _466_ = tostring(_465_)
       else
-        _411_ = _410_
+        _466_ = _465_
       end
     end
-    if ("nil" ~= _411_) then
+    if ("nil" ~= _466_) then
       table.insert(parent, {ast = ast, leaf = tostring(ast[2])})
     else
     end
-    local _415_
+    local _470_
     do
-      local _414_ = utils["sym?"](ast[3])
-      if (nil ~= _414_) then
-        _415_ = tostring(_414_)
+      local _469_ = utils["sym?"](ast[3])
+      if (nil ~= _469_) then
+        _470_ = tostring(_469_)
       else
-        _415_ = _414_
+        _470_ = _469_
       end
     end
-    if ("nil" ~= _415_) then
+    if ("nil" ~= _470_) then
       return tostring(ast[3])
     else
       return nil
@@ -1033,8 +1085,8 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   local function dot(ast, scope, parent)
     compiler.assert((1 < #ast), "expected table argument", ast)
     local len = #ast
-    local _let_418_ = compiler.compile1(ast[2], scope, parent, {nval = 1})
-    local lhs = _let_418_[1]
+    local _let_473_ = compiler.compile1(ast[2], scope, parent, {nval = 1})
+    local lhs = _let_473_[1]
     if (len == 2) then
       return tostring(lhs)
     else
@@ -1044,8 +1096,8 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
         if (utils["string?"](index) and utils["valid-lua-identifier?"](index)) then
           table.insert(indices, ("." .. index))
         else
-          local _let_419_ = compiler.compile1(index, scope, parent, {nval = 1})
-          local index0 = _let_419_[1]
+          local _let_474_ = compiler.compile1(index, scope, parent, {nval = 1})
+          local index0 = _let_474_[1]
           table.insert(indices, ("[" .. tostring(index0) .. "]"))
         end
       end
@@ -1090,13 +1142,13 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   doc_special("var", {"name", "val"}, "Introduce new mutable local.")
   local function kv_3f(t)
-    local _423_
+    local _478_
     do
       local tbl_14_auto = {}
       local i_15_auto = #tbl_14_auto
       for k in pairs(t) do
         local val_16_auto
-        if not ("number" == type(k)) then
+        if ("number" ~= type(k)) then
           val_16_auto = k
         else
           val_16_auto = nil
@@ -1107,16 +1159,16 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
         else
         end
       end
-      _423_ = tbl_14_auto
+      _478_ = tbl_14_auto
     end
-    return (_423_)[1]
+    return (_478_)[1]
   end
   SPECIALS.let = function(ast, scope, parent, opts)
     local bindings = ast[2]
     local pre_syms = {}
     compiler.assert((utils["table?"](bindings) and not kv_3f(bindings)), "expected binding sequence", bindings)
     compiler.assert(((#bindings % 2) == 0), "expected even number of name/value bindings", ast[2])
-    compiler.assert((#ast >= 3), "expected body expression", ast[1])
+    compiler.assert((3 <= #ast), "expected body expression", ast[1])
     for _ = 1, (opts.nval or 0) do
       table.insert(pre_syms, compiler.gensym(scope))
     end
@@ -1136,24 +1188,24 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     end
   end
   local function disambiguate_3f(rootstr, parent)
-    local function _428_()
-      local _427_ = get_prev_line(parent)
-      if (nil ~= _427_) then
-        local prev_line = _427_
+    local function _483_()
+      local _482_ = get_prev_line(parent)
+      if (nil ~= _482_) then
+        local prev_line = _482_
         return prev_line:match("%)$")
       else
         return nil
       end
     end
-    return (rootstr:match("^{") or _428_())
+    return (rootstr:match("^{") or _483_())
   end
   SPECIALS.tset = function(ast, scope, parent)
-    compiler.assert((#ast > 3), "expected table, key, and value arguments", ast)
+    compiler.assert((3 < #ast), "expected table, key, and value arguments", ast)
     local root = (compiler.compile1(ast[2], scope, parent, {nval = 1}))[1]
     local keys = {}
     for i = 3, (#ast - 1) do
-      local _let_430_ = compiler.compile1(ast[i], scope, parent, {nval = 1})
-      local key = _let_430_[1]
+      local _let_485_ = compiler.compile1(ast[i], scope, parent, {nval = 1})
+      local key = _let_485_[1]
       table.insert(keys, tostring(key))
     end
     local value = (compiler.compile1(ast[#ast], scope, parent, {nval = 1}))[1]
@@ -1267,7 +1319,8 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   SPECIALS["if"] = if_2a
   doc_special("if", {"cond1", "body1", "...", "condN", "bodyN"}, "Conditional form.\nTakes any number of condition/body pairs and evaluates the first body where\nthe condition evaluates to truthy. Similar to cond in other lisps.")
   local function remove_until_condition(bindings)
-    if ("until" == bindings[(#bindings - 1)]) then
+    local last_item = bindings[(#bindings - 1)]
+    if ((utils["sym?"](last_item) and (tostring(last_item) == "&until")) or ("until" == last_item)) then
       table.remove(bindings, (#bindings - 1))
       return table.remove(bindings)
     else
@@ -1276,15 +1329,15 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   local function compile_until(condition, scope, chunk)
     if condition then
-      local _let_439_ = compiler.compile1(condition, scope, chunk, {nval = 1})
-      local condition_lua = _let_439_[1]
+      local _let_494_ = compiler.compile1(condition, scope, chunk, {nval = 1})
+      local condition_lua = _let_494_[1]
       return compiler.emit(chunk, ("if %s then break end"):format(tostring(condition_lua)), utils.expr(condition, "expression"))
     else
       return nil
     end
   end
   SPECIALS.each = function(ast, scope, parent)
-    compiler.assert((#ast >= 3), "expected body expression", ast[1])
+    compiler.assert((3 <= #ast), "expected body expression", ast[1])
     local binding = compiler.assert(utils["table?"](ast[2]), "expected binding table", ast)
     local _ = compiler.assert((2 <= #binding), "expected binding and iterator", binding)
     local until_condition = remove_until_condition(binding)
@@ -1346,7 +1399,7 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     local range_args = {}
     local chunk = {}
     compiler.assert(utils["sym?"](binding_sym), ("unable to bind %s %s"):format(type(binding_sym), tostring(binding_sym)), ast[2])
-    compiler.assert((#ast >= 3), "expected body expression", ast[1])
+    compiler.assert((3 <= #ast), "expected body expression", ast[1])
     compiler.assert((#ranges <= 3), "unexpected arguments", ranges[4])
     for i = 1, math.min(#ranges, 3) do
       range_args[i] = tostring((compiler.compile1(ranges[i], scope, parent, {nval = 1}))[1])
@@ -1360,10 +1413,10 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   SPECIALS["for"] = for_2a
   doc_special("for", {"[index start stop step?]", "..."}, "Numeric loop construct.\nEvaluates body once for each value between start and stop (inclusive).", true)
   local function native_method_call(ast, _scope, _parent, target, args)
-    local _let_443_ = ast
-    local _ = _let_443_[1]
-    local _0 = _let_443_[2]
-    local method_string = _let_443_[3]
+    local _let_498_ = ast
+    local _ = _let_498_[1]
+    local _0 = _let_498_[2]
+    local method_string = _let_498_[3]
     local call_string
     if ((target.type == "literal") or (target.type == "varg") or (target.type == "expression")) then
       call_string = "(%s):%s(%s)"
@@ -1385,18 +1438,18 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   local function method_call(ast, scope, parent)
     compiler.assert((2 < #ast), "expected at least 2 arguments", ast)
-    local _let_445_ = compiler.compile1(ast[2], scope, parent, {nval = 1})
-    local target = _let_445_[1]
+    local _let_500_ = compiler.compile1(ast[2], scope, parent, {nval = 1})
+    local target = _let_500_[1]
     local args = {}
     for i = 4, #ast do
       local subexprs
-      local _446_
+      local _501_
       if (i ~= #ast) then
-        _446_ = 1
+        _501_ = 1
       else
-        _446_ = nil
+        _501_ = nil
       end
-      subexprs = compiler.compile1(ast[i], scope, parent, {nval = _446_})
+      subexprs = compiler.compile1(ast[i], scope, parent, {nval = _501_})
       utils.map(subexprs, tostring, args)
     end
     if (utils["string?"](ast[3]) and utils["valid-lua-identifier?"](ast[3])) then
@@ -1414,7 +1467,7 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     for i = 2, #ast do
       table.insert(els, view(ast[i], {["one-line?"] = true}))
     end
-    return compiler.emit(parent, ("--[[ " .. table.concat(els, " ") .. " ]]--"), ast)
+    return compiler.emit(parent, ("--[[ " .. table.concat(els, " ") .. " ]]"), ast)
   end
   doc_special("comment", {"..."}, "Comment which will be emitted in Lua output.", true)
   local function hashfn_max_used(f_scope, i, max)
@@ -1434,10 +1487,10 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     compiler.assert((#ast == 2), "expected one argument", ast)
     local f_scope
     do
-      local _451_ = compiler["make-scope"](scope)
-      do end (_451_)["vararg"] = false
-      _451_["hashfn"] = true
-      f_scope = _451_
+      local _506_ = compiler["make-scope"](scope)
+      do end (_506_)["vararg"] = false
+      _506_["hashfn"] = true
+      f_scope = _506_
     end
     local f_chunk = {}
     local name = compiler.gensym(scope)
@@ -1475,9 +1528,9 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     return utils.expr(name, "sym")
   end
   doc_special("hashfn", {"..."}, "Function literal shorthand; args are either $... OR $1, $2, etc.")
-  local function maybe_short_circuit_protect(ast, i, name, _455_)
-    local _arg_456_ = _455_
-    local mac = _arg_456_["macros"]
+  local function maybe_short_circuit_protect(ast, i, name, _510_)
+    local _arg_511_ = _510_
+    local mac = _arg_511_["macros"]
     local call = (utils["list?"](ast) and tostring(ast[1]))
     if ((("or" == name) or ("and" == name)) and (1 < i) and (mac[call] or ("set" == call) or ("tset" == call) or ("global" == call))) then
       return utils.list(utils.sym("do"), ast)
@@ -1498,40 +1551,40 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
         table.insert(operands, tostring(subexprs[1]))
       end
     end
-    local _459_ = #operands
-    if (_459_ == 0) then
-      local _461_
+    local _514_ = #operands
+    if (_514_ == 0) then
+      local _516_
       do
-        local _460_ = zero_arity
-        compiler.assert(_460_, "Expected more than 0 arguments", ast)
-        _461_ = _460_
+        local _515_ = zero_arity
+        compiler.assert(_515_, "Expected more than 0 arguments", ast)
+        _516_ = _515_
       end
-      return utils.expr(_461_, "literal")
-    elseif (_459_ == 1) then
+      return utils.expr(_516_, "literal")
+    elseif (_514_ == 1) then
       if unary_prefix then
         return ("(" .. unary_prefix .. padded_op .. operands[1] .. ")")
       else
         return operands[1]
       end
     elseif true then
-      local _ = _459_
+      local _ = _514_
       return ("(" .. table.concat(operands, padded_op) .. ")")
     else
       return nil
     end
   end
   local function define_arithmetic_special(name, zero_arity, unary_prefix, _3flua_name)
-    local _467_
+    local _522_
     do
-      local _464_ = (_3flua_name or name)
-      local _465_ = zero_arity
-      local _466_ = unary_prefix
-      local function _468_(...)
-        return arithmetic_special(_464_, _465_, _466_, ...)
+      local _519_ = (_3flua_name or name)
+      local _520_ = zero_arity
+      local _521_ = unary_prefix
+      local function _523_(...)
+        return arithmetic_special(_519_, _520_, _521_, ...)
       end
-      _467_ = _468_
+      _522_ = _523_
     end
-    SPECIALS[name] = _467_
+    SPECIALS[name] = _522_
     return doc_special(name, {"a", "b", "..."}, "Arithmetic operator; works the same as Lua but accepts more arguments.")
   end
   define_arithmetic_special("+", "0")
@@ -1560,13 +1613,13 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
       local prefixed_lib_name = ("bit." .. lib_name)
       for i = 2, len do
         local subexprs
-        local _469_
+        local _524_
         if (i ~= len) then
-          _469_ = 1
+          _524_ = 1
         else
-          _469_ = nil
+          _524_ = nil
         end
-        subexprs = compiler.compile1(ast[i], scope, parent, {nval = _469_})
+        subexprs = compiler.compile1(ast[i], scope, parent, {nval = _524_})
         utils.map(subexprs, tostring, operands)
       end
       if (#operands == 1) then
@@ -1585,18 +1638,18 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     end
   end
   local function define_bitop_special(name, zero_arity, unary_prefix, native)
-    local _479_
+    local _534_
     do
-      local _475_ = native
-      local _476_ = name
-      local _477_ = zero_arity
-      local _478_ = unary_prefix
-      local function _480_(...)
-        return bitop_special(_475_, _476_, _477_, _478_, ...)
+      local _530_ = native
+      local _531_ = name
+      local _532_ = zero_arity
+      local _533_ = unary_prefix
+      local function _535_(...)
+        return bitop_special(_530_, _531_, _532_, _533_, ...)
       end
-      _479_ = _480_
+      _534_ = _535_
     end
-    SPECIALS[name] = _479_
+    SPECIALS[name] = _534_
     return nil
   end
   define_bitop_special("lshift", nil, "1", "<<")
@@ -1610,15 +1663,15 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   doc_special("bor", {"x1", "x2", "..."}, "Bitwise OR of any number of arguments.\nOnly works in Lua 5.3+ or LuaJIT with the --use-bit-lib flag.")
   doc_special("bxor", {"x1", "x2", "..."}, "Bitwise XOR of any number of arguments.\nOnly works in Lua 5.3+ or LuaJIT with the --use-bit-lib flag.")
   doc_special("..", {"a", "b", "..."}, "String concatenation operator; works the same as Lua but accepts more arguments.")
-  local function native_comparator(op, _481_, scope, parent)
-    local _arg_482_ = _481_
-    local _ = _arg_482_[1]
-    local lhs_ast = _arg_482_[2]
-    local rhs_ast = _arg_482_[3]
-    local _let_483_ = compiler.compile1(lhs_ast, scope, parent, {nval = 1})
-    local lhs = _let_483_[1]
-    local _let_484_ = compiler.compile1(rhs_ast, scope, parent, {nval = 1})
-    local rhs = _let_484_[1]
+  local function native_comparator(op, _536_, scope, parent)
+    local _arg_537_ = _536_
+    local _ = _arg_537_[1]
+    local lhs_ast = _arg_537_[2]
+    local rhs_ast = _arg_537_[3]
+    local _let_538_ = compiler.compile1(lhs_ast, scope, parent, {nval = 1})
+    local lhs = _let_538_[1]
+    local _let_539_ = compiler.compile1(rhs_ast, scope, parent, {nval = 1})
+    local rhs = _let_539_[1]
     return string.format("(%s %s %s)", tostring(lhs), op, tostring(rhs))
   end
   local function double_eval_protected_comparator(op, chain_op, ast, scope, parent)
@@ -1694,21 +1747,21 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   local safe_require = nil
   local function safe_compiler_env()
-    local _488_
+    local _543_
     do
-      local _487_ = rawget(_G, "utf8")
-      if (nil ~= _487_) then
-        _488_ = utils.copy(_487_)
+      local _542_ = rawget(_G, "utf8")
+      if (nil ~= _542_) then
+        _543_ = utils.copy(_542_)
       else
-        _488_ = _487_
+        _543_ = _542_
       end
     end
-    return {table = utils.copy(table), math = utils.copy(math), string = utils.copy(string), pairs = pairs, ipairs = ipairs, select = select, tostring = tostring, tonumber = tonumber, bit = rawget(_G, "bit"), pcall = pcall, xpcall = xpcall, next = next, print = print, type = type, assert = assert, error = error, setmetatable = setmetatable, getmetatable = safe_getmetatable, require = safe_require, rawlen = rawget(_G, "rawlen"), rawget = rawget, rawset = rawset, rawequal = rawequal, _VERSION = _VERSION, utf8 = _488_}
+    return {table = utils.copy(table), math = utils.copy(math), string = utils.copy(string), pairs = utils.stablepairs, ipairs = ipairs, select = select, tostring = tostring, tonumber = tonumber, bit = rawget(_G, "bit"), pcall = pcall, xpcall = xpcall, next = next, print = print, type = type, assert = assert, error = error, setmetatable = setmetatable, getmetatable = safe_getmetatable, require = safe_require, rawlen = rawget(_G, "rawlen"), rawget = rawget, rawset = rawset, rawequal = rawequal, _VERSION = _VERSION, utf8 = _543_}
   end
   local function combined_mt_pairs(env)
     local combined = {}
-    local _let_490_ = getmetatable(env)
-    local __index = _let_490_["__index"]
+    local _let_545_ = getmetatable(env)
+    local __index = _let_545_["__index"]
     if ("table" == type(__index)) then
       for k, v in pairs(__index) do
         combined[k] = v
@@ -1723,42 +1776,42 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   local function make_compiler_env(ast, scope, parent, _3fopts)
     local provided
     do
-      local _492_ = (_3fopts or utils.root.options)
-      if ((_G.type(_492_) == "table") and ((_492_)["compiler-env"] == "strict")) then
+      local _547_ = (_3fopts or utils.root.options)
+      if ((_G.type(_547_) == "table") and ((_547_)["compiler-env"] == "strict")) then
         provided = safe_compiler_env()
-      elseif ((_G.type(_492_) == "table") and (nil ~= (_492_).compilerEnv)) then
-        local compilerEnv = (_492_).compilerEnv
+      elseif ((_G.type(_547_) == "table") and (nil ~= (_547_).compilerEnv)) then
+        local compilerEnv = (_547_).compilerEnv
         provided = compilerEnv
-      elseif ((_G.type(_492_) == "table") and (nil ~= (_492_)["compiler-env"])) then
-        local compiler_env = (_492_)["compiler-env"]
+      elseif ((_G.type(_547_) == "table") and (nil ~= (_547_)["compiler-env"])) then
+        local compiler_env = (_547_)["compiler-env"]
         provided = compiler_env
       elseif true then
-        local _ = _492_
+        local _ = _547_
         provided = safe_compiler_env(false)
       else
         provided = nil
       end
     end
     local env
-    local function _494_(base)
+    local function _549_(base)
       return utils.sym(compiler.gensym((compiler.scopes.macro or scope), base))
     end
-    local function _495_()
+    local function _550_()
       return compiler.scopes.macro
     end
-    local function _496_(symbol)
+    local function _551_(symbol)
       compiler.assert(compiler.scopes.macro, "must call from macro", ast)
       return compiler.scopes.macro.manglings[tostring(symbol)]
     end
-    local function _497_(form)
+    local function _552_(form)
       compiler.assert(compiler.scopes.macro, "must call from macro", ast)
       return compiler.macroexpand(form, compiler.scopes.macro)
     end
-    env = {_AST = ast, _CHUNK = parent, _IS_COMPILER = true, _SCOPE = scope, _SPECIALS = compiler.scopes.global.specials, _VARARG = utils.varg(), ["macro-loaded"] = macro_loaded, unpack = unpack, ["assert-compile"] = compiler.assert, view = view, version = utils.version, metadata = compiler.metadata, list = utils.list, ["list?"] = utils["list?"], ["table?"] = utils["table?"], sequence = utils.sequence, ["sequence?"] = utils["sequence?"], sym = utils.sym, ["sym?"] = utils["sym?"], ["multi-sym?"] = utils["multi-sym?"], comment = utils.comment, ["comment?"] = utils["comment?"], ["varg?"] = utils["varg?"], gensym = _494_, ["get-scope"] = _495_, ["in-scope?"] = _496_, macroexpand = _497_}
+    env = {_AST = ast, _CHUNK = parent, _IS_COMPILER = true, _SCOPE = scope, _SPECIALS = compiler.scopes.global.specials, _VARARG = utils.varg(), ["macro-loaded"] = macro_loaded, unpack = unpack, ["assert-compile"] = compiler.assert, view = view, version = utils.version, metadata = compiler.metadata, ["ast-source"] = utils["ast-source"], list = utils.list, ["list?"] = utils["list?"], ["table?"] = utils["table?"], sequence = utils.sequence, ["sequence?"] = utils["sequence?"], sym = utils.sym, ["sym?"] = utils["sym?"], ["multi-sym?"] = utils["multi-sym?"], comment = utils.comment, ["comment?"] = utils["comment?"], ["varg?"] = utils["varg?"], gensym = _549_, ["get-scope"] = _550_, ["in-scope?"] = _551_, macroexpand = _552_}
     env._G = env
     return setmetatable(env, {__index = provided, __newindex = provided, __pairs = combined_mt_pairs})
   end
-  local function _499_(...)
+  local function _554_(...)
     local tbl_14_auto = {}
     local i_15_auto = #tbl_14_auto
     for c in string.gmatch((package.config or ""), "([^\n]+)") do
@@ -1771,10 +1824,10 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     end
     return tbl_14_auto
   end
-  local _local_498_ = _499_(...)
-  local dirsep = _local_498_[1]
-  local pathsep = _local_498_[2]
-  local pathmark = _local_498_[3]
+  local _local_553_ = _554_(...)
+  local dirsep = _local_553_[1]
+  local pathsep = _local_553_[2]
+  local pathmark = _local_553_[3]
   local pkg_config = {dirsep = (dirsep or "/"), pathmark = (pathmark or ";"), pathsep = (pathsep or "?")}
   local function escapepat(str)
     return string.gsub(str, "[^%w]", "%%%1")
@@ -1787,40 +1840,40 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     local function try_path(path)
       local filename = path:gsub(escapepat(pkg_config.pathmark), no_dot_module)
       local filename2 = path:gsub(escapepat(pkg_config.pathmark), modulename)
-      local _501_ = (io.open(filename) or io.open(filename2))
-      if (nil ~= _501_) then
-        local file = _501_
+      local _556_ = (io.open(filename) or io.open(filename2))
+      if (nil ~= _556_) then
+        local file = _556_
         file:close()
         return filename
       elseif true then
-        local _ = _501_
+        local _ = _556_
         return nil, ("no file '" .. filename .. "'")
       else
         return nil
       end
     end
     local function find_in_path(start, _3ftried_paths)
-      local _503_ = fullpath:match(pattern, start)
-      if (nil ~= _503_) then
-        local path = _503_
-        local _504_, _505_ = try_path(path)
-        if (nil ~= _504_) then
-          local filename = _504_
+      local _558_ = fullpath:match(pattern, start)
+      if (nil ~= _558_) then
+        local path = _558_
+        local _559_, _560_ = try_path(path)
+        if (nil ~= _559_) then
+          local filename = _559_
           return filename
-        elseif ((_504_ == nil) and (nil ~= _505_)) then
-          local error = _505_
-          local function _507_()
-            local _506_ = (_3ftried_paths or {})
-            table.insert(_506_, error)
-            return _506_
+        elseif ((_559_ == nil) and (nil ~= _560_)) then
+          local error = _560_
+          local function _562_()
+            local _561_ = (_3ftried_paths or {})
+            table.insert(_561_, error)
+            return _561_
           end
-          return find_in_path((start + #path + 1), _507_())
+          return find_in_path((start + #path + 1), _562_())
         else
           return nil
         end
       elseif true then
-        local _ = _503_
-        local function _509_()
+        local _ = _558_
+        local function _564_()
           local tried_paths = table.concat((_3ftried_paths or {}), "\n\9")
           if (_VERSION < "Lua 5.4") then
             return ("\n\9" .. tried_paths)
@@ -1828,7 +1881,7 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
             return tried_paths
           end
         end
-        return nil, _509_()
+        return nil, _564_()
       else
         return nil
       end
@@ -1836,33 +1889,33 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     return find_in_path(1)
   end
   local function make_searcher(_3foptions)
-    local function _512_(module_name)
+    local function _567_(module_name)
       local opts = utils.copy(utils.root.options)
       for k, v in pairs((_3foptions or {})) do
         opts[k] = v
       end
       opts["module-name"] = module_name
-      local _513_, _514_ = search_module(module_name)
-      if (nil ~= _513_) then
-        local filename = _513_
-        local _517_
+      local _568_, _569_ = search_module(module_name)
+      if (nil ~= _568_) then
+        local filename = _568_
+        local _572_
         do
-          local _515_ = filename
-          local _516_ = opts
-          local function _518_(...)
-            return utils["fennel-module"].dofile(_515_, _516_, ...)
+          local _570_ = filename
+          local _571_ = opts
+          local function _573_(...)
+            return utils["fennel-module"].dofile(_570_, _571_, ...)
           end
-          _517_ = _518_
+          _572_ = _573_
         end
-        return _517_, filename
-      elseif ((_513_ == nil) and (nil ~= _514_)) then
-        local error = _514_
+        return _572_, filename
+      elseif ((_568_ == nil) and (nil ~= _569_)) then
+        local error = _569_
         return error
       else
         return nil
       end
     end
-    return _512_
+    return _567_
   end
   local function dofile_with_searcher(fennel_macro_searcher, filename, opts, ...)
     local searchers = (package.loaders or package.searchers or {})
@@ -1874,41 +1927,42 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   local function fennel_macro_searcher(module_name)
     local opts
     do
-      local _520_ = utils.copy(utils.root.options)
-      do end (_520_)["env"] = "_COMPILER"
-      _520_["requireAsInclude"] = false
-      _520_["allowedGlobals"] = nil
-      opts = _520_
+      local _575_ = utils.copy(utils.root.options)
+      do end (_575_)["module-name"] = module_name
+      _575_["env"] = "_COMPILER"
+      _575_["requireAsInclude"] = false
+      _575_["allowedGlobals"] = nil
+      opts = _575_
     end
-    local _521_ = search_module(module_name, utils["fennel-module"]["macro-path"])
-    if (nil ~= _521_) then
-      local filename = _521_
-      local _522_
+    local _576_ = search_module(module_name, utils["fennel-module"]["macro-path"])
+    if (nil ~= _576_) then
+      local filename = _576_
+      local _577_
       if (opts["compiler-env"] == _G) then
-        local _523_ = fennel_macro_searcher
-        local _524_ = filename
-        local _525_ = opts
-        local function _527_(...)
-          return dofile_with_searcher(_523_, _524_, _525_, ...)
+        local _578_ = fennel_macro_searcher
+        local _579_ = filename
+        local _580_ = opts
+        local function _582_(...)
+          return dofile_with_searcher(_578_, _579_, _580_, ...)
         end
-        _522_ = _527_
+        _577_ = _582_
       else
-        local _528_ = filename
-        local _529_ = opts
-        local function _531_(...)
-          return utils["fennel-module"].dofile(_528_, _529_, ...)
+        local _583_ = filename
+        local _584_ = opts
+        local function _586_(...)
+          return utils["fennel-module"].dofile(_583_, _584_, ...)
         end
-        _522_ = _531_
+        _577_ = _586_
       end
-      return _522_, filename
+      return _577_, filename
     else
       return nil
     end
   end
   local function lua_macro_searcher(module_name)
-    local _534_ = search_module(module_name, package.path)
-    if (nil ~= _534_) then
-      local filename = _534_
+    local _589_ = search_module(module_name, package.path)
+    if (nil ~= _589_) then
+      local filename = _589_
       local code
       do
         local f = io.open(filename)
@@ -1920,10 +1974,10 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
             return error(..., 0)
           end
         end
-        local function _536_()
+        local function _591_()
           return assert(f:read("*a"))
         end
-        code = close_handlers_8_auto(_G.xpcall(_536_, (package.loaded.fennel or debug).traceback))
+        code = close_handlers_8_auto(_G.xpcall(_591_, (package.loaded.fennel or debug).traceback))
       end
       local chunk = load_code(code, make_compiler_env(), filename)
       return chunk, filename
@@ -1933,16 +1987,16 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
   end
   local macro_searchers = {fennel_macro_searcher, lua_macro_searcher}
   local function search_macro_module(modname, n)
-    local _538_ = macro_searchers[n]
-    if (nil ~= _538_) then
-      local f = _538_
-      local _539_, _540_ = f(modname)
-      if ((nil ~= _539_) and true) then
-        local loader = _539_
-        local _3ffilename = _540_
+    local _593_ = macro_searchers[n]
+    if (nil ~= _593_) then
+      local f = _593_
+      local _594_, _595_ = f(modname)
+      if ((nil ~= _594_) and true) then
+        local loader = _594_
+        local _3ffilename = _595_
         return loader, _3ffilename
       elseif true then
-        local _ = _539_
+        local _ = _594_
         return search_macro_module(modname, (n + 1))
       else
         return nil
@@ -1951,35 +2005,36 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
       return nil
     end
   end
-  local function metadata_only_fennel(modname)
+  local function sandbox_fennel_module(modname)
     if ((modname == "katdotnvim.aniseed.fennel.macros") or (package and package.loaded and ("table" == type(package.loaded[modname])) and (package.loaded[modname].metadata == compiler.metadata))) then
-      return {metadata = compiler.metadata}
+      return {metadata = compiler.metadata, view = view}
     else
       return nil
     end
   end
-  local function _544_(modname)
-    local function _545_()
+  local function _599_(modname)
+    local function _600_()
       local loader, filename = search_macro_module(modname, 1)
       compiler.assert(loader, (modname .. " module not found."))
       do end (macro_loaded)[modname] = loader(modname, filename)
       return macro_loaded[modname]
     end
-    return (macro_loaded[modname] or metadata_only_fennel(modname) or _545_())
+    return (macro_loaded[modname] or sandbox_fennel_module(modname) or _600_())
   end
-  safe_require = _544_
+  safe_require = _599_
   local function add_macros(macros_2a, ast, scope)
     compiler.assert(utils["table?"](macros_2a), "expected macros to be table", ast)
     for k, v in pairs(macros_2a) do
       compiler.assert((type(v) == "function"), "expected each macro to be function", ast)
+      compiler["check-binding-valid"](utils.sym(k), scope, ast, {["macro?"] = true})
       do end (scope.macros)[k] = v
     end
     return nil
   end
-  local function resolve_module_name(_546_, _scope, _parent, opts)
-    local _arg_547_ = _546_
-    local filename = _arg_547_["filename"]
-    local second = _arg_547_[2]
+  local function resolve_module_name(_601_, _scope, _parent, opts)
+    local _arg_602_ = _601_
+    local filename = _arg_602_["filename"]
+    local second = _arg_602_[2]
     local filename0 = (filename or (utils["table?"](second) and second.filename))
     local module_name = utils.root.options["module-name"]
     local modexpr = compiler.compile(second, opts)
@@ -1993,7 +2048,7 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     if not macro_loaded[modname] then
       local loader, filename = search_macro_module(modname, 1)
       compiler.assert(loader, (modname .. " module not found."), ast)
-      do end (macro_loaded)[modname] = loader(modname, filename)
+      do end (macro_loaded)[modname] = compiler.assert(utils["table?"](loader(modname, filename)), "expected macros to be table", (_3freal_ast or ast))
     else
     end
     if ("import-macros" == tostring(ast[1])) then
@@ -2038,10 +2093,10 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
           return error(..., 0)
         end
       end
-      local function _553_()
+      local function _608_()
         return assert(f:read("*all")):gsub("[\13\n]*$", "")
       end
-      src = close_handlers_8_auto(_G.xpcall(_553_, (package.loaded.fennel or debug).traceback))
+      src = close_handlers_8_auto(_G.xpcall(_608_, (package.loaded.fennel or debug).traceback))
     end
     local ret = utils.expr(("require(\"" .. mod .. "\")"), "statement")
     local target = ("package.preload[%q]"):format(mod)
@@ -2050,8 +2105,8 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     compiler.emit(temp_chunk, preload_str, ast)
     compiler.emit(temp_chunk, sub_chunk)
     compiler.emit(temp_chunk, "end", ast)
-    for i, v in ipairs(temp_chunk) do
-      table.insert(utils.root.chunk, i, v)
+    for _, v in ipairs(temp_chunk) do
+      table.insert(utils.root.chunk, v)
     end
     if fennel_3f then
       emit_included_fennel(src, path, opts, sub_chunk)
@@ -2073,12 +2128,12 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
     compiler.assert((#ast == 2), "expected one argument", ast)
     local modexpr
     do
-      local _556_, _557_ = pcall(resolve_module_name, ast, scope, parent, opts)
-      if ((_556_ == true) and (nil ~= _557_)) then
-        local modname = _557_
+      local _611_, _612_ = pcall(resolve_module_name, ast, scope, parent, opts)
+      if ((_611_ == true) and (nil ~= _612_)) then
+        local modname = _612_
         modexpr = utils.expr(string.format("%q", modname), "literal")
       elseif true then
-        local _ = _556_
+        local _ = _611_
         modexpr = (compiler.compile1(ast[2], scope, parent, {nval = 1}))[1]
       else
         modexpr = nil
@@ -2097,13 +2152,13 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
       utils.root.options["module-name"] = mod
       _ = nil
       local res
-      local function _561_()
-        local _560_ = search_module(mod)
-        if (nil ~= _560_) then
-          local fennel_path = _560_
+      local function _616_()
+        local _615_ = search_module(mod)
+        if (nil ~= _615_) then
+          local fennel_path = _615_
           return include_path(ast, opts, fennel_path, mod, true)
         elseif true then
-          local _0 = _560_
+          local _0 = _615_
           local lua_path = search_module(mod, package.path)
           if lua_path then
             return include_path(ast, opts, lua_path, mod, false)
@@ -2116,7 +2171,7 @@ package.preload["katdotnvim.aniseed.fennel.specials"] = package.preload["katdotn
           return nil
         end
       end
-      res = ((utils["member?"](mod, (utils.root.options.skipInclude or {})) and opts.fallback(modexpr, true)) or include_circular_fallback(mod, modexpr, opts.fallback, ast) or utils.root.scope.includes[mod] or _561_())
+      res = ((utils["member?"](mod, (utils.root.options.skipInclude or {})) and opts.fallback(modexpr, true)) or include_circular_fallback(mod, modexpr, opts.fallback, ast) or utils.root.scope.includes[mod] or _616_())
       utils.root.options["module-name"] = oldmod
       return res
     end
@@ -2152,13 +2207,13 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
   local scopes = {}
   local function make_scope(_3fparent)
     local parent = (_3fparent or scopes.global)
-    local _219_
+    local _257_
     if parent then
-      _219_ = ((parent.depth or 0) + 1)
+      _257_ = ((parent.depth or 0) + 1)
     else
-      _219_ = 0
+      _257_ = 0
     end
-    return {includes = setmetatable({}, {__index = (parent and parent.includes)}), macros = setmetatable({}, {__index = (parent and parent.macros)}), manglings = setmetatable({}, {__index = (parent and parent.manglings)}), specials = setmetatable({}, {__index = (parent and parent.specials)}), symmeta = setmetatable({}, {__index = (parent and parent.symmeta)}), unmanglings = setmetatable({}, {__index = (parent and parent.unmanglings)}), gensyms = setmetatable({}, {__index = (parent and parent.gensyms)}), autogensyms = setmetatable({}, {__index = (parent and parent.autogensyms)}), vararg = (parent and parent.vararg), depth = _219_, hashfn = (parent and parent.hashfn), refedglobals = {}, parent = parent}
+    return {includes = setmetatable({}, {__index = (parent and parent.includes)}), macros = setmetatable({}, {__index = (parent and parent.macros)}), manglings = setmetatable({}, {__index = (parent and parent.manglings)}), specials = setmetatable({}, {__index = (parent and parent.specials)}), symmeta = setmetatable({}, {__index = (parent and parent.symmeta)}), unmanglings = setmetatable({}, {__index = (parent and parent.unmanglings)}), gensyms = setmetatable({}, {__index = (parent and parent.gensyms)}), autogensyms = setmetatable({}, {__index = (parent and parent.autogensyms)}), vararg = (parent and parent.vararg), depth = _257_, hashfn = (parent and parent.hashfn), refedglobals = {}, parent = parent}
   end
   local function assert_msg(ast, msg)
     local ast_tbl
@@ -2170,14 +2225,15 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     local m = getmetatable(ast)
     local filename = ((m and m.filename) or ast_tbl.filename or "unknown")
     local line = ((m and m.line) or ast_tbl.line or "?")
+    local col = ((m and m.col) or ast_tbl.col or "?")
     local target = tostring((utils["sym?"](ast_tbl[1]) or ast_tbl[1] or "()"))
-    return string.format("%s:%s: Compile error in '%s': %s", filename, line, target, msg)
+    return string.format("%s:%s:%s Compile error in '%s': %s", filename, line, col, target, msg)
   end
   local function assert_compile(condition, msg, ast)
     if not condition then
-      local _let_222_ = (utils.root.options or {})
-      local source = _let_222_["source"]
-      local unfriendly = _let_222_["unfriendly"]
+      local _let_260_ = (utils.root.options or {})
+      local source = _let_260_["source"]
+      local unfriendly = _let_260_["unfriendly"]
       if (nil == utils.hook("assert-compile", condition, msg, ast, utils.root.reset)) then
         utils.root.reset()
         if (unfriendly or not friend or not _G.io or not _G.io.read) then
@@ -2197,33 +2253,33 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
   scopes.macro = scopes.global
   local serialize_subst = {["\7"] = "\\a", ["\8"] = "\\b", ["\9"] = "\\t", ["\n"] = "n", ["\11"] = "\\v", ["\12"] = "\\f"}
   local function serialize_string(str)
-    local function _226_(_241)
+    local function _264_(_241)
       return ("\\" .. _241:byte())
     end
-    return string.gsub(string.gsub(string.format("%q", str), ".", serialize_subst), "[\128-\255]", _226_)
+    return string.gsub(string.gsub(string.format("%q", str), ".", serialize_subst), "[\128-\255]", _264_)
   end
   local function global_mangling(str)
     if utils["valid-lua-identifier?"](str) then
       return str
     else
-      local function _227_(_241)
+      local function _265_(_241)
         return string.format("_%02x", _241:byte())
       end
-      return ("__fnl_global__" .. str:gsub("[^%w]", _227_))
+      return ("__fnl_global__" .. str:gsub("[^%w]", _265_))
     end
   end
   local function global_unmangling(identifier)
-    local _229_ = string.match(identifier, "^__fnl_global__(.*)$")
-    if (nil ~= _229_) then
-      local rest = _229_
-      local _230_
-      local function _231_(_241)
+    local _267_ = string.match(identifier, "^__fnl_global__(.*)$")
+    if (nil ~= _267_) then
+      local rest = _267_
+      local _268_
+      local function _269_(_241)
         return string.char(tonumber(_241:sub(2), 16))
       end
-      _230_ = string.gsub(rest, "_[%da-f][%da-f]", _231_)
-      return _230_
+      _268_ = string.gsub(rest, "_[%da-f][%da-f]", _269_)
+      return _268_
     elseif true then
-      local _ = _229_
+      local _ = _267_
       return identifier
     else
       return nil
@@ -2249,10 +2305,10 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       raw = str
     end
     local mangling
-    local function _235_(_241)
+    local function _273_(_241)
       return string.format("_%02x", _241:byte())
     end
-    mangling = string.gsub(string.gsub(raw, "-", "_"), "[^%w_]", _235_)
+    mangling = string.gsub(string.gsub(raw, "-", "_"), "[^%w_]", _273_)
     local unique = unique_mangling(mangling, mangling, scope, 0)
     do end (scope.unmanglings)[unique] = str
     do
@@ -2296,29 +2352,45 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     do end (scope.gensyms)[mangling] = true
     return mangling
   end
+  local function combine_auto_gensym(parts, first)
+    parts[1] = first
+    local last = table.remove(parts)
+    local last2 = table.remove(parts)
+    local last_joiner = ((parts["multi-sym-method-call"] and ":") or ".")
+    table.insert(parts, (last2 .. last_joiner .. last))
+    return table.concat(parts, ".")
+  end
   local function autogensym(base, scope)
-    local _238_ = utils["multi-sym?"](base)
-    if (nil ~= _238_) then
-      local parts = _238_
-      parts[1] = autogensym(parts[1], scope)
-      return table.concat(parts, ((parts["multi-sym-method-call"] and ":") or "."))
+    local _276_ = utils["multi-sym?"](base)
+    if (nil ~= _276_) then
+      local parts = _276_
+      return combine_auto_gensym(parts, autogensym(parts[1], scope))
     elseif true then
-      local _ = _238_
-      local function _239_()
+      local _ = _276_
+      local function _277_()
         local mangling = gensym(scope, base:sub(1, ( - 2)), "auto")
         do end (scope.autogensyms)[base] = mangling
         return mangling
       end
-      return (scope.autogensyms[base] or _239_())
+      return (scope.autogensyms[base] or _277_())
     else
       return nil
     end
   end
-  local function check_binding_valid(symbol, scope, ast)
+  local function check_binding_valid(symbol, scope, ast, _3fopts)
     local name = tostring(symbol)
+    local macro_3f
+    do
+      local t_279_ = _3fopts
+      if (nil ~= t_279_) then
+        t_279_ = (t_279_)["macro?"]
+      else
+      end
+      macro_3f = t_279_
+    end
     assert_compile(not name:find("&"), "invalid character: &")
     assert_compile(not name:find("^%."), "invalid character: .")
-    assert_compile(not (scope.specials[name] or scope.macros[name]), ("local %s was overshadowed by a special form or macro"):format(name), ast)
+    assert_compile(not (scope.specials[name] or (not macro_3f and scope.macros[name])), ("local %s was overshadowed by a special form or macro"):format(name), ast)
     return assert_compile(not utils["quoted?"](symbol), string.format("macro tried to bind %s without gensym", name), symbol)
   end
   local function declare_local(symbol, meta, scope, ast, _3ftemp_manglings)
@@ -2349,7 +2421,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     local multi_sym_parts = utils["multi-sym?"](name)
     local name0 = (hashfn_arg_name(name, multi_sym_parts, scope) or name)
     local parts = (multi_sym_parts or {name0})
-    local etype = (((#parts > 1) and "expression") or "sym")
+    local etype = (((1 < #parts) and "expression") or "sym")
     local local_3f = scope.manglings[parts[1]]
     if (local_3f and scope.symmeta[parts[1]]) then
       scope.symmeta[parts[1]]["used"] = true
@@ -2374,7 +2446,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
   local function peephole(chunk)
     if chunk.leaf then
       return chunk
-    elseif ((#chunk >= 3) and ((chunk[(#chunk - 2)]).leaf == "do") and not (chunk[(#chunk - 1)]).leaf and (chunk[#chunk].leaf == "end")) then
+    elseif ((3 <= #chunk) and (chunk[(#chunk - 2)].leaf == "do") and not chunk[(#chunk - 1)].leaf and (chunk[#chunk].leaf == "end")) then
       local kid = peephole(chunk[(#chunk - 1)])
       local new_chunk = {ast = chunk.ast}
       for i = 1, (#chunk - 3) do
@@ -2395,7 +2467,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
         out[last_line0] = ((out[last_line0] or "") .. " " .. chunk.leaf)
       else
         for _, subchunk in ipairs(chunk) do
-          if (subchunk.leaf or (#subchunk > 0)) then
+          if (subchunk.leaf or (0 < #subchunk)) then
             local source = utils["ast-source"](subchunk.ast)
             if (file == source.filename) then
               last_line0 = math.max(last_line0, (source.line or 0))
@@ -2418,35 +2490,33 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     end
     return table.concat(out, "\n")
   end
-  local function flatten_chunk(sm, chunk, tab, depth)
+  local function flatten_chunk(file_sourcemap, chunk, tab, depth)
     if chunk.leaf then
-      local code = chunk.leaf
-      local info = chunk.ast
-      if sm then
-        table.insert(sm, {(info and info.filename), (info and info.line)})
-      else
-      end
-      return code
+      local _let_291_ = utils["ast-source"](chunk.ast)
+      local filename = _let_291_["filename"]
+      local line = _let_291_["line"]
+      table.insert(file_sourcemap, {filename, line})
+      return chunk.leaf
     else
       local tab0
       do
-        local _252_ = tab
-        if (_252_ == true) then
+        local _292_ = tab
+        if (_292_ == true) then
           tab0 = "  "
-        elseif (_252_ == false) then
+        elseif (_292_ == false) then
           tab0 = ""
-        elseif (_252_ == tab) then
+        elseif (_292_ == tab) then
           tab0 = tab
-        elseif (_252_ == nil) then
+        elseif (_292_ == nil) then
           tab0 = ""
         else
           tab0 = nil
         end
       end
       local function parter(c)
-        if (c.leaf or (#c > 0)) then
-          local sub = flatten_chunk(sm, c, tab0, (depth + 1))
-          if (depth > 0) then
+        if (c.leaf or (0 < #c)) then
+          local sub = flatten_chunk(file_sourcemap, c, tab0, (depth + 1))
+          if (0 < depth) then
             return (tab0 .. sub:gsub("\n", ("\n" .. tab0)))
           else
             return sub
@@ -2472,35 +2542,32 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     if options.correlate then
       return flatten_chunk_correlated(chunk0, options), {}
     else
-      local sm = {}
-      local ret = flatten_chunk(sm, chunk0, options.indent, 0)
-      if sm then
-        sm.short_src = (options.filename or make_short_src((options.source or ret)))
-        if options.filename then
-          sm.key = ("@" .. options.filename)
-        else
-          sm.key = ret
-        end
-        sourcemap[sm.key] = sm
+      local file_sourcemap = {}
+      local src = flatten_chunk(file_sourcemap, chunk0, options.indent, 0)
+      file_sourcemap.short_src = (options.filename or make_short_src((options.source or src)))
+      if options.filename then
+        file_sourcemap.key = ("@" .. options.filename)
       else
+        file_sourcemap.key = src
       end
-      return ret, sm
+      sourcemap[file_sourcemap.key] = file_sourcemap
+      return src, file_sourcemap
     end
   end
   local function make_metadata()
-    local function _261_(self, tgt, key)
+    local function _300_(self, tgt, key)
       if self[tgt] then
         return self[tgt][key]
       else
         return nil
       end
     end
-    local function _263_(self, tgt, key, value)
+    local function _302_(self, tgt, key, value)
       self[tgt] = (self[tgt] or {})
       do end (self[tgt])[key] = value
       return tgt
     end
-    local function _264_(self, tgt, ...)
+    local function _303_(self, tgt, ...)
       local kv_len = select("#", ...)
       local kvs = {...}
       if ((kv_len % 2) ~= 0) then
@@ -2513,7 +2580,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       end
       return tgt
     end
-    return setmetatable({}, {__index = {get = _261_, set = _263_, setall = _264_}, __mode = "k"})
+    return setmetatable({}, {__index = {get = _300_, set = _302_, setall = _303_}, __mode = "k"})
   end
   local function exprs1(exprs)
     return table.concat(utils.map(exprs, tostring), ", ")
@@ -2543,7 +2610,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       local n = opts.nval
       local len = #exprs
       if (n ~= len) then
-        if (len > n) then
+        if (n < len) then
           keep_side_effects(exprs, parent, (n + 1), ast)
           for i = (n + 1), len do
             exprs[i] = nil
@@ -2563,83 +2630,137 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     end
     if opts.target then
       local result = exprs1(exprs)
-      local function _272_()
+      local function _311_()
         if (result == "") then
           return "nil"
         else
           return result
         end
       end
-      emit(parent, string.format("%s = %s", opts.target, _272_()), ast)
+      emit(parent, string.format("%s = %s", opts.target, _311_()), ast)
     else
     end
     if (opts.tail or opts.target) then
       return {returned = true}
     else
-      local _274_ = exprs
-      _274_["returned"] = true
-      return _274_
+      local _313_ = exprs
+      _313_["returned"] = true
+      return _313_
     end
   end
-  local function find_macro(ast, scope, multi_sym_parts)
-    local function find_in_table(t, i)
-      if (i <= #multi_sym_parts) then
-        return find_in_table((utils["table?"](t) and t[multi_sym_parts[i]]), (i + 1))
+  local function find_macro(ast, scope)
+    local macro_2a
+    do
+      local _315_ = utils["sym?"](ast[1])
+      if (_315_ ~= nil) then
+        local _316_ = tostring(_315_)
+        if (_316_ ~= nil) then
+          macro_2a = scope.macros[_316_]
+        else
+          macro_2a = _316_
+        end
       else
-        return t
+        macro_2a = _315_
       end
     end
-    local macro_2a = (utils["sym?"](ast[1]) and scope.macros[tostring(ast[1])])
+    local multi_sym_parts = utils["multi-sym?"](ast[1])
     if (not macro_2a and multi_sym_parts) then
-      local nested_macro = find_in_table(scope.macros, 1)
+      local nested_macro = utils["get-in"](scope.macros, multi_sym_parts)
       assert_compile((not scope.macros[multi_sym_parts[1]] or (type(nested_macro) == "function")), "macro not found in imported macro module", ast)
       return nested_macro
     else
       return macro_2a
     end
   end
-  local function propagate_trace_info(_278_, _index, node)
-    local _arg_279_ = _278_
-    local filename = _arg_279_["filename"]
-    local line = _arg_279_["line"]
-    local bytestart = _arg_279_["bytestart"]
-    local byteend = _arg_279_["byteend"]
-    if (("table" == type(node)) and (filename ~= node.filename)) then
+  local function propagate_trace_info(_320_, _index, node)
+    local _arg_321_ = _320_
+    local filename = _arg_321_["filename"]
+    local line = _arg_321_["line"]
+    local bytestart = _arg_321_["bytestart"]
+    local byteend = _arg_321_["byteend"]
+    do
       local src = utils["ast-source"](node)
-      src.filename, src.line = filename, line
-      src.bytestart, src.byteend = bytestart, byteend
-    else
+      if (("table" == type(node)) and (filename ~= src.filename)) then
+        src.filename, src.line, src["from-macro?"] = filename, line, true
+        src.bytestart, src.byteend = bytestart, byteend
+      else
+      end
     end
     return ("table" == type(node))
   end
-  local function macroexpand_2a(ast, scope, _3fonce)
-    local _281_
-    if utils["list?"](ast) then
-      _281_ = find_macro(ast, scope, utils["multi-sym?"](ast[1]))
-    else
-      _281_ = nil
+  local function max_n(t)
+    local n = 0
+    for k in pairs(t) do
+      if ("number" == type(k)) then
+        n = math.max(k, n)
+      else
+      end
     end
-    if (_281_ == false) then
+    return n
+  end
+  local function quote_literal_nils(index, node, parent)
+    if (parent and utils["list?"](parent)) then
+      for i = 1, max_n(parent) do
+        local _324_ = parent[i]
+        if (_324_ == nil) then
+          parent[i] = utils.sym("nil")
+        else
+        end
+      end
+    else
+    end
+    return index, node, parent
+  end
+  local function comp(f, g)
+    local function _327_(...)
+      return f(g(...))
+    end
+    return _327_
+  end
+  local function built_in_3f(m)
+    local found_3f = false
+    for _, f in pairs(scopes.global.macros) do
+      if found_3f then break end
+      found_3f = (f == m)
+    end
+    return found_3f
+  end
+  local function macroexpand_2a(ast, scope, _3fonce)
+    local _328_
+    if utils["list?"](ast) then
+      _328_ = find_macro(ast, scope)
+    else
+      _328_ = nil
+    end
+    if (_328_ == false) then
       return ast
-    elseif (nil ~= _281_) then
-      local macro_2a = _281_
+    elseif (nil ~= _328_) then
+      local macro_2a = _328_
       local old_scope = scopes.macro
       local _
       scopes.macro = scope
       _ = nil
       local ok, transformed = nil, nil
-      local function _283_()
+      local function _330_()
         return macro_2a(unpack(ast, 2))
       end
-      ok, transformed = xpcall(_283_, debug.traceback)
-      local function _285_()
-        local _284_ = ast
-        local function _286_(...)
-          return propagate_trace_info(_284_, ...)
+      local function _331_()
+        if built_in_3f(macro_2a) then
+          return tostring
+        else
+          return debug.traceback
         end
-        return _286_
       end
-      utils["walk-tree"](transformed, _285_())
+      ok, transformed = xpcall(_330_, _331_())
+      local _333_
+      do
+        local _332_ = ast
+        local function _334_(...)
+          return propagate_trace_info(_332_, ...)
+        end
+        _333_ = _334_
+      end
+      utils["walk-tree"](transformed, comp(_333_, quote_literal_nils))
       scopes.macro = old_scope
       assert_compile(ok, transformed, ast)
       if (_3fonce or not transformed) then
@@ -2648,7 +2769,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
         return macroexpand_2a(transformed, scope)
       end
     elseif true then
-      local _ = _281_
+      local _ = _328_
       return ast
     else
       return nil
@@ -2679,17 +2800,17 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
   local function compile_function_call(ast, scope, parent, opts, compile1, len)
     local fargs = {}
     local fcallee = (compile1(ast[1], scope, parent, {nval = 1}))[1]
-    assert_compile((("string" == type(ast[1])) or (fcallee.type ~= "literal")), ("cannot call literal value " .. tostring(ast[1])), ast)
+    assert_compile((utils["sym?"](ast[1]) or utils["list?"](ast[1]) or ("string" == type(ast[1]))), ("cannot call literal value " .. tostring(ast[1])), ast)
     for i = 2, len do
       local subexprs
-      local _292_
+      local _340_
       if (i ~= len) then
-        _292_ = 1
+        _340_ = 1
       else
-        _292_ = nil
+        _340_ = nil
       end
-      subexprs = compile1(ast[i], scope, parent, {nval = _292_})
-      table.insert(fargs, (subexprs[1] or utils.expr("nil", "literal")))
+      subexprs = compile1(ast[i], scope, parent, {nval = _340_})
+      table.insert(fargs, subexprs[1])
       if (i == len) then
         for j = 2, #subexprs do
           table.insert(fargs, subexprs[j])
@@ -2713,7 +2834,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     local first = ast[1]
     local multi_sym_parts = utils["multi-sym?"](first)
     local special = (utils["sym?"](first) and scope.specials[tostring(first)])
-    assert_compile((len > 0), "expected a function, macro, or special to call", ast)
+    assert_compile((0 < len), "expected a function, macro, or special to call", ast)
     if special then
       return compile_special(ast, scope, parent, opts, special)
     elseif (multi_sym_parts and multi_sym_parts["multi-sym-method-call"]) then
@@ -2726,13 +2847,13 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     end
   end
   local function compile_varg(ast, scope, parent, opts)
-    local _297_
+    local _345_
     if scope.hashfn then
-      _297_ = "use $... in hashfn"
+      _345_ = "use $... in hashfn"
     else
-      _297_ = "unexpected vararg"
+      _345_ = "unexpected vararg"
     end
-    assert_compile(scope.vararg, _297_, ast)
+    assert_compile(scope.vararg, _345_, ast)
     return handle_compile_opts({utils.expr("...", "varg")}, parent, opts, ast)
   end
   local function compile_sym(ast, scope, parent, opts)
@@ -2747,20 +2868,20 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     return handle_compile_opts({e}, parent, opts, ast)
   end
   local function serialize_number(n)
-    local _300_ = string.gsub(tostring(n), ",", ".")
-    return _300_
+    local _348_ = string.gsub(tostring(n), ",", ".")
+    return _348_
   end
   local function compile_scalar(ast, _scope, parent, opts)
     local serialize
     do
-      local _301_ = type(ast)
-      if (_301_ == "nil") then
+      local _349_ = type(ast)
+      if (_349_ == "nil") then
         serialize = tostring
-      elseif (_301_ == "boolean") then
+      elseif (_349_ == "boolean") then
         serialize = tostring
-      elseif (_301_ == "string") then
+      elseif (_349_ == "string") then
         serialize = serialize_string
-      elseif (_301_ == "number") then
+      elseif (_349_ == "number") then
         serialize = serialize_number
       else
         serialize = nil
@@ -2771,12 +2892,12 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
   local function compile_table(ast, scope, parent, opts, compile1)
     local buffer = {}
     local function write_other_values(k)
-      if ((type(k) ~= "number") or (math.floor(k) ~= k) or (k < 1) or (k > #ast)) then
+      if ((type(k) ~= "number") or (math.floor(k) ~= k) or (k < 1) or (#ast < k)) then
         if ((type(k) == "string") and utils["valid-lua-identifier?"](k)) then
           return {k, k}
         else
-          local _let_303_ = compile1(k, scope, parent, {nval = 1})
-          local compiled = _let_303_[1]
+          local _let_351_ = compile1(k, scope, parent, {nval = 1})
+          local compiled = _let_351_[1]
           local kstr = ("[" .. tostring(compiled) .. "]")
           return {kstr, k}
         end
@@ -2799,15 +2920,15 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
         end
         keys = tbl_14_auto
       end
-      local function _309_(_307_)
-        local _arg_308_ = _307_
-        local k1 = _arg_308_[1]
-        local k2 = _arg_308_[2]
-        local _let_310_ = compile1(ast[k2], scope, parent, {nval = 1})
-        local v = _let_310_[1]
+      local function _357_(_355_)
+        local _arg_356_ = _355_
+        local k1 = _arg_356_[1]
+        local k2 = _arg_356_[2]
+        local _let_358_ = compile1(ast[k2], scope, parent, {nval = 1})
+        local v = _let_358_[1]
         return string.format("%s = %s", k1, tostring(v))
       end
-      utils.map(keys, _309_, buffer)
+      utils.map(keys, _357_, buffer)
     end
     for i = 1, #ast do
       local nval = ((i ~= #ast) and 1)
@@ -2834,12 +2955,12 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
   end
   local function destructure(to, from, ast, scope, parent, opts)
     local opts0 = (opts or {})
-    local _let_312_ = opts0
-    local isvar = _let_312_["isvar"]
-    local declaration = _let_312_["declaration"]
-    local forceglobal = _let_312_["forceglobal"]
-    local forceset = _let_312_["forceset"]
-    local symtype = _let_312_["symtype"]
+    local _let_360_ = opts0
+    local isvar = _let_360_["isvar"]
+    local declaration = _let_360_["declaration"]
+    local forceglobal = _let_360_["forceglobal"]
+    local forceset = _let_360_["forceset"]
+    local symtype = _let_360_["symtype"]
     local symtype0 = ("_" .. (symtype or "dst"))
     local setter
     if declaration then
@@ -2878,17 +2999,18 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     end
     local function compile_top_target(lvalues)
       local inits
-      local function _318_(_241)
+      local function _366_(_241)
         if scope.manglings[_241] then
           return _241
         else
           return "nil"
         end
       end
-      inits = utils.map(lvalues, _318_)
+      inits = utils.map(lvalues, _366_)
       local init = table.concat(inits, ", ")
       local lvalue = table.concat(lvalues, ", ")
-      local plen, plast = #parent, parent[#parent]
+      local plast = parent[#parent]
+      local plen = #parent
       local ret = compile1(from, scope, parent, {target = lvalue})
       if declaration then
         for pi = plen, #parent do
@@ -2923,34 +3045,61 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
         return nil
       end
     end
+    local unpack_fn = "function (t, k, e)\n                        local mt = getmetatable(t)\n                        if 'table' == type(mt) and mt.__fennelrest then\n                          return mt.__fennelrest(t, k)\n                        elseif e then\n                          local rest = {}\n                          for k, v in pairs(t) do\n                            if not e[k] then rest[k] = v end\n                          end\n                          return rest\n                        else\n                          return {(table.unpack or unpack)(t, k)}\n                        end\n                      end"
+    local function destructure_kv_rest(s, v, left, excluded_keys, destructure1)
+      local exclude_str
+      local _373_
+      do
+        local tbl_14_auto = {}
+        local i_15_auto = #tbl_14_auto
+        for _, k in ipairs(excluded_keys) do
+          local val_16_auto = string.format("[%s] = true", serialize_string(k))
+          if (nil ~= val_16_auto) then
+            i_15_auto = (i_15_auto + 1)
+            do end (tbl_14_auto)[i_15_auto] = val_16_auto
+          else
+          end
+        end
+        _373_ = tbl_14_auto
+      end
+      exclude_str = table.concat(_373_, ", ")
+      local subexpr = utils.expr(string.format(string.gsub(("(" .. unpack_fn .. ")(%s, %s, {%s})"), "\n%s*", " "), s, tostring(v), exclude_str), "expression")
+      return destructure1(v, {subexpr}, left)
+    end
+    local function destructure_rest(s, k, left, destructure1)
+      local unpack_str = ("(" .. unpack_fn .. ")(%s, %s)")
+      local formatted = string.format(string.gsub(unpack_str, "\n%s*", " "), s, k)
+      local subexpr = utils.expr(formatted, "expression")
+      assert_compile((utils["sequence?"](left) and (nil == left[(k + 2)])), "expected rest argument before last parameter", left)
+      return destructure1(left[(k + 1)], {subexpr}, left)
+    end
     local function destructure_table(left, rightexprs, top_3f, destructure1)
       local s = gensym(scope, symtype0)
       local right
       do
-        local _325_
+        local _375_
         if top_3f then
-          _325_ = exprs1(compile1(from, scope, parent))
+          _375_ = exprs1(compile1(from, scope, parent))
         else
-          _325_ = exprs1(rightexprs)
+          _375_ = exprs1(rightexprs)
         end
-        if (_325_ == "") then
+        if (_375_ == "") then
           right = "nil"
-        elseif (nil ~= _325_) then
-          local right0 = _325_
+        elseif (nil ~= _375_) then
+          local right0 = _375_
           right = right0
         else
           right = nil
         end
       end
+      local excluded_keys = {}
       emit(parent, string.format("local %s = %s", s, right), left)
       for k, v in utils.stablepairs(left) do
         if not (("number" == type(k)) and tostring(left[(k - 1)]):find("^&")) then
-          if (utils["sym?"](v) and (tostring(v) == "&")) then
-            local unpack_str = "(function (t, k)\n                                      local mt = getmetatable(t)\n                                      if \"table\" == type(mt) and mt.__fennelrest then\n                                         return mt.__fennelrest(t, k)\n                                      else\n                                         return {(table.unpack or unpack)(t, k)}\n                                      end\n                                   end)(%s, %s)"
-            local formatted = string.format(string.gsub(unpack_str, "\n%s*", " "), s, k)
-            local subexpr = utils.expr(formatted, "expression")
-            assert_compile((utils["sequence?"](left) and (nil == left[(k + 2)])), "expected rest argument before last parameter", left)
-            destructure1(left[(k + 1)], {subexpr}, left)
+          if (utils["sym?"](k) and (tostring(k) == "&")) then
+            destructure_kv_rest(s, v, left, excluded_keys, destructure1)
+          elseif (utils["sym?"](v) and (tostring(v) == "&")) then
+            destructure_rest(s, k, left, destructure1)
           elseif (utils["sym?"](k) and (tostring(k) == "&as")) then
             destructure_sym(v, {utils.expr(tostring(s))}, left)
           elseif (utils["sequence?"](left) and (tostring(v) == "&as")) then
@@ -2965,6 +3114,10 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
               key = k
             end
             local subexpr = utils.expr(string.format("%s[%s]", s, key), "expression")
+            if (type(k) == "string") then
+              table.insert(excluded_keys, k)
+            else
+            end
             destructure1(v, {subexpr}, left)
           end
         else
@@ -2983,6 +3136,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
           do end (tables)[i] = {name, utils.expr(symname, "sym")}
         end
       end
+      assert_compile(left[1], "must provide at least one value", left)
       assert_compile(top_3f, "can't nest multi-value destructuring", left)
       compile_top_target(left_names)
       if declaration then
@@ -3016,7 +3170,7 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       end
     end
     local ret = destructure1(to, nil, ast, true)
-    utils.hook("destructure", from, to, scope)
+    utils.hook("destructure", from, to, scope, opts0)
     apply_manglings(scope, new_manglings, ast)
     return ret
   end
@@ -3105,14 +3259,14 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       else
       end
       if (info.what == "Lua") then
-        local function _344_()
+        local function _395_()
           if info.name then
             return ("'" .. info.name .. "'")
           else
             return "?"
           end
         end
-        return string.format("  %s:%d: in function %s", info.short_src, info.currentline, _344_())
+        return string.format("  %s:%d: in function %s", info.short_src, info.currentline, _395_())
       elseif (info.short_src == "(tail call)") then
         return "  (tail call)"
       else
@@ -3136,11 +3290,11 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       local done_3f, level = false, (_3fstart or 2)
       while not done_3f do
         do
-          local _348_ = debug.getinfo(level, "Sln")
-          if (_348_ == nil) then
+          local _399_ = debug.getinfo(level, "Sln")
+          if (_399_ == nil) then
             done_3f = true
-          elseif (nil ~= _348_) then
-            local info = _348_
+          elseif (nil ~= _399_) then
+            local info = _399_
             table.insert(lines, traceback_frame(info))
           else
           end
@@ -3151,14 +3305,14 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
     end
   end
   local function entry_transform(fk, fv)
-    local function _351_(k, v)
+    local function _402_(k, v)
       if (type(k) == "number") then
         return k, fv(v)
       else
         return fk(k), fv(v)
       end
     end
-    return _351_
+    return _402_
   end
   local function mixed_concat(t, joiner)
     local seen = {}
@@ -3204,10 +3358,10 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       return res[1]
     elseif utils["list?"](form) then
       local mapped
-      local function _356_()
+      local function _407_()
         return nil
       end
-      mapped = utils.kvmap(form, entry_transform(_356_, q))
+      mapped = utils.kvmap(form, entry_transform(_407_, q))
       local filename
       if form.filename then
         filename = string.format("%q", form.filename)
@@ -3225,13 +3379,13 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       else
         filename = "nil"
       end
-      local _359_
+      local _410_
       if source then
-        _359_ = source.line
+        _410_ = source.line
       else
-        _359_ = "nil"
+        _410_ = "nil"
       end
-      return string.format("setmetatable({%s}, {filename=%s, line=%s, sequence=%s})", mixed_concat(mapped, ", "), filename, _359_, "(getmetatable(sequence()))['sequence']")
+      return string.format("setmetatable({%s}, {filename=%s, line=%s, sequence=%s})", mixed_concat(mapped, ", "), filename, _410_, "(getmetatable(sequence()))['sequence']")
     elseif (type(form) == "table") then
       local mapped = utils.kvmap(form, entry_transform(q, q))
       local source = getmetatable(form)
@@ -3241,25 +3395,26 @@ package.preload["katdotnvim.aniseed.fennel.compiler"] = package.preload["katdotn
       else
         filename = "nil"
       end
-      local function _362_()
+      local function _413_()
         if source then
           return source.line
         else
           return "nil"
         end
       end
-      return string.format("setmetatable({%s}, {filename=%s, line=%s})", mixed_concat(mapped, ", "), filename, _362_())
+      return string.format("setmetatable({%s}, {filename=%s, line=%s})", mixed_concat(mapped, ", "), filename, _413_())
     elseif (type(form) == "string") then
       return serialize_string(form)
     else
       return tostring(form)
     end
   end
-  return {compile = compile, compile1 = compile1, ["compile-stream"] = compile_stream, ["compile-string"] = compile_string, emit = emit, destructure = destructure, ["require-include"] = require_include, autogensym = autogensym, gensym = gensym, ["do-quote"] = do_quote, ["global-mangling"] = global_mangling, ["global-unmangling"] = global_unmangling, ["apply-manglings"] = apply_manglings, macroexpand = macroexpand_2a, ["declare-local"] = declare_local, ["make-scope"] = make_scope, ["keep-side-effects"] = keep_side_effects, ["symbol-to-expression"] = symbol_to_expression, assert = assert_compile, scopes = scopes, traceback = traceback, metadata = make_metadata(), sourcemap = sourcemap}
+  return {compile = compile, compile1 = compile1, ["compile-stream"] = compile_stream, ["compile-string"] = compile_string, ["check-binding-valid"] = check_binding_valid, emit = emit, destructure = destructure, ["require-include"] = require_include, autogensym = autogensym, gensym = gensym, ["do-quote"] = do_quote, ["global-mangling"] = global_mangling, ["global-unmangling"] = global_unmangling, ["apply-manglings"] = apply_manglings, macroexpand = macroexpand_2a, ["declare-local"] = declare_local, ["make-scope"] = make_scope, ["keep-side-effects"] = keep_side_effects, ["symbol-to-expression"] = symbol_to_expression, assert = assert_compile, scopes = scopes, traceback = traceback, metadata = make_metadata(), sourcemap = sourcemap}
 end
 package.preload["katdotnvim.aniseed.fennel.friend"] = package.preload["katdotnvim.aniseed.fennel.friend"] or function(...)
   local utils = require("katdotnvim.aniseed.fennel.utils")
-  local suggestions = {["unexpected multi symbol (.*)"] = {"removing periods or colons from %s"}, ["use of global (.*) is aliased by a local"] = {"renaming local %s", "refer to the global using _G.%s instead of directly"}, ["local (.*) was overshadowed by a special form or macro"] = {"renaming local %s"}, ["global (.*) conflicts with local"] = {"renaming local %s"}, ["expected var (.*)"] = {"declaring %s using var instead of let/local", "introducing a new local instead of changing the value of %s"}, ["expected macros to be table"] = {"ensuring your macro definitions return a table"}, ["expected each macro to be function"] = {"ensuring that the value for each key in your macros table contains a function", "avoid defining nested macro tables"}, ["macro not found in macro module"] = {"checking the keys of the imported macro module's returned table"}, ["macro tried to bind (.*) without gensym"] = {"changing to %s# when introducing identifiers inside macros"}, ["unknown identifier in strict mode: (.*)"] = {"looking to see if there's a typo", "using the _G table instead, eg. _G.%s if you really want a global", "moving this code to somewhere that %s is in scope", "binding %s as a local in the scope of this code"}, ["expected a function.* to call"] = {"removing the empty parentheses", "using square brackets if you want an empty table"}, ["cannot call literal value"] = {"checking for typos", "checking for a missing function name"}, ["unexpected vararg"] = {"putting \"...\" at the end of the fn parameters if the vararg was intended"}, ["multisym method calls may only be in call position"] = {"using a period instead of a colon to reference a table's fields", "putting parens around this"}, ["unused local (.*)"] = {"renaming the local to _%s if it is meant to be unused", "fixing a typo so %s is used", "disabling the linter which checks for unused locals"}, ["expected parameters"] = {"adding function parameters as a list of identifiers in brackets"}, ["unable to bind (.*)"] = {"replacing the %s with an identifier"}, ["expected rest argument before last parameter"] = {"moving & to right before the final identifier when destructuring"}, ["expected vararg as last parameter"] = {"moving the \"...\" to the end of the parameter list"}, ["expected symbol for function parameter: (.*)"] = {"changing %s to an identifier instead of a literal value"}, ["could not compile value of type "] = {"debugging the macro you're calling to return a list or table"}, ["expected local"] = {"looking for a typo", "looking for a local which is used out of its scope"}, ["expected body expression"] = {"putting some code in the body of this form after the bindings"}, ["expected binding and iterator"] = {"making sure you haven't omitted a local name or iterator"}, ["expected binding sequence"] = {"placing a table here in square brackets containing identifiers to bind"}, ["expected even number of name/value bindings"] = {"finding where the identifier or value is missing"}, ["may only be used at compile time"] = {"moving this to inside a macro if you need to manipulate symbols/lists", "using square brackets instead of parens to construct a table"}, ["unexpected closing delimiter (.)"] = {"deleting %s", "adding matching opening delimiter earlier"}, ["mismatched closing delimiter (.), expected (.)"] = {"replacing %s with %s", "deleting %s", "adding matching opening delimiter earlier"}, ["expected even number of values in table literal"] = {"removing a key", "adding a value"}, ["expected whitespace before opening delimiter"] = {"adding whitespace"}, ["invalid character: (.)"] = {"deleting or replacing %s", "avoiding reserved characters like \", \\, ', ~, ;, @, `, and comma"}, ["could not read number (.*)"] = {"removing the non-digit character", "beginning the identifier with a non-digit if it is not meant to be a number"}, ["can't start multisym segment with a digit"] = {"removing the digit", "adding a non-digit before the digit"}, ["malformed multisym"] = {"ensuring each period or colon is not followed by another period or colon"}, ["method must be last component"] = {"using a period instead of a colon for field access", "removing segments after the colon", "making the method call, then looking up the field on the result"}, ["$ and $... in hashfn are mutually exclusive"] = {"modifying the hashfn so it only contains $... or $, $1, $2, $3, etc"}, ["tried to reference a macro at runtime"] = {"renaming the macro so as not to conflict with locals"}, ["tried to reference a special form at runtime"] = {"wrapping the special in a function if you need it to be first class"}, ["expected even number of pattern/body pairs"] = {"checking that every pattern has a body to go with it", "adding _ before the final body"}, ["unexpected arguments"] = {"removing an argument", "checking for typos"}, ["unexpected iterator clause"] = {"removing an argument", "checking for typos"}}
+  local utf8_ok_3f, utf8 = pcall(require, "utf8")
+  local suggestions = {["unexpected multi symbol (.*)"] = {"removing periods or colons from %s"}, ["use of global (.*) is aliased by a local"] = {"renaming local %s", "refer to the global using _G.%s instead of directly"}, ["local (.*) was overshadowed by a special form or macro"] = {"renaming local %s"}, ["global (.*) conflicts with local"] = {"renaming local %s"}, ["expected var (.*)"] = {"declaring %s using var instead of let/local", "introducing a new local instead of changing the value of %s"}, ["expected macros to be table"] = {"ensuring your macro definitions return a table"}, ["expected each macro to be function"] = {"ensuring that the value for each key in your macros table contains a function", "avoid defining nested macro tables"}, ["macro not found in macro module"] = {"checking the keys of the imported macro module's returned table"}, ["macro tried to bind (.*) without gensym"] = {"changing to %s# when introducing identifiers inside macros"}, ["unknown identifier in strict mode: (.*)"] = {"looking to see if there's a typo", "using the _G table instead, eg. _G.%s if you really want a global", "moving this code to somewhere that %s is in scope", "binding %s as a local in the scope of this code"}, ["expected a function.* to call"] = {"removing the empty parentheses", "using square brackets if you want an empty table"}, ["cannot call literal value"] = {"checking for typos", "checking for a missing function name"}, ["unexpected vararg"] = {"putting \"...\" at the end of the fn parameters if the vararg was intended"}, ["multisym method calls may only be in call position"] = {"using a period instead of a colon to reference a table's fields", "putting parens around this"}, ["unused local (.*)"] = {"renaming the local to _%s if it is meant to be unused", "fixing a typo so %s is used", "disabling the linter which checks for unused locals"}, ["expected parameters"] = {"adding function parameters as a list of identifiers in brackets"}, ["unable to bind (.*)"] = {"replacing the %s with an identifier"}, ["expected rest argument before last parameter"] = {"moving & to right before the final identifier when destructuring"}, ["expected vararg as last parameter"] = {"moving the \"...\" to the end of the parameter list"}, ["expected symbol for function parameter: (.*)"] = {"changing %s to an identifier instead of a literal value"}, ["could not compile value of type "] = {"debugging the macro you're calling to return a list or table"}, ["expected local"] = {"looking for a typo", "looking for a local which is used out of its scope"}, ["expected body expression"] = {"putting some code in the body of this form after the bindings"}, ["expected binding and iterator"] = {"making sure you haven't omitted a local name or iterator"}, ["expected binding sequence"] = {"placing a table here in square brackets containing identifiers to bind"}, ["expected even number of name/value bindings"] = {"finding where the identifier or value is missing"}, ["may only be used at compile time"] = {"moving this to inside a macro if you need to manipulate symbols/lists", "using square brackets instead of parens to construct a table"}, ["unexpected closing delimiter (.)"] = {"deleting %s", "adding matching opening delimiter earlier"}, ["mismatched closing delimiter (.), expected (.)"] = {"replacing %s with %s", "deleting %s", "adding matching opening delimiter earlier"}, ["expected even number of values in table literal"] = {"removing a key", "adding a value"}, ["expected whitespace before opening delimiter"] = {"adding whitespace"}, ["invalid character: (.)"] = {"deleting or replacing %s", "avoiding reserved characters like \", \\, ', ~, ;, @, `, and comma"}, ["could not read number (.*)"] = {"removing the non-digit character", "beginning the identifier with a non-digit if it is not meant to be a number"}, ["can't start multisym segment with a digit"] = {"removing the digit", "adding a non-digit before the digit"}, ["malformed multisym"] = {"ensuring each period or colon is not followed by another period or colon"}, ["method must be last component"] = {"using a period instead of a colon for field access", "removing segments after the colon", "making the method call, then looking up the field on the result"}, ["$ and $... in hashfn are mutually exclusive"] = {"modifying the hashfn so it only contains $... or $, $1, $2, $3, etc"}, ["tried to reference a macro at runtime"] = {"renaming the macro so as not to conflict with locals"}, ["tried to reference a special form at runtime"] = {"wrapping the special in a function if you need it to be first class"}, ["missing subject"] = {"adding an item to operate on"}, ["expected even number of pattern/body pairs"] = {"checking that every pattern has a body to go with it", "adding _ before the final body"}, ["expected at least one pattern/body pair"] = {"adding a pattern and a body to execute when the pattern matches"}, ["unexpected arguments"] = {"removing an argument", "checking for typos"}, ["unexpected iterator clause"] = {"removing an argument", "checking for typos"}}
   local unpack = (table.unpack or _G.unpack)
   local function suggest(msg)
     local suggestion = nil
@@ -3280,79 +3435,85 @@ package.preload["katdotnvim.aniseed.fennel.friend"] = package.preload["katdotnvi
     end
     return suggestion
   end
-  local function read_line_from_file(filename, line)
-    local bytes = 0
-    local f = assert(io.open(filename))
-    local _
-    for _0 = 1, (line - 1) do
-      bytes = (bytes + 1 + #f:read())
-    end
-    _ = nil
-    local codeline = f:read()
-    f:close()
-    return codeline, bytes
-  end
-  local function read_line_from_string(matcher, target_line, _3fcurrent_line, _3fbytes)
-    local this_line, newline = matcher()
-    local current_line = (_3fcurrent_line or 1)
-    local bytes = ((_3fbytes or 0) + #this_line + #newline)
-    if (target_line == current_line) then
-      return this_line, (bytes - #this_line - 1)
-    elseif this_line then
-      return read_line_from_string(matcher, target_line, (current_line + 1), bytes)
+  local function read_line(filename, line, _3fsource)
+    if _3fsource then
+      local matcher = string.gmatch((_3fsource .. "\n"), "(.-)(\13?\n)")
+      for _ = 2, line do
+        matcher()
+      end
+      return matcher()
     else
-      return nil
+      local f = assert(io.open(filename))
+      local function close_handlers_8_auto(ok_9_auto, ...)
+        f:close()
+        if ok_9_auto then
+          return ...
+        else
+          return error(..., 0)
+        end
+      end
+      local function _178_()
+        for _ = 2, line do
+          f:read()
+        end
+        return f:read()
+      end
+      return close_handlers_8_auto(_G.xpcall(_178_, (package.loaded.fennel or debug).traceback))
     end
   end
-  local function read_line(filename, line, source)
-    if source then
-      return read_line_from_string(string.gmatch((source .. "\n"), "(.-)(\13?\n)"), line)
+  local function sub(str, start, _end)
+    if (_end < start) then
+      return ""
+    elseif utf8_ok_3f then
+      return string.sub(str, utf8.offset(str, start), ((utf8.offset(str, (_end + 1)) or (utf8.len(str) + 1)) - 1))
     else
-      return read_line_from_file(filename, line)
+      return string.sub(str, start, math.min(_end, str:len()))
     end
   end
-  local function friendly_msg(msg, _156_, source)
-    local _arg_157_ = _156_
-    local filename = _arg_157_["filename"]
-    local line = _arg_157_["line"]
-    local bytestart = _arg_157_["bytestart"]
-    local byteend = _arg_157_["byteend"]
-    local ok, codeline, bol = pcall(read_line, filename, line, source)
-    local suggestions0 = suggest(msg)
+  local function highlight_line(codeline, col, _3fendcol)
+    local endcol = (_3fendcol or col)
+    local eol
+    if utf8_ok_3f then
+      eol = utf8.len(codeline)
+    else
+      eol = string.len(codeline)
+    end
+    return (sub(codeline, 1, col) .. "\27[7m" .. sub(codeline, (col + 1), (endcol + 1)) .. "\27[0m" .. sub(codeline, (endcol + 2), eol))
+  end
+  local function friendly_msg(msg, _182_, source)
+    local _arg_183_ = _182_
+    local filename = _arg_183_["filename"]
+    local line = _arg_183_["line"]
+    local col = _arg_183_["col"]
+    local endcol = _arg_183_["endcol"]
+    local ok, codeline = pcall(read_line, filename, line, source)
     local out = {msg, ""}
     if (ok and codeline) then
-      table.insert(out, codeline)
-    else
-    end
-    if (ok and codeline and bytestart and byteend) then
-      table.insert(out, (string.rep(" ", (bytestart - bol - 1)) .. "^" .. string.rep("^", math.min((byteend - bytestart), ((bol + #codeline) - bytestart)))))
-    else
-    end
-    if (ok and codeline and bytestart and not byteend) then
-      table.insert(out, (string.rep("-", (bytestart - bol - 1)) .. "^"))
-      table.insert(out, "")
-    else
-    end
-    if suggestions0 then
-      for _, suggestion in ipairs(suggestions0) do
-        table.insert(out, ("* Try %s."):format(suggestion))
+      if col then
+        table.insert(out, highlight_line(codeline, col, endcol))
+      else
+        table.insert(out, codeline)
       end
     else
+    end
+    for _, suggestion in ipairs((suggest(msg) or {})) do
+      table.insert(out, ("* Try %s."):format(suggestion))
     end
     return table.concat(out, "\n")
   end
   local function assert_compile(condition, msg, ast, source)
     if not condition then
-      local _let_162_ = utils["ast-source"](ast)
-      local filename = _let_162_["filename"]
-      local line = _let_162_["line"]
-      error(friendly_msg(("Compile error in %s:%s\n  %s"):format((filename or "unknown"), (line or "?"), msg), utils["ast-source"](ast), source), 0)
+      local _let_186_ = utils["ast-source"](ast)
+      local filename = _let_186_["filename"]
+      local line = _let_186_["line"]
+      local col = _let_186_["col"]
+      error(friendly_msg(("Compile error in %s:%s:%s\n  %s"):format((filename or "unknown"), (line or "?"), (col or "?"), msg), utils["ast-source"](ast), source), 0)
     else
     end
     return condition
   end
-  local function parse_error(msg, filename, line, bytestart, source)
-    return error(friendly_msg(("Parse error in %s:%s\n  %s"):format(filename, line, msg), {filename = filename, line = line, bytestart = bytestart}, source), 0)
+  local function parse_error(msg, filename, line, col, source)
+    return error(friendly_msg(("Parse error in %s:%s:%s\n  %s"):format(filename, line, col, msg), {filename = filename, line = line, col = col}, source), 0)
   end
   return {["assert-compile"] = assert_compile, ["parse-error"] = parse_error}
 end
@@ -3362,25 +3523,25 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
   local unpack = (table.unpack or _G.unpack)
   local function granulate(getchunk)
     local c, index, done_3f = "", 1, false
-    local function _164_(parser_state)
+    local function _188_(parser_state)
       if not done_3f then
         if (index <= #c) then
           local b = c:byte(index)
           index = (index + 1)
           return b
         else
-          local _165_ = getchunk(parser_state)
-          local function _166_()
-            local char = _165_
+          local _189_ = getchunk(parser_state)
+          local function _190_()
+            local char = _189_
             return (char ~= "")
           end
-          if ((nil ~= _165_) and _166_()) then
-            local char = _165_
+          if ((nil ~= _189_) and _190_()) then
+            local char = _189_
             c = char
             index = 2
             return c:byte()
           elseif true then
-            local _ = _165_
+            local _ = _189_
             done_3f = true
             return nil
           else
@@ -3391,26 +3552,23 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
         return nil
       end
     end
-    local function _170_()
+    local function _194_()
       c = ""
       return nil
     end
-    return _164_, _170_
+    return _188_, _194_
   end
   local function string_stream(str)
     local str0 = str:gsub("^#!", ";;")
     local index = 1
-    local function _171_()
+    local function _195_()
       local r = str0:byte(index)
       index = (index + 1)
       return r
     end
-    return _171_
+    return _195_
   end
   local delims = {[40] = 41, [41] = true, [91] = 93, [93] = true, [123] = 125, [125] = true}
-  local function whitespace_3f(b)
-    return ((b == 32) or ((b >= 9) and (b <= 13)))
-  end
   local function sym_char_3f(b)
     local b0
     if ("number" == type(b)) then
@@ -3418,21 +3576,27 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
     else
       b0 = string.byte(b)
     end
-    return ((b0 > 32) and not delims[b0] and (b0 ~= 127) and (b0 ~= 34) and (b0 ~= 39) and (b0 ~= 126) and (b0 ~= 59) and (b0 ~= 44) and (b0 ~= 64) and (b0 ~= 96))
+    return ((32 < b0) and not delims[b0] and (b0 ~= 127) and (b0 ~= 34) and (b0 ~= 39) and (b0 ~= 126) and (b0 ~= 59) and (b0 ~= 44) and (b0 ~= 64) and (b0 ~= 96))
   end
   local prefixes = {[35] = "hashfn", [39] = "quote", [44] = "unquote", [96] = "quote"}
-  local function parser_fn(getbyte, filename, _173_)
-    local _arg_174_ = _173_
-    local source = _arg_174_["source"]
-    local unfriendly = _arg_174_["unfriendly"]
-    local comments = _arg_174_["comments"]
+  local function char_starter_3f(b)
+    return ((function(_197_,_198_,_199_) return (_197_ < _198_) and (_198_ < _199_) end)(1,b,127) or (function(_200_,_201_,_202_) return (_200_ < _201_) and (_201_ < _202_) end)(192,b,247))
+  end
+  local function parser_fn(getbyte, filename, _203_)
+    local _arg_204_ = _203_
+    local source = _arg_204_["source"]
+    local unfriendly = _arg_204_["unfriendly"]
+    local comments = _arg_204_["comments"]
+    local options = _arg_204_
     local stack = {}
-    local line = 1
-    local byteindex = 0
-    local lastb = nil
+    local line, byteindex, col, prev_col, lastb = 1, 0, 0, 0, nil
     local function ungetb(ub)
+      if char_starter_3f(ub) then
+        col = (col - 1)
+      else
+      end
       if (ub == 10) then
-        line = (line - 1)
+        line, col = (line - 1), prev_col
       else
       end
       byteindex = (byteindex - 1)
@@ -3447,19 +3611,35 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
         r = getbyte({["stack-size"] = #stack})
       end
       byteindex = (byteindex + 1)
+      if (r and char_starter_3f(r)) then
+        col = (col + 1)
+      else
+      end
       if (r == 10) then
-        line = (line + 1)
+        line, col, prev_col = (line + 1), 0, col
       else
       end
       return r
     end
-    local function parse_error(msg, byteindex_override)
-      if (nil == utils.hook("parse-error", msg, filename, (line or "?"), (byteindex_override or byteindex), source, utils.root.reset)) then
-        utils.root.reset()
-        if (unfriendly or not friend or not _G.io or not _G.io.read) then
-          return error(string.format("%s:%s: Parse error: %s", filename, (line or "?"), msg), 0)
+    local function whitespace_3f(b)
+      local function _214_()
+        local t_213_ = options.whitespace
+        if (nil ~= t_213_) then
+          t_213_ = (t_213_)[b]
         else
-          return friend["parse-error"](msg, filename, (line or "?"), (byteindex_override or byteindex), source)
+        end
+        return t_213_
+      end
+      return ((b == 32) or (function(_210_,_211_,_212_) return (_210_ <= _211_) and (_211_ <= _212_) end)(9,b,13) or _214_())
+    end
+    local function parse_error(msg, _3fcol_adjust)
+      local col0 = (col + (_3fcol_adjust or -1))
+      if (nil == utils["hook-opts"]("parse-error", options, msg, filename, (line or "?"), col0, source, utils.root.reset)) then
+        utils.root.reset()
+        if (unfriendly or not _G.io or not _G.io.read) then
+          return error(string.format("%s:%s:%s Parse error: %s", filename, (line or "?"), col0, msg), 0)
+        else
+          return friend["parse-error"](msg, filename, (line or "?"), col0, source)
         end
       else
         return nil
@@ -3467,26 +3647,30 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
     end
     local function parse_stream()
       local whitespace_since_dispatch, done_3f, retval = true
+      local function set_source_fields(source0)
+        source0.byteend, source0.endcol = byteindex, (col - 1)
+        return nil
+      end
       local function dispatch(v)
-        local _180_ = stack[#stack]
-        if (_180_ == nil) then
+        local _218_ = stack[#stack]
+        if (_218_ == nil) then
           retval, done_3f, whitespace_since_dispatch = v, true, false
           return nil
-        elseif ((_G.type(_180_) == "table") and (nil ~= (_180_).prefix)) then
-          local prefix = (_180_).prefix
+        elseif ((_G.type(_218_) == "table") and (nil ~= (_218_).prefix)) then
+          local prefix = (_218_).prefix
           local source0
           do
-            local _181_ = table.remove(stack)
-            do end (_181_)["byteend"] = byteindex
-            source0 = _181_
+            local _219_ = table.remove(stack)
+            set_source_fields(_219_)
+            source0 = _219_
           end
           local list = utils.list(utils.sym(prefix, source0), v)
           for k, v0 in pairs(source0) do
             list[k] = v0
           end
           return dispatch(list)
-        elseif (nil ~= _180_) then
-          local top = _180_
+        elseif (nil ~= _218_) then
+          local top = _218_
           whitespace_since_dispatch = false
           return table.insert(top, v)
         else
@@ -3495,19 +3679,19 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
       end
       local function badend()
         local accum = utils.map(stack, "closer")
-        local _183_
+        local _221_
         if (#stack == 1) then
-          _183_ = ""
+          _221_ = ""
         else
-          _183_ = "s"
+          _221_ = "s"
         end
-        return parse_error(string.format("expected closing delimiter%s %s", _183_, string.char(unpack(accum))))
+        return parse_error(string.format("expected closing delimiter%s %s", _221_, string.char(unpack(accum))))
       end
       local function skip_whitespace(b)
         if (b and whitespace_3f(b)) then
           whitespace_since_dispatch = true
           return skip_whitespace(getb())
-        elseif (not b and (#stack > 0)) then
+        elseif (not b and (0 < #stack)) then
           return badend()
         else
           return b
@@ -3515,16 +3699,17 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
       end
       local function parse_comment(b, contents)
         if (b and (10 ~= b)) then
-          local function _187_()
-            local _186_ = contents
-            table.insert(_186_, string.char(b))
-            return _186_
+          local function _225_()
+            local _224_ = contents
+            table.insert(_224_, string.char(b))
+            return _224_
           end
-          return parse_comment(getb(), _187_())
+          return parse_comment(getb(), _225_())
         elseif comments then
+          ungetb(10)
           return dispatch(utils.comment(table.concat(contents), {line = (line - 1), filename = filename}))
         else
-          return b
+          return nil
         end
       end
       local function open_table(b)
@@ -3532,7 +3717,7 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
           parse_error(("expected whitespace before opening delimiter " .. string.char(b)))
         else
         end
-        return table.insert(stack, {bytestart = byteindex, closer = delims[b], filename = filename, line = line})
+        return table.insert(stack, {bytestart = byteindex, closer = delims[b], filename = filename, line = line, col = (col - 1)})
       end
       local function close_list(list)
         return dispatch(setmetatable(list, getmetatable(utils.list())))
@@ -3545,12 +3730,12 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
         return dispatch(val)
       end
       local function add_comment_at(comments0, index, node)
-        local _190_ = (comments0)[index]
-        if (nil ~= _190_) then
-          local existing = _190_
+        local _228_ = (comments0)[index]
+        if (nil ~= _228_) then
+          local existing = _228_
           return table.insert(existing, node)
         elseif true then
-          local _ = _190_
+          local _ = _228_
           comments0[index] = {node}
           return nil
         else
@@ -3619,7 +3804,7 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
           parse_error(("mismatched closing delimiter " .. string.char(b) .. ", expected " .. string.char(top.closer)))
         else
         end
-        top.byteend = byteindex
+        set_source_fields(top)
         if (b == 41) then
           return close_list(top)
         elseif (b == 93) then
@@ -3632,16 +3817,16 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
         table.insert(chars, b)
         local state0
         do
-          local _200_ = {state, b}
-          if ((_G.type(_200_) == "table") and ((_200_)[1] == "base") and ((_200_)[2] == 92)) then
+          local _238_ = {state, b}
+          if ((_G.type(_238_) == "table") and ((_238_)[1] == "base") and ((_238_)[2] == 92)) then
             state0 = "backslash"
-          elseif ((_G.type(_200_) == "table") and ((_200_)[1] == "base") and ((_200_)[2] == 34)) then
+          elseif ((_G.type(_238_) == "table") and ((_238_)[1] == "base") and ((_238_)[2] == 34)) then
             state0 = "done"
-          elseif ((_G.type(_200_) == "table") and ((_200_)[1] == "backslash") and ((_200_)[2] == 10)) then
+          elseif ((_G.type(_238_) == "table") and ((_238_)[1] == "backslash") and ((_238_)[2] == 10)) then
             table.remove(chars, (#chars - 1))
             state0 = "base"
           elseif true then
-            local _ = _200_
+            local _ = _238_
             state0 = "base"
           else
             state0 = nil
@@ -3666,18 +3851,18 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
         table.remove(stack)
         local raw = string.char(unpack(chars))
         local formatted = raw:gsub("[\7-\13]", escape_char)
-        local _204_ = (rawget(_G, "loadstring") or load)(("return " .. formatted))
-        if (nil ~= _204_) then
-          local load_fn = _204_
+        local _242_ = (rawget(_G, "loadstring") or load)(("return " .. formatted))
+        if (nil ~= _242_) then
+          local load_fn = _242_
           return dispatch(load_fn())
-        elseif (_204_ == nil) then
+        elseif (_242_ == nil) then
           return parse_error(("Invalid string: " .. raw))
         else
           return nil
         end
       end
       local function parse_prefix(b)
-        table.insert(stack, {prefix = prefixes[b], filename = filename, line = line, bytestart = byteindex})
+        table.insert(stack, {prefix = prefixes[b], filename = filename, line = line, bytestart = byteindex, col = (col - 1)})
         local nextb = getb()
         if (whitespace_3f(nextb) or (true == delims[nextb])) then
           if (b ~= 35) then
@@ -3708,13 +3893,13 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
           dispatch((tonumber(number_with_stripped_underscores) or parse_error(("could not read number \"" .. rawstr .. "\""))))
           return true
         else
-          local _210_ = tonumber(number_with_stripped_underscores)
-          if (nil ~= _210_) then
-            local x = _210_
+          local _248_ = tonumber(number_with_stripped_underscores)
+          if (nil ~= _248_) then
+            local x = _248_
             dispatch(x)
             return true
           elseif true then
-            local _ = _210_
+            local _ = _248_
             return false
           else
             return nil
@@ -3722,24 +3907,27 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
         end
       end
       local function check_malformed_sym(rawstr)
+        local function col_adjust(pat)
+          return (rawstr:find(pat) - utils.len(rawstr) - 1)
+        end
         if (rawstr:match("^~") and (rawstr ~= "~=")) then
           return parse_error("invalid character: ~")
         elseif rawstr:match("%.[0-9]") then
-          return parse_error(("can't start multisym segment with a digit: " .. rawstr), (((byteindex - #rawstr) + rawstr:find("%.[0-9]")) + 1))
+          return parse_error(("can't start multisym segment with a digit: " .. rawstr), col_adjust("%.[0-9]"))
         elseif (rawstr:match("[%.:][%.:]") and (rawstr ~= "..") and (rawstr ~= "$...")) then
-          return parse_error(("malformed multisym: " .. rawstr), ((byteindex - #rawstr) + 1 + rawstr:find("[%.:][%.:]")))
+          return parse_error(("malformed multisym: " .. rawstr), col_adjust("[%.:][%.:]"))
         elseif ((rawstr ~= ":") and rawstr:match(":$")) then
-          return parse_error(("malformed multisym: " .. rawstr), ((byteindex - #rawstr) + 1 + rawstr:find(":$")))
+          return parse_error(("malformed multisym: " .. rawstr), col_adjust(":$"))
         elseif rawstr:match(":.+[%.:]") then
-          return parse_error(("method must be last component of multisym: " .. rawstr), ((byteindex - #rawstr) + rawstr:find(":.+[%.:]")))
+          return parse_error(("method must be last component of multisym: " .. rawstr), col_adjust(":.+[%.:]"))
         else
           return rawstr
         end
       end
       local function parse_sym(b)
-        local bytestart = byteindex
+        local source0 = {bytestart = byteindex, filename = filename, line = line, col = (col - 1)}
         local rawstr = string.char(unpack(parse_sym_loop({b}, getb())))
-        local source0 = {byteend = byteindex, bytestart = bytestart, filename = filename, line = line}
+        set_source_fields(source0)
         if (rawstr == "true") then
           return dispatch(true)
         elseif (rawstr == "false") then
@@ -3768,7 +3956,7 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
           parse_prefix(b)
         elseif (sym_char_3f(b) or (b == string.byte("~"))) then
           parse_sym(b)
-        elseif not utils.hook("illegal-char", b, getb, ungetb, dispatch) then
+        elseif not utils["hook-opts"]("illegal-char", options, b, getb, ungetb, dispatch) then
           parse_error(("invalid character: " .. string.char(b)))
         else
         end
@@ -3782,11 +3970,11 @@ package.preload["katdotnvim.aniseed.fennel.parser"] = package.preload["katdotnvi
       end
       return parse_loop(skip_whitespace(getb()))
     end
-    local function _217_()
-      stack, line, byteindex, lastb = {}, 1, 0, nil
+    local function _255_()
+      stack, line, byteindex, col, lastb = {}, 1, 0, 0, nil
       return nil
     end
-    return parse_stream, _217_
+    return parse_stream, _255_
   end
   local function parser(stream_or_string, _3ffilename, _3foptions)
     local filename = (_3ffilename or "unknown")
@@ -3866,12 +4054,12 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
   end
   local function max_index_gap(kv)
     local gap = 0
-    if (length_2a(kv) > 0) then
+    if (0 < length_2a(kv)) then
       local i = 0
       for _, _13_ in ipairs(kv) do
         local _each_14_ = _13_
         local k = _each_14_[1]
-        if ((k - i) > gap) then
+        if (gap < (k - i)) then
           gap = (k - i)
         else
         end
@@ -3911,7 +4099,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
     end
     table.sort(kv, sort_keys)
     if not assoc_3f then
-      if (max_index_gap(kv) > options["max-sparse-gap"]) then
+      if (options["max-sparse-gap"] < max_index_gap(kv)) then
         assoc_3f = true
       else
         fill_gaps(kv)
@@ -3984,7 +4172,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
     return (indent + opener_length)
   end
   local pp = nil
-  local function concat_table_lines(elements, options, multiline_3f, indent, table_type, prefix)
+  local function concat_table_lines(elements, options, multiline_3f, indent, table_type, prefix, last_comment_3f)
     local indent_str = ("\n" .. string.rep(" ", indent))
     local open
     local function _32_()
@@ -4002,8 +4190,15 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       close = "}"
     end
     local oneline = (open .. table.concat(elements, " ") .. close)
-    if (not options["one-line?"] and (multiline_3f or ((indent + length_2a(oneline)) > options["line-length"]))) then
-      return (open .. table.concat(elements, indent_str) .. close)
+    if (not options["one-line?"] and (multiline_3f or (options["line-length"] < (indent + length_2a(oneline))) or last_comment_3f)) then
+      local function _34_()
+        if last_comment_3f then
+          return indent_str
+        else
+          return ""
+        end
+      end
+      return (open .. table.concat(elements, indent_str) .. _34_() .. close)
     else
       return oneline
     end
@@ -4015,10 +4210,18 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
     end
     return n
   end
+  local function comment_3f(x)
+    if ("table" == type(x)) then
+      local fst = x[1]
+      return (("string" == type(fst)) and (nil ~= fst:find("^;")))
+    else
+      return false
+    end
+  end
   local function pp_associative(t, kv, options, indent)
     local multiline_3f = false
     local id = options.seen[t]
-    if (options.level >= options.depth) then
+    if (options.depth <= options.level) then
       return "{...}"
     elseif (id and options["detect-cycles?"]) then
       return ("@" .. id .. "{...}")
@@ -4030,10 +4233,10 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       if options["utf8?"] then
         slength = utf8_len
       else
-        local function _35_(_241)
+        local function _37_(_241)
           return #_241
         end
-        slength = _35_
+        slength = _37_
       end
       local prefix
       if visible_cycle_3f0 then
@@ -4045,10 +4248,10 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       do
         local tbl_14_auto = {}
         local i_15_auto = #tbl_14_auto
-        for _, _38_ in pairs(kv) do
-          local _each_39_ = _38_
-          local k = _each_39_[1]
-          local v = _each_39_[2]
+        for _, _40_ in ipairs(kv) do
+          local _each_41_ = _40_
+          local k = _each_41_[1]
+          local v = _each_41_[2]
           local val_16_auto
           do
             local k0 = pp(k, options, (indent0 + 1), true)
@@ -4064,13 +4267,13 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
         end
         items = tbl_14_auto
       end
-      return concat_table_lines(items, options, multiline_3f, indent0, "table", prefix)
+      return concat_table_lines(items, options, multiline_3f, indent0, "table", prefix, false)
     end
   end
   local function pp_sequence(t, kv, options, indent)
     local multiline_3f = false
     local id = options.seen[t]
-    if (options.level >= options.depth) then
+    if (options.depth <= options.level) then
       return "[...]"
     elseif (id and options["detect-cycles?"]) then
       return ("@" .. id .. "[...]")
@@ -4084,18 +4287,19 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       else
         prefix = ""
       end
+      local last_comment_3f = comment_3f(t[#t])
       local items
       do
         local tbl_14_auto = {}
         local i_15_auto = #tbl_14_auto
-        for _, _43_ in pairs(kv) do
-          local _each_44_ = _43_
-          local _0 = _each_44_[1]
-          local v = _each_44_[2]
+        for _, _45_ in ipairs(kv) do
+          local _each_46_ = _45_
+          local _0 = _each_46_[1]
+          local v = _each_46_[2]
           local val_16_auto
           do
             local v0 = pp(v, options, indent0)
-            multiline_3f = (multiline_3f or v0:find("\n"))
+            multiline_3f = (multiline_3f or v0:find("\n") or v0:find("^;"))
             val_16_auto = v0
           end
           if (nil ~= val_16_auto) then
@@ -4106,7 +4310,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
         end
         items = tbl_14_auto
       end
-      return concat_table_lines(items, options, multiline_3f, indent0, "seq", prefix)
+      return concat_table_lines(items, options, multiline_3f, indent0, "seq", prefix, last_comment_3f)
     end
   end
   local function concat_lines(lines, options, indent, force_multi_line_3f)
@@ -4118,7 +4322,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       end
     else
       local oneline
-      local _48_
+      local _50_
       do
         local tbl_14_auto = {}
         local i_15_auto = #tbl_14_auto
@@ -4130,10 +4334,10 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
           else
           end
         end
-        _48_ = tbl_14_auto
+        _50_ = tbl_14_auto
       end
-      oneline = table.concat(_48_, " ")
-      if (not options["one-line?"] and (force_multi_line_3f or oneline:find("\n") or ((indent + length_2a(oneline)) > options["line-length"]))) then
+      oneline = table.concat(_50_, " ")
+      if (not options["one-line?"] and (force_multi_line_3f or oneline:find("\n") or (options["line-length"] < (indent + length_2a(oneline))))) then
         return table.concat(lines, ("\n" .. string.rep(" ", indent)))
       else
         return oneline
@@ -4141,7 +4345,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
     end
   end
   local function pp_metamethod(t, metamethod, options, indent)
-    if (options.level >= options.depth) then
+    if (options.depth <= options.level) then
       if options["empty-as-sequence?"] then
         return "[...]"
       else
@@ -4149,20 +4353,20 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       end
     else
       local _
-      local function _53_(_241)
+      local function _55_(_241)
         return visible_cycle_3f(_241, options)
       end
-      options["visible-cycle?"] = _53_
+      options["visible-cycle?"] = _55_
       _ = nil
       local lines, force_multi_line_3f = metamethod(t, pp, options, indent)
       options["visible-cycle?"] = nil
-      local _54_ = type(lines)
-      if (_54_ == "string") then
+      local _56_ = type(lines)
+      if (_56_ == "string") then
         return lines
-      elseif (_54_ == "table") then
+      elseif (_56_ == "table") then
         return concat_lines(lines, options, indent, force_multi_line_3f)
       elseif true then
-        local _0 = _54_
+        local _0 = _56_
         return error("__fennelview metamethod must return a table of lines")
       else
         return nil
@@ -4173,40 +4377,40 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
     options.level = (options.level + 1)
     local x0
     do
-      local _57_
+      local _59_
       if options["metamethod?"] then
-        local _58_ = x
-        if (nil ~= _58_) then
-          local _59_ = getmetatable(_58_)
-          if (nil ~= _59_) then
-            _57_ = (_59_).__fennelview
+        local _60_ = x
+        if (nil ~= _60_) then
+          local _61_ = getmetatable(_60_)
+          if (nil ~= _61_) then
+            _59_ = (_61_).__fennelview
           else
-            _57_ = _59_
+            _59_ = _61_
           end
         else
-          _57_ = _58_
+          _59_ = _60_
         end
       else
-        _57_ = nil
+        _59_ = nil
       end
-      if (nil ~= _57_) then
-        local metamethod = _57_
+      if (nil ~= _59_) then
+        local metamethod = _59_
         x0 = pp_metamethod(x, metamethod, options, indent)
       elseif true then
-        local _ = _57_
-        local _63_, _64_ = table_kv_pairs(x, options)
-        if (true and (_64_ == "empty")) then
-          local _0 = _63_
+        local _ = _59_
+        local _65_, _66_ = table_kv_pairs(x, options)
+        if (true and (_66_ == "empty")) then
+          local _0 = _65_
           if options["empty-as-sequence?"] then
             x0 = "[]"
           else
             x0 = "{}"
           end
-        elseif ((nil ~= _63_) and (_64_ == "table")) then
-          local kv = _63_
+        elseif ((nil ~= _65_) and (_66_ == "table")) then
+          local kv = _65_
           x0 = pp_associative(x, kv, options, indent)
-        elseif ((nil ~= _63_) and (_64_ == "seq")) then
-          local kv = _63_
+        elseif ((nil ~= _65_) and (_66_ == "seq")) then
+          local kv = _65_
           x0 = pp_sequence(x, kv, options, indent)
         else
           x0 = nil
@@ -4219,8 +4423,8 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
     return x0
   end
   local function number__3estring(n)
-    local _68_ = string.gsub(tostring(n), ",", ".")
-    return _68_
+    local _70_ = string.gsub(tostring(n), ",", ".")
+    return _70_
   end
   local function colon_string_3f(s)
     return s:find("^[-%w?^_!$%&*+./@|<=>]+$")
@@ -4235,12 +4439,12 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
         local ret = nil
         for _, init0 in ipairs(inits) do
           if ret then break end
-          ret = (byte and (function(_69_,_70_,_71_) return (_69_ >= _70_) and (_70_ >= _71_) end)(init0["max-byte"],byte,init0["min-byte"]) and init0)
+          ret = (byte and (function(_71_,_72_,_73_) return (_71_ <= _72_) and (_72_ <= _73_) end)(init0["min-byte"],byte,init0["max-byte"]) and init0)
         end
         init = ret
       end
       local code
-      local function _72_()
+      local function _74_()
         local code0
         if init then
           code0 = (byte - init["min-byte"])
@@ -4249,12 +4453,12 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
         end
         for i = (index + 1), (index + init.len + -1) do
           local byte0 = string.byte(str0, i)
-          code0 = (byte0 and code0 and (function(_74_,_75_,_76_) return (_74_ >= _75_) and (_75_ >= _76_) end)(191,byte0,128) and ((code0 * 64) + (byte0 - 128)))
+          code0 = (byte0 and code0 and (function(_76_,_77_,_78_) return (_76_ <= _77_) and (_77_ <= _78_) end)(128,byte0,191) and ((code0 * 64) + (byte0 - 128)))
         end
         return code0
       end
-      code = (init and _72_())
-      if (code and (function(_77_,_78_,_79_) return (_77_ >= _78_) and (_78_ >= _79_) end)(init["max-code"],code,init["min-code"]) and not (function(_80_,_81_,_82_) return (_80_ >= _81_) and (_81_ >= _82_) end)(57343,code,55296)) then
+      code = (init and _74_())
+      if (code and (function(_79_,_80_,_81_) return (_79_ <= _80_) and (_80_ <= _81_) end)(init["min-code"],code,init["max-code"]) and not (function(_82_,_83_,_84_) return (_82_ <= _83_) and (_83_ <= _84_) end)(55296,code,57343)) then
         return init.len
       else
         return nil
@@ -4280,16 +4484,16 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
   end
   local function pp_string(str, options, indent)
     local escs
-    local _86_
+    local _88_
     if (options["escape-newlines?"] and (length_2a(str) < (options["line-length"] - indent))) then
-      _86_ = "\\n"
+      _88_ = "\\n"
     else
-      _86_ = "\n"
+      _88_ = "\n"
     end
-    local function _88_(_241, _242)
+    local function _90_(_241, _242)
       return ("\\%03d"):format(_242:byte())
     end
-    escs = setmetatable({["\7"] = "\\a", ["\8"] = "\\b", ["\12"] = "\\f", ["\11"] = "\\v", ["\13"] = "\\r", ["\9"] = "\\t", ["\\"] = "\\\\", ["\""] = "\\\"", ["\n"] = _86_}, {__index = _88_})
+    escs = setmetatable({["\7"] = "\\a", ["\8"] = "\\b", ["\12"] = "\\f", ["\11"] = "\\v", ["\13"] = "\\r", ["\9"] = "\\t", ["\\"] = "\\\\", ["\""] = "\\\"", ["\n"] = _88_}, {__index = _90_})
     local str0 = ("\"" .. str:gsub("[%c\\\"]", escs) .. "\"")
     if options["utf8?"] then
       return utf8_escape(str0)
@@ -4308,7 +4512,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
     end
     return defaults
   end
-  local function _90_(x, options, indent, colon_3f)
+  local function _92_(x, options, indent, colon_3f)
     local indent0 = (indent or 0)
     local options0 = (options or make_options(x))
     local x0
@@ -4318,20 +4522,20 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       x0 = x
     end
     local tv = type(x0)
-    local function _93_()
-      local _92_ = getmetatable(x0)
-      if (nil ~= _92_) then
-        return (_92_).__fennelview
+    local function _95_()
+      local _94_ = getmetatable(x0)
+      if (nil ~= _94_) then
+        return (_94_).__fennelview
       else
-        return _92_
+        return _94_
       end
     end
-    if ((tv == "table") or ((tv == "userdata") and _93_())) then
+    if ((tv == "table") or ((tv == "userdata") and _95_())) then
       return pp_table(x0, options0, indent0)
     elseif (tv == "number") then
       return number__3estring(x0)
     else
-      local function _95_()
+      local function _97_()
         if (colon_3f ~= nil) then
           return colon_3f
         elseif ("function" == type(options0["prefer-colon?"])) then
@@ -4340,7 +4544,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
           return options0["prefer-colon?"]
         end
       end
-      if ((tv == "string") and colon_string_3f(x0) and _95_()) then
+      if ((tv == "string") and colon_string_3f(x0) and _97_()) then
         return (":" .. x0)
       elseif (tv == "string") then
         return pp_string(x0, options0, indent0)
@@ -4351,7 +4555,7 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
       end
     end
   end
-  pp = _90_
+  pp = _92_
   local function view(x, _3foptions)
     return pp(x, make_options(x, _3foptions), 0)
   end
@@ -4359,24 +4563,24 @@ package.preload["katdotnvim.aniseed.fennel.view"] = package.preload["katdotnvim.
 end
 package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim.aniseed.fennel.utils"] or function(...)
   local view = require("katdotnvim.aniseed.fennel.view")
-  local version = "1.1.0"
+  local version = "1.2.1"
   local function luajit_vm_3f()
-    return ((nil ~= jit) and (type(jit) == "table") and (nil ~= jit.on) and (nil ~= jit.off) and (type(jit.version_num) == "number"))
+    return ((nil ~= _G.jit) and (type(_G.jit) == "table") and (nil ~= _G.jit.on) and (nil ~= _G.jit.off) and (type(_G.jit.version_num) == "number"))
   end
   local function luajit_vm_version()
     local jit_os
-    if (jit.os == "OSX") then
+    if (_G.jit.os == "OSX") then
       jit_os = "macOS"
     else
-      jit_os = jit.os
+      jit_os = _G.jit.os
     end
-    return (jit.version .. " " .. jit_os .. "/" .. jit.arch)
+    return (_G.jit.version .. " " .. jit_os .. "/" .. _G.jit.arch)
   end
   local function fengari_vm_3f()
-    return ((nil ~= fengari) and (type(fengari) == "table") and (nil ~= fengari.VERSION) and (type(fengari.VERSION_NUM) == "number"))
+    return ((nil ~= _G.fengari) and (type(_G.fengari) == "table") and (nil ~= _G.fengari.VERSION) and (type(_G.fengari.VERSION_NUM) == "number"))
   end
   local function fengari_vm_version()
-    return (fengari.RELEASE .. " (" .. _VERSION .. ")")
+    return (_G.fengari.RELEASE .. " (" .. _VERSION .. ")")
   end
   local function lua_vm_version()
     if luajit_vm_3f() then
@@ -4397,52 +4601,123 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
       return nil
     end
   end
-  local function stablepairs(t)
-    local keys = {}
-    local used_keys = {}
-    local succ = {}
-    if (getmetatable(t) and getmetatable(t).keys) then
-      for _, k in ipairs(getmetatable(t).keys) do
-        if used_keys[k] then
-          for i = #keys, 1, -1 do
-            if (keys[i] == k) then
-              table.remove(keys, i)
-            else
-            end
-          end
-        else
-        end
-        used_keys[k] = true
-        table.insert(keys, k)
-      end
+  local len
+  do
+    local _102_, _103_ = pcall(require, "utf8")
+    if ((_102_ == true) and (nil ~= _103_)) then
+      local utf8 = _103_
+      len = utf8.len
+    elseif true then
+      local _ = _102_
+      len = string.len
     else
-      for k in pairs(t) do
-        table.insert(keys, k)
+      len = nil
+    end
+  end
+  local function mt_keys_in_order(t, out, used_keys)
+    for _, k in ipairs(getmetatable(t).keys) do
+      if (t[k] and not used_keys[k]) then
+        used_keys[k] = true
+        table.insert(out, k)
+      else
       end
-      local function _102_(_241, _242)
+    end
+    for k in pairs(t) do
+      if not used_keys[k] then
+        table.insert(out, k)
+      else
+      end
+    end
+    return out
+  end
+  local function stablepairs(t)
+    local keys
+    local _108_
+    do
+      local t_107_ = getmetatable(t)
+      if (nil ~= t_107_) then
+        t_107_ = (t_107_).keys
+      else
+      end
+      _108_ = t_107_
+    end
+    if _108_ then
+      keys = mt_keys_in_order(t, {}, {})
+    else
+      local _110_
+      do
+        local tbl_14_auto = {}
+        local i_15_auto = #tbl_14_auto
+        for k in pairs(t) do
+          local val_16_auto = k
+          if (nil ~= val_16_auto) then
+            i_15_auto = (i_15_auto + 1)
+            do end (tbl_14_auto)[i_15_auto] = val_16_auto
+          else
+          end
+        end
+        _110_ = tbl_14_auto
+      end
+      local function _112_(_241, _242)
         return (tostring(_241) < tostring(_242))
       end
-      table.sort(keys, _102_)
+      table.sort(_110_, _112_)
+      keys = _110_
     end
-    for i, k in ipairs(keys) do
-      succ[k] = keys[(i + 1)]
-    end
-    local function stablenext(tbl, idx)
-      local key
-      if (idx == nil) then
-        key = keys[1]
-      else
-        key = succ[idx]
+    local succ
+    do
+      local tbl_11_auto = {}
+      for i, k in ipairs(keys) do
+        local _114_, _115_ = k, keys[(i + 1)]
+        if ((nil ~= _114_) and (nil ~= _115_)) then
+          local k_12_auto = _114_
+          local v_13_auto = _115_
+          tbl_11_auto[k_12_auto] = v_13_auto
+        else
+        end
       end
-      local value
+      succ = tbl_11_auto
+    end
+    local function stablenext(tbl, key)
+      local next_key
       if (key == nil) then
-        value = nil
+        next_key = keys[1]
       else
-        value = tbl[key]
+        next_key = succ[key]
       end
-      return key, value
+      return next_key, tbl[next_key]
     end
     return stablenext, t, nil
+  end
+  local function get_in(tbl, path, _3ffallback)
+    assert(("table" == type(tbl)), "get-in expects path to be a table")
+    if (0 == #path) then
+      return _3ffallback
+    else
+      local _118_
+      do
+        local t = tbl
+        for _, k in ipairs(path) do
+          if (nil == t) then break end
+          local _119_ = type(t)
+          if (_119_ == "table") then
+            t = t[k]
+          else
+            t = nil
+          end
+        end
+        _118_ = t
+      end
+      if (nil ~= _118_) then
+        local res = _118_
+        return res
+      elseif true then
+        local _ = _118_
+        return _3ffallback
+      else
+        return nil
+      end
+    end
   end
   local function map(t, f, _3fout)
     local out = (_3fout or {})
@@ -4450,15 +4725,15 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
     if (type(f) == "function") then
       f0 = f
     else
-      local function _106_(_241)
+      local function _123_(_241)
         return (_241)[f]
       end
-      f0 = _106_
+      f0 = _123_
     end
     for _, x in ipairs(t) do
-      local _108_ = f0(x)
-      if (nil ~= _108_) then
-        local v = _108_
+      local _125_ = f0(x)
+      if (nil ~= _125_) then
+        local v = _125_
         table.insert(out, v)
       else
       end
@@ -4471,19 +4746,19 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
     if (type(f) == "function") then
       f0 = f
     else
-      local function _110_(_241)
+      local function _127_(_241)
         return (_241)[f]
       end
-      f0 = _110_
+      f0 = _127_
     end
     for k, x in stablepairs(t) do
-      local _112_, _113_ = f0(k, x)
-      if ((nil ~= _112_) and (nil ~= _113_)) then
-        local key = _112_
-        local value = _113_
+      local _129_, _130_ = f0(k, x)
+      if ((nil ~= _129_) and (nil ~= _130_)) then
+        local key = _129_
+        local value = _130_
         out[key] = value
-      elseif (nil ~= _112_) then
-        local value = _112_
+      elseif (nil ~= _129_) then
+        local value = _129_
         table.insert(out, value)
       else
       end
@@ -4493,10 +4768,10 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
   local function copy(from, _3fto)
     local tbl_11_auto = (_3fto or {})
     for k, v in pairs((from or {})) do
-      local _115_, _116_ = k, v
-      if ((nil ~= _115_) and (nil ~= _116_)) then
-        local k_12_auto = _115_
-        local v_13_auto = _116_
+      local _132_, _133_ = k, v
+      if ((nil ~= _132_) and (nil ~= _133_)) then
+        local k_12_auto = _132_
+        local v_13_auto = _133_
         tbl_11_auto[k_12_auto] = v_13_auto
       else
       end
@@ -4504,13 +4779,13 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
     return tbl_11_auto
   end
   local function member_3f(x, tbl, _3fn)
-    local _118_ = tbl[(_3fn or 1)]
-    if (_118_ == x) then
+    local _135_ = tbl[(_3fn or 1)]
+    if (_135_ == x) then
       return true
-    elseif (_118_ == nil) then
+    elseif (_135_ == nil) then
       return nil
     elseif true then
-      local _ = _118_
+      local _ = _135_
       return member_3f(x, tbl, ((_3fn or 1) + 1))
     else
       return nil
@@ -4528,9 +4803,9 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
         seen[next_state] = true
         return next_state, value
       else
-        local _120_ = getmetatable(t)
-        if ((_G.type(_120_) == "table") and true) then
-          local __index = (_120_).__index
+        local _137_ = getmetatable(t)
+        if ((_G.type(_137_) == "table") and true) then
+          local __index = (_137_).__index
           if ("table" == type(__index)) then
             t = __index
             return allpairs_next(t)
@@ -4549,9 +4824,10 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
   end
   local nil_sym = nil
   local function list__3estring(self, _3ftostring2)
-    local safe, max = {}, 0
+    local safe = {}
+    local max = 0
     for k in pairs(self) do
-      if ((type(k) == "number") and (k > max)) then
+      if ((type(k) == "number") and (max < k)) then
         max = k
       else
       end
@@ -4572,19 +4848,19 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
   end
   local symbol_mt = {__fennelview = deref, __tostring = deref, __eq = sym_3d, __lt = sym_3c, "SYMBOL"}
   local expr_mt
-  local function _125_(x)
+  local function _142_(x)
     return tostring(deref(x))
   end
-  expr_mt = {__tostring = _125_, "EXPR"}
+  expr_mt = {__tostring = _142_, "EXPR"}
   local list_mt = {__fennelview = list__3estring, __tostring = list__3estring, "LIST"}
   local comment_mt = {__fennelview = comment_view, __tostring = deref, __eq = sym_3d, __lt = sym_3c, "COMMENT"}
   local sequence_marker = {"SEQUENCE"}
   local varg_mt = {__fennelview = deref, __tostring = deref, "VARARG"}
   local getenv
-  local function _126_()
+  local function _143_()
     return nil
   end
-  getenv = ((os and os.getenv) or _126_)
+  getenv = ((os and os.getenv) or _143_)
   local function debug_on_3f(flag)
     local level = (getenv("FENNEL_DEBUG") or "")
     return ((level == "all") or level:find(flag))
@@ -4593,26 +4869,26 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
     return setmetatable({...}, list_mt)
   end
   local function sym(str, _3fsource)
-    local _127_
+    local _144_
     do
       local tbl_11_auto = {str}
       for k, v in pairs((_3fsource or {})) do
-        local _128_, _129_ = nil, nil
+        local _145_, _146_ = nil, nil
         if (type(k) == "string") then
-          _128_, _129_ = k, v
+          _145_, _146_ = k, v
         else
-          _128_, _129_ = nil
+          _145_, _146_ = nil
         end
-        if ((nil ~= _128_) and (nil ~= _129_)) then
-          local k_12_auto = _128_
-          local v_13_auto = _129_
+        if ((nil ~= _145_) and (nil ~= _146_)) then
+          local k_12_auto = _145_
+          local v_13_auto = _146_
           tbl_11_auto[k_12_auto] = v_13_auto
         else
         end
       end
-      _127_ = tbl_11_auto
+      _144_ = tbl_11_auto
     end
-    return setmetatable(_127_, symbol_mt)
+    return setmetatable(_144_, symbol_mt)
   end
   nil_sym = sym("nil")
   local function sequence(...)
@@ -4622,32 +4898,32 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
     return setmetatable({type = etype, strcode}, expr_mt)
   end
   local function comment_2a(contents, _3fsource)
-    local _let_132_ = (_3fsource or {})
-    local filename = _let_132_["filename"]
-    local line = _let_132_["line"]
+    local _let_149_ = (_3fsource or {})
+    local filename = _let_149_["filename"]
+    local line = _let_149_["line"]
     return setmetatable({filename = filename, line = line, contents}, comment_mt)
   end
   local function varg(_3fsource)
-    local _133_
+    local _150_
     do
       local tbl_11_auto = {"..."}
       for k, v in pairs((_3fsource or {})) do
-        local _134_, _135_ = nil, nil
+        local _151_, _152_ = nil, nil
         if (type(k) == "string") then
-          _134_, _135_ = k, v
+          _151_, _152_ = k, v
         else
-          _134_, _135_ = nil
+          _151_, _152_ = nil
         end
-        if ((nil ~= _134_) and (nil ~= _135_)) then
-          local k_12_auto = _134_
-          local v_13_auto = _135_
+        if ((nil ~= _151_) and (nil ~= _152_)) then
+          local k_12_auto = _151_
+          local v_13_auto = _152_
           tbl_11_auto[k_12_auto] = v_13_auto
         else
         end
       end
-      _133_ = tbl_11_auto
+      _150_ = tbl_11_auto
     end
-    return setmetatable(_133_, varg_mt)
+    return setmetatable(_150_, varg_mt)
   end
   local function expr_3f(x)
     return ((type(x) == "table") and (getmetatable(x) == expr_mt) and x)
@@ -4693,14 +4969,14 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
           parts[(#parts + 1)] = part
         end
       end
-      return ((#parts > 0) and (str:match("%.") or str:match(":")) and not str:match("%.%.") and (str:byte() ~= string.byte(".")) and (str:byte(( - 1)) ~= string.byte(".")) and parts)
+      return ((0 < #parts) and (str:match("%.") or str:match(":")) and not str:match("%.%.") and (str:byte() ~= string.byte(".")) and (str:byte(( - 1)) ~= string.byte(".")) and parts)
     end
   end
   local function quoted_3f(symbol)
     return symbol.quoted
   end
   local function ast_source(ast)
-    if table_3f(ast) then
+    if (table_3f(ast) or sequence_3f(ast)) then
       return (getmetatable(ast) or {})
     elseif ("table" == type(ast)) then
       return ast
@@ -4737,15 +5013,15 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
     return subopts
   end
   local root
-  local function _143_()
+  local function _160_()
   end
-  root = {chunk = nil, scope = nil, options = nil, reset = _143_}
-  root["set-reset"] = function(_144_)
-    local _arg_145_ = _144_
-    local chunk = _arg_145_["chunk"]
-    local scope = _arg_145_["scope"]
-    local options = _arg_145_["options"]
-    local reset = _arg_145_["reset"]
+  root = {chunk = nil, scope = nil, options = nil, reset = _160_}
+  root["set-reset"] = function(_161_)
+    local _arg_162_ = _161_
+    local chunk = _arg_162_["chunk"]
+    local scope = _arg_162_["scope"]
+    local options = _arg_162_["options"]
+    local reset = _arg_162_["reset"]
     root.reset = function()
       root.chunk, root.scope, root.options, root.reset = chunk, scope, options, reset
       return nil
@@ -4753,11 +5029,11 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
     return root.reset
   end
   local warned = {}
-  local function check_plugin_version(_146_)
-    local _arg_147_ = _146_
-    local name = _arg_147_["name"]
-    local versions = _arg_147_["versions"]
-    local plugin = _arg_147_
+  local function check_plugin_version(_163_)
+    local _arg_164_ = _163_
+    local name = _arg_164_["name"]
+    local versions = _arg_164_["versions"]
+    local plugin = _arg_164_
     if (not member_3f(version:gsub("-dev", ""), (versions or {})) and not warned[plugin]) then
       warned[plugin] = true
       return warn(string.format("plugin %s does not support Fennel version %s", (name or "unknown"), version))
@@ -4765,24 +5041,47 @@ package.preload["katdotnvim.aniseed.fennel.utils"] = package.preload["katdotnvim
       return nil
     end
   end
-  local function hook(event, ...)
-    local result = nil
-    if (root.options and root.options.plugins) then
-      for _, plugin in ipairs(root.options.plugins) do
+  local function hook_opts(event, _3foptions, ...)
+    local plugins
+    local function _167_(...)
+      local t_166_ = _3foptions
+      if (nil ~= t_166_) then
+        t_166_ = (t_166_).plugins
+      else
+      end
+      return t_166_
+    end
+    local function _170_(...)
+      local t_169_ = root.options
+      if (nil ~= t_169_) then
+        t_169_ = (t_169_).plugins
+      else
+      end
+      return t_169_
+    end
+    plugins = (_167_(...) or _170_(...))
+    if plugins then
+      local result = nil
+      for _, plugin in ipairs(plugins) do
         if result then break end
         check_plugin_version(plugin)
-        local _149_ = plugin[event]
-        if (nil ~= _149_) then
-          local f = _149_
+        local _172_ = plugin[event]
+        if (nil ~= _172_) then
+          local f = _172_
           result = f(...)
         else
+          result = nil
         end
       end
+      return result
     else
+      return nil
     end
-    return result
   end
-  return {warn = warn, allpairs = allpairs, stablepairs = stablepairs, copy = copy, kvmap = kvmap, map = map, ["walk-tree"] = walk_tree, ["member?"] = member_3f, list = list, sequence = sequence, sym = sym, varg = varg, expr = expr, comment = comment_2a, ["comment?"] = comment_3f, ["expr?"] = expr_3f, ["list?"] = list_3f, ["multi-sym?"] = multi_sym_3f, ["sequence?"] = sequence_3f, ["sym?"] = sym_3f, ["table?"] = table_3f, ["varg?"] = varg_3f, ["quoted?"] = quoted_3f, ["string?"] = string_3f, ["valid-lua-identifier?"] = valid_lua_identifier_3f, ["lua-keywords"] = lua_keywords, hook = hook, ["propagate-options"] = propagate_options, root = root, ["debug-on?"] = debug_on_3f, ["ast-source"] = ast_source, version = version, ["runtime-version"] = runtime_version, path = table.concat({"./?.fnl", "./?/init.fnl", getenv("FENNEL_PATH")}, ";"), ["macro-path"] = table.concat({"./?.fnl", "./?/init-macros.fnl", "./?/init.fnl", getenv("FENNEL_MACRO_PATH")}, ";")}
+  local function hook(event, ...)
+    return hook_opts(event, root.options, ...)
+  end
+  return {warn = warn, allpairs = allpairs, stablepairs = stablepairs, copy = copy, ["get-in"] = get_in, kvmap = kvmap, map = map, ["walk-tree"] = walk_tree, ["member?"] = member_3f, list = list, sequence = sequence, sym = sym, varg = varg, expr = expr, comment = comment_2a, ["comment?"] = comment_3f, ["expr?"] = expr_3f, ["list?"] = list_3f, ["multi-sym?"] = multi_sym_3f, ["sequence?"] = sequence_3f, ["sym?"] = sym_3f, ["table?"] = table_3f, ["varg?"] = varg_3f, ["quoted?"] = quoted_3f, ["string?"] = string_3f, ["valid-lua-identifier?"] = valid_lua_identifier_3f, ["lua-keywords"] = lua_keywords, hook = hook, ["hook-opts"] = hook_opts, ["propagate-options"] = propagate_options, root = root, ["debug-on?"] = debug_on_3f, ["ast-source"] = ast_source, version = version, ["runtime-version"] = runtime_version, len = len, path = table.concat({"./?.fnl", "./?/init.fnl", getenv("FENNEL_PATH")}, ";"), ["macro-path"] = table.concat({"./?.fnl", "./?/init-macros.fnl", "./?/init.fnl", getenv("FENNEL_MACRO_PATH")}, ";")}
 end
 utils = require("katdotnvim.aniseed.fennel.utils")
 local parser = require("katdotnvim.aniseed.fennel.parser")
@@ -4823,14 +5122,14 @@ local function eval(str, options, ...)
   local env = eval_env(opts.env, opts)
   local lua_source = compiler["compile-string"](str, opts)
   local loader
-  local function _678_(...)
+  local function _735_(...)
     if opts.filename then
       return ("@" .. opts.filename)
     else
       return str
     end
   end
-  loader = specials["load-code"](lua_source, env, _678_(...))
+  loader = specials["load-code"](lua_source, env, _735_(...))
   opts.filename = nil
   return loader(...)
 end
@@ -4843,8 +5142,8 @@ local function dofile_2a(filename, options, ...)
   return eval(source, opts, ...)
 end
 local function syntax()
-  local body_3f = {"when", "with-open", "collect", "icollect", "lambda", "\206\187", "macro", "match", "accumulate"}
-  local binding_3f = {"collect", "icollect", "each", "for", "let", "with-open", "accumulate"}
+  local body_3f = {"when", "with-open", "collect", "icollect", "fcollect", "lambda", "\206\187", "macro", "match", "match-try", "accumulate", "doto"}
+  local binding_3f = {"collect", "icollect", "fcollect", "each", "for", "let", "with-open", "accumulate"}
   local define_3f = {"fn", "lambda", "\206\187", "var", "local", "macro", "macros", "global"}
   local out = {}
   for k, v in pairs(compiler.scopes.global.specials) do
@@ -4855,10 +5154,10 @@ local function syntax()
     out[k] = {["macro?"] = true, ["body-form?"] = utils["member?"](k, body_3f), ["binding-form?"] = utils["member?"](k, binding_3f), ["define?"] = utils["member?"](k, define_3f)}
   end
   for k, v in pairs(_G) do
-    local _679_ = type(v)
-    if (_679_ == "function") then
+    local _736_ = type(v)
+    if (_736_ == "function") then
       out[k] = {["global?"] = true, ["function?"] = true}
-    elseif (_679_ == "table") then
+    elseif (_736_ == "table") then
       for k2, v2 in pairs(v) do
         if (("function" == type(v2)) and (k ~= "_G")) then
           out[(k .. "." .. k2)] = {["function?"] = true, ["global?"] = true}
@@ -4871,7 +5170,11 @@ local function syntax()
   end
   return out
 end
-local mod = {list = utils.list, ["list?"] = utils["list?"], sym = utils.sym, ["sym?"] = utils["sym?"], sequence = utils.sequence, ["sequence?"] = utils["sequence?"], comment = utils.comment, ["comment?"] = utils["comment?"], varg = utils.varg, ["varg?"] = utils["varg?"], ["sym-char?"] = parser["sym-char?"], parser = parser.parser, compile = compiler.compile, ["compile-string"] = compiler["compile-string"], ["compile-stream"] = compiler["compile-stream"], eval = eval, repl = repl, view = view, dofile = dofile_2a, ["load-code"] = specials["load-code"], doc = specials.doc, metadata = compiler.metadata, traceback = compiler.traceback, version = utils.version, ["runtime-version"] = utils["runtime-version"], path = utils.path, ["macro-path"] = utils["macro-path"], ["macro-loaded"] = specials["macro-loaded"], ["macro-searchers"] = specials["macro-searchers"], ["search-module"] = specials["search-module"], ["make-searcher"] = specials["make-searcher"], searcher = specials["make-searcher"](), syntax = syntax, gensym = compiler.gensym, scope = compiler["make-scope"], mangle = compiler["global-mangling"], unmangle = compiler["global-unmangling"], compile1 = compiler.compile1, ["string-stream"] = parser["string-stream"], granulate = parser.granulate, loadCode = specials["load-code"], make_searcher = specials["make-searcher"], makeSearcher = specials["make-searcher"], searchModule = specials["search-module"], macroPath = utils["macro-path"], macroSearchers = specials["macro-searchers"], macroLoaded = specials["macro-loaded"], compileStream = compiler["compile-stream"], compileString = compiler["compile-string"], stringStream = parser["string-stream"], runtimeVersion = utils["runtime-version"]}
+local mod = {list = utils.list, ["list?"] = utils["list?"], sym = utils.sym, ["sym?"] = utils["sym?"], ["multi-sym?"] = utils["multi-sym?"], sequence = utils.sequence, ["sequence?"] = utils["sequence?"], ["table?"] = utils["table?"], comment = utils.comment, ["comment?"] = utils["comment?"], varg = utils.varg, ["varg?"] = utils["varg?"], ["sym-char?"] = parser["sym-char?"], parser = parser.parser, compile = compiler.compile, ["compile-string"] = compiler["compile-string"], ["compile-stream"] = compiler["compile-stream"], eval = eval, repl = repl, view = view, dofile = dofile_2a, ["load-code"] = specials["load-code"], doc = specials.doc, metadata = compiler.metadata, traceback = compiler.traceback, version = utils.version, ["runtime-version"] = utils["runtime-version"], ["ast-source"] = utils["ast-source"], path = utils.path, ["macro-path"] = utils["macro-path"], ["macro-loaded"] = specials["macro-loaded"], ["macro-searchers"] = specials["macro-searchers"], ["search-module"] = specials["search-module"], ["make-searcher"] = specials["make-searcher"], searcher = specials["make-searcher"](), syntax = syntax, gensym = compiler.gensym, scope = compiler["make-scope"], mangle = compiler["global-mangling"], unmangle = compiler["global-unmangling"], compile1 = compiler.compile1, ["string-stream"] = parser["string-stream"], granulate = parser.granulate, loadCode = specials["load-code"], make_searcher = specials["make-searcher"], makeSearcher = specials["make-searcher"], searchModule = specials["search-module"], macroPath = utils["macro-path"], macroSearchers = specials["macro-searchers"], macroLoaded = specials["macro-loaded"], compileStream = compiler["compile-stream"], compileString = compiler["compile-string"], stringStream = parser["string-stream"], runtimeVersion = utils["runtime-version"]}
+mod.install = function(_3fopts)
+  table.insert((package.searchers or package.loaders), specials["make-searcher"](_3fopts))
+  return mod
+end
 utils["fennel-module"] = mod
 do
   local builtin_macros = [===[;; These macros are awkward because their definition cannot rely on the any
@@ -4888,7 +5191,7 @@ do
   The value of the second form is spliced into the first arg of the third, etc."
     (var x val)
     (each [_ e (ipairs [...])]
-      (let [elt (copy (if (list? e) e (list e)))]
+      (let [elt (if (list? e) (copy e) (list e))]
         (table.insert elt 2 x)
         (set x elt)))
     x)
@@ -4899,7 +5202,7 @@ do
   rather than the first."
     (var x val)
     (each [_ e (ipairs [...])]
-      (let [elt (copy (if (list? e) e (list e)))]
+      (let [elt (if (list? e) (copy e) (list e))]
         (table.insert elt x)
         (set x elt)))
     x)
@@ -4909,8 +5212,7 @@ do
   Same as -> except will short-circuit with nil when it encounters a nil value."
     (if (= nil ?e)
         val
-        (let [e (copy ?e)
-              el (if (list? e) e (list e))
+        (let [el (if (list? ?e) (copy ?e) (list ?e))
               tmp (gensym)]
           (table.insert el 2 tmp)
           `(let [,tmp ,val]
@@ -4923,8 +5225,7 @@ do
   Same as ->> except will short-circuit with nil when it encounters a nil value."
     (if (= nil ?e)
         val
-        (let [e (copy ?e)
-              el (if (list? e) e (list e))
+        (let [el (if (list? ?e) (copy ?e) (list ?e))
               tmp (gensym)]
           (table.insert el tmp)
           `(let [,tmp ,val]
@@ -4937,7 +5238,9 @@ do
   Same as . (dot), except will short-circuit with nil when it encounters
   a nil value in any of subsequent keys."
     (let [head (gensym :t)
-          lookups `(do (var ,head ,tbl) ,head)]
+          lookups `(do
+                     (var ,head ,tbl)
+                     ,head)]
       (each [_ k (ipairs [...])]
         ;; Kinda gnarly to reassign in place like this, but it emits the best lua.
         ;; With this impl, it emits a flat, concise, and readable set of ifs
@@ -4947,10 +5250,13 @@ do
   
   (fn doto* [val ...]
     "Evaluate val and splice it into the first argument of subsequent forms."
-    (let [name (gensym)
-          form `(let [,name ,val])]
+    (assert (not= val nil) "missing subject")
+    (let [rebind? (or (not (sym? val))
+                      (multi-sym? val))
+          name (if rebind? (gensym)            val)
+          form (if rebind? `(let [,name ,val]) `(do))]
       (each [_ elt (ipairs [...])]
-        (let [elt (copy (if (list? elt) elt (list elt)))]
+        (let [elt (if (list? elt) (copy elt) (list elt))]
           (table.insert elt 2 name)
           (table.insert form elt)))
       (table.insert form name)
@@ -4984,14 +5290,17 @@ do
   (fn extract-into [iter-tbl]
     (var (into iter-out found?) (values [] (copy iter-tbl)))
     (for [i (length iter-tbl) 2 -1]
-      (if (= :into (. iter-tbl i))
-          (do (assert (not found?) "expected only one :into clause")
+      (let [item (. iter-tbl i)]
+        (if (or (= `&into item)
+                (= :into  item))
+            (do
+              (assert (not found?) "expected only one &into clause")
               (set found? true)
               (set into (. iter-tbl (+ i 1)))
               (table.remove iter-out i)
-              (table.remove iter-out i))))
+              (table.remove iter-out i)))))
     (assert (or (not found?) (sym? into) (table? into) (list? into))
-            "expected table, function call, or symbol in :into clause")
+            "expected table, function call, or symbol in &into clause")
     (values into iter-out))
   
   (fn collect* [iter-tbl key-expr value-expr ...]
@@ -5006,9 +5315,9 @@ do
   returns
     {:red \"apple\" :orange \"orange\"}
   
-  Supports an :into clause after the iterator to put results in an existing table.
-  Supports early termination with an :until clause."
-    (assert (and (sequence? iter-tbl) (>= (length iter-tbl) 2))
+  Supports an &into clause after the iterator to put results in an existing table.
+  Supports early termination with an &until clause."
+    (assert (and (sequence? iter-tbl) (<= 2 (length iter-tbl)))
             "expected iterator binding table")
     (assert (not= nil key-expr) "expected key and value expression")
     (assert (= nil ...)
@@ -5019,6 +5328,26 @@ do
          (each ,iter
            (match ,kv-expr
              (k# v#) (tset tbl# k# v#)))
+         tbl#)))
+  
+  (fn seq-collect [how iter-tbl value-expr ...]
+    "Common part between icollect and fcollect for producing sequential tables.
+  
+  Iteration code only deffers in using the for or each keyword, the rest
+  of the generated code is identical."
+    (assert (not= nil value-expr) "expected table value expression")
+    (assert (= nil ...)
+            "expected exactly one body expression. Wrap multiple expressions in do")
+    (let [(into iter) (extract-into iter-tbl)]
+      `(let [tbl# ,into]
+         ;; believe it or not, using a var here has a pretty good performance
+         ;; boost: https://p.hagelb.org/icollect-performance.html
+         (var i# (length tbl#))
+         (,how ,iter
+               (let [val# ,value-expr]
+                 (when (not= nil val#)
+                   (set i# (+ i# 1))
+                   (tset tbl# i# val#))))
          tbl#)))
   
   (fn icollect* [iter-tbl value-expr ...]
@@ -5034,24 +5363,30 @@ do
   returns
     [1 4 16 25]
   
-  Supports an :into clause after the iterator to put results in an existing table.
-  Supports early termination with an :until clause."
-    (assert (and (sequence? iter-tbl) (>= (length iter-tbl) 2))
+  Supports an &into clause after the iterator to put results in an existing table.
+  Supports early termination with an &until clause."
+    (assert (and (sequence? iter-tbl) (<= 2 (length iter-tbl)))
             "expected iterator binding table")
-    (assert (not= nil value-expr) "expected table value expression")
-    (assert (= nil ...)
-            "expected exactly one body expression. Wrap multiple expressions in do")
-    (let [(into iter) (extract-into iter-tbl)]
-      `(let [tbl# ,into]
-         ;; believe it or not, using a var here has a pretty good performance
-         ;; boost: https://p.hagelb.org/icollect-performance.html
-         (var i# (length tbl#))
-         (each ,iter
-           (let [val# ,value-expr]
-             (when (not= nil val#)
-               (set i# (+ i# 1))
-               (tset tbl# i# val#))))
-         tbl#)))
+    (seq-collect 'each iter-tbl value-expr ...))
+  
+  (fn fcollect* [iter-tbl value-expr ...]
+    "Return a sequential table made by advancing a range as specified by
+  for, and evaluating an expression that returns values to be inserted
+  sequentially into the table.  This can be thought of as a range
+  comprehension. If the body evaluates to nil that element is omitted.
+  
+  For example,
+    (fcollect [i 1 10 2]
+      (when (not= i 3)
+        (* i i)))
+  returns
+    [1 25 49 81]
+  
+  Supports an &into clause after the range to put results in an existing table.
+  Supports early termination with an &until clause."
+    (assert (and (sequence? iter-tbl) (< 2 (length iter-tbl)))
+            "expected range binding table")
+    (seq-collect 'for iter-tbl value-expr ...))
   
   (fn accumulate* [iter-tbl body ...]
     "Accumulation macro.
@@ -5069,19 +5404,20 @@ do
                  _ n (pairs {:apple 2 :orange 3})]
       (+ total n))
   returns 5"
-    (assert (and (sequence? iter-tbl) (>= (length iter-tbl) 4))
+    (assert (and (sequence? iter-tbl) (<= 4 (length iter-tbl)))
             "expected initial value and iterator binding table")
     (assert (not= nil body) "expected body expression")
     (assert (= nil ...)
             "expected exactly one body expression. Wrap multiple expressions with do")
     (let [accum-var (. iter-tbl 1)
           accum-init (. iter-tbl 2)]
-      `(do (var ,accum-var ,accum-init)
-           (each ,[(unpack iter-tbl 3)]
-             (set ,accum-var ,body))
-           ,(if (list? accum-var)
-                (list (sym :values) (unpack accum-var))
-                accum-var))))
+      `(do
+         (var ,accum-var ,accum-init)
+         (each ,[(unpack iter-tbl 3)]
+           (set ,accum-var ,body))
+         ,(if (list? accum-var)
+              (list (sym :values) (unpack accum-var))
+              accum-var))))
   
   (fn double-eval-safe? [x type]
     (or (= :number type) (= :string type) (= :boolean type)
@@ -5117,7 +5453,7 @@ do
     (if (and _G.io _G.io.stderr)
         (_G.io.stderr:write
          "-- WARNING: pick-args is deprecated and will be removed in the future.\n"))
-    (assert (and (= (type n) :number) (= n (math.floor n)) (>= n 0))
+    (assert (and (= (type n) :number) (= n (math.floor n)) (<= 0 n))
             (.. "Expected n to be an integer literal >= 0, got " (tostring n)))
     (let [bindings []]
       (for [i 1 n]
@@ -5133,7 +5469,7 @@ do
   expands to
     (let [(_0_ _1_) ...]
       (values _0_ _1_))"
-    (assert (and (= :number (type n)) (>= n 0) (= n (math.floor n)))
+    (assert (and (= :number (type n)) (<= 0 n) (= n (math.floor n)))
             (.. "Expected n to be an integer >= 0, got " (tostring n)))
     (let [let-syms (list)
           let-values (if (= 1 (select "#" ...)) ... `(values ,...))]
@@ -5151,7 +5487,7 @@ do
           has-internal-name? (sym? (. args 1))
           arglist (if has-internal-name? (. args 2) (. args 1))
           docstring-position (if has-internal-name? 3 2)
-          has-docstring? (and (> (length args) docstring-position)
+          has-docstring? (and (< docstring-position (length args))
                               (= :string (type (. args docstring-position))))
           arity-check-position (- 4 (if has-internal-name? 0 1)
                                   (if has-docstring? 0 1))
@@ -5203,8 +5539,13 @@ do
       ;; this is weird because require-macros is deprecated but it works.
       (let [(binding modname) (select i binding1 module-name1 ...)
             scope (get-scope)
-            macros* (_SPECIALS.require-macros `(import-macros ,modname)
-                                              scope {} binding1)]
+            ;; if the module-name is an expression (and not just a string) we
+            ;; patch our expression to have the correct source filename so
+            ;; require-macros can pass it down when resolving the module-name.
+            expr `(import-macros ,modname)
+            filename (if (list? modname) (. modname 1 :filename) :unknown)
+            _ (tset expr :filename filename)
+            macros* (_SPECIALS.require-macros expr scope {} binding)]
         (if (sym? binding)
             ;; bind whole table of macros to table bound to symbol
             (tset scope.macros (. binding 1) macros*)
@@ -5397,8 +5738,11 @@ do
     pattern body
     (where pattern guard guards*) body
     (where (or pattern patterns*) guard guards*) body)"
+    (assert (not= val nil) "missing subject")
     (assert (= 0 (math.fmod (select :# ...) 2))
             "expected even number of pattern/body pairs")
+    (assert (not= 0 (select :# ...))
+            "expected at least one pattern/body pair")
     (let [conds-bodies (partition-2 [...])
           match-body []]
       (each [_ [cond body] (ipairs conds-bodies)]
@@ -5451,6 +5795,7 @@ do
    :with-open with-open*
    :collect collect*
    :icollect icollect*
+   :fcollect fcollect*
    :accumulate accumulate*
    :partial partial*
    :lambda lambda*
@@ -5464,17 +5809,17 @@ do
   ]===]
   local module_name = "katdotnvim.aniseed.fennel.macros"
   local _
-  local function _682_()
+  local function _739_()
     return mod
   end
-  package.preload[module_name] = _682_
+  package.preload[module_name] = _739_
   _ = nil
   local env
   do
-    local _683_ = specials["make-compiler-env"](nil, compiler.scopes.compiler, {})
-    do end (_683_)["utils"] = utils
-    _683_["fennel"] = mod
-    env = _683_
+    local _740_ = specials["make-compiler-env"](nil, compiler.scopes.compiler, {})
+    do end (_740_)["utils"] = utils
+    _740_["fennel"] = mod
+    env = _740_
   end
   local built_ins = eval(builtin_macros, {env = env, scope = compiler.scopes.compiler, allowedGlobals = false, useMetadata = true, filename = "src/fennel/macros.fnl", moduleName = module_name})
   for k, v in pairs(built_ins) do
