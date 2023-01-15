@@ -2,7 +2,7 @@
         {autoload {colors katdotnvim.color
                    ucolors katdotnvim.utils.highlight.utils
                    run katdotnvim.utils.highlight.run}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 (defn high-colors [] [{:group :Normal
                        :fg colors.kat.fg.auto.color

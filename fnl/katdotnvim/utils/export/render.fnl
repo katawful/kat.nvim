@@ -5,8 +5,8 @@
                    read katdotnvim.utils.json.read
                    write katdotnvim.utils.json.write
                    message katdotnvim.utils.message.init}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros
-                         katcros-fnl.macros.nvim.api.options.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros
+                         katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; This module handles exporting the current color scheme to a set of predefined colors
 

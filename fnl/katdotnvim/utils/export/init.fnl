@@ -8,7 +8,7 @@
                    alacritty katdotnvim.utils.export.alacritty
                    rxvt katdotnvim.utils.export.rxvt
                    konsole katdotnvim.utils.export.konsole}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; Main file for exporting color files
 

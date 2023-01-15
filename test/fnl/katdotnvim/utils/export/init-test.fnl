@@ -2,7 +2,7 @@
         {autoload {export katdotnvim.utils.export.init
                    main katdotnvim.main
                    s aniseed.string}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 (deftest rgb->string
          (t.= "127,127,127" (export.rgb->string [0.5 0.5 0.5])

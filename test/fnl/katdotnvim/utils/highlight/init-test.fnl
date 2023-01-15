@@ -2,7 +2,7 @@
         {autoload {apply katdotnvim.utils.highlight.init
                    get katdotnvim.utils.highlight.get
                    utils katdotnvim.utils.highlight.utils}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 (defonce group-name :KatNvimTestHLGroup)
 

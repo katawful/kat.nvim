@@ -1,6 +1,6 @@
 (module katdotnvim.utils.highlight.utils
         {autoload {hsl externals.hsluv}
-         require-macros [katcros-fnl.macros.lispism.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.lispism.macros]})
 
 ;;; Utilities for color management
 

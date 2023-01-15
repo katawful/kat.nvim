@@ -2,7 +2,7 @@
         {autoload {ucolors katdotnvim.utils.highlight.utils
                    read katdotnvim.utils.json.read
                    main katdotnvim.main}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; This stores and exports all needed colors as functions
 

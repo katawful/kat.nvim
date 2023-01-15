@@ -2,7 +2,7 @@
         {require {color-table katdotnvim.color
                   ucolors katdotnvim.utils.highlight.utils
                   main katdotnvim.main}
-         require-macros [katcros-fnl.macros.nvim.api.options.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros]})
 
 ; this affects the terminal
 

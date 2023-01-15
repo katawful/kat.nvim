@@ -2,7 +2,7 @@
         {autoload {json katdotnvim.utils.json.init
                    main katdotnvim.main
                    color-table katdotnvim.color}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; Handles writing json to file
 

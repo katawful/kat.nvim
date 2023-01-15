@@ -1,7 +1,7 @@
 (module katdotnvim.utils.options.init
         {autoload {message katdotnvim.utils.message.init}
-         require-macros [katcros-fnl.macros.nvim.api.options.macros
-                         katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.options.macros
+                         katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; Module for option management
 

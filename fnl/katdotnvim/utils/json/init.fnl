@@ -1,6 +1,6 @@
 (module katdotnvim.utils.json.init
         {autoload {main katdotnvim.main}
-         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
+         require-macros [katdotnvim.katcros-fnl.macros.nvim.api.utils.macros]})
 
 ;;; JSON manipulation
 
